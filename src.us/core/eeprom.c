@@ -7,9 +7,9 @@
 // .bss
 // ========================================================
 
-PlayerEeprom D_8023F260;
+PlayerEeprom gPlayerEeprom;
 Eeprom gEepromGlobal;
-PlayerEeprom D_8023F2E0[4];
+PlayerEeprom gPlayerEepromSlots[4];
 
 // ========================================================
 // .text
@@ -31,14 +31,14 @@ s16 write_eeprom(s16 bank) {
     s32 checksum;
     Eeprom *eeprom;
 
-    if (D_802912D4 == 0) {
+    if (gEepromType == 0) {
         return 0;
     }
 
     if (bank == 4) {
         eeprom = &gEepromGlobal;
     } else {
-        eeprom = (Eeprom *)&D_8023F260;
+        eeprom = (Eeprom *)&gPlayerEeprom;
     }
 
     eepromBytes = (u8*)eeprom;
@@ -46,9 +46,9 @@ s16 write_eeprom(s16 bank) {
     if (bank == 4) {
         gEepromGlobal.checksum = checksum;
     } else {
-        D_8023F260.checksum = checksum;
+        gPlayerEeprom.checksum = checksum;
     }
-    return osEepromLongWrite(&D_8028D0A8, (u32)(bank * EEPROM_MAXBLOCKS) / EEPROM_BLOCK_SIZE, (u8*)eeprom, sizeof(D_8023F260));
+    return osEepromLongWrite(&D_8028D0A8, (u32)(bank * EEPROM_MAXBLOCKS) / EEPROM_BLOCK_SIZE, (u8*)eeprom, sizeof(gPlayerEeprom));
 }
 
 s16 read_eeprom(s16 slot) {
@@ -57,13 +57,13 @@ s16 read_eeprom(s16 slot) {
     s32 checksum;
     Eeprom *eeprom;
 
-    if (D_802912D4 == 0) {
+    if (gEepromType == 0) {
         return 0;
     }
     if (slot == 4) {
         eeprom = &gEepromGlobal;
     } else {
-        eeprom = (Eeprom *)&D_8023F260;
+        eeprom = (Eeprom *)&gPlayerEeprom;
     }
     res = osEepromLongRead(&D_8028D0A8, (u32) (slot << 6) >> 3, (u8*)eeprom, 64);
     eepromBytes = (u8*)eeprom;
@@ -90,7 +90,7 @@ s16 read_eeprom(s16 slot) {
         if (gEepromGlobal.checksum != checksum) {
             return 1;
         }
-    } else if (checksum != D_8023F260.checksum) {
+    } else if (checksum != gPlayerEeprom.checksum) {
         return 1;
     }
     return (s16) res; // hmmm
@@ -110,7 +110,7 @@ s32 eeprom_checksum(u8 *eeprom) {
     return res;
 }
 
-void func_80130E44(void) {
+void load_eeprom_or_initialize_defaults(void) {
     s16 i;
     s16 badRead;
     s16 bank;
@@ -128,13 +128,13 @@ void func_80130E44(void) {
         i++;
     }
 
-    if (badRead || (i > 3) || (gEepromGlobal.unk4 != 0xCF76F7E)) {
+    if (badRead || (i > 3) || (gEepromGlobal.magic != 0xCF76F7E)) {
         requireReset = 1;
 
         // bad eeprom, so zero out
         memset_bytes((u8*)&gEepromGlobal, 0, sizeof(gEepromGlobal));
 
-        gEepromGlobal.unk4 = 0xCF76F7E;
+        gEepromGlobal.magic = 0xCF76F7E;
         gEepromGlobal.musicVol = DEFAULT_AUDIO_VOLUME;
         gEepromGlobal.sfxVol = DEFAULT_AUDIO_VOLUME;
 
@@ -170,7 +170,7 @@ void func_80130E44(void) {
         if (badRead || (requireReset == 1)) {
             osSyncPrintf("reset all data - %d\n", bank);
             if (bank != 4) {
-                memset_bytes((u8*)&D_8023F260, 0, sizeof(D_8023F260));
+                memset_bytes((u8*)&gPlayerEeprom, 0, sizeof(gPlayerEeprom));
             }
             badWrite = 1;
             i = 0;
@@ -179,7 +179,7 @@ void func_80130E44(void) {
                 i++;
             }
         } else if (bank != 4) {
-            memcpy_sssv((u8*)&D_8023F260, (u8*)&D_8023F2E0[bank], sizeof(D_8023F260));
+            memcpy_sssv((u8*)&gPlayerEeprom, (u8*)&gPlayerEepromSlots[bank], sizeof(gPlayerEeprom));
         }
     }
 }

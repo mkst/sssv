@@ -18,7 +18,7 @@ void junk_eeprom(void) {
     u8 *e;
 
     c = 0;
-    e = (u8*)&D_8023F260.level; // skip over checksum
+    e = (u8*)&gPlayerEeprom.level; // skip over checksum
 
     for (i = 0; (u32)i < 60; i++) {
         *e++ = c;
@@ -28,5 +28,5 @@ void junk_eeprom(void) {
 
 void clear_player_eeprom_state(void) {
     // zero out Eeprom?
-    memset_bytes((u8*)&D_8023F260, 0, 64);
+    memset_bytes((u8*)&gPlayerEeprom, 0, 64);
 }

@@ -130,7 +130,7 @@ void func_80294E50_6A6500(void) {
 
         func_802FDA44_70F0F4();
         func_802FE5E8_70FC98();
-        func_802F30A4_704754();
+        update_level_lighting();
 
         gSPDisplayList(gOpaqueDL++, D_01003498_3CD68);
         gSPDisplayList(gOpaqueDL++, D_01004360_3DC30);
@@ -344,7 +344,7 @@ void func_80294E50_6A6500(void) {
                 }
             }
         }
-        func_801375E8(0);
+        update_rumble(0);
     }
 
     check_cheats(gControllerInput);
@@ -444,7 +444,7 @@ s32 get_evo_suit_color(void) {
             (i != EVOS_ESCAPE) &&
             (i != PUNCHUP_PYRAMID) &&
             (i != BIG_CELEBRATION_PARADE)) {
-                powercells += D_8023F260.level[i-1].powercells;
+                powercells += gPlayerEeprom.level[i-1].powercells;
             }
     }
     if (powercells < 200) {

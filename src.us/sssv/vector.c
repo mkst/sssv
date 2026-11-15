@@ -88,7 +88,7 @@ s16 get_angle_between_vectors(Vec3f *x, Vec3f *y) {
                 tmp = -256.0f;
             }
         }
-        ret = func_801283AC(tmp);
+        ret = acos_deg_q8(tmp);
     }
     return ret;
 }

@@ -210,7 +210,7 @@ void func_80362CC4_774374(Animal *arg0) {
     case WAYPOINT_MODE_FOLLOW:
         xPos = arg0->unk294.type7.unk0->position.xPos.h - arg0->position.xPos.h;
         zPos = arg0->unk294.type7.unk0->position.zPos.h - arg0->position.zPos.h;
-        if (func_803051F0_7168A0((func_801284B8(xPos, zPos) << 8) / 360, arg0->yRotation) < 6) {
+        if (func_803051F0_7168A0((atan2_deg_s16(xPos, zPos) << 8) / 360, arg0->yRotation) < 6) {
             reset_waypoint_mode(arg0);
         }
         break;
@@ -245,7 +245,7 @@ void func_80362CC4_774374(Animal *arg0) {
         case 1:
             xPos2 = target->position.xPos.h - arg0->position.xPos.h;
             zPos2 = target->position.zPos.h - arg0->position.zPos.h;
-            if (func_803051F0_7168A0((func_801284B8(xPos2, zPos2) << 8) / 360, arg0->yRotation) < 4) {
+            if (func_803051F0_7168A0((atan2_deg_s16(xPos2, zPos2) << 8) / 360, arg0->yRotation) < 4) {
                 func_8037B754_78CE04(arg0, arg0->unk294.type9.target);
                 arg0->unk290 = 0;
                 arg0->unk28E = 2;
@@ -321,7 +321,7 @@ void func_803633C4_774A74(Animal *arg0) {
         xDist = arg0->xPosTarget - arg0->position.xPos.h;
         zDist = arg0->zPosTarget - arg0->position.zPos.h;
 
-        if (func_803051F0_7168A0((func_801284B8(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
+        if (func_803051F0_7168A0((atan2_deg_s16(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
             arg0->navState = NAVIGATION_STATE_GOTO_POINT;
             arg0->navTimer = arg0->navSpeedSetting;
         }

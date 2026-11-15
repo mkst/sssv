@@ -62,12 +62,12 @@ void func_802B4D20_6C63D0(void) {
     s32 var_s4;
 
     for (i = 0; i < 40; i++) {
-        for (sp130 = D_803DA110[i].next; sp130 != NULL; sp130 = sp130->next) {
+        for (sp130 = gCollisionGridHeads[i].next; sp130 != NULL; sp130 = sp130->next) {
             for (sp12C = sp130->next; sp12C != NULL; sp12C = sp12C->next) {
 
-                if ((((sp130->animal->unk114[0] == i) && (sp12C->animal->unk114[0] == i)) ||
-                     ((sp130->animal->unk114[0] == i) && (sp12C->animal->unk114[0] < i)) ||
-                     ((sp12C->animal->unk114[0] == i) && (sp130->animal->unk114[0] < i)))) {
+                if ((((sp130->animal->collisionGridCells[0] == i) && (sp12C->animal->collisionGridCells[0] == i)) ||
+                     ((sp130->animal->collisionGridCells[0] == i) && (sp12C->animal->collisionGridCells[0] < i)) ||
+                     ((sp12C->animal->collisionGridCells[0] == i) && (sp130->animal->collisionGridCells[0] < i)))) {
 
                     if ((D_803B1BAC_7C325C[sp130->animal->unk16C->objectCategory] & (1 << (0xF - sp12C->animal->unk16C->objectCategory))) != 0) {
 
@@ -840,16 +840,16 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
     Pos zz; // sp74
 
     s16 tmp;
-    tmp = arg0->unk114[0];
+    tmp = arg0->collisionGridCells[0];
 
 #ifdef BUGFIX
     // This check only present in 1.1 (EU) - prevents lockup during DMA intro.
-    if (arg0->unk114[0] == 0x7FFF) {
+    if (arg0->collisionGridCells[0] == 0x7FFF) {
         return 0;
     }
 #endif
 
-    for (var_s5 = D_803DA110[tmp].next; var_s5 != NULL; var_s5 = var_s5->next) {
+    for (var_s5 = gCollisionGridHeads[tmp].next; var_s5 != NULL; var_s5 = var_s5->next) {
         if ((arg0 != var_s5->animal) && (arg0 != arg1) && ((D_803B1BAC_7C325C[var_s5->animal->unk16C->objectCategory]) & (1 << (0xF - arg0->unk16C->objectCategory)))) {
             xx.w = x;
             if (ABS(var_s5->animal->position.xPos.h - xx.h) < (var_s5->animal->unk34 + arg0->unk34)) {

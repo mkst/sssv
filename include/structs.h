@@ -757,8 +757,8 @@ struct Animal {
     /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
     /* 0x74 */  struct043 unk74[5];
     /* 0xC4 */  struct043 unkC4[5];  // hitboxes?
-    /* 0x114 */ s16 unk114[4];       // occupied cells
-    /* 0x11C */ CollisionNode unk11C[4]; // collisionNode
+    /* 0x114 */ s16 collisionGridCells[4];       // occupied cells
+    /* 0x11C */ CollisionNode collisionGridNodes[4]; // collisionNode
                 struct {
                     /* 0x14C */ s16 health;
                     /* 0x14E */ s16 unk14E;
@@ -796,7 +796,7 @@ struct Animal {
     /* 0x188 */ Animal *target;
     /* 0x18C */ struct002 unk18C;
     /* 0x192 */ struct002 unk192;
-    /* 0x198 */ Animal *unk198; // pointer?
+    /* 0x198 */ Animal *nextCollisionUpdateEntity; // pointer?
 
     /* 0x19C */ Commands commands;
 
@@ -835,7 +835,7 @@ struct Animal {
     /* 0x246 */ u16 cmdIndex; // commands index (if applicable)
     /* 0x248 */ Entity *unk248[9];
     /* 0x26C */ u8  unk26C;
-    /* 0x26D */ u8  unk26D;
+    /* 0x26D */ u8  collisionUpdateListId;
     /* 0x26E */ u8  pad26E[0x2];
 
     // --- end of Entity/Animal shared fields ---
@@ -1039,25 +1039,25 @@ typedef struct {
     /* 0xA */ s16 screenWidth;
 } VIData; // size 0xC
 
-// only used in main_123E0.c
+// Motor commands consumed by thread9.
 typedef struct {
     s32 status;
     s32 controller;
-} ControllerMesg;
+} RumbleMotorMessage;
 
 typedef struct {
-    /* 0x00 */ s16 unk0[4];
-    /* 0x08 */ s16 unk8[4];
-    /* 0x10 */ s16 unk10[4];
-    /* 0x18 */ s16 unk18[4];
-    /* 0x20 */ s16 unk20[4];
+    /* 0x00 */ s16 motorRunning[4];
+    /* 0x08 */ s16 startIntensity[4];
+    /* 0x10 */ s16 endIntensity[4];
+    /* 0x18 */ s16 durationTicks[4];
+    /* 0x20 */ s16 remainingTicks[4];
     /* 0x28 */ s16 unk28[4];
-    /* 0x30 */ s16 unk30[4];
-} ControllerState;
+    /* 0x30 */ s16 pulseAccumulator[4];
+} RumbleState;
 
 typedef struct {
     /* 0x00 */ s8  hasRumblePak[4]; // or isInitialised ?
-    /* 0x04 */ ControllerState state;
+    /* 0x04 */ RumbleState state;
     /* 0x3C */ u16 unk3C;
 } Controller; // size 0x40;
 
@@ -1189,7 +1189,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ s32 checksum;
-    /* 0x04 */ s32 unk4;
+    /* 0x04 */ s32 magic;
     /* 0x08 */ s32 unk8; // 1 = state has been reset
     /* 0x0C */ s8  musicVol;
     /* 0x0D */ s8  sfxVol;
@@ -1921,8 +1921,8 @@ struct Entity {
     /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
     /* 0x74 */  struct043 unk74[5];
     /* 0xC4 */  struct043 unkC4[5];  // hitboxes?
-    /* 0x114 */ s16 unk114[4];
-    /* 0x11C */ CollisionNode unk11C[4]; // collisionNode
+    /* 0x114 */ s16 collisionGridCells[4];
+    /* 0x11C */ CollisionNode collisionGridNodes[4]; // collisionNode
                 struct {
     /* 0x14C */     s16 health;
     /* 0x14E */     s16 unk14E;
@@ -1960,7 +1960,7 @@ struct Entity {
     /* 0x188 */ Animal *target;
     /* 0x18C */ struct002 unk18C;
     /* 0x192 */ struct002 unk192;
-    /* 0x198 */ Entity *unk198;
+    /* 0x198 */ Entity *nextCollisionUpdateEntity;
 
     /* 0x19C */ Commands commands;
 
@@ -2000,7 +2000,7 @@ struct Entity {
     /* 0x246 */ u16 cmdIndex; // (if applicable)
     /* 0x248 */ Entity *unk248[9];
     /* 0x26C */ u8  unk26C;
-    /* 0x26D */ u8  unk26D;
+    /* 0x26D */ u8  collisionUpdateListId;
     /* 0x26E */ u8  pad26E[0x2]; // just alignment?
 }; // game object, size 0x270
 

@@ -134,10 +134,10 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
 
     obj->unk46 = obj->unk16C->mass;
 
-    obj->unk114[0] = 0x7FFF;
-    obj->unk114[1] = 0x7FFF;
-    obj->unk114[2] = 0x7FFF;
-    obj->unk114[3] = 0x7FFF;
+    obj->collisionGridCells[0] = 0x7FFF;
+    obj->collisionGridCells[1] = 0x7FFF;
+    obj->collisionGridCells[2] = 0x7FFF;
+    obj->collisionGridCells[3] = 0x7FFF;
 
     func_802C9BA4_6DB254(obj);
     if ((obj->unk16C->orientationMode == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
@@ -150,7 +150,7 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
     obj->newPosition.zPos.w = z << 0x10;
     obj->newPosition.yPos.w = y << 0x10;
 
-    func_802DADA0_6EC450(obj);
+    register_entity_collision(obj);
     func_802F5C60_707310(obj);
 
     obj->movementState = MOVEMENT_STATE_AIRBORNE;
@@ -175,7 +175,7 @@ void reset_object_render_queues(void);
 void reset_objects_state(void) {
     u16 i;
 
-    func_802DAF5C_6EC60C();
+    reset_collision_lists();
     func_802C941C_6DAACC();
 
     for (i = 0; i <= MAX_OBJECTS; i++) {

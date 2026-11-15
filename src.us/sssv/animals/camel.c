@@ -292,7 +292,7 @@ void func_8036D700_77EDB0(void) {
                                 }
                             }
                         } else if (D_803D552C->aiTarget != NULL) {
-                            temp_v0 = (func_801284B8(D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) << 8) / 360;
+                            temp_v0 = (atan2_deg_s16(D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) << 8) / 360;
                             if (temp_v0 != D_803D552C->unk308) {
                                 new_var = (temp_v0 - D_803D552C->unk308) & 0xFF;
                                 if (new_var < 128) {

@@ -451,7 +451,7 @@ void func_802F6A5C_70810C(Animal *arg0) {
         if (sqrtf(SQ(phi_f14) + SQ(phi_f2)) == 0.0) {
             phi_f16 = 0.0f;
         } else {
-            phi_f16 = func_801286B8(-phi_f2, phi_f14) + 90.0;
+            phi_f16 = atan2_deg_f32(-phi_f2, phi_f14) + 90.0;
             if (360.0 < phi_f16) {
                 phi_f16 -= 360.0;
             }
@@ -632,10 +632,10 @@ void func_802F705C_70870C(Animal *arg0, s16 zRotation, s16 yRotation, s16 height
 
                 temp_s7 = sp13A + (sp138 * 5);
 
-                for (var_s3 = D_803DA110[temp_s7].next; var_s3 != NULL; var_s3 = var_s3->next) {
+                for (var_s3 = gCollisionGridHeads[temp_s7].next; var_s3 != NULL; var_s3 = var_s3->next) {
                     a = var_s3->animal;
                     if (a != arg0) {
-                        if ((a->unk4C.unk1B) && (a->unk4C.unk1C) && (temp_s7 == a->unk114[0])) {
+                        if ((a->unk4C.unk1B) && (a->unk4C.unk1C) && (temp_s7 == a->collisionGridCells[0])) {
                             temp_f12 = a->position.xPos.h - arg0->position.xPos.h;
                             temp_f14 = a->position.zPos.h - arg0->position.zPos.h;
                             temp_f16 = a->position.yPos.h - arg0->position.yPos.h - height;
@@ -767,9 +767,9 @@ void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 damage
             for (spD0 = temp_t8 + var_t0; spD0 <= (temp_t8 + spC8); spD0++) {
 
                 sp68 = (spD2 + (spD0 * 5));
-                for (var_s7 = D_803DA110[sp68].next; var_s7 != NULL; var_s7 = var_s7->next) {
+                for (var_s7 = gCollisionGridHeads[sp68].next; var_s7 != NULL; var_s7 = var_s7->next) {
                     a = var_s7->animal;
-                    if ((sp68 == a->unk114[0]) && (a->unk16C->objectType != OBJECT_ROCKET) &&
+                    if ((sp68 == a->collisionGridCells[0]) && (a->unk16C->objectType != OBJECT_ROCKET) &&
                         (a != arg0) && (a != arg0->owner)) {
                         x = a->position.xPos.h - xPos;
                         z = a->position.zPos.h - zPos;
@@ -896,7 +896,7 @@ s16 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 yDelta, f32 arg4) {
         phi_f18 = (SQ(arg2) / (arg4 * arg1)) * (1.0 - temp);
     }
     // clamp -2048-2048 to +-90
-    return func_8012844C(phi_f18 * 64.0f);
+    return atan_deg_q6(phi_f18 * 64.0f);
 }
 
 // ESA: func_80050BF0
@@ -921,7 +921,7 @@ s16 func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg
 
     yDiff = (arg1->position.yPos.h - arg0->position.yPos.h) - arg3;
     if (arg7 == 3) {
-        sp45 = ((yDiff > 32.0f) || (xzDiff > 256.0f) && ((func_80128200() & 3) == 1));
+        sp45 = ((yDiff > 32.0f) || (xzDiff > 256.0f) && ((random_u32() & 3) == 1));
     } else if (arg7 == 4) {
         sp45 = 0;
     } else {
@@ -1020,7 +1020,7 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
     sp60 = sqrtf(SQ(sp38.x) + SQ(sp38.y) + SQ(sp38.z)) / arg2;
     sp2A = get_angle_between_vectors(&sp44, &sp38);
 
-    temp_v0 = func_8012835C(sinf((f32) sp2A * (M_PI / 180.0)) * sp60 * 256.0f);
+    temp_v0 = asin_deg_q8(sinf((f32) sp2A * (M_PI / 180.0)) * sp60 * 256.0f);
 #ifdef __sgi
     // what?
     tmp = 0;
@@ -1135,7 +1135,7 @@ void func_802F8B4C_70A1FC(Entity *arg0) {
             // this is not in the assembly...
             if (sqrtf((x * x) + (z * z))) {};
 #endif
-            angle = func_801284B8(x, z);
+            angle = atan2_deg_s16(x, z);
 
             temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f32) gGravity / (512.0 * 1024));
             arg0->yRotation = ((angle + 180) % 360);
@@ -1170,7 +1170,7 @@ void func_802F8B4C_70A1FC(Entity *arg0) {
                         }
                     }
                 } else {
-                    arg0->Info.unk14E = (func_80128200() & 0x1F) + (arg0->unk158 + 0x18);
+                    arg0->Info.unk14E = (random_u32() & 0x1F) + (arg0->unk158 + 0x18);
                     arg0->Info.unk152 = 6;
                 }
             } else {
@@ -1206,8 +1206,8 @@ void func_802F8DCC_70A47C(Entity *arg0) {
             temp_t0 = ((target->position.yPos.h - arg0->position.yPos.h) - arg0->unk42) + (target->unk42 >> 1);
             temp_t2 = (s16)sqrtf(SQ(x_dist) + SQ(z_dist));
             if (temp_t2 < 640) {
-                yRotation = func_801284B8(x_dist, z_dist);
-                zRotation = func_801284B8(temp_t0, temp_t2);
+                yRotation = atan2_deg_s16(x_dist, z_dist);
+                zRotation = atan2_deg_s16(temp_t0, temp_t2);
                 if (zRotation > 180) {
                     zRotation = 0;
                 } else if (zRotation > 90) {
@@ -1330,8 +1330,8 @@ void func_802F92B0_70A960(Entity *arg0) {
         sp50 = sqrtf((x_dist * x_dist) + (z_dist * z_dist));
         sp50 = (s16)sp50;
 
-        sp4E = func_801284B8(x_dist, z_dist);
-        sp4C = func_801284B8(sp54, sp50);
+        sp4E = atan2_deg_s16(x_dist, z_dist);
+        sp4C = atan2_deg_s16(sp54, sp50);
 
         if (arg0->Info.Counter2 != 0) {
             sp48 = arg0->Info.Counter2;
@@ -1445,7 +1445,7 @@ void update_flame_torch(Animal *arg0) {
 void update_gravity_switch(Entity *psMoveObj) {
     if (psMoveObj->Info.Counter2 == 0) {
         psMoveObj->Info.Counter2 = psMoveObj->unk40;
-        psMoveObj->Info.unk152 = (func_80128200() & 0xFF);
+        psMoveObj->Info.unk152 = (random_u32() & 0xFF);
     }
 
     if (psMoveObj->state == 1) {
@@ -1846,13 +1846,13 @@ void func_802FA730_70BDE0(Animal *arg0) {
         spB8.unk4 = arg0->unk214;
 
         if (arg0->unk215 != 0) {
-            spB8.unk0 += ((s16) (((s32)func_80128200() >> 4) % ((s16) arg0->unk215 * 2))) - arg0->unk215;
+            spB8.unk0 += ((s16) (((s32)random_u32() >> 4) % ((s16) arg0->unk215 * 2))) - arg0->unk215;
         }
         if (arg0->unk216 != 0) {
-            spB8.unk2 += ((s16) (((s32)func_80128200() >> 4) % ((s16) arg0->unk216 * 2))) - arg0->unk216;
+            spB8.unk2 += ((s16) (((s32)random_u32() >> 4) % ((s16) arg0->unk216 * 2))) - arg0->unk216;
         }
         if (arg0->unk217 != 0) {
-            spB8.unk4 += ((s16) (((s32)func_80128200() >> 4) % ((s16) arg0->unk217 * 2))) - arg0->unk217;
+            spB8.unk4 += ((s16) (((s32)random_u32() >> 4) % ((s16) arg0->unk217 * 2))) - arg0->unk217;
         }
         if ((arg0->unk21E.type24.F & 0x40) && ((spB8.unk0 | spB8.unk2 | spB8.unk4) != 0)) {
             func_802F5F44_7075F4(
@@ -1878,13 +1878,13 @@ void func_802FA730_70BDE0(Animal *arg0) {
         var_s3 = arg0->unk219;
 
         if (arg0->unk21D != 0) {
-            var_s1 +=          ((((s32)func_80128200() >> 4) % (     arg0->unk21D * 2))) - arg0->unk21D;
+            var_s1 +=          ((((s32)random_u32() >> 4) % (     arg0->unk21D * 2))) - arg0->unk21D;
         }
         if (arg0->unk21B != 0) {
-            var_s2 = (var_s2 + ((((s32)func_80128200() >> 4) % ((s16)arg0->unk21B * 2))) - arg0->unk21B) & 0xFF;
+            var_s2 = (var_s2 + ((((s32)random_u32() >> 4) % ((s16)arg0->unk21B * 2))) - arg0->unk21B) & 0xFF;
         }
         if (arg0->unk21C != 0) {
-            var_s3 = (var_s3 + ((((s32)func_80128200() >> 4) % ((s16)arg0->unk21C * 2))) - arg0->unk21C) & 0xFF;
+            var_s3 = (var_s3 + ((((s32)random_u32() >> 4) % ((s16)arg0->unk21C * 2))) - arg0->unk21C) & 0xFF;
         }
 
         if ((arg0->unk21E.type24.F & 0x20)) {
@@ -2369,9 +2369,9 @@ void func_802FC2B8_70D968(s16 x, s16 z, s16 y) {
     s16 i;
 
     for (i = 0; i < 11; i++) {
-        temp_s1 = ((s32)func_80128200() % FTOFIX32(6.0)) - FTOFIX32(3.0);
-        temp_s2 = ((s32)func_80128200() % FTOFIX32(6.0)) - FTOFIX32(3.0);
-        temp_s3 = ((s32)func_80128200() % FTOFIX32(2.0)) + FTOFIX32(3.0);
+        temp_s1 = ((s32)random_u32() % FTOFIX32(6.0)) - FTOFIX32(3.0);
+        temp_s2 = ((s32)random_u32() % FTOFIX32(6.0)) - FTOFIX32(3.0);
+        temp_s3 = ((s32)random_u32() % FTOFIX32(2.0)) + FTOFIX32(3.0);
         create_particle_effect(
             x,
             z,
@@ -2395,9 +2395,9 @@ void func_802FC438_70DAE8(s16 x, s16 z, s16 y) {
     s16 i;
 
     for (i = 0; i < 3; i++) {
-        temp_s1 = ((s32)func_80128200() % FTOFIX32(6.0)) - FTOFIX32(3.0);
-        temp_s2 = ((s32)func_80128200() % FTOFIX32(6.0)) - FTOFIX32(3.0);
-        temp_s3 = ((s32)func_80128200() % FTOFIX32(2.0)) + FTOFIX32(3.0);
+        temp_s1 = ((s32)random_u32() % FTOFIX32(6.0)) - FTOFIX32(3.0);
+        temp_s2 = ((s32)random_u32() % FTOFIX32(6.0)) - FTOFIX32(3.0);
+        temp_s3 = ((s32)random_u32() % FTOFIX32(2.0)) + FTOFIX32(3.0);
         create_particle_effect(
             x,
             z,
@@ -2682,7 +2682,7 @@ void set_water_level(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
 // ESA: func_80056474
 s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
     CollisionNode *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+    for (tmp = gCollisionGridHeads[arg0->collisionGridCells[0]].next; tmp != NULL; tmp = tmp->next) {
         if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->objectType == arg1)) {
             return 1;
         }
@@ -2693,7 +2693,7 @@ s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
 // ESA: func_800564F4
 s32 func_802FD3B8_70EA68(Animal *arg0) {
     CollisionNode *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+    for (tmp = gCollisionGridHeads[arg0->collisionGridCells[0]].next; tmp != NULL; tmp = tmp->next) {
         if (arg0 == tmp->animal->unk6C) {
             return 1;
         }
@@ -2705,7 +2705,7 @@ s32 func_802FD3B8_70EA68(Animal *arg0) {
 // ESA: func_8005655C
 s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
     CollisionNode *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+    for (tmp = gCollisionGridHeads[arg0->collisionGridCells[0]].next; tmp != NULL; tmp = tmp->next) {
         if ((arg0 == tmp->animal->unk6C) && (arg1 == tmp->animal)) {
             return 1;
         }
@@ -2716,7 +2716,7 @@ s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
 // ESA: func_800565BC
 s32 func_802FD468_70EB18(Animal *arg0) {
     CollisionNode *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+    for (tmp = gCollisionGridHeads[arg0->collisionGridCells[0]].next; tmp != NULL; tmp = tmp->next) {
         if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET)) {
             return 1;
         }
@@ -2727,7 +2727,7 @@ s32 func_802FD468_70EB18(Animal *arg0) {
 // ESA: func_80056640
 s32 func_802FD4D0_70EB80(Animal *arg0) {
     CollisionNode *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+    for (tmp = gCollisionGridHeads[arg0->collisionGridCells[0]].next; tmp != NULL; tmp = tmp->next) {
         if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET)) {
             return 1;
         }
@@ -2757,7 +2757,7 @@ s16 func_802FD5DC_70EC8C(Animal *arg0) {
 
     res = 0;
 
-    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+    for (tmp = gCollisionGridHeads[arg0->collisionGridCells[0]].next; tmp != NULL; tmp = tmp->next) {
         if (arg0 == tmp->animal->unk6C) {
             res += tmp->animal->mass + func_802FD5DC_70EC8C(tmp->animal);
         }
@@ -3022,7 +3022,7 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
         obj->target = target;
         obj->Info.lifetime = lifetime;
         obj->unk15E = argA;
-        obj->Info.unk14E = func_80128200();
+        obj->Info.unk14E = random_u32();
         if (arg7 < 20) {
             add_regular_trail(obj, 2, (obj->unk40 * 25) >> 11, 16, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0xB9, 0, 0, 0, 0, 2, 1, 0);
         } else {
@@ -3280,8 +3280,8 @@ void func_802FFD50_711400(Entity *arg0) {
             temp_f14 = 0.001f;
         }
 
-        arg0->yRotation = func_801286B8(temp_f16 / sp34, temp_f14);
-        arg0->zRotation = func_8012835C((temp_f18 / sp34) * 256.0f);
+        arg0->yRotation = atan2_deg_f32(temp_f16 / sp34, temp_f14);
+        arg0->zRotation = asin_deg_q8((temp_f18 / sp34) * 256.0f);
 
         if ((arg0->zRotation < 0) || (arg0->zRotation > 360)) {
             arg0->zRotation = (arg0->zRotation + 1440) % 360;

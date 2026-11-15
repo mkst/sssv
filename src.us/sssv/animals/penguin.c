@@ -127,7 +127,7 @@ void func_80364780_775E30(void) {
 
                             sp88 = (D_803D5530->position.yPos.h - target->position.yPos.h) - var_t5 + 20;
                             sp84 = sqrtf(SQ(xDist) + SQ(zDist));
-                            var_f14 = func_801286B8(-sp88, sp84) + SQ(sp84 / (64.0 / 1));
+                            var_f14 = atan2_deg_f32(-sp88, sp84) + SQ(sp84 / (64.0 / 1));
 
                             while (var_f14 > 180.0) {
                                 var_f14 -= 360.0;

@@ -51,7 +51,7 @@ void interpolate_bone_from_previous_pose(u16 src, u16 dst, s16 yawIndex, s16 pit
     if (idx == 0) {
         idx = 1;
     }
-    angleBetween = func_801283AC((((targetX * prevX) + (targetZ * prevZ) + (targetY * prevY)) * 256) / idx);
+    angleBetween = acos_deg_q8((((targetX * prevX) + (targetZ * prevZ) + (targetY * prevY)) * 256) / idx);
 
     if (angleBetween == 180) {
         angleBetween = 179;

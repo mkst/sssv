@@ -69,7 +69,7 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
     temp_t1 = D_803D5530->position.yPos.h - 64;     // y min
     temp_t2 = D_803D5530->position.yPos.h + 64 + D_803D5524->height; // y max
 
-    for (temp_v1 = D_803DA110[(s16) ((s16)(temp_a2 >> 0xA) + ((s16)(temp_v0 >> 0xA) * 5))].next; temp_v1 != NULL; temp_v1 = temp_v1->next) {
+    for (temp_v1 = gCollisionGridHeads[(s16) ((s16)(temp_a2 >> 0xA) + ((s16)(temp_v0 >> 0xA) * 5))].next; temp_v1 != NULL; temp_v1 = temp_v1->next) {
         a = temp_v1->animal;
         if ((a->position.xPos.h >= temp_s1) && (temp_s3 >= a->position.xPos.h)) {
             if ((a->position.zPos.h >= temp_s2) && (temp_s4 >= a->position.zPos.h)) {
@@ -354,7 +354,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     var_t4 = D_803D5530->position.zPos.h + (((COS(D_803D552C->heading) >> 7) * arg1) >> 8) - (((SIN(D_803D552C->heading) >> 7) * arg2) >> 8);
     var_t5 = D_803D5530->position.yPos.h + arg0;
 
-    for (var_ra = D_803DA110[(s16)((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
+    for (var_ra = gCollisionGridHeads[(s16)((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
         animal = var_ra->animal;
         if ((animal != (Animal*)D_803D5530) && (D_803D5530->unk6C != animal) && (((animal->unk16C->behaviourFlags.unk2) && ((animal == gAnimalState.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (D_803D5524->animalType != animal->unk16C->animalType))) || ((!animal->unk16C->behaviourFlags.unk2) && (animal->unk16C->objectType != 0x40)))) {
             for (var_a1 = animal->unkC4; var_a1->unkC != 0; var_a1++) {
@@ -428,7 +428,7 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
 
     ret = 0;
 
-    for (temp_t8 = D_803DA110[(s16)((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; temp_t8 != NULL; temp_t8 = temp_t8->next) {
+    for (temp_t8 = gCollisionGridHeads[(s16)((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; temp_t8 != NULL; temp_t8 = temp_t8->next) {
         a = temp_t8->animal;
         if ((a != (Animal*)D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
             for (phi_s2 = a->unkC4; phi_s2->unkC != 0; phi_s2++) {
@@ -565,7 +565,7 @@ Animal *func_80323040_7346F0(void) {
     temp_s7 = (SIN(D_803D552C->heading)) >> 9;
     temp_fp = (COS(D_803D552C->heading)) >> 9;
 
-    for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
+    for (temp_s4 = gCollisionGridHeads[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;
         if ((temp_s3 != (Animal*)D_803D5530) && (((temp_s3->unk16C->behaviourFlags.unk2) && (temp_s3->movementMode != MOVEMENT_MODE_DEACTIVATED) &&
                                                  ((temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) &&
@@ -621,7 +621,7 @@ s32 func_803233A0_734A50(s16 x0, s16 y0, s16 z0, s16 x1, s16 y1, s16 z1) {
     var_t0 = (z1 << 0x10) + (sp2C >> 1);
 
     for (i = 0; i < temp_v1; i++) {
-        for (temp_a1 = D_803DA110[(s16) ((s16)(var_a2 >> 0x1A) + ((s16) (var_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
+        for (temp_a1 = gCollisionGridHeads[(s16) ((s16)(var_a2 >> 0x1A) + ((s16) (var_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
             a = temp_a1->animal;
             if (a->unk16C->objectType == 91) {
                 if ((a->position.yPos.h < (var_t0 >> 0x10)) && ((var_t0 >> 0x10) < (a->position.yPos.h + a->unk42))) {

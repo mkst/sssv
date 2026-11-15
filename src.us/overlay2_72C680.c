@@ -1019,7 +1019,7 @@ void func_8031C48C_72DB3C(void) {
     load_data_section(D_803F2D50.segment);
     func_802FD8CC_70EF7C();
     reset_camera();
-    func_802F2DF8_7044A8();
+    reset_level_lighting();
     func_802FE4C4_70FB74();
     reset_trails();
     func_802C85EC_6D9C9C();

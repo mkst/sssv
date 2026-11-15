@@ -213,14 +213,14 @@ void func_80374C70_786320(void) {
                 }
                 if (temp_v1_8 > 0) {
                     if (var_v0_6 > 0) {
-                        var_a0 = 180 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                        var_a0 = 180 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                     } else {
-                        var_a0 = 0 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                        var_a0 = 0 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                     }
                 } else if (var_v0_6 > 0) {
-                    var_a0 = 180 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                    var_a0 = 180 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                 } else {
-                    var_a0 = 360 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                    var_a0 = 360 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                 }
                 var_a0 = (((-(var_a0 - 540) * 256)) / 360) & 0xFF;
                 var_v1_5 = (var_a0 - D_803D552C->heading) >> 1;

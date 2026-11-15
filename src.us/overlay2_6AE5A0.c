@@ -854,7 +854,14 @@ void enqueue_object_display_list_by_flags(Animal *arg0, u16 arg1, u16 arg2, s32 
     }
 }
 
-#ifdef NON_MATCHING
+#if 0
+typedef struct {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+    s16 unk8;
+} BillboardAttachment; // five signed shorts per attachment record
 
 extern int PRIMITIVE;
 extern int SHADE;
@@ -863,35 +870,33 @@ extern int TEXEL0;
 extern int TEXEL1;
 extern int COMBINED;
 
-// CURRENT (13892)
+// CURRENT (740): target length 17652 bytes and frame 0x488; not matched.
+// See docs/func_8029F7D4_6B0E84_matching.md for the scratch port and residual.
 void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
+    s32 visibilityZ;
     CollisionNode *var_a1;      // sp480
 
-    Animal    *animal;
-    struct035 *new_var2;
+    Animal *animal;
+    struct035 *renderInfo;
 
     f32 temp_f20;
     f32 new_var;
 
-    s16 *var_s0;
+    BillboardAttachment *var_s0;
 
     s16 temp_v0;
     s32 i;
     s16 j;
 
     u16 var_v1;
+    s32 var_s4_6;
     s32 red;
     s32 green;
-    u8 red2; // red 2
-    s16 green2; // green 2
+    s32 var_s0_3;
 
-    s32 new_var4;
-
-    s32 temp_t8;
-    s32 temp_t7;
     s16 var_s4;
-    s16 primAlpha;
-    s16 envAlpha;
+    s16 var_t4;
+    s16 var_t5;
 
     s16 tmp1;
     s16 tmp2;
@@ -899,22 +904,11 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
 
     u16 color;
 
-    s32 scale;
+    s32 var_s4_2;
 
-    s32 new_var3;
+    s32 var_s0_2;
 
-    u8  pad[0x68];
-
-    struct077 sp318; // currently at 0x3B8 (i.e. 0x70 too high...)
-    struct077 sp2AC;
-    s32 sp2A8;
-
-    s32 var_t1;
-    s32 var_t3; // sp298?
-
-    struct077 sp210;
-
-    u8 sp1AC[3]; // uninitialised?
+    u8  pad[0x24];
 
     D_803D3430 = D_803D3430 + 1;
     D_803D3430 = D_803D3430 % 5;
@@ -929,22 +923,21 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
     gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
 
     for (i = 0; i < 40; i++) {
-
-        for (var_a1 = D_803DA110[i].next; var_a1 != NULL; var_a1 = var_a1->next) {
+        for (var_a1 = gCollisionGridHeads[i].next; var_a1 != NULL; var_a1 = var_a1->next) {
 
             animal = D_803D343C = var_a1->animal;
             D_803D3440 = animal->unk16C;
             D_803D3438 = &D_803D3440->displayList1;
 
-            if ((D_803D3440->behaviourFlags.unk2 == 0)) {
-                if (var_a1 == D_803D343C->unk11C) {
+            if (D_803D3440->behaviourFlags.unk2 == 0) {
+                if (var_a1 == D_803D343C->collisionGridNodes) {
                     if ((D_803D343C->unk3E & 0x3F) != 40) {
 
-                        new_var2 = D_803D3440;
+                        renderInfo = D_803D3440;
 
-                        switch (new_var2->renderMode) {
-                            case 6:
-                            case 15:
+                        switch (renderInfo->renderMode) {
+                        case 6:
+                        case 15:
                             // get rgba16 color (first u16 of image?)
                             color = D_803D343C->unk3E & 0x3F;
                             color = func_8029A52C_6ABBDC(color);
@@ -962,10 +955,10 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             break;
 
                         default:
-                            new_var4 = D_803D343C->position.zPos.w;
+                            visibilityZ = D_803D343C->position.zPos.w;
                             var_v1 = classify_dynamic_visibility(
                                 D_803D343C->position.xPos.w,
-                                new_var4,
+                                visibilityZ,
                                 D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
                                 (D_803D3440->unk8E * D_803D343C->unk40) >> 0xB,
                                 D_803D3440->unk90,
@@ -1021,11 +1014,11 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                         }
 
                         if (var_v1 != 0) {
-                            // ??
+                            // Shadow-only or culled: skip the model render switch.
                         } else {
                             switch (D_803D3440->renderMode) {
                             case 0:
-                                break; // not this
+                                break;
                             case 1:
                                 enqueue_dynamic_texture_billboard(
                                     D_803D343C->position.xPos.w,
@@ -1069,24 +1062,14 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 }
                                 break;
                             case 4:
-                                if (D_803D3434->usedModelViewMtxs >= 250) {
-                                    // debug something?
+                                if (D_803D3434->usedModelViewMtxs >= 0xFA) {
                                     break;
                                 } else {
-                                    gDPSetPrimColor(gXluDL++, 0, 0, 0xEA, 0xE6, 0xFF, 0xFF); // #eae6ff
+                                    gDPSetPrimColor(gXluDL++, 0, 0, 0xEA, 0xE6, 0xFF, 0xFF);
                                     gDPSetTextureLUT(gXluDL++, G_TT_NONE);
                                     gDPSetCombineLERP(gXluDL++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
-                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
-                                    func_80125FE0(
-                                        &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                        D_803D343C->position.xPos.w,
-                                        D_803D343C->position.zPos.w,
-                                        D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
-                                        D_803D343C->zRotation,
-                                        D_803D343C->yRotation,
-                                        D_803D343C->unk40 << 5,
-                                        D_803D343C->unk40 << 5,
-                                        D_803D343C->unk40 << 5);
+                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2); // gDPSetRenderMode(gXluDL++, D_803C0644, D_803C064C);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                     gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                     gSPDisplayList(gXluDL++, D_803D3438[0]); // TBD
                                     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
@@ -1105,25 +1088,16 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 }
                                 break;
                             case 5:
-                                if ((D_803D3434->usedModelViewMtxs + 2) >= 250) {
+                                if ((D_803D3434->usedModelViewMtxs + 2) >= 0xFA) {
                                     break;
                                 } else {
                                     gSPTexture(gXluDL++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
 
                                     gDPSetCombineLERP(gXluDL++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
 
-                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
+                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2); // gDPSetRenderMode(gXluDL++, D_803C0644, D_803C064C);
 
-                                    func_80125FE0(
-                                        &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                        D_803D343C->position.xPos.w,
-                                        D_803D343C->position.zPos.w,
-                                        D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
-                                        D_803D343C->zRotation,
-                                        D_803D343C->yRotation,
-                                        D_803D343C->unk40 << 5,
-                                        D_803D343C->unk40 << 5,
-                                        D_803D343C->unk40 << 5);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                     gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
                                     gSPDisplayList(gXluDL++, D_803D3438[0]);
@@ -1134,24 +1108,17 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                     gSPDisplayList(gXluDL++, D_803D3438[1]);
                                     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
+                                    // temp_s0_20->words.w1 = -0x1C8U; // b'\xff\xff\xfe8'
+                                    // temp_s0_20->words.w0 = 0xFC1219FF;
                                     gDPSetCombineMode(gXluDL++, G_CC_MODULATEIA, G_CC_PASS2); // TBD
                                     gSPTexture(gXluDL++, 0, 0, 0, G_TX_RENDERTILE, G_ON);
                                 }
                                 break;
                             case 6:
-                                enqueue_object_display_list_by_flags(
-                                    D_803D343C,
-                                    D_803D343C->unk3E,
-                                    D_803D343C->unk40,
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w,
-                                    D_803D343C->zRotation,
-                                    D_803D343C->yRotation,
-                                    D_803D343C->unk16C->displayList1);
+                                enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
                                 break;
                             case 7:
-                                if ((D_803D3434->usedModelViewMtxs + 1) >= 250) {
+                                if ((D_803D3434->usedModelViewMtxs + 1) >= 0xFA) {
                                     break;
                                 } else {
                                     if (D_803D343C->state == 1) {
@@ -1162,11 +1129,11 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
 
                                         temp_v0 = distance_from_player(D_803D343C->position.xPos.h, D_803D343C->position.zPos.h, D_803D343C->position.yPos.h + D_803D343C->unk42 + 2);
                                         if (temp_v0 >= 512) {
-                                            primAlpha = 0xFF;
-                                            envAlpha = 0x7F;
+                                            var_t4 = 0xFF;
+                                            var_t5 = 0x7F;
                                         } else {
-                                            primAlpha = temp_v0 / 2;
-                                            envAlpha = temp_v0 / 4;
+                                            var_t4 = temp_v0 / 2;
+                                            var_t5 = temp_v0 / 4;
                                         }
                                         gSPDisplayList(gLayer0DL++, D_010049A0_3E270);
                                         gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img_D_0100A730_44000_ia16__png);
@@ -1183,8 +1150,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         gDPSetTextureLOD(gLayer0DL++, G_TL_TILE);
                                         gDPSetCombineLERP(gLayer0DL++, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, PRIMITIVE, ENVIRONMENT, TEXEL0, ENVIRONMENT, 0, 0, 0, COMBINED, COMBINED, 0, SHADE, 0);
                                         gDPSetRenderMode(gLayer0DL++, G_RM_PASS, G_RM_ZB_XLU_SURF2);
-                                        gDPSetPrimColor(gLayer0DL++, 0, 0, 0xB9, 0xB9, 0xFF, primAlpha);
-                                        gDPSetEnvColor(gLayer0DL++, 0x64, 0x64, 0xBE, envAlpha);
+                                        gDPSetPrimColor(gLayer0DL++, 0, 0, 0xB9, 0xB9, 0xFF, var_t4);
+                                        gDPSetEnvColor(gLayer0DL++, 0x64, 0x64, 0xBE, var_t5);
 
                                         gSPMatrix(gLayer0DL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                         gSPDisplayList(gLayer0DL++, D_0100A6D0_43FA0);
@@ -1200,7 +1167,6 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     gSPSetGeometryMode(gXluDL++, gGeometryMode);
                                     gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
                                     gSPDisplayList(gXluDL++, D_01004510_3DDE0);
-                                    // load mipmap
                                     gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_010084A0_41D70_bin + ((var_s4 * 1372) << 1)); // 32x32 mipmap (0xAB8)
                                     gDPTileSync(gXluDL++);
                                     gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1208,16 +1174,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     gDPLoadBlock(gXluDL++, G_TX_LOADTILE, 0, 0, 1372, 0);
                                     gDPTileSync(gXluDL++);
                                     gSPTexture(gXluDL++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
-                                    func_80125FE0(
-                                        &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                        D_803D343C->position.xPos.w,
-                                        D_803D343C->position.zPos.w,
-                                        D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF) + 0x20000,
-                                        D_803D343C->zRotation,
-                                        D_803D343C->yRotation,
-                                        D_803D343C->unk40 << 5,
-                                        D_803D343C->unk40 << 5,
-                                        D_803D343C->unk40 << 5);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF) + 0x20000, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                     gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                     gSPDisplayList(gXluDL++, D_01012B80_4C450);
                                     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
@@ -1226,24 +1183,16 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D3434->unk39310++;
                                 }
                                 break;
-                            case 8:
-                                if (D_803D343C->unk16C->displayList1 != NULL) {
-                                    enqueue_object_display_list_by_flags(
-                                        D_803D343C,
-                                        D_803D343C->unk3E,
-                                        D_803D343C->unk40,
-                                        D_803D343C->position.xPos.w,
-                                        D_803D343C->position.zPos.w,
-                                        D_803D343C->position.yPos.w,
-                                        D_803D343C->zRotation,
-                                        D_803D343C->yRotation,
-                                        D_803D343C->unk16C->displayList1);
+                            case 8: {
+                                struct077 sp318;
+                                if (D_803D343C->unk16C->displayList1 != 0) {
+                                    enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
                                 }
-                                for (var_s0 = D_803B1CDC_7C338C[D_803D3440->unk14]; var_s0[0] != 9999; var_s0 += 5) {
+                                for (var_s0 = (BillboardAttachment *)D_803B1CDC_7C338C[D_803D3440->unk14]; var_s0->unk0 != 9999; var_s0++) {
                                     func_802F603C_7076EC(
-                                        var_s0[0] << 6,
-                                        var_s0[1] << 6,
-                                        var_s0[2] << 6,
+                                        var_s0->unk0 << 6,
+                                        var_s0->unk2 << 6,
+                                        var_s0->unk4 << 6,
                                         D_803D343C->zRotation,
                                         D_803D343C->yRotation,
                                         D_803D343C->unk40,
@@ -1253,8 +1202,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         D_803D343C->position.xPos.w + (sp318.unk0 << 0xA),
                                         D_803D343C->position.zPos.w + (sp318.unk2 << 0xA),
                                         D_803D343C->position.yPos.w + (sp318.unk4 << 0xA) + (D_803D343C->unk42 << 0xF),
-                                        (var_s0[3] * D_803D343C->unk40) >> 0xB,
-                                        var_s0[4],
+                                        (var_s0->unk6 * D_803D343C->unk40) >> 0xB,
+                                        var_s0->unk8,
                                         &gDynamicTextureBillboardQueue,
                                         D_803D343C->unk3E,
                                         D_803D343C->unk200[0],
@@ -1262,42 +1211,16 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         D_803D343C->unk200[2]);
                                 }
                                 break;
+                            }
                             case 9:
-                                enqueue_texture_grouped_display_list_instance(
-                                    &D_803D3FF8,
-                                    D_803D343C->unk3E & 0x3F,
-                                    D_803D343C->unk40,
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w,
-                                    D_803D343C->zRotation,
-                                    D_803D343C->yRotation,
-                                    D_803D343C->unk16C->displayList1);
+                                enqueue_texture_grouped_display_list_instance(&D_803D3FF8, D_803D343C->unk3E & 0x3F, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
                                 break;
                             case 10:
                                 temp_v0 = 0x100 - D_803D343C->Info.unk150;
-                                new_var = ((COS(temp_v0 * 8)) / (temp_v0 + 16.0f)) / 16383.0f;
+                                new_var = ((COS(temp_v0 << 3)) / (temp_v0 + 16.0f)) / 16383.0f;
                                 temp_f20 = (1.0f - new_var) * (D_803D343C->unk40 / (1.0f * 2048));
-                                enqueue_object_display_list_by_flags(
-                                    D_803D343C,
-                                    D_803D343C->unk3E,
-                                    D_803D343C->unk40,
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w,
-                                    0,
-                                    0,
-                                    D_0100AF90_44860);
-                                enqueue_object_display_list_by_flags(
-                                    D_803D343C,
-                                    D_803D343C->unk3E,
-                                    temp_f20 * 2048.0f,
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w,
-                                    D_803D343C->zRotation,
-                                    D_803D343C->yRotation,
-                                    D_0100B2C0_44B90);
+                                enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, 0, 0, D_0100AF90_44860);
+                                enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, temp_f20 * 2048.0f, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_0100B2C0_44B90);
                                 break;
                             case 11:
                                 if (D_803D3434->usedModelViewMtxs >= 248) {
@@ -1309,7 +1232,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
 
                                     gSPDisplayList(gXluDL++, D_01004510_3DDE0);
 
-                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760 + D_803D343C->unk3E * 0xAB8);
+                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (D_800BA760 + (D_803D343C->unk3E) * 0xAB8));
                                     gDPTileSync(gXluDL++);
                                     gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                                     gDPTileSync(gXluDL++);
@@ -1338,22 +1261,15 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
                                 }
                                 break;
-                            case 12:
+                            case 12: {
+                                u8        pad[0x24];
+                                struct077 sp2AC;
                                 if (D_803D343C->state == 1) {
-                                    red2 = 0xFF;
+                                    var_s0_2 = 0xFF;
                                 } else {
-                                    red2 = 0x40;
+                                    var_s0_2 = 0x40;
                                 }
-                                enqueue_object_display_list_by_flags(
-                                    D_803D343C,
-                                    D_803D343C->unk3E,
-                                    D_803D343C->unk40,
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w,
-                                    D_803D343C->zRotation,
-                                    D_803D343C->yRotation,
-                                    D_803D343C->unk16C->displayList1);
+                                enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
 
                                 tmp3 = (COS(D_803D343C->Info.unk14E) >> 9);
                                 tmp3 = (tmp3 * D_803D343C->unk40) >> 0xB;
@@ -1365,7 +1281,6 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->zRotation,
                                     D_803D343C->yRotation,
                                     &sp2AC);
-
                                 if (D_803D45D0.unk0 < 60) {
                                     D_803D45D0.unk0++;
                                     D_803D45D0.displayList[D_803D45D0.unk0] = D_803D343C->unk16C->displayList2;
@@ -1375,7 +1290,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D45D0.unk7C[D_803D45D0.unk0].unk0 = D_803D343C->position.xPos.w + (sp2AC.unk0 << 0xD);
                                     D_803D45D0.unk7C[D_803D45D0.unk0].unk4 = D_803D343C->position.zPos.w + (sp2AC.unk2 << 0xD);
                                     D_803D45D0.unk7C[D_803D45D0.unk0].unk8 = D_803D343C->position.yPos.w + (sp2AC.unk4 << 0xD) + (D_803D343C->unk42 << 0xF);
-                                    D_803D45D0.color[D_803D45D0.unk0].r = red2;
+                                    D_803D45D0.color[D_803D45D0.unk0].r = var_s0_2;
                                     D_803D45D0.color[D_803D45D0.unk0].g = 0;
                                     D_803D45D0.color[D_803D45D0.unk0].b = 0;
                                 }
@@ -1388,11 +1303,18 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     0x20,
                                     &gDynamicTextureBillboardQueue,
                                     0,
-                                    red2,
+                                    var_s0_2,
                                     0,
                                     0);
                                 break;
-                            case 13:
+                            }
+                            case 13: {
+                                s32 sp2A8;
+                                s32 temp_t7;
+                                s32 temp_t8;
+                                s32 var_t1;
+                                s32 var_t3; // sp298?
+                                s32 var_v1;
                                 enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
                                 sp2A8 = (D_803D343C->position.yPos.h + (D_803D343C->unk42 * 0.6));
                                 temp_t7 = ((COS(D_803D343C->Info.unk152) >> 7) * (D_803D343C->unk42 >> 2)) >> 8;
@@ -1400,8 +1322,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 temp_t8 = (D_803D343C->unk40 << 5) / 8.0;
                                 temp_t8 = (D_803D343C->Info.unk14E * temp_t8) >> 8;
 
-                                new_var3 = ABS(SIN(D_803D343C->Info.unk152) >> 7);
-                                var_t3 = var_t1 = (new_var3 * temp_t8) >> 8;
+                                var_v1 = (ABS(SIN(D_803D343C->Info.unk152) >> 7));
+                                var_t3 = var_t1 = (var_v1 * temp_t8) >> 8;
 
                                 if (temp_t7 < 0) {
                                     var_t1 = temp_t8;
@@ -1413,36 +1335,18 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     if (red > 0xFF) {
                                         red = 0xFF;
                                     }
-                                    green = red >> 1;
                                     gDPPipeSync(gLayer0DL++);
                                     gSPDisplayList(gLayer0DL++, D_01004970_3E240);
+                                    green = red >> 1;
                                     gDPSetPrimColor(gLayer0DL++, 0, 0, (0xFF - red), (0xFF - green), 0xFF, 0xA0);
-                                    func_80125FE0(
-                                        &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                        D_803D343C->position.xPos.w,
-                                        D_803D343C->position.zPos.w,
-                                        (sp2A8 + temp_t7) << 0x10,
-                                        0x14,
-                                        (D_803D343C->Info.unk152 * 360) >> 8,
-                                        var_t1,
-                                        var_t1,
-                                        var_t1);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, (sp2A8 + temp_t7) << 0x10, 0x14, ((D_803D343C->Info.unk152 * 360) >> 8), var_t1, var_t1, var_t1);
                                     gSPMatrix(gLayer0DL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                     gSPDisplayList(gLayer0DL++, D_0101B000_548D0);
                                     gSPPopMatrix(gLayer0DL++, G_MTX_MODELVIEW);
 
                                     gDPSetPrimColor(gLayer0DL++, 0, 0, red, green + 0x80, 0xFF, 0xA0);
 
-                                    func_80125FE0(
-                                        &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                        D_803D343C->position.xPos.w,
-                                        D_803D343C->position.zPos.w,
-                                        (sp2A8 - temp_t7) << 0x10,
-                                        -0x14,
-                                        (D_803D343C->Info.unk152 * 360) >> 8,
-                                        var_t3,
-                                        var_t3,
-                                        var_t3);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, (sp2A8 - temp_t7) << 0x10, -0x14, ((D_803D343C->Info.unk152 * 360) >> 8), var_t3, var_t3, var_t3);
                                     gSPMatrix(gLayer0DL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                     gSPDisplayList(gLayer0DL++, D_0101B000_548D0);
                                     gSPPopMatrix(gLayer0DL++, G_MTX_MODELVIEW);
@@ -1460,57 +1364,28 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     0,
                                     0);
                                 break;
+                            }
                             case 15:
-                            enqueue_object_display_list_by_flags(
-                                D_803D343C,
-                                D_803D343C->unk3E,
-                                    D_803D343C->unk40,
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w,
-                                    D_803D343C->zRotation,
-                                    D_803D343C->yRotation,
-                                    D_803D343C->unk16C->displayList1);
-                                    scale = D_803D343C->unk40;
-                                    if (gMusicChannel1NoteOn != 0) {
-                                        scale += guRandom() % 600;
-                                        D_803F2D24 = 1;
-                                    } else {
-                                        D_803F2D24 = 0;
-                                    }
-                                gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
-                                gDPSetCombineMode(gXluDL++, G_CC_MODULATEIA, G_CC_PASS2);
+                                enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
+                                var_s4_2 = D_803D343C->unk40;
+                                if (gMusicChannel1NoteOn != 0) {
+                                    var_s4_2 += guRandom() % 600;
+                                    D_803F2D24 = 1;
+                                } else {
+                                    D_803F2D24 = 0;
+                                }
+                                gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2); // gDPSetRenderMode(gXluDL++, D_803C0644, D_803C064C);
+                                gDPSetCombineMode(gXluDL++, G_CC_MODULATEIA, G_CC_PASS2); // TBD
 
-                                func_80125FE0(
-                                    &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
-                                    D_803D343C->zRotation,
-                                    D_803D343C->yRotation,
-                                    scale << 5,
-                                    scale << 5,
-                                    scale << 5);
-
-                                if (1) { }
-
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, var_s4_2 << 5, var_s4_2 << 5, var_s4_2 << 5);
                                 gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(gXluDL++, D_010106E0_49FB0);
                                 gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
-                                scale = D_803D343C->unk40;
+                                var_s4_2 = D_803D343C->unk40;
                                 if (gMusicChannels3PlusNoteOn != 0) {
-                                    scale += guRandom() % 600;
+                                    var_s4_2 += guRandom() % 600;
                                 }
-                                func_80125FE0(
-                                    &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                    D_803D343C->position.xPos.w,
-                                    D_803D343C->position.zPos.w,
-                                    D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
-                                    D_803D343C->zRotation,
-                                    D_803D343C->yRotation,
-                                    scale << 5,
-                                    scale << 5,
-                                    scale << 5);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, var_s4_2 << 5, var_s4_2 << 5, var_s4_2 << 5);
                                 gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(gXluDL++, D_01011140_4AA10);
                                 gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
@@ -1518,13 +1393,15 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             case 16:
                                 gSPDisplayList(gXluDL++, D_010049A0_3E270);
                                 gSPSetGeometryMode(gXluDL++, gGeometryMode);
-                                if (gLevelProgress & LEVEL_PROGRESS_FLAG_4) {
+                                if (gLevelProgress & 4) {
                                     gDPSetRenderMode(gXluDL++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
+                                    // FAKE:
+                                    if (1){}
                                 } else {
-                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
+                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2); // gDPSetRenderMode(gXluDL++, D_803C0644, D_803C064C);
                                 }
                                 gSPDisplayList(gXluDL++, D_01004510_3DDE0);
-                                gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760 + (D_803D343C->unk3E & 0x3F) * 0xAB8);
+                                gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (D_800BA760 + (D_803D343C->unk3E & 0x3F) * 0xAB8));
                                 gDPTileSync(gXluDL++);
                                 gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                                 gDPTileSync(gXluDL++);
@@ -1532,41 +1409,23 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 gDPTileSync(gXluDL++);
                                 render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, 1, 0);
                                 break;
-                            case 17:
+                            case 17: {
+                                u8        pad[0x8];
+                                struct077 sp210;
                                 enqueue_texture_grouped_display_list_instance(&D_803D3FF8, D_803D343C->unk3E & 0x3F, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
                                 if (D_803D343C->unk200[0] & 2) {
                                     func_802F603C_7076EC(D_803A0580_7B1C30[0][0], D_803A0580_7B1C30[0][1], D_803A0580_7B1C30[0][2], D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                    enqueue_dynamic_texture_billboard(
-                                        D_803D343C->position.xPos.w + (sp210.unk0 << 0x10),
-                                        D_803D343C->position.zPos.w + (sp210.unk2 << 0x10),
-                                        D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF),
-                                        D_803D343C->unk40 / 2.6,
-                                        0x20,
-                                        &gDynamicTextureBillboardQueue,
-                                        0,
-                                        0xFF,
-                                        0x64,
-                                        0x64);
+                                    enqueue_dynamic_texture_billboard(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (D_803D343C->unk40 / 2.6), 0x20, &gDynamicTextureBillboardQueue, 0, 0xFF, 0x64, 0x64);
                                 }
                                 if (D_803D343C->unk200[0] & 4) {
                                     func_802F603C_7076EC(-D_803A0580_7B1C30[0][0], D_803A0580_7B1C30[0][1], D_803A0580_7B1C30[0][2], D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                    enqueue_dynamic_texture_billboard(
-                                        D_803D343C->position.xPos.w + (sp210.unk0 << 0x10),
-                                        D_803D343C->position.zPos.w + (sp210.unk2 << 0x10),
-                                        D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF),
-                                        D_803D343C->unk40 / 2.6,
-                                        0x20,
-                                        &gDynamicTextureBillboardQueue,
-                                        0,
-                                        0xFF,
-                                        0x64,
-                                        0x64);
+                                    enqueue_dynamic_texture_billboard(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (D_803D343C->unk40 / 2.6), 0x20, &gDynamicTextureBillboardQueue, 0, 0xFF, 0x64, 0x64);
                                 }
                                 if (D_803D343C->unk200[0] & 0x18) {
                                     if (D_803D343C->unk200[0] & 8) {
-                                        green2 = 0xFF;
+                                        var_s0_3 = 0xFF;
                                     } else {
-                                        green2 = 0;
+                                        var_s0_3 = 0;
                                     }
                                     func_802F603C_7076EC(D_803A0580_7B1C30[1][0], D_803A0580_7B1C30[1][1], D_803A0580_7B1C30[1][2], D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
                                     enqueue_dynamic_texture_billboard(
@@ -1578,7 +1437,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         &gDynamicTextureBillboardQueue,
                                         0,
                                         0xFF,
-                                        green2,
+                                        var_s0_3,
                                         0);
                                     func_802F603C_7076EC(-D_803A0580_7B1C30[1][0], D_803A0580_7B1C30[1][1], D_803A0580_7B1C30[1][2], D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
                                     enqueue_dynamic_texture_billboard(
@@ -1590,7 +1449,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         &gDynamicTextureBillboardQueue,
                                         0,
                                         0xFF,
-                                        green2,
+                                        var_s0_3,
                                         0);
                                 }
                                 if (D_803D343C->unk200[0] & 0x20) {
@@ -1617,6 +1476,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     }
                                 }
                                 break;
+                            }
                             case 18:
                                 if (D_803D343C->state == 1) {
                                     enqueue_dynamic_texture_billboard(
@@ -1649,9 +1509,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 break;
                             case 19:
                                 if (D_803D343C->state == 1) {
-                                    scale = (D_803D343C->unk40 * 3) >> 2;
+                                    var_s4_6 = (D_803D343C->unk40 * 3) >> 2;
                                 } else {
-                                    scale = D_803D343C->unk40;
+                                    var_s4_6 = D_803D343C->unk40;
                                 }
                                 if (D_803D4BB0.unk1 < 60) {
                                     D_803D4BB0.unk1++;
@@ -1659,7 +1519,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D4BB0.displayList[D_803D4BB0.unk1] = D_803D343C->unk16C->displayList1;
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk0 = D_803D343C->zRotation;
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk2 = D_803D343C->yRotation;
-                                    D_803D4BB0.unkAA[D_803D4BB0.unk1] = scale;
+                                    D_803D4BB0.unkAA[D_803D4BB0.unk1] = var_s4_6;
                                     D_803D4BB0.unk124[D_803D4BB0.unk1].unk0 = D_803D343C->position.xPos.w;
                                     D_803D4BB0.unk124[D_803D4BB0.unk1].unk4 = D_803D343C->position.zPos.w;
                                     D_803D4BB0.unk124[D_803D4BB0.unk1].unk8 = D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF);
@@ -1668,7 +1528,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 if ((D_803D3434->usedModelViewMtxs + 2) >= 250) {
                                     break;
                                 } else {
-                                    scale = scale << 5;
+                                    var_s4_6 = var_s4_6 << 5;
 
                                     gDPSetTextureLUT(gXluDL++, G_TT_NONE);
                                     gDPSetCombineLERP(gXluDL++,
@@ -1682,16 +1542,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     } else {
                                         gDPSetPrimColor(gXluDL++, 0, 0, 0x40, 0x00, 0x00, 0xFF);
                                     }
-                                    func_80125FE0(
-                                        &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                        D_803D343C->position.xPos.w,
-                                        D_803D343C->position.zPos.w,
-                                        D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
-                                        D_803D343C->zRotation,
-                                        D_803D343C->yRotation,
-                                        scale,
-                                        scale,
-                                        scale);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, var_s4_6, var_s4_6, var_s4_6);
                                     gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                     gSPDisplayList(gXluDL++, D_01011B78_4B448);
                                     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
@@ -1707,24 +1558,19 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         gDPSetRenderMode(gLayer0DL++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
                                         gDPSetPrimColor(gLayer0DL++, 0, 0, 0xFF, 0x00, 0x00, 0xA0);
 
-                                        func_80125FE0(
-                                            &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                            D_803D343C->position.xPos.w,
-                                            D_803D343C->position.zPos.w,
-                                            D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
-                                            D_803D343C->zRotation,
-                                            D_803D343C->yRotation,
-                                            scale,
-                                            scale,
-                                            scale);
+                                        func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, var_s4_6, var_s4_6, var_s4_6);
                                         gSPMatrix(gLayer0DL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                         gSPDisplayList(gLayer0DL++, D_01011AB0_4B380);
                                         gSPPopMatrix(gLayer0DL++, G_MTX_MODELVIEW);
                                         gSPSetGeometryMode(gLayer0DL++, G_FOG);
                                     }
-                                }
                                 break;
-                            case 20:
+                            }
+                            case 20: {
+                                u8 pad[0xC];
+                                u8 sp1AC[3];
+                                u8 pad2[0x4];
+
                                 if (D_803D343C->state == 1) {
                                     sp1AC[0] = 0;
                                 } else {
@@ -1746,35 +1592,26 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 if (D_803D343C->state == 1) {
                                     if (D_803D3434->usedModelViewMtxs >= 250) {
                                         break;
-                                    } else {
-                                        gDPPipeSync(gLayer0DL++);
-                                        gDPSetDepthSource(gLayer0DL++, G_ZS_PIXEL);
-                                        gDPSetCycleType(gLayer0DL++, G_CYC_1CYCLE);
-                                        gDPSetAlphaCompare(gLayer0DL++, G_AC_NONE);
-                                        gSPSetGeometryMode(gLayer0DL++, G_SHADING_SMOOTH);
-                                        gSPClearGeometryMode(gLayer0DL++, G_FOG);
-                                        gDPSetCombineLERP(gLayer0DL++, 0, 0, 0, PRIMITIVE, 0, 0, 0, SHADE, 0, 0, 0, PRIMITIVE, 0, 0, 0, SHADE);
-                                        gDPSetRenderMode(gLayer0DL++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
-                                        func_80125FE0(
-                                            &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-                                            D_803D343C->position.xPos.w,
-                                            D_803D343C->position.zPos.w,
-                                            D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
-                                            D_803D343C->zRotation,
-                                            D_803D343C->yRotation,
-                                            D_803D343C->unk40 << 5,
-                                            D_803D343C->unk40 << 5,
-                                            D_803D343C->unk40 << 5);
-                                        gSPMatrix(gLayer0DL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                                        gSPDisplayList(gLayer0DL++, D_0100F4F0_48DC0);
-                                        gSPPopMatrix(gLayer0DL++, G_MTX_MODELVIEW);
-                                        gSPSetGeometryMode(gLayer0DL++, G_FOG);
                                     }
+                                    gDPPipeSync(gLayer0DL++);
+                                    gDPSetDepthSource(gLayer0DL++, G_ZS_PIXEL);
+                                    gDPSetCycleType(gLayer0DL++, G_CYC_1CYCLE);
+                                    gDPSetAlphaCompare(gLayer0DL++, G_AC_NONE);
+                                    gSPSetGeometryMode(gLayer0DL++, G_SHADING_SMOOTH);
+                                    gSPClearGeometryMode(gLayer0DL++, G_FOG);
+                                    gDPSetCombineLERP(gLayer0DL++, 0, 0, 0, PRIMITIVE, 0, 0, 0, SHADE, 0, 0, 0, PRIMITIVE, 0, 0, 0, SHADE);
+                                    gDPSetRenderMode(gLayer0DL++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                                    gSPMatrix(gLayer0DL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+                                    gSPDisplayList(gLayer0DL++, D_0100F4F0_48DC0);
+                                    gSPPopMatrix(gLayer0DL++, G_MTX_MODELVIEW);
+                                    gSPSetGeometryMode(gLayer0DL++, G_FOG);
                                 }
                                 break;
+                            }
                             case 21:
                                 gSPDisplayList(gXluDL++, D_01004AF8_3E3C8);
-                                if (gLevelProgress & LEVEL_PROGRESS_FLAG_4) {
+                                if (gLevelProgress & 4) {
                                     gDPSetRenderMode(gXluDL++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
                                 } else {
                                     gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
@@ -1789,13 +1626,13 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], gCameraEyeWorldX, gCameraEyeWorldZ, gCameraEyeWorldY, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
                                 gSPLookAtX(gXluDL++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
                                 gSPLookAtY(gXluDL++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
-                                render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 3, (u8) 1);
+                                render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 3, (u8) 1);
                                 break;
                             case 23:
                                 gSPDisplayList(gXluDL++, D_010049A0_3E270);
                                 gSPSetGeometryMode(gXluDL++, gGeometryMode);
-                                gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                                gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2); // gDPSetRenderMode(gXluDL++, D_803C0644, D_803C064C);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                 gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(gXluDL++, D_803D343C->unk16C->objectType == 0xF5 ? D_040165E0_116330 : D_05001720_8A980);
 
@@ -1809,8 +1646,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 }
                                 if (D_803D343C->unk158 == 0) {
                                     gSPDisplayList(gXluDL++, D_01004AF8_3E3C8);
-                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
-                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_D_01031010_6A8E0_rgba16__png);
+                                    gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2); // gDPSetRenderMode(gXluDL++, D_803C0644, D_803C064C);
+                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &img_D_01031010_6A8E0_rgba16__png);
                                     gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                     gDPLoadSync(gXluDL++);
                                     gDPLoadBlock(gXluDL++, G_TX_LOADTILE, 0, 0, 1023, 256);
@@ -1818,7 +1655,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                     gDPSetTileSize(gXluDL++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
 
-                                    guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], gCameraEyeWorldX, gCameraEyeWorldZ, gCameraEyeWorldY, D_803D343C->position.xPos.w / 65536.0f, D_803D343C->position.zPos.w / 65536.0f, D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
+                                    guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], gCameraEyeWorldX, gCameraEyeWorldZ, gCameraEyeWorldY, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
                                     gSPLookAtX(gXluDL++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
                                     gSPLookAtY(gXluDL++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
                                     D_803D3434->unk39310++;
@@ -1837,23 +1674,31 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 gSPSetGeometryMode(gXluDL++, gGeometryMode);
                                 gDPSetRenderMode(gXluDL++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
                                 gSPDisplayList(gXluDL++, D_01004510_3DDE0);
-                                gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760 + (D_803D343C->unk3E & 0x3F) * 0xAB8);
+                                gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (D_800BA760 + (D_803D343C->unk3E & 0x3F) * 0xAB8));
                                 gDPTileSync(gXluDL++);
                                 gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                                 gDPTileSync(gXluDL++);
                                 gDPLoadBlock(gXluDL++, G_TX_LOADTILE, 0, 0, 1372, 0);
                                 gDPTileSync(gXluDL++);
-                                render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, 4, 2);
+                                render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 4, (u8) 2);                                break;
                                 break;
                             default:
                                 break;
                             }
-                            if (1) { } if (1) { }
+                            // IDO control-flow shaping: these empty blocks affect codegen.
+                            if (1) {
+                            }
+                            if (1) {
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    // IDO register-allocation control; emits no additional instructions.
+    if (D_803D3434) {
     }
 
     if (D_803D5508 > 0) {
@@ -1868,7 +1713,6 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
     if (D_803D3FF8.unk1 != -1) {
         render_lookat_textured_display_list_queue();
     }
-
     render_texture_grouped_display_list_queues();
     if (gDynamicTextureBillboardQueue.unk1 != -1) {
         render_dynamic_texture_billboards();

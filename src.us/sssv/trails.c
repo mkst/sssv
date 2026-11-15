@@ -204,7 +204,7 @@ void func_8039E33C_7AF9EC(WalrusWake *arg0) {
     xVel = animal->xVelocity.w >> 8;
     zVel = animal->zVelocity.w >> 8;
 
-    arg0->unkBE[arg0->numVtxs >> 1] = func_801284B8(xVel, zVel);
+    arg0->unkBE[arg0->numVtxs >> 1] = atan2_deg_s16(xVel, zVel);
 
     // these numbers are squared, so why?
     xVel = -xVel;
@@ -275,9 +275,9 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
 
     if (sp38 | sp34) {
       new_var = sqrtf(SQ(sp38) + SQ(sp34));
-        sp44 = func_801284B8(
+        sp44 = atan2_deg_s16(
             -animal->yVelocity.w >> 8, new_var);
-        temp_v0 = func_801284B8(sp38, sp34);
+        temp_v0 = atan2_deg_s16(sp38, sp34);
 
         if (animal->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             // it's an animal
@@ -307,8 +307,8 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
         case 3:
             sp58 = ( COS(arg0->unk4) * arg0->unk5) >> 0xF;
             sp5A = (-SIN(arg0->unk4) * arg0->unk5) >> 0xF;
-            sp5E = (COSB((s32)func_80128200() % 360) *  sp58) >> 8;
-            sp5C = (SINB((s32)func_80128200() % 360) * -sp58) >> 8;
+            sp5E = (COSB((s32)random_u32() % 360) *  sp58) >> 8;
+            sp5C = (SINB((s32)random_u32() % 360) * -sp58) >> 8;
             break;
         default:
             break;

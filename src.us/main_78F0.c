@@ -616,7 +616,7 @@ s16 get_char_type(s16 *text, u16 arg1 UNUSED, u16 arg2 UNUSED) {
     return 0;
 }
 
-s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
+s16 get_word_wrapped_text_height(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     s16 wchr;
     s16 xPos;
     u16 xPos2;

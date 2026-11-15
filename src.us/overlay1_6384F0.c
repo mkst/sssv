@@ -894,7 +894,7 @@ void render_title_screen_frame(FrameContext *arg0) {
                 if ((D_80299E08_63D4A8 > 10) && (D_80299E08_63D4A8 < 249)) {
                     spC7 = 0xFF;
                     if (D_80299E08_63D4A8 > 160) {
-                        spC7 = 0xFF - D_80152040[D_80299E08_63D4A8 + 233];
+                        spC7 = 0xFF - gAsinDegreesQ8Table[D_80299E08_63D4A8 + 233];
                     }
                     if (spC7 == 0) {
                         D_80299E08_63D4A8 = 260;

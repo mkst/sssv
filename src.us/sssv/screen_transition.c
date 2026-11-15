@@ -347,7 +347,7 @@ void render_screen_transition_tv_702A68(void) {
             SHADE, 0, PRIMITIVE, 0);
         gDPSetRenderMode(gMainDL++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
-        func_802F30A4_704754();
+        update_level_lighting();
         gSPSetGeometryMode(gMainDL++, G_LIGHTING);
         gSPDisplayList(gMainDL++, D_01013370_4CC40); // tv screen
     }

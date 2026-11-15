@@ -398,9 +398,9 @@ void func_802BC350_6CDA00(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
 
     sp38 = MAX(sp38, sp3C);
 
-    sp36 = func_801283AC((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
-    sp34 = func_801283AC((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
-    sp38 = -func_8012835C((sp3E * 256) / sp38);
+    sp36 = acos_deg_q8((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
+    sp34 = acos_deg_q8((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
+    sp38 = -asin_deg_q8((sp3E * 256) / sp38);
 
     // fakematch
     *arg0 = sp38 - ((((((sp36 & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF);
@@ -434,9 +434,9 @@ void func_802BC628_6CDCD8(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
 
     sp38 = MAX(sp38, sp3C);
 
-    sp36 = func_801283AC((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
-    sp34 = func_801283AC((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
-    sp38 = -func_8012835C((sp3E * 256) / sp38);
+    sp36 = acos_deg_q8((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
+    sp34 = acos_deg_q8((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
+    sp38 = -asin_deg_q8((sp3E * 256) / sp38);
 
   // fakematch
 #ifdef __sgi

@@ -455,7 +455,7 @@ void func_80349900_75AFB0(s16 *text, u16 arg1) {
     D_803F2CD0 = arg1 * 30;
     D_803F2CD4 = 0;
     D_803F2CDA = 0;
-    D_803F2CE4 = func_8012E78C(gHudCenterText, 10.0f, 10.0f, 12) - 12;
+    D_803F2CE4 = get_word_wrapped_text_height(gHudCenterText, 10.0f, 10.0f, 12) - 12;
     if (D_803F2CDC == 0) {
         D_803F2CDC = 5;
         D_803F2CDD = 0;

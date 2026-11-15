@@ -1957,15 +1957,15 @@ void func_803378BC_748F6C(u8 arg0) {
 
     if ((ABSF(temp_f14) >= ABSF(temp_f16))) {
         if (temp_f14 > 0.0f) {
-            gCamera->yaw = 90.0 - (f32) func_8012844C((temp_f16 * 64.0f) / temp_f14);
+            gCamera->yaw = 90.0 - (f32) atan_deg_q6((temp_f16 * 64.0f) / temp_f14);
         } else if (temp_f14 < 0.0f) {
-            gCamera->yaw = 270.0 + (f32) func_8012844C((temp_f16 * 64.0f) / -temp_f14);
+            gCamera->yaw = 270.0 + (f32) atan_deg_q6((temp_f16 * 64.0f) / -temp_f14);
         }
     } else {
         if (temp_f16 > 0.0f) {
-            gCamera->yaw = func_8012844C((temp_f14 * 64.0f) / temp_f16);
+            gCamera->yaw = atan_deg_q6((temp_f14 * 64.0f) / temp_f16);
         } else if (temp_f16 < 0.0f) {
-            gCamera->yaw = (180.0 - (f32) func_8012844C((temp_f14 * 64.0f) / -temp_f16));
+            gCamera->yaw = (180.0 - (f32) atan_deg_q6((temp_f14 * 64.0f) / -temp_f16));
         }
     }
 
@@ -2693,7 +2693,7 @@ void func_8033AAC8_74C178(u8 cameraID) {
     if ((temp_f0 == 0.0) && (temp_f14 == 0.0)) {
         var_f2 = 0.0f;
     } else {
-        var_f2 = func_801286B8(-temp_f0, temp_f14);
+        var_f2 = atan2_deg_f32(-temp_f0, temp_f14);
     }
     gCamera->targetYaw = var_f2;
     gCamera->yaw = var_f2;
@@ -2786,7 +2786,7 @@ void func_8033B440_74CAF0(u8 cameraID) {
     if ((temp_f0 == 0.0) && (temp_f14 == 0.0)) {
         phi_f2 = 0.0f;
     } else {
-        phi_f2 = func_801286B8(-temp_f0, temp_f14);
+        phi_f2 = atan2_deg_f32(-temp_f0, temp_f14);
     }
     gCamera->targetYaw = phi_f2;
     gCamera->yaw = phi_f2;
@@ -3603,7 +3603,7 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
         temp_t6 = arg2;arg2 = arg5;arg5 = temp_t6;
     }
 
-    for (var_t1 = D_803DA110[(s16) (arg6 + (arg7 * 5))].next, var_t2 = 0; var_t1 != NULL; var_t1 = var_t1->next) {
+    for (var_t1 = gCollisionGridHeads[(s16) (arg6 + (arg7 * 5))].next, var_t2 = 0; var_t1 != NULL; var_t1 = var_t1->next) {
         animal = var_t1->animal;
         if ((animal->unk16C->behaviourFlags.unk6) && ((animal->unk3E < 0x40) || (animal->unk3E >= 0xC0)) && (animal->unk3E != 0x28)) {
 
@@ -4027,7 +4027,7 @@ void update_world_camera_transform(void) {
         spB4 = camera2->targetX - camera2->eyeX;
         spB0 = camera2->targetZ - camera2->eyeZ;
         spAC = camera2->targetY - camera2->eyeY;
-        sp84 = func_801286B8(spAC, sqrtf(SQ(spB4) + SQ(spB0)));
+        sp84 = atan2_deg_f32(spAC, sqrtf(SQ(spB4) + SQ(spB0)));
 
         if (sp84 > 180.0) {
             sp84 -= 360.0;
@@ -4035,20 +4035,20 @@ void update_world_camera_transform(void) {
         if ((spB0 == 0.0) && (spB4 == 0.0)) {
             sp80 = 0.0f;
         } else {
-            sp80 = func_801286B8(-spB0, spB4);
+            sp80 = atan2_deg_f32(-spB0, spB4);
         }
         spA0 = camera1->targetX - camera1->eyeX;
         sp9C = camera1->targetZ - camera1->eyeZ;
         sp98 = camera1->targetY - camera1->eyeY;
 
-        sp8C = func_801286B8(sp98, sqrtf(SQ(spA0) + SQ(sp9C)));
+        sp8C = atan2_deg_f32(sp98, sqrtf(SQ(spA0) + SQ(sp9C)));
         if (sp8C > 180.0) {
             sp8C -= 360.0;
         }
         if ((sp9C == 0.0) && (spA0 == 0.0)) {
             temp_f14 = 0.0f;
         } else {
-            temp_f14 = func_801286B8(-sp9C, spA0);
+            temp_f14 = atan2_deg_f32(-sp9C, spA0);
         }
         sBlendedPitch = (spCC * sp8C) + (spC8 * sp84);
 
@@ -4303,7 +4303,7 @@ void update_world_camera_transform(void) {
     func_803415BC_752C6C();
     update_billboard_projection_cache();
 
-    D_803F2C40 = func_801286B8(D_80204220, sqrtf(SQ(D_80204218) + SQ(D_8020421C)));
+    D_803F2C40 = atan2_deg_f32(D_80204220, sqrtf(SQ(D_80204218) + SQ(D_8020421C)));
     if (D_803F2C40 > 180.0) {
         D_803F2C40 -= 360.0;
     }
@@ -4311,7 +4311,7 @@ void update_world_camera_transform(void) {
     if ((D_8020421C == 0.0) && (D_80204218 == 0.0)) {
         D_803F2C3C = 0.0f;
     } else {
-        D_803F2C3C = func_801286B8(-D_8020421C, D_80204218);
+        D_803F2C3C = atan2_deg_f32(-D_8020421C, D_80204218);
     }
     temp_f0 = gCameraEyeWorldX - sLookAtTargetX;
     temp_f2 = gCameraEyeWorldZ - sLookAtTargetZ;

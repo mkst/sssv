@@ -90,8 +90,8 @@ void func_80314788_725E38(void) {
     D_803A05B4_7B1C64 = gGravity * 2;
     gTasksCompleted = 0;
     D_803E4D30 = 16;
-    D_803E4D38[0] = D_8023F260.unk30;
-    D_803E4D38[1] = D_8023F260.unk34;
+    D_803E4D38[0] = gPlayerEeprom.unk30;
+    D_803E4D38[1] = gPlayerEeprom.unk34;
     gLevelProgress = 0; // clear gameplay flags
     D_803E4CA0 = NULL;
     D_801546E0 = 0x800;
@@ -130,7 +130,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_RANDOM_SEED:
-        func_8012822C(arg2);
+        seed_random_u32(arg2);
         break;
 
     case ST_SET_XPOS:
@@ -262,7 +262,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_EEPROM_SCORES_1:
-        D_8023F260.unk30 = D_803E4D38[0] = arg2;
+        gPlayerEeprom.unk30 = D_803E4D38[0] = arg2;
         write_eeprom(D_803F7DA8.bank);
         break;
 
@@ -317,7 +317,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_EEPROM_SCORES_2:
-        D_8023F260.unk34 = D_803E4D38[1] = arg2;
+        gPlayerEeprom.unk34 = D_803E4D38[1] = arg2;
         write_eeprom(D_803F7DA8.bank);
         break;
 
@@ -351,7 +351,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->Info.health;
             break;
         case ST_GET_RANDOM:
-            res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
+            res = (s32) (random_u32() & 0x7FFF) % 0x7F7E;
             break;
         case ST_GET_XPOS:
             res = arg0->position.xPos.h;
@@ -567,8 +567,8 @@ Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator) {
         if (bucketMask & 0xFF) {
             for (j = 0; j < 8; j++) {
                 if (((bucketMask & ((s64)1 << j)))) {
-                    for (node = D_803DA110[i+j].next; node != NULL; node = node->next) {
-                        if ((node->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == node->animal->unk114[0])) {
+                    for (node = gCollisionGridHeads[i+j].next; node != NULL; node = node->next) {
+                        if ((node->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == node->animal->collisionGridCells[0])) {
                             if ((lastReturnedAnimal == node->animal) || (func_80319E1C_72B4CC(node->animal->position.xPos.h >> 6, node->animal->position.zPos.h >> 6, node->animal->position.yPos.h >> 6, regionId , node->animal->unk160) != 0)) {
                                 if (canReturnMatch != 0) {
                                     lastReturnedAnimal = node->animal;
@@ -611,8 +611,8 @@ u8 func_80315658_726D08(s16 regionId, s32 func(Animal *, s16), s16 arg2) {
         if (sp50 & 0xFF) {
             for (j = 0; j < 8; j++) {
                 if (sp50 & ((s64)1 << j)) {
-                    for (var_s1 = D_803DA110[i + j].next; var_s1 != NULL; var_s1 = var_s1->next) {
-                        if ((var_s1->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s1->animal->unk114[0] == (i + j)) && (func(var_s1->animal, arg2))) {
+                    for (var_s1 = gCollisionGridHeads[i + j].next; var_s1 != NULL; var_s1 = var_s1->next) {
+                        if ((var_s1->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s1->animal->collisionGridCells[0] == (i + j)) && (func(var_s1->animal, arg2))) {
                             if (func_80319E1C_72B4CC(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, regionId, var_s1->animal->unk160) != 0) {
                                 ret = 1;
                                 goto done;
@@ -1833,8 +1833,8 @@ s32 execute_entity_command(Entity *arg0) {
             sp7C = tmp2->position.zPos.h - temp_s1->position.zPos.h;
             spF8 = (tmp2->position.yPos.h + (tmp2->unk42 >> 1)) - temp_s1->position.yPos.h;
             spF4 = (s16) sqrtf(SQ(spF0) + SQ(sp7C));
-            temp_s1->yRotation = func_801284B8(spF0, sp7C);
-            temp_s1->zRotation = func_801284B8(spF8, spF4);
+            temp_s1->yRotation = atan2_deg_s16(spF0, sp7C);
+            temp_s1->zRotation = atan2_deg_s16(spF8, spF4);
         }
         return 69;
 

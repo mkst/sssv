@@ -96,14 +96,20 @@ static s64  D_803F2CC0;
 // ========================================================
 
 #if 0
-// CURRENT (22278)
+// CURRENT (23154)
 // process_level_geo
 void func_80344240_7558F0(void) {
-    s32 spFC8[6]; // padding
+    s32 sp40;
+    s32 spFC8[1]; // padding
 
     s16 spFC6; // faceIndex
+    // Otherwise unused 16-bit reuse counter retained by the target.
+    s16 reuseCount;
     s16 spFC2; // cellXOffset
     s16 spFC0; // cellZOffset
+    // Matching padding for locals not yet recovered.
+    s16 padFB8[4];
+    s16 padFB6;
     s16 vtxCount;
 
     s16 opaqueMaxZ; // maxZ
@@ -120,29 +126,32 @@ void func_80344240_7558F0(void) {
     s16 transMinY; // minY
     s16 transMinX; // minX
 
+    s16 padF9A;
     s16 numOpaqueVtxsBatch; // opaqueBatchStart
 
+    s16 padF96;
     s16 numOpaqueVtxs; // spF94
     s16 totalTransVtxs; // translucentVertCountTotal
     s16 transVtxBatchIdx; // translucentBatchStart
     s16 numTransVtxsBatch; // spF8E
     s16 numTransVtxs; // spF8C
+    s16 padF8A;
     s16 spF88; // cullBoxBaseIndex
 
     s16 batch;
     s16 batchIdx;
     s16 foundVtxIdx;
     s16 i;
-    s16 flags; // flags
     s16 opaqueVtxsIdx;
     s16 j;
+    s16 flags; // flags
     u8 temp_t2; // red
     u8 temp_t3; // green
     u8 temp_t4; // blue
     u8 variant;
     u8 alpha;
 
-    s16 texIdx;
+    u8 texIdx;
 
     s16 spF72;
     s16 spF70;
@@ -159,15 +168,14 @@ void func_80344240_7558F0(void) {
     struct115 opaqueVtxs[50];      // sp 0x850 // (0xF58 - 0x850) / 0x24 => 50
     struct115 translucentVtxs[50]; // sp 0x148 // (0x850 - 0x148) / 0x24 => 50
 
-    s8 sp147;
-    s8 sp146;
-    s8 sp145;
+    // Preserve the signed normal spills and reloads seen in the target.
+    volatile s8 sp147;
+    volatile s8 sp146;
+    volatile s8 sp145;
 
     s32 vtxFlags;
     Gfx *opaqueDL; // sp13C
     Gfx *translucentDL; // sp138
-
-    s32 sp40;
 
     // NOTE: geo data has been copied into D_80100000 before this function is called
     D_803F2C80 = (struct102*)&D_80100000;
@@ -175,6 +183,7 @@ void func_80344240_7558F0(void) {
     gRenderMode2 = 0x110038;
     D_803F2CC0 = 0x1049D8; // renderMode
 
+    D_803F2CA4 = 0;
     D_803F2CA6 = 0;
     D_803F2C99 = 0;
     D_803F2C9A = 0;
@@ -192,12 +201,13 @@ void func_80344240_7558F0(void) {
 
     transVtxBatchIdx = 0;
     numTransVtxs = 0;
+    reuseCount = 0;
 
     opaqueDL = &D_80205470[0];
     translucentDL = &D_80225650[1]; // +1 because we use [0] now:
     gDPSetCombineMode(D_80225650, G_CC_SHADE, G_CC_SHADE);
 
-    for (D_803F2CA4 = 0; D_803F2CA4 < 6; D_803F2CA4++) {
+    for (; D_803F2CA4 < 6; D_803F2CA4++) {
         for (D_803F2CA2 = 0; D_803F2CA2 < 4; D_803F2CA2++) {
             D_803F2C8C = 0;
             D_803F2C8E = 0;
@@ -251,6 +261,7 @@ void func_80344240_7558F0(void) {
             }
             // BB002801 80008000
             gSPTexture(opaqueDL++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
+
             // B6000000 00020000
             gSPClearGeometryMode(translucentDL++, G_LIGHTING);
             spF88 = (D_803F2CA2 << 3) + (D_803F2CA4 << 5);
@@ -287,6 +298,7 @@ void func_80344240_7558F0(void) {
             gDPSetTile(translucentDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, 1, G_TX_NOMIRROR | G_TX_WRAP, 4, 1);
             // F5100540 0200C832
             gDPSetTile(translucentDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0140, 2, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, 2, G_TX_NOMIRROR | G_TX_WRAP, 3, 2);
+
             // E7000000 00000000
             gDPPipeSync(opaqueDL++);
             // B9000002 00000000
@@ -449,9 +461,8 @@ void func_80344240_7558F0(void) {
 
                     // if we have 8 vtxs emit batch
                     if (numTransVtxs >= 8) {
-                        batchIdx = transVtxBatchIdx;
+                        func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[transVtxBatchIdx], numTransVtxsBatch);
                         transVtxBatchIdx = totalTransVtxs;
-                        func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[batchIdx], numTransVtxsBatch);
                         func_80346BB4_758264(&translucentDL, translucentVtxs, 8);
                         numTransVtxsBatch = 0;
                         numTransVtxs = 0;
@@ -473,11 +484,10 @@ void func_80344240_7558F0(void) {
                             D_803F2CA0 = D_803F2CA0;
                         }
 
-                        temp_t2 = sp147 = D_803F2C80[spFC6].unk4[i].red;    // unk8
+                        tc0 = D_803F2C80[spFC6].unk4[i].tc0 << 6; // unk4
                         temp_t3 = sp146 = D_803F2C80[spFC6].unk4[i].green;  // unk9
                         temp_t4 = sp145 = D_803F2C80[spFC6].unk4[i].blue;   // unkA
-
-                        tc0 = D_803F2C80[spFC6].unk4[i].tc0 << 6; // unk4
+                        temp_t2 = sp147 = D_803F2C80[spFC6].unk4[i].red;    // unk8
                         tc1 = D_803F2C80[spFC6].unk4[i].tc1 << 6; // unk6
 
                         for (j = numOpaqueVtxsBatch; j < opaqueVtxsIdx; ) {
@@ -523,6 +533,7 @@ void func_80344240_7558F0(void) {
                                 }
                             }
                             if (flags != 0) {
+                                reuseCount++;
                                 foundVtxIdx = j;
                                 j = opaqueVtxsIdx; // break?
                             } else {
@@ -589,9 +600,8 @@ void func_80344240_7558F0(void) {
                     opaqueVtxs[numOpaqueVtxs++].idx = spFC6++;
 
                     if (sp40 > 28) {
-                        batchIdx = numOpaqueVtxsBatch;
+                        func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[numOpaqueVtxsBatch], sp40);
                         numOpaqueVtxsBatch = opaqueVtxsIdx;
-                        func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[batchIdx], sp40);
                         func_803458FC_756FAC(&opaqueDL, opaqueVtxs, numOpaqueVtxs);
                         numOpaqueVtxs = 0;
                     }
@@ -665,22 +675,17 @@ void func_80344240_7558F0(void) {
             D_8022D350[spF88 + 7].v.ob[2] = transMaxZ;
 
             if (numOpaqueVtxs != 0) {
-                batchIdx = numOpaqueVtxsBatch;
+                func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[numOpaqueVtxsBatch], opaqueVtxsIdx - numOpaqueVtxsBatch);
                 numOpaqueVtxsBatch = opaqueVtxsIdx;
-                func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[batchIdx], numOpaqueVtxsBatch - batchIdx);
-                batch = numOpaqueVtxs;
+                func_803458FC_756FAC(&opaqueDL, opaqueVtxs, numOpaqueVtxs);
                 numOpaqueVtxs = 0;
-                func_803458FC_756FAC(&opaqueDL, opaqueVtxs, batch);
             }
             if (numTransVtxs != 0) {
-                batch = numTransVtxsBatch;
+                func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[transVtxBatchIdx], numTransVtxsBatch);
                 numTransVtxsBatch = 0;
-                batchIdx = transVtxBatchIdx;
                 transVtxBatchIdx = totalTransVtxs;
-                func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[batchIdx], batch);
-                batch = numTransVtxs;
+                func_80346BB4_758264(&translucentDL, translucentVtxs, numTransVtxs);
                 numTransVtxs = 0;
-                func_80346BB4_758264(&translucentDL, translucentVtxs, batch);
             }
             gSPEndDisplayList(opaqueDL++);
             gSPEndDisplayList(translucentDL++);
@@ -698,7 +703,7 @@ void func_803458B8_756F68(Gfx **dl, Vtx *vtx, s16 num) {
 }
 
 #if 0
-// CURRENT (4876)
+// CURRENT (4177)
 extern int COMBINED;
 extern int SHADE_ALPHA;
 extern int TEXEL0;
@@ -711,6 +716,7 @@ extern int PRIM_LOD_FRAC;
 // Emit the opaque cell DL for a batch prepared by func_80344240_7558F0.
 // arg1[].idx points back into the raw geo stream; arg1[].v is batch-local.
 void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
+    s32 pad2;
     s16 i;          // sp17A
     s16 vtxsUsed;   // sp178
     s16 j;
@@ -720,10 +726,8 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
     u16 vtxFlags;
     s16 pad;
 
-    s32 s;
-    s32 t;
-
-    s32 pad2;
+    s16 s;
+    s16 t;
 
     vtxsUsed = 0;
 
@@ -791,7 +795,7 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
 
                         gDPLoadMultiBlock(
                             (*dl)++,
-                            OS_PHYSICAL_TO_K0(D_0102C810_660E0_bin), // + 0x8000000
+                            OS_K0_TO_PHYSICAL(D_0102C810_660E0_bin),
                             0x0000,
                             6,
                             G_IM_FMT_I,
@@ -961,8 +965,8 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
             for (j = 0; j < 4; j++) {
                 if ((arg1[i].flags[j] != 0) && (arg1[i].flags[j] & 1)) {
                     // Reused vertex with different UVs: patch tc before drawing this face.
-                    t = (D_803F2C80[arg1[i].idx].unk4[j].tc1 << 5);
                     s = (D_803F2C80[arg1[i].idx].unk4[j].tc0 << 5);
+                    t = (D_803F2C80[arg1[i].idx].unk4[j].tc1 << 5);
 
                     gSPModifyVertex(
                         (*dl)++,
@@ -989,8 +993,8 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
             for (j = 0; j < 3; j++) {
                 if ((arg1[i].flags[j] != 0) && (arg1[i].flags[j] & 1)) {
                     // Reused vertex with different UVs: patch tc before drawing this face.
-                    t = (D_803F2C80[arg1[i].idx].unk4[j].tc1 << 5);
                     s = (D_803F2C80[arg1[i].idx].unk4[j].tc0 << 5);
+                    t = (D_803F2C80[arg1[i].idx].unk4[j].tc1 << 5);
 
                     gSPModifyVertex(
                         (*dl)++,
@@ -1053,7 +1057,6 @@ void func_80346AB0_758160(Gfx **dl, u8 idx) {
 }
 
 #ifdef NON_MATCHING
-
 extern int COMBINED;
 extern int SHADE_ALPHA;
 extern int TEXEL0;
@@ -1062,7 +1065,7 @@ extern int SHADE;
 extern int LOD_FRACTION;
 extern int PRIMITIVE;
 
-//CURRENT (2158)
+// CURRENT: 283
 void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
     s32 pad[0x1];
     s16 i;         // sp29A
@@ -1075,9 +1078,11 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
     s16 sp28E; // needs image loading?
 
     s16 a1;
-    s16 pad2[13];
+    s16 pad2[11]; // matching padding
 
     s16 var_v0;
+
+    s32 pad3;
 
     vtxsUsed = 0;
 
@@ -1263,7 +1268,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                             if ((variant - 33) == 9) {
                                 if (0) {};
                                 // why cant we use OS_PHYSICAL_TO_K0 here?
-                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (D_0102C810_660E0_bin + 0x8000000 + 0x1000));
+                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102C810_660E0_bin + 0x1000));
                                 gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync((*dl)++);
                                 gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
@@ -1272,7 +1277,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                                 gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 124, 124);
                             } else {
 
-                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (D_0102C810_660E0_bin + 0x8000000));
+                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102C810_660E0_bin));
                                 gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync((*dl)++);
                                 gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
@@ -1322,9 +1327,9 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 } else {
                     // FAKE  & 0xFFFF
                     // var_v0 = (vtxFlags & VTX_TRIANGLE & 0xFFFF & 0xFFFF) ? 3 : 4;
-                    var_v0 = (vtxFlags & VTX_TRIANGLE) ? 3 : 4;
+                    var_v0 = (vtxFlags & VTX_TRIANGLE & 0xFFFF & 0xFFFF) ? 3 : 4;
 
-                    // nonsense
+                    // The target advances this 16-bit bound until it wraps.
                     for (a1 = 0; (a1 < var_v0); var_v0++) {
                         // ...
                     }

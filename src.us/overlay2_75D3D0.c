@@ -128,7 +128,7 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
     var_ra = NULL;
     best_distance = 640; // 10 << 6 ?
 
-    for (var_a2 = D_803DA110[(s16) ((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; var_a2 != NULL; var_a2 = var_a2->next) {
+    for (var_a2 = gCollisionGridHeads[(s16) ((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; var_a2 != NULL; var_a2 = var_a2->next) {
         animal = var_a2->animal;
         if ((animal != (Animal*)D_803D5530) && ((animal->unk3E & 0x3F) != 0x28) &&
             ((animal->unk16C->orientationMode == 4) ||

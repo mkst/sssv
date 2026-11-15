@@ -298,7 +298,7 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
 
 #ifdef NON_MATCHING
 // update_water_level
-// CURRENT (495): 86 differing ROM instruction words.
+// CURRENT (2774): clean draft; 952 bytes vs 956 expected.
 void func_8029726C_6A891C(struct063 arg0[73][129]) {
     s16 xPos;
     s16 zPos;
@@ -308,46 +308,36 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     s16 curWater;
     s16 prevWater;
 
-    s16 var_s5;
-    s32 pad;
-    s32 new_var;
-    struct005 sp4C;
+    s32 neighborLevel;
+    s16 var_s5; // unused counter present in the target
+    u32 startX;
+    u32 startZ;
+    u32 endX;
+    u32 endZ;
 
-    sp4C.Start2 = D_803F2D50.waterTileX;
-    sp4C.End2 = D_803F2D50.waterTileX + D_803F2D50.waterTileWidth;
-
-    sp4C.Start1 = D_803F2D50.waterTileZ;
-    sp4C.End1 = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
-
-    if (gWaterAnimState.unk20F == (gWaterAnimState.unk20F == 0)) {
-        // maybe
-    };
-    // IDO allocation probe with defined array indices.
-    zPos = (gWaterAnimState.unk20F & 0x7F);
-    curWater = arg0[0][zPos].unk0;
-    if (curWater && curWater) {
-        // ??
-    };
+    startX = D_803F2D50.waterTileX;
+    endX = D_803F2D50.waterTileX + D_803F2D50.waterTileWidth;
+    startZ = D_803F2D50.waterTileZ;
+    endZ = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
 
     var_s5 = 0;
 
-    for (xPos = sp4C.Start2; xPos < sp4C.End2; xPos++) {
-        for (zPos = sp4C.Start1; zPos <= sp4C.End1; zPos++) {
+    for (xPos = startX; xPos < endX; xPos++) {
+        for (zPos = startZ; zPos <= endZ; zPos++) {
 
-            if (((((((arg0[xPos][zPos].unk6 & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) == 0)
+            if (!arg0[xPos][zPos].unk6)
                 continue;
 
             curWater = arg0[xPos][zPos].unk6;
             prevWater = arg0[xPos - 1][zPos].unk6;
             if (prevWater < curWater) {
-                // adjust water level
-                if ((arg0[xPos - 1][zPos].unk0 * 2) < curWater) {
+                neighborLevel = arg0[xPos - 1][zPos].unk0 * 2;
+                if (neighborLevel < curWater) {
                     if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
-                        prevWater = (arg0[xPos - 1][zPos].unk0 * 2);
+                        prevWater = neighborLevel;
                     }
 
-                    new_var = arg0[xPos - 1][zPos].unk0;
-                    if (((arg0[xPos][zPos].unk0 - 16) > new_var) &&
+                    if (((arg0[xPos][zPos].unk0 - 16) > arg0[xPos - 1][zPos].unk0) &&
                         (prevWater < (arg0[xPos][zPos].unk0 * 2))) {
 
                         delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
@@ -365,7 +355,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                     prevWater += delta;
 
                     // 1xxx____
-                    arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF) + ((delta & 7) << 4)) | 0x80;
+                    arg0[xPos][zPos].unk7 = ((arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4)) | 0x80;
 
                     if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
                         curWater = 0;
@@ -378,17 +368,18 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
             curWater = arg0[xPos][zPos].unk6;
             prevWater = arg0[xPos][zPos - 1].unk6;
             if (prevWater < curWater) {
-                // adjust water level
-                if ((arg0[xPos][zPos - 1].unk0 * 2) < curWater) {
+                neighborLevel = arg0[xPos][zPos - 1].unk0 * 2;
+                if (neighborLevel < curWater) {
                     if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
-                        prevWater = (arg0[xPos][zPos - 1].unk0 * 2);
+                        prevWater = neighborLevel;
                     }
 
-                    new_var = arg0[xPos][zPos].unk0;
-                    if (((arg0[xPos][zPos - 1].unk0 + 4) < new_var) &&
+                    if (((arg0[xPos][zPos - 1].unk0 + 4) < arg0[xPos][zPos].unk0) &&
                         (prevWater <= (arg0[xPos][zPos].unk0 * 2))) {
-                        delta = (s64)((curWater - (arg0[xPos][zPos].unk0 * 2)) / 2); // fake
-                        delta = MAX(2, delta);
+                        delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
+                        if (delta < 2) {
+                            delta = 2;
+                        }
                         var_s5++;
 
                         curWater -= delta;
@@ -399,14 +390,15 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                             delta += SSSV_RAND(2);
                         }
                     }
-                    delta = MAX(0, delta);
+                    if (delta < 0) {
+                        delta = 0;
+                    }
 
                     curWater  -= delta;
                     prevWater += delta;
 
                     // ____1xxx
-                    // arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF0) + (delta & 7)) | 8;
-                    arg0[xPos][zPos].unk7 = (((((((((((((s16) ((arg0[xPos][zPos]).unk7 & 0xFF)) & 0xF0) + (delta & 7)) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) | 8;
+                    arg0[xPos][zPos].unk7 = ((arg0[xPos][zPos].unk7 & 0xF0) + (delta & 7)) | 8;
 
                     if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
                         curWater = 0;
@@ -426,9 +418,11 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
 #if 0
 extern Gfx D_010045A0_3DE70[];
 
-// CURRENT (28525): still non-matching; target 3496 bytes, draft 3392 bytes.
+// CURRENT (24260): still non-matching; target 3496 bytes, draft 3380 bytes.
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
-    u8 pad[0x44];
+    u8 pad[0x34];
+    Vtx *clearVertex;
+    Vtx *vertex;
     u16 z; // sp190
     u16 x; // var_t0
 
@@ -483,7 +477,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     s32 var_s2;
     s32 var_s5;
     // s32 var_s7;
-    s32 var_t4;
+    s16 var_t4;
     u16 var_v1;
     s16 start;
     u16 temp_v1_3;
@@ -528,8 +522,10 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                 sp160 = D_803F2D50.waterTileZ;
 
                 // reset water heights
+                clearVertex = arg1->unk286E0;
                 for (var_v1 = 0; var_v1 < (31 * 31); var_v1++) {
-                    arg1->unk286E0[var_v1].v.ob[2] = 0;
+                    clearVertex->v.ob[2] = 0;
+                    clearVertex++;
                 }
 
                 gWaterAnimState.unk20E++;
@@ -567,16 +563,17 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                             tmp6 = (temp_t1 + sp160 + z);
                             tmp5 = (tmp6 + sp164 + temp_t1 + x) * 8;
 
-                            arg1->unk286E0[(z * vertsPerRow) + x].v.ob[2] = gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)] + height;
+                            vertex = &arg1->unk286E0[(z * vertsPerRow) + x];
+                            vertex->v.ob[2] = gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)] + height;
 
-                            temp_f20 = ((gWaterAnimState.unk0[tmp6 & 7][(gWaterAnimState.unk204 + tmp5 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1 + 1][z + sp160].unk6 * 4)) / 64.0f;
-                            temp_f22 = ((gWaterAnimState.unk0[(temp_t2 + 1) & 7][(gWaterAnimState.unk204 + temp_t7 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1][z + sp160 + 1].unk6 * 4)) / 64.0f;
-                            temp_f24 = foo / 64.0f;
+                            temp_f20 = ((gWaterAnimState.unk0[tmp6 & 7][(gWaterAnimState.unk204 + tmp5 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1 + 1][z + sp160].unk6 * 4)) / foo;
+                            temp_f22 = ((gWaterAnimState.unk0[(temp_t2 + 1) & 7][(gWaterAnimState.unk204 + temp_t7 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1][z + sp160 + 1].unk6 * 4)) / foo;
+                            temp_f24 = foo / foo;
 
                             temp_f2 = 128.0f / sqrtf(SQ(temp_f20) + SQ(temp_f22) + SQ(temp_f24));
-                            arg1->unk286E0[(z * vertsPerRow) + x].n.n[0] = (s32) (temp_f20 * temp_f2);
-                            arg1->unk286E0[(z * vertsPerRow) + x].n.n[1] = (s32) (temp_f22 * temp_f2);
-                            arg1->unk286E0[(z * vertsPerRow) + x].n.n[2] = (s32) (temp_f24 * temp_f2);
+                            vertex->n.n[0] = (s32) (temp_f20 * temp_f2);
+                            vertex->n.n[1] = (s32) (temp_f22 * temp_f2);
+                            vertex->n.n[2] = (s32) (temp_f24 * temp_f2);
 
                             if (sp17A == 0) {
                                 arg1->unk286E0[(((z - 1) * vertsPerRow) + x) - 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
@@ -672,13 +669,13 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                         gDPPipeSync(gLayer1DL++);
 
-                        for  (i = 0; i < var_t1; i++) {
-                            if ((arg1->unk286E0[var_t4*vertsPerRow + i].v.ob[2] != 0) ||
-                                (arg1->unk286E0[var_t5 + i].v.ob[2] != 0)) {
+                        for  (i2 = 0; i2 < var_t1; i2++) {
+                            if ((arg1->unk286E0[var_t4*vertsPerRow + i2].v.ob[2] != 0) ||
+                                (arg1->unk286E0[var_t5 + i2].v.ob[2] != 0)) {
                                 if (start == -100) {
-                                    start = i;
+                                    start = i2;
                                 }
-                                end = i;
+                                end = i2;
                             }
                         }
 

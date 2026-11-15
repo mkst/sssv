@@ -172,7 +172,7 @@ static s16  ratBehaviorMode; // only used by RAT
 // ESA: func_80064DC4
 s32 target_within_current_fov(u16 fov) {
     Animal *target = D_803D552C->aiTarget;
-    if (fov < func_803051F0_7168A0((func_801284B8(target->position.xPos.h - D_803D5530->position.xPos.h, target->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360, D_803D5530->yRotation)) {
+    if (fov < func_803051F0_7168A0((atan2_deg_s16(target->position.xPos.h - D_803D5530->position.xPos.h, target->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360, D_803D5530->yRotation)) {
         return 0;
     } else {
         return 1;
@@ -183,7 +183,7 @@ s32 target_within_current_fov(u16 fov) {
 s32 target_within_custom_fov(u16 rotation, u16 fov) {
     Animal *a = D_803D552C->aiTarget;
 
-    if (fov < func_803051F0_7168A0(((func_801284B8(a->position.xPos.h - D_803D5530->position.xPos.h, a->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360), rotation)) {
+    if (fov < func_803051F0_7168A0(((atan2_deg_s16(a->position.xPos.h - D_803D5530->position.xPos.h, a->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360), rotation)) {
         return 0;
     } else {
         return 1;
@@ -1396,7 +1396,7 @@ void perform_behavior_cannon_camel(void) {
         }
 
         if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->targetDistance < 70)) {
-            cannon_camel_dash((func_801284B8(D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360);
+            cannon_camel_dash((atan2_deg_s16(D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360);
             D_803D552C->unk2B8 = 0x14A;
         }
         if ((D_803D552C->unk2C4 <= 0) && (target_within_custom_fov(D_803D552C->unk308, 5) != 0)) {

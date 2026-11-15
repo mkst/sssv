@@ -320,7 +320,7 @@ void func_802C8878_6D9F28(void) {
                 add_single_light(&gOpaqueDL);
             }
             if (D_803D552C->movementMode != MOVEMENT_MODE_DELETED) {
-                func_802DA90C_6EBFBC((Entity*)D_803D5530);
+                update_entity_collision_grid((Entity*)D_803D5530);
             }
         }
     }

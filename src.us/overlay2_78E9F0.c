@@ -68,8 +68,8 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
 
     for (sp9A = temp_t5 + phi_a2; sp9A <= temp_t5 + phi_a3; sp9A++) {
         for (sp98 = temp_t7 + phi_t0; sp98 <= (temp_t7 + phi_t2); sp98++) {
-            for (phi_s1 = D_803DA110[(s16) (sp9A + (sp98 * 5))].next; phi_s1 != NULL; phi_s1 = phi_s1->next) {
-                if (phi_s1 == &phi_s1->animal->unk11C[0]) {
+            for (phi_s1 = gCollisionGridHeads[(s16) (sp9A + (sp98 * 5))].next; phi_s1 != NULL; phi_s1 = phi_s1->next) {
+                if (phi_s1 == &phi_s1->animal->collisionGridNodes[0]) {
                     if (phi_s1->animal != (Animal*)D_803D5530) {
 
                         animal = phi_s1->animal;
@@ -217,8 +217,8 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     for (spAA = temp_v1 + var_t2; spAA <= (temp_v1 + var_t3); spAA++) {
         spB0 = var_s5; // pointless assignment
         for (spA8 = temp_t1 + var_t5; spA8 <= temp_t1 + spA0; spA8++) {
-            for (var_s6 = D_803DA110[(s16) (spAA + (spA8 * 5))].next; var_s6 != NULL; var_s6 = var_s6->next) {
-                if ((var_s6 == (&var_s6->animal->unk11C[0])) && (var_s6->animal != (Animal*)D_803D5530)) {
+            for (var_s6 = gCollisionGridHeads[(s16) (spAA + (spA8 * 5))].next; var_s6 != NULL; var_s6 = var_s6->next) {
+                if ((var_s6 == (&var_s6->animal->collisionGridNodes[0])) && (var_s6->animal != (Animal*)D_803D5530)) {
                     animal = var_s6->animal;
 
                     temp_s1_2 = xPos - animal->position.xPos.h;
@@ -387,8 +387,8 @@ void trigger_contagious_laughter(void) {
         for (j = temp_t8 + var_t0; j <= temp_t8 + var_t2; j++) {
             CollisionNode *var_s1;
 
-            for (var_s1 = D_803DA110[(s16) (i + (j * 5))].next; var_s1 != NULL; var_s1 = var_s1->next) {
-                if (var_s1 == (&var_s1->animal->unk11C[0])) {
+            for (var_s1 = gCollisionGridHeads[(s16) (i + (j * 5))].next; var_s1 != NULL; var_s1 = var_s1->next) {
+                if (var_s1 == (&var_s1->animal->collisionGridNodes[0])) {
                     if (var_s1->animal != (Animal*)D_803D5530) {
                         Animal *animal = var_s1->animal;
                         if (ABS(animal->position.yPos.h - D_803D5530->position.yPos.h) < 192) {
@@ -516,8 +516,8 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
 
     for (var_t5 = temp_v1 + var_t1; var_t5 <= (temp_v1 + var_t2); var_t5++) {
         for (var_t3 = temp_a2 + var_t0; var_t3 <= temp_a2 + var_s7; var_t3++) {
-            for (var_a3 = D_803DA110[((s16) (var_t5 + (var_t3 * 5)))].next; var_a3 != NULL; var_a3 = var_a3->next) {
-                if (var_a3 == &var_a3->animal->unk11C[0]) {
+            for (var_a3 = gCollisionGridHeads[((s16) (var_t5 + (var_t3 * 5)))].next; var_a3 != NULL; var_a3 = var_a3->next) {
+                if (var_a3 == &var_a3->animal->collisionGridNodes[0]) {
                     if (var_a3->animal != (Animal*)D_803D5530) {
                         animal = var_a3->animal;
                         temp_v1_2 = arg0 - animal->position.xPos.h;
@@ -831,8 +831,8 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
     for (sp9A = temp_v0 + var_t3; sp9A <= (temp_v0 + var_t4); sp9A++) {
         for (sp98 = temp_a3 + var_t5; sp98 <= (temp_a3 + sp90); sp98++) {
 
-            for (var_s2 = D_803DA110[(s16) (sp9A + (sp98 * 5))].next; var_s2 != NULL; var_s2 = var_s2->next) {
-                if (var_s2 == &var_s2->animal->unk11C[0]) {
+            for (var_s2 = gCollisionGridHeads[(s16) (sp9A + (sp98 * 5))].next; var_s2 != NULL; var_s2 = var_s2->next) {
+                if (var_s2 == &var_s2->animal->collisionGridNodes[0]) {
                     if (var_s2->animal != (Animal*)D_803D5530) {
                         animal = var_s2->animal;
 #ifdef __sgi

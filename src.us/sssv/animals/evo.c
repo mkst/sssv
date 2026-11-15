@@ -198,7 +198,7 @@ void func_80389B30_79B1E0(void) {
                 if (var_v1 <= 0) {
                     var_v1 = 1;
                 }
-                var_v1_2 = func_8012844C((temp_s0 << 5) / var_v1) * -1;
+                var_v1_2 = atan_deg_q6((temp_s0 << 5) / var_v1) * -1;
             } else {
                 var_v1_2 = 0;
             }

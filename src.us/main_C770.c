@@ -19,7 +19,7 @@ void reset_task_list(void) {
     taskIdx = 0;
 }
 
-void func_8013107C(FrameContext *fc, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags) {
+void submit_graphics_task(FrameContext *fc, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags) {
     struct OSScTask_s *task;
 
     gMainDL = fc->dl.mainDL;

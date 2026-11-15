@@ -20,17 +20,17 @@ void build_ship_window_x_projection_matrix(Mtx *mtx, s16 xOffset);
 void build_spring_bounce_matrix(Mtx *mtx, s16 radius, s16 angle);
 
 // core/controller.c
-u32  func_80128200(void);
-void func_8012822C(s32 time);
+u32  random_u32(void);
+void seed_random_u32(s32 time);
 u16  advance_random_seed(void);
-s32  func_801282C4(void);
-s16  func_8012835C(s16 idx);
-s16  func_801283AC(s16 arg0);
+s32  advance_random_seed_16_steps(void);
+s16  asin_deg_q8(s16 idx);
+s16  acos_deg_q8(s16 arg0);
 s8   func_8012840C(u8 idx);
 s8   func_80128424(u8 idx);
-s16  func_8012844C(s16 arg0);
-s16  func_801284B8(s16 arg0, s16 arg1);
-f32  func_801286B8(f32 arg0, f32 arg1);
+s16  atan_deg_q6(s16 arg0);
+s16  atan2_deg_s16(s16 arg0, s16 arg1);
+f32  atan2_deg_f32(f32 arg0, f32 arg1);
 s16  func_80128C10(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 // core/string.c
@@ -56,7 +56,7 @@ void func_8012AD08(void);
 
 // main_78F0
 s16  get_message_width(s16 *arg0);
-s16  func_8012E78C(s16*, f32, f32, u8);
+s16  get_word_wrapped_text_height(s16*, f32, f32, u8);
 void func_8012D374(Gfx **arg0, s16 *arg1, u16 arg2, u16 arg3, f32 arg4, f32 arg5, s16 arg6);
 void display_text_word_wrapped(Gfx **, s16*, u16, u16, f32, f32, u8);
 
@@ -65,10 +65,10 @@ void junk_eeprom(void); // junk eeprom
 void clear_player_eeprom_state(void); // clear eeprom
 
 // main_C770
-void func_8013107C(FrameContext *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags);
+void submit_graphics_task(FrameContext *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags);
 
 // core/eeprom.c
-void func_80130E44(void);
+void load_eeprom_or_initialize_defaults(void);
 
 // core/audio
 
@@ -110,13 +110,13 @@ void init_sprite2d_render(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
 
 // main_123E0.c
 void func_80136F64(void);
-void func_801370A4(void);
-void func_801370F4(void);
-void func_8013713C(void);
+void init_si_lock(void);
+void acquire_si_lock(void);
+void release_si_lock(void);
 void func_80137168(void);
-void func_80137204(s16 arg0);
-void func_8013724C(s16 arg0);
-void func_801375E8(s16 arg0);
+void request_rumble_motor_start(s16 arg0);
+void request_rumble_motor_stop(s16 arg0);
+void update_rumble(s16 arg0);
 void init_rumble_pak(void);
 
 void func_80139200(f32);
@@ -479,11 +479,11 @@ void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3);
 
 // collist2
 void func_802DA7F0_6EBEA0(void);
-void func_802DA90C_6EBFBC(Entity *arg0);
+void update_entity_collision_grid(Entity *arg0);
 void remove_collision_list(Entity *arg0);
-void func_802DADA0_6EC450(Entity *arg0);
-void func_802DAE5C_6EC50C(Entity *arg0);
-void func_802DAF5C_6EC60C(void);
+void register_entity_collision(Entity *arg0);
+void unregister_entity_collision(Entity *arg0);
+void reset_collision_lists(void);
 void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd);
 
 // overlay2_6EC720
@@ -581,10 +581,10 @@ void func_802F2A2C_7040DC(void);
 // overlay2_7041D0
 void clear_used_lights(void);
 void add_light_at_location(s16, s16, s16, s16, s16 r, s16 g, s16 b);
-void func_802F2DF8_7044A8(void);
+void reset_level_lighting(void);
 void start_level_light_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6);
 void func_802F301C_7046CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7);
-void func_802F30A4_704754(void);
+void update_level_lighting(void);
 
 // demo
 void get_controller_input(void);

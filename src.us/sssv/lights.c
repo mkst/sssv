@@ -5,13 +5,13 @@
 // .data
 // ========================================================
 
-u8  D_803A52A0_7B6950 = 80;
-u8  D_803A52A4_7B6954 = 80;
-u8  D_803A52A8_7B6958 = 80;
+u8  gLevelAmbientRed = 80;
+u8  gLevelAmbientGreen = 80;
+u8  gLevelAmbientBlue = 80;
 
-u8  D_803A52AC_7B695C = 200;
-u8  D_803A52B0_7B6960 = 200;
-u8  D_803A52B4_7B6964 = 200;
+u8  gLevelDirectionalLightRed = 200;
+u8  gLevelDirectionalLightGreen = 200;
+u8  gLevelDirectionalLightBlue = 200;
 
 u8  D_803A52B8_7B6968 = 1;
 
@@ -120,13 +120,13 @@ void add_light_at_location(s16 x, s16 y, s16 z, s16 intensity, s16 r, s16 g, s16
 }
 
 // reset_lights?
-void func_802F2DF8_7044A8(void) {
-    D_803A52A0_7B6950 = D_803E1B8A = 80;
-    D_803A52A4_7B6954 = D_803E1B8C = 80;
-    D_803A52A8_7B6958 = D_803E1B8E = 80;
-    D_803A52AC_7B695C = D_803E1B90 = 200;
-    D_803A52B0_7B6960 = D_803E1B92 = 200;
-    D_803A52B4_7B6964 = D_803E1B94 = 200;
+void reset_level_lighting(void) {
+    gLevelAmbientRed = D_803E1B8A = 80;
+    gLevelAmbientGreen = D_803E1B8C = 80;
+    gLevelAmbientBlue = D_803E1B8E = 80;
+    gLevelDirectionalLightRed = D_803E1B90 = 200;
+    gLevelDirectionalLightGreen = D_803E1B92 = 200;
+    gLevelDirectionalLightBlue = D_803E1B94 = 200;
     D_803E1B99 = 0;
     D_803E1B9A = 0;
     D_803E1B9B = 0;
@@ -139,12 +139,12 @@ void func_802F2DF8_7044A8(void) {
 }
 
 void start_level_light_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6) {
-    D_803E1B99 = D_803A52A0_7B6950;
-    D_803E1B9A = D_803A52A4_7B6954;
-    D_803E1B9B = D_803A52A8_7B6958;
-    D_803E1B96 = D_803A52AC_7B695C;
-    D_803E1B97 = D_803A52B0_7B6960;
-    D_803E1B98 = D_803A52B4_7B6964;
+    D_803E1B99 = gLevelAmbientRed;
+    D_803E1B9A = gLevelAmbientGreen;
+    D_803E1B9B = gLevelAmbientBlue;
+    D_803E1B96 = gLevelDirectionalLightRed;
+    D_803E1B97 = gLevelDirectionalLightGreen;
+    D_803E1B98 = gLevelDirectionalLightBlue;
     D_803E1B8A = (s16)arg0 - D_803E1B99; // these casts are required
     D_803E1B8C = (s16)arg1 - D_803E1B9A; // these casts are required
     D_803E1B8E = (s16)arg2 - D_803E1B9B; // these casts are required
@@ -170,7 +170,7 @@ void func_802F301C_7046CC(u8 ambientRed, u8 ambientGreen, u8 ambientBlue, u8 env
     D_803E1BAC = arg7;
 }
 
-void func_802F30A4_704754(void) {
+void update_level_lighting(void) {
     f32 var_f14;
     f32 var_f16;
     f32 var_f0;
@@ -182,12 +182,12 @@ void func_802F30A4_704754(void) {
 
     if (D_803A52B8_7B6968 == 0) {
         if (sLevelLightTransitionElapsedTicks == sLevelLightTransitionDurationTicks) {
-            D_803A52A0_7B6950 = D_803E1B99 + D_803E1B8A;
-            D_803A52A4_7B6954 = D_803E1B9A + D_803E1B8C;
-            D_803A52A8_7B6958 = D_803E1B9B + D_803E1B8E;
-            D_803A52AC_7B695C = D_803E1B96 + D_803E1B90;
-            D_803A52B0_7B6960 = D_803E1B97 + D_803E1B92;
-            D_803A52B4_7B6964 = D_803E1B98 + D_803E1B94;
+            gLevelAmbientRed = D_803E1B99 + D_803E1B8A;
+            gLevelAmbientGreen = D_803E1B9A + D_803E1B8C;
+            gLevelAmbientBlue = D_803E1B9B + D_803E1B8E;
+            gLevelDirectionalLightRed = D_803E1B96 + D_803E1B90;
+            gLevelDirectionalLightGreen = D_803E1B97 + D_803E1B92;
+            gLevelDirectionalLightBlue = D_803E1B98 + D_803E1B94;
 
             D_803E1BBA = D_803F2D50.waterPrimRed;
             D_803E1BBB = D_803F2D50.waterPrimGreen;
@@ -200,29 +200,29 @@ void func_802F30A4_704754(void) {
             D_803A52B8_7B6968 = 1;
         } else {
             var_f0 = (f32) sLevelLightTransitionElapsedTicks / sLevelLightTransitionDurationTicks;
-            D_803A52A0_7B6950 = D_803E1B99 + (D_803E1B8A * var_f0);
-            D_803A52A4_7B6954 = D_803E1B9A + (D_803E1B8C * var_f0);
-            D_803A52A8_7B6958 = D_803E1B9B + (D_803E1B8E * var_f0);
-            D_803A52AC_7B695C = D_803E1B96 + (D_803E1B90 * var_f0);
-            D_803A52B0_7B6960 = D_803E1B97 + (D_803E1B92 * var_f0);
-            D_803A52B4_7B6964 = D_803E1B98 + (D_803E1B94 * var_f0);
+            gLevelAmbientRed = D_803E1B99 + (D_803E1B8A * var_f0);
+            gLevelAmbientGreen = D_803E1B9A + (D_803E1B8C * var_f0);
+            gLevelAmbientBlue = D_803E1B9B + (D_803E1B8E * var_f0);
+            gLevelDirectionalLightRed = D_803E1B96 + (D_803E1B90 * var_f0);
+            gLevelDirectionalLightGreen = D_803E1B97 + (D_803E1B92 * var_f0);
+            gLevelDirectionalLightBlue = D_803E1B98 + (D_803E1B94 * var_f0);
             // water primary
-            D_803E1BBA = (D_803F2D50.waterPrimRed + D_803A52A0_7B6950) / 2;
-            D_803E1BBB = (D_803F2D50.waterPrimGreen + D_803A52A4_7B6954) / 2;
-            D_803E1BBC = (D_803F2D50.waterPrimBlue + D_803A52A8_7B6958) / 2;
+            D_803E1BBA = (D_803F2D50.waterPrimRed + gLevelAmbientRed) / 2;
+            D_803E1BBB = (D_803F2D50.waterPrimGreen + gLevelAmbientGreen) / 2;
+            D_803E1BBC = (D_803F2D50.waterPrimBlue + gLevelAmbientBlue) / 2;
             // water env?
-            D_803E1BBD = (D_803F2D50.waterEnvRed + D_803A52A0_7B6950) / 2;
-            D_803E1BBE = (D_803F2D50.waterEnvGreen + D_803A52A4_7B6954) / 2;
-            D_803E1BBF = (D_803F2D50.waterEnvBlue + D_803A52A8_7B6958) / 2;
+            D_803E1BBD = (D_803F2D50.waterEnvRed + gLevelAmbientRed) / 2;
+            D_803E1BBE = (D_803F2D50.waterEnvGreen + gLevelAmbientGreen) / 2;
+            D_803E1BBF = (D_803F2D50.waterEnvBlue + gLevelAmbientBlue) / 2;
             sLevelLightTransitionElapsedTicks++;
         }
     } else {
-        D_803A52A0_7B6950 = D_803E1B99 + D_803E1B8A;
-        D_803A52A4_7B6954 = D_803E1B9A + D_803E1B8C;
-        D_803A52A8_7B6958 = D_803E1B9B + D_803E1B8E;
-        D_803A52AC_7B695C = D_803E1B96 + D_803E1B90;
-        D_803A52B0_7B6960 = D_803E1B97 + D_803E1B92;
-        D_803A52B4_7B6964 = D_803E1B98 + D_803E1B94;
+        gLevelAmbientRed = D_803E1B99 + D_803E1B8A;
+        gLevelAmbientGreen = D_803E1B9A + D_803E1B8C;
+        gLevelAmbientBlue = D_803E1B9B + D_803E1B8E;
+        gLevelDirectionalLightRed = D_803E1B96 + D_803E1B90;
+        gLevelDirectionalLightGreen = D_803E1B97 + D_803E1B92;
+        gLevelDirectionalLightBlue = D_803E1B98 + D_803E1B94;
     }
 
     if (D_803E1BA6 != 0) {
@@ -232,24 +232,24 @@ void func_802F30A4_704754(void) {
             } else {
                 var_f0 = (f32) D_803E1BA8 / D_803E1BAA;
             }
-            D_803A52A0_7B6950 += ((f32) D_803E1BAE - D_803A52A0_7B6950) * var_f0;
-            D_803A52A4_7B6954 += ((f32) D_803E1BB0 - D_803A52A4_7B6954) * var_f0;
-            D_803A52A8_7B6958 += ((f32) D_803E1BB2 - D_803A52A8_7B6958) * var_f0;
-            D_803A52AC_7B695C += ((f32) D_803E1BB4 - D_803A52AC_7B695C) * var_f0;
-            D_803A52B0_7B6960 += ((f32) D_803E1BB6 - D_803A52B0_7B6960) * var_f0;
-            D_803A52B4_7B6964 += ((f32) D_803E1BB8 - D_803A52B4_7B6964) * var_f0;
+            gLevelAmbientRed += ((f32) D_803E1BAE - gLevelAmbientRed) * var_f0;
+            gLevelAmbientGreen += ((f32) D_803E1BB0 - gLevelAmbientGreen) * var_f0;
+            gLevelAmbientBlue += ((f32) D_803E1BB2 - gLevelAmbientBlue) * var_f0;
+            gLevelDirectionalLightRed += ((f32) D_803E1BB4 - gLevelDirectionalLightRed) * var_f0;
+            gLevelDirectionalLightGreen += ((f32) D_803E1BB6 - gLevelDirectionalLightGreen) * var_f0;
+            gLevelDirectionalLightBlue += ((f32) D_803E1BB8 - gLevelDirectionalLightBlue) * var_f0;
         } else if ((D_803E1BAA + D_803E1BAC) >= D_803E1BA8) {
             if (D_803E1BAA == 0) {
                 var_f0 = 1.0f;
             } else {
                 var_f0 = ((f32) D_803E1BA8 - D_803E1BAA) / D_803E1BAC;
             }
-            D_803A52A0_7B6950 = D_803E1BAE + (((f32) D_803A52A0_7B6950 - D_803E1BAE) * var_f0);
-            D_803A52A4_7B6954 = D_803E1BB0 + (((f32) D_803A52A4_7B6954 - D_803E1BB0) * var_f0);
-            D_803A52A8_7B6958 = D_803E1BB2 + (((f32) D_803A52A8_7B6958 - D_803E1BB2) * var_f0);
-            D_803A52AC_7B695C = D_803E1BB4 + (((f32) D_803A52AC_7B695C - D_803E1BB4) * var_f0);
-            D_803A52B0_7B6960 = D_803E1BB6 + (((f32) D_803A52B0_7B6960 - D_803E1BB6) * var_f0);
-            D_803A52B4_7B6964 = D_803E1BB8 + (((f32) D_803A52B4_7B6964 - D_803E1BB8) * var_f0);
+            gLevelAmbientRed = D_803E1BAE + (((f32) gLevelAmbientRed - D_803E1BAE) * var_f0);
+            gLevelAmbientGreen = D_803E1BB0 + (((f32) gLevelAmbientGreen - D_803E1BB0) * var_f0);
+            gLevelAmbientBlue = D_803E1BB2 + (((f32) gLevelAmbientBlue - D_803E1BB2) * var_f0);
+            gLevelDirectionalLightRed = D_803E1BB4 + (((f32) gLevelDirectionalLightRed - D_803E1BB4) * var_f0);
+            gLevelDirectionalLightGreen = D_803E1BB6 + (((f32) gLevelDirectionalLightGreen - D_803E1BB6) * var_f0);
+            gLevelDirectionalLightBlue = D_803E1BB8 + (((f32) gLevelDirectionalLightBlue - D_803E1BB8) * var_f0);
         } else {
             D_803E1BA6 = 0;
         }
@@ -258,13 +258,13 @@ void func_802F30A4_704754(void) {
     if (D_803F2A9A != 0x100) {
         var_f0 = (f32) D_803F2A9A / 256;
 
-        gDisplayListContext->lights.a.l.col[0] = gDisplayListContext->lights.a.l.colc[0] = D_803A52A0_7B6950 * var_f0;
-        gDisplayListContext->lights.a.l.col[1] = gDisplayListContext->lights.a.l.colc[1] = D_803A52A4_7B6954 * var_f0;
-        gDisplayListContext->lights.a.l.col[2] = gDisplayListContext->lights.a.l.colc[2] = D_803A52A8_7B6958 * var_f0;
+        gDisplayListContext->lights.a.l.col[0] = gDisplayListContext->lights.a.l.colc[0] = gLevelAmbientRed * var_f0;
+        gDisplayListContext->lights.a.l.col[1] = gDisplayListContext->lights.a.l.colc[1] = gLevelAmbientGreen * var_f0;
+        gDisplayListContext->lights.a.l.col[2] = gDisplayListContext->lights.a.l.colc[2] = gLevelAmbientBlue * var_f0;
 
-        gDisplayListContext->lights.l[0].l.col[0] = gDisplayListContext->lights.l[0].l.colc[0] = D_803A52AC_7B695C * var_f0;
-        gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = D_803A52B0_7B6960 * var_f0;
-        gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = D_803A52B4_7B6964 * var_f0;
+        gDisplayListContext->lights.l[0].l.col[0] = gDisplayListContext->lights.l[0].l.colc[0] = gLevelDirectionalLightRed * var_f0;
+        gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = gLevelDirectionalLightGreen * var_f0;
+        gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = gLevelDirectionalLightBlue * var_f0;
 
         D_803E1BBD *= var_f0;
         D_803E1BBE *= var_f0;
@@ -273,20 +273,20 @@ void func_802F30A4_704754(void) {
         D_803E1BBB *= var_f0;
         D_803E1BBC *= var_f0;
     } else {
-        gDisplayListContext->lights.a.l.col[0] = gDisplayListContext->lights.a.l.colc[0] = D_803A52A0_7B6950;
-        gDisplayListContext->lights.a.l.col[1] = gDisplayListContext->lights.a.l.colc[1] = D_803A52A4_7B6954;
-        gDisplayListContext->lights.a.l.col[2] = gDisplayListContext->lights.a.l.colc[2] = D_803A52A8_7B6958;
+        gDisplayListContext->lights.a.l.col[0] = gDisplayListContext->lights.a.l.colc[0] = gLevelAmbientRed;
+        gDisplayListContext->lights.a.l.col[1] = gDisplayListContext->lights.a.l.colc[1] = gLevelAmbientGreen;
+        gDisplayListContext->lights.a.l.col[2] = gDisplayListContext->lights.a.l.colc[2] = gLevelAmbientBlue;
 
-        gDisplayListContext->lights.l[0].l.col[0] = gDisplayListContext->lights.l[0].l.colc[0] = D_803A52AC_7B695C;
-        gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = D_803A52B0_7B6960;
-        gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = D_803A52B4_7B6964;
+        gDisplayListContext->lights.l[0].l.col[0] = gDisplayListContext->lights.l[0].l.colc[0] = gLevelDirectionalLightRed;
+        gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = gLevelDirectionalLightGreen;
+        gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = gLevelDirectionalLightBlue;
 
-        D_803E1BBA = ((D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed) + D_803A52A0_7B6950) / 4;
-        D_803E1BBB = ((D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen) + D_803A52A4_7B6954) / 4;
-        D_803E1BBC = ((D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue) + D_803A52A8_7B6958) / 4;
-        D_803E1BBD = ((D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed) + D_803A52A0_7B6950) / 4;
-        D_803E1BBE = ((D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen) + D_803A52A4_7B6954) / 4;
-        D_803E1BBF = ((D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue) + D_803A52A8_7B6958) / 4;
+        D_803E1BBA = ((D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed) + gLevelAmbientRed) / 4;
+        D_803E1BBB = ((D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen) + gLevelAmbientGreen) / 4;
+        D_803E1BBC = ((D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue) + gLevelAmbientBlue) / 4;
+        D_803E1BBD = ((D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed) + gLevelAmbientRed) / 4;
+        D_803E1BBE = ((D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen) + gLevelAmbientGreen) / 4;
+        D_803E1BBF = ((D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue) + gLevelAmbientBlue) / 4;
     }
 
     if (D_803F2D50.useDynamicLightDir != 0) {

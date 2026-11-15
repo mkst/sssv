@@ -65,7 +65,7 @@ u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Anim
     minDist = 0x40000000;
 
     idx = (s16)(xPos >> 0xA) + ((s16) (zPos >> 0xA) * 5);
-    var_s2 = D_803DA110[idx].next;
+    var_s2 = gCollisionGridHeads[idx].next;
 
     if ((idx < 0) || (idx >= 40)) {
         // out of bounds

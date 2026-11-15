@@ -13,7 +13,7 @@
 // .data : 0x803A04E0 -> 0x803C0420
 // .bss  : 0x803C0420 -> 0x803FDEC0
 
-// 0x2CB38 in ROM maps to D_80151438
+// 0x2CB38 in ROM maps to sAtanDegreesQ6Table
 
 // display lists
 extern Gfx  D_01003460_3CD30[];
@@ -156,7 +156,7 @@ extern u16  D_80151424; // 0x2cb24 ??? in aspMainText?
 
 // controller.h
 extern u16  gSeed;
-extern s16  D_80152040[];
+extern s16  gAsinDegreesQ8Table[];
 extern s16  D_80152212[];
 
 // mtx.h
@@ -312,9 +312,9 @@ extern u16  D_80231AA0[];
 
 extern s16  D_8023F208[32];
 
-extern PlayerEeprom D_8023F260;
+extern PlayerEeprom gPlayerEeprom;
 extern Eeprom gEepromGlobal;
-extern PlayerEeprom D_8023F2E0[4];
+extern PlayerEeprom gPlayerEepromSlots[4];
 
 // audiomgr
 extern ALHeap D_80286328;
@@ -358,20 +358,20 @@ extern OSMesgQueue D_80291078;
 
 // TODO: thread9 bss
 
-extern Controller D_80291090;
+extern Controller gRumbleState;
 extern OSContPad *gControllerInput;
 extern OSContStatus gControllerStatus[MAXCONTROLLERS];
 extern OSContPad D_802910E8[MAXCONTROLLERS]; // 4?
 
 // thread9 bss
 
-extern ControllerMesg D_80291100;
+extern RumbleMotorMessage D_80291100;
 extern OSPfs       D_80291110[MAXCONTROLLERS];
 extern OSMesgQueue D_802912B0;
 extern OSMesg      D_802912C8;
 extern OSMesg      D_802912CC;
 extern s32  D_802912D0;
-extern s32  D_802912D4;
+extern s32  gEepromType;
 extern s16  gControllerConnected;
 extern u16  D_802912DA;
 extern s16  D_802912DC;
@@ -601,7 +601,7 @@ extern struct084 D_803D6120; // size 0x3FD8
 extern Particle D_803D6128[]; // eh
 
 // collist2
-extern CollisionNode D_803DA110[40];
+extern CollisionNode gCollisionGridHeads[40];
 
 // dynamic_tail
 extern struct088 D_803DA300[1000];

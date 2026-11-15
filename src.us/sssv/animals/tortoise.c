@@ -151,7 +151,7 @@ void update_tortoise_tank(void) {
             func_802B9130_6CA7E0(&sp140, 453, 308, 498, 0);
             func_802C1830_6D2EE0(498, &sp140);
             func_802B964C_6CACFC();
-            D_803D552C->unk312 = func_8012844C(((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 5) / (D_80203FE0[1].unk2 - D_80203FE0[2].unk2));
+            D_803D552C->unk312 = atan_deg_q6(((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 5) / (D_80203FE0[1].unk2 - D_80203FE0[2].unk2));
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();

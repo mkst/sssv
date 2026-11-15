@@ -282,7 +282,7 @@ void trigger_mission_brief_screen(void) {
 
 void func_8038F968_7A1018(void) {
     gHudCenterText = &D_803F34C0[(s16)D_803F3330[D_803A8340_7B99F0]];
-    D_803F2CE4 = func_8012E78C(gHudCenterText, 10.0f, 10.0f, 12) - 12;
+    D_803F2CE4 = get_word_wrapped_text_height(gHudCenterText, 10.0f, 10.0f, 12) - 12;
     gOverlayMenuState.unk0 = 0;
     gOverlayMenuState.unk27 = 1;
     set_music_volume(gEepromGlobal.musicVol);
@@ -608,7 +608,7 @@ void func_8038FF68_7A1618(void) {
             break;
         case 4:
             // this is set to 1 when the user has already seen the intro cutscene
-            {u32 tmp = D_8023F260.unk34;
+            {u32 tmp = gPlayerEeprom.unk34;
             if ((tmp & 1) == 0) {
                 load_smashing_start();
             }}
@@ -1126,10 +1126,10 @@ void func_80391A38_7A30E8(void) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (1310)
+// CURRENT (30)
 void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     s32 pad[3];
-    int new_var2;
+    s32 new_var2;
 
     s16 i;
     s16 idx;
@@ -1138,7 +1138,7 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     s32 val;
     s16 prevZ;
 
-    s64 new_var;
+    s32 pad2[3];
 
     s16 tmp1, tmp2;
 
@@ -1156,19 +1156,18 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
     // populate unk31070[0..23]
     for (i = 0; i < 12; i++) {
-        new_var2 = (i * 31) << 6;
-
         z = arg2 - (((arg4 - arg2) / 11) * i);
-
+        new_var2 = prevZ;
+        t = 0; // dum
         if (i == 11) {
             // final iteration
-            z = ((z - prevZ) / 2) + prevZ;
+            z = ((z - new_var2) / 2) + new_var2;
         }
-        // Need to not use v0
         prevZ = z;
 
         idx = i * 2;
 
+        new_var2 = (i * 31) << 6;
         t = new_var2;
         t = MAX(0, t);
 
@@ -1197,6 +1196,7 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     }
 
     gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[0]), 31, 0);
+    if (new_var2) {} // IDO regalloc
 
     // Draw 11 quads
     for (i = 0; i < 22; i += 2) {
@@ -1654,7 +1654,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 suit_blue = 20;
                 break;
             }
-            func_803967D4_7A7E84(224, 110, suit_red, suit_green, suit_blue, D_8023F260.evoPartsCollected & EVO_HEAD, D_8023F260.evoPartsCollected & EVO_TORSO, D_8023F260.evoPartsCollected & EVO_ARMS, D_8023F260.evoPartsCollected & EVO_LEGS, 1);
+            func_803967D4_7A7E84(224, 110, suit_red, suit_green, suit_blue, gPlayerEeprom.evoPartsCollected & EVO_HEAD, gPlayerEeprom.evoPartsCollected & EVO_TORSO, gPlayerEeprom.evoPartsCollected & EVO_ARMS, gPlayerEeprom.evoPartsCollected & EVO_LEGS, 1);
         } else {
 
             // print rows of powercells (non-collected)
