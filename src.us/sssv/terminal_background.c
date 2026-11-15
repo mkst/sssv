@@ -492,7 +492,7 @@ void render_terminal_background_frame(void) {
         D_803F6470 = 0;
         D_803F646C = 0.0f;
         if (gRumbleState.hasRumblePak[0] != 0) { // Controller array
-            func_80137168();
+            reset_rumble_state();
             request_rumble_motor_stop(0);
         }
     }

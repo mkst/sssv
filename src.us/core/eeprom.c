@@ -48,7 +48,7 @@ s16 write_eeprom(s16 bank) {
     } else {
         gPlayerEeprom.checksum = checksum;
     }
-    return osEepromLongWrite(&D_8028D0A8, (u32)(bank * EEPROM_MAXBLOCKS) / EEPROM_BLOCK_SIZE, (u8*)eeprom, sizeof(gPlayerEeprom));
+    return osEepromLongWrite(&gSiEventQueue, (u32)(bank * EEPROM_MAXBLOCKS) / EEPROM_BLOCK_SIZE, (u8*)eeprom, sizeof(gPlayerEeprom));
 }
 
 s16 read_eeprom(s16 slot) {
@@ -65,7 +65,7 @@ s16 read_eeprom(s16 slot) {
     } else {
         eeprom = (Eeprom *)&gPlayerEeprom;
     }
-    res = osEepromLongRead(&D_8028D0A8, (u32) (slot << 6) >> 3, (u8*)eeprom, 64);
+    res = osEepromLongRead(&gSiEventQueue, (u32) (slot << 6) >> 3, (u8*)eeprom, 64);
     eepromBytes = (u8*)eeprom;
     checksum = eeprom_checksum(eepromBytes);
     if (slot == 4) {

@@ -204,7 +204,7 @@ extern Gfx  D_80158420[];
 extern Gfx  D_801584A0[];
 
 // thread9 .data
-extern s16  D_80158540;
+extern s16  gSiLockInitialized;
 extern s32  numControllers;
 
 // 0x8016xxxx
@@ -339,8 +339,8 @@ extern OSMesgQueue D_8028D030;
 extern OSMesgQueue D_8028D048;
 extern OSMesgQueue D_8028D060;
 extern OSMesgQueue D_8028D078;
-extern OSMesgQueue D_8028D090;
-extern OSMesgQueue D_8028D0A8;
+extern OSMesgQueue gSiLockQueue;
+extern OSMesgQueue gSiEventQueue;
 extern OSIoMesg    D_8028D0C0;
 
 // 0x8029xxxx
@@ -348,8 +348,8 @@ extern OSIoMesg    D_8028D0C0;
 extern OSMesg D_802902C0[800];
 extern OSMesg D_80290F40[34]; // 32 + spare padding?
 extern OSMesg D_80290FC8[32];
-extern OSMesg D_80291048[1];
-extern OSMesg D_8029104C[1];
+extern OSMesg gSiLockQueueBuffer[1];
+extern OSMesg gSiEventQueueBuffer[1];
 extern OSMesg *D_80291054;
 extern OSMesg D_80291058[1];
 extern OSMesg D_8029105C[1];
@@ -361,28 +361,28 @@ extern OSMesgQueue D_80291078;
 extern Controller gRumbleState;
 extern OSContPad *gControllerInput;
 extern OSContStatus gControllerStatus[MAXCONTROLLERS];
-extern OSContPad D_802910E8[MAXCONTROLLERS]; // 4?
+extern OSContPad gControllerPads[MAXCONTROLLERS]; // 4?
 
 // thread9 bss
 
-extern RumbleMotorMessage D_80291100;
-extern OSPfs       D_80291110[MAXCONTROLLERS];
-extern OSMesgQueue D_802912B0;
-extern OSMesg      D_802912C8;
-extern OSMesg      D_802912CC;
+extern RumbleMotorMessage gRumbleMotorMessage;
+extern OSPfs       gControllerPakHandles[MAXCONTROLLERS];
+extern OSMesgQueue gRumbleMotorQueue;
+extern OSMesg      gRumbleMotorQueueBuffer;
+extern OSMesg      gSiLockReceivedMessage;
 extern s32  D_802912D0;
 extern s32  gEepromType;
 extern s16  gControllerConnected;
 extern u16  D_802912DA;
-extern s16  D_802912DC;
-extern u8   D_802912DE; // start pressed
-extern u8   D_802912DF; // a pressed
-extern u8   D_802912E0; // b pressed
-extern u8   D_802912E1; // d-up pressed
-extern u8   D_802912E2; // d-down pressed
-extern u8   D_802912E3; // d-left pressed
-extern u8   D_802912E4; // d-right pressed
-extern u8   D_802912E5; // z pressed
+extern s16  gRumblePakProbeCounter;
+extern u8   gPrevStartButtonUp; // 1 when up in the previous sample
+extern u8   gPrevAButtonUp; // 1 when up in the previous sample
+extern u8   gPrevBButtonUp; // 1 when up in the previous sample
+extern u8   gPrevDpadUpButtonUp; // 1 when up in the previous sample
+extern u8   gPrevDpadDownButtonUp; // 1 when up in the previous sample
+extern u8   gPrevDpadLeftButtonUp; // 1 when up in the previous sample
+extern u8   gPrevDpadRightButtonUp; // 1 when up in the previous sample
+extern u8   gPrevZButtonUp; // 1 when up in the previous sample
 
 // BSS (overlay1)
 

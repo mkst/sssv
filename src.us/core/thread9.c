@@ -5,7 +5,7 @@
 // .data
 // ========================================================
 
-s16 D_80158540 = 0;
+s16 gSiLockInitialized = 0;
 s32 numControllers = 0;
 
 // ========================================================
@@ -15,29 +15,29 @@ s32 numControllers = 0;
 Controller   gRumbleState;
 OSContPad   *gControllerInput;
 OSContStatus gControllerStatus[MAXCONTROLLERS];
-OSContPad    D_802910E8[MAXCONTROLLERS];
+OSContPad    gControllerPads[MAXCONTROLLERS];
 
-RumbleMotorMessage D_80291100;
+RumbleMotorMessage gRumbleMotorMessage;
 s32 D_80291108; // unused?
 s32 D_8029110C; // unused?
 
-OSPfs       D_80291110[MAXCONTROLLERS];
-OSMesgQueue D_802912B0;
-OSMesg      D_802912C8;
-OSMesg      D_802912CC;
+OSPfs       gControllerPakHandles[MAXCONTROLLERS];
+OSMesgQueue gRumbleMotorQueue;
+OSMesg      gRumbleMotorQueueBuffer;
+OSMesg      gSiLockReceivedMessage;
 s32  D_802912D0;
 s32  gEepromType;
 s16  gControllerConnected;
 u16  D_802912DA;
-s16  D_802912DC;
-u8   D_802912DE; // start pressed
-u8   D_802912DF; // a pressed
-u8   D_802912E0; // b pressed
-u8   D_802912E1; // d-up pressed
-u8   D_802912E2; // d-down pressed
-u8   D_802912E3; // d-left pressed
-u8   D_802912E4; // d-right pressed
-u8   D_802912E5; // z pressed
+s16  gRumblePakProbeCounter;
+u8   gPrevStartButtonUp; // 1 when up in the previous sample
+u8   gPrevAButtonUp; // 1 when up in the previous sample
+u8   gPrevBButtonUp; // 1 when up in the previous sample
+u8   gPrevDpadUpButtonUp; // 1 when up in the previous sample
+u8   gPrevDpadDownButtonUp; // 1 when up in the previous sample
+u8   gPrevDpadLeftButtonUp; // 1 when up in the previous sample
+u8   gPrevDpadRightButtonUp; // 1 when up in the previous sample
+u8   gPrevZButtonUp; // 1 when up in the previous sample
 
 // ========================================================
 // .text
@@ -50,19 +50,19 @@ s32 init_controllers(void) {
     s32 status;
 
     D_802912DA = 0;
-    D_802912DC = 0;
-    D_802912DE = 1;
-    D_802912DF = 1;
-    D_802912E0 = 1;
-    D_802912E1 = 1;
-    D_802912E2 = 1;
-    D_802912E3 = 1;
-    D_802912E4 = 1;
-    D_802912E5 = 1;
+    gRumblePakProbeCounter = 0;
+    gPrevStartButtonUp = 1;
+    gPrevAButtonUp = 1;
+    gPrevBButtonUp = 1;
+    gPrevDpadUpButtonUp = 1;
+    gPrevDpadDownButtonUp = 1;
+    gPrevDpadLeftButtonUp = 1;
+    gPrevDpadRightButtonUp = 1;
+    gPrevZButtonUp = 1;
 
-    osCreateMesgQueue(&D_8028D0A8, D_8029104C, 1);
-    osSetEventMesg(5U, &D_8028D0A8, (void *)1);
-    osContInit(&D_8028D0A8, &pattern, gControllerStatus);
+    osCreateMesgQueue(&gSiEventQueue, gSiEventQueueBuffer, 1);
+    osSetEventMesg(5U, &gSiEventQueue, (void *)1);
+    osContInit(&gSiEventQueue, &pattern, gControllerStatus);
 
     numControllers = 0;
 
@@ -72,7 +72,7 @@ s32 init_controllers(void) {
         }
     }
     osContSetCh(1U);
-    osCreateMesgQueue(&D_802912B0, &D_802912C8, 1);
+    osCreateMesgQueue(&gRumbleMotorQueue, &gRumbleMotorQueueBuffer, 1);
 
     osCreateThread(&gThread9, 9, (void (*)(void *)) thread9, NULL, &thread9_stack[sizeof(thread9_stack) / sizeof(u64)], 9);
     osStartThread(&gThread9);
@@ -83,10 +83,10 @@ s32 init_controllers(void) {
         if ((pattern >> i) & 1) {
             if (gControllerStatus[i].type & CONT_JOYPORT) {
                 if (gControllerStatus[i].status & CONT_CARD_ON) {
-                    status = osPfsInit(&D_8028D0A8, (s32)&D_80291110[i], i);
+                    status = osPfsInit(&gSiEventQueue, (s32)&gControllerPakHandles[i], i);
                     if ((status == 10) || (status == 11)) {}
                     if (((status == PFS_ERR_ID_FATAL)) || (status == PFS_ERR_DEVICE)) {
-                        if (osMotorInit(&D_8028D0A8, (s32)&D_80291110[i], i) == 0) {
+                        if (osMotorInit(&gSiEventQueue, (s32)&gControllerPakHandles[i], i) == 0) {
                             gRumbleState.hasRumblePak[i] = 1;
                         }
                     }
@@ -95,77 +95,77 @@ s32 init_controllers(void) {
         }
     }
 
-    gEepromType = osEepromProbe(&D_8028D0A8);
-    func_80137168();
+    gEepromType = osEepromProbe(&gSiEventQueue);
+    reset_rumble_state();
     return numControllers;
 }
 
-void func_80136F64(void) {
+void snapshot_controller_button_history(void) {
     OSContPad *ci = gControllerInput;
 
     if (ci != 0) {
         if (ci->button & CONT_START) {
-            D_802912DE = 0;
+            gPrevStartButtonUp = 0;
         } else {
-            D_802912DE = 1;
+            gPrevStartButtonUp = 1;
         }
         if (ci->button & CONT_A) {
-            D_802912DF = 0;
+            gPrevAButtonUp = 0;
         } else {
-            D_802912DF = 1;
+            gPrevAButtonUp = 1;
         }
         if (ci->button & CONT_B) {
-            D_802912E0 = 0;
+            gPrevBButtonUp = 0;
         } else {
-            D_802912E0 = 1;
+            gPrevBButtonUp = 1;
         }
         if (ci->button & CONT_UP) {
-            D_802912E1 = 0;
+            gPrevDpadUpButtonUp = 0;
         } else {
-            D_802912E1 = 1;
+            gPrevDpadUpButtonUp = 1;
         }
         if (ci->button & CONT_DOWN) {
-            D_802912E2 = 0;
+            gPrevDpadDownButtonUp = 0;
         } else {
-            D_802912E2 = 1;
+            gPrevDpadDownButtonUp = 1;
         }
         if (ci->button & CONT_LEFT) {
-            D_802912E3 = 0;
+            gPrevDpadLeftButtonUp = 0;
         } else {
-            D_802912E3 = 1;
+            gPrevDpadLeftButtonUp = 1;
         }
         if (ci->button & CONT_RIGHT) {
-            D_802912E4 = 0;
+            gPrevDpadRightButtonUp = 0;
         } else {
-            D_802912E4 = 1;
+            gPrevDpadRightButtonUp = 1;
         }
         if (ci->button & Z_TRIG) {
-            D_802912E5 = 0;
+            gPrevZButtonUp = 0;
         } else {
-            D_802912E5 = 1;
+            gPrevZButtonUp = 1;
         }
     }
 }
 
 void init_si_lock(void) {
-    D_80158540 = 1;
-    osCreateMesgQueue(&D_8028D090, D_80291048, 1);
-    osSendMesg(&D_8028D090, 0, OS_MESG_NOBLOCK);
+    gSiLockInitialized = 1;
+    osCreateMesgQueue(&gSiLockQueue, gSiLockQueueBuffer, 1);
+    osSendMesg(&gSiLockQueue, 0, OS_MESG_NOBLOCK);
 }
 
 void acquire_si_lock(void) {
-    if (D_80158540 == 0) {
+    if (gSiLockInitialized == 0) {
         // if message queue not created, create it
         init_si_lock();
     }
-    osRecvMesg(&D_8028D090, &D_802912CC, OS_MESG_BLOCK);
+    osRecvMesg(&gSiLockQueue, &gSiLockReceivedMessage, OS_MESG_BLOCK);
 }
 
 void release_si_lock(void) {
-    osSendMesg(&D_8028D090, 0, OS_MESG_NOBLOCK);
+    osSendMesg(&gSiLockQueue, 0, OS_MESG_NOBLOCK);
 }
 
-void func_80137168(void) {
+void reset_rumble_state(void) {
     s16 i;
 
     for (i = 0; i < MAXCONTROLLERS; i++) {
@@ -184,15 +184,15 @@ void func_80137168(void) {
 }
 
 void request_rumble_motor_start(s16 cont) {
-    D_80291100.status = 2; // MOTOR_START
-    D_80291100.controller = cont;
-    osSendMesg(&D_802912B0, (OSMesg)&D_80291100, OS_MESG_BLOCK);
+    gRumbleMotorMessage.status = 2; // MOTOR_START
+    gRumbleMotorMessage.controller = cont;
+    osSendMesg(&gRumbleMotorQueue, (OSMesg)&gRumbleMotorMessage, OS_MESG_BLOCK);
 }
 
 void request_rumble_motor_stop(s16 cont) {
-    D_80291100.status = 1; // MOTOR_STOP
-    D_80291100.controller = cont;
-    osSendMesg(&D_802912B0, (OSMesg)&D_80291100, OS_MESG_BLOCK);
+    gRumbleMotorMessage.status = 1; // MOTOR_STOP
+    gRumbleMotorMessage.controller = cont;
+    osSendMesg(&gRumbleMotorQueue, (OSMesg)&gRumbleMotorMessage, OS_MESG_BLOCK);
 }
 
 // motorMain
@@ -203,21 +203,21 @@ void thread9(void) {
     s16 controller;
 
     do {
-        osRecvMesg(&D_802912B0, (OSMesg)&msg, OS_MESG_BLOCK);
+        osRecvMesg(&gRumbleMotorQueue, (OSMesg)&msg, OS_MESG_BLOCK);
         acquire_si_lock();
         controller = msg->controller;
         status = msg->status;
 
         switch (status) {
         case 2: // MOTOR_START
-            if ((s16)osMotorStart(&D_80291110[controller]) == 0) {
+            if ((s16)osMotorStart(&gControllerPakHandles[controller]) == 0) {
                 gRumbleState.state.motorRunning[controller] = 1;
             } else {
                 gRumbleState.hasRumblePak[controller]= 0;
             }
             break;
         case 1: // MOTOR_STOP
-            if ((s16)osMotorStop(&D_80291110[controller]) == 0) {
+            if ((s16)osMotorStop(&gControllerPakHandles[controller]) == 0) {
                 gRumbleState.state.motorRunning[controller] = 0;
             } else {
                 gRumbleState.hasRumblePak[controller] = 0;
@@ -265,7 +265,7 @@ work:
             gRumbleState.state.remainingTicks[cont] = arg1;
             gRumbleState.state.pulseAccumulator[cont] = 0x100;
             if (gRumbleState.state.motorRunning[cont] != 0) {
-                res = osMotorStart(D_80291110);
+                res = osMotorStart(gControllerPakHandles);
                 if (res == 0) {
                     gRumbleState.state.motorRunning[cont] = 1;
                 }
@@ -279,16 +279,16 @@ void update_rumble(s16 cont) {
     s16 pad0[2] UNUSED;
 
     if (gRumbleState.hasRumblePak[cont] == 0) {
-        if ((++D_802912DC > 60) ) {
-            if (osMotorInit(&D_8028D0A8, D_80291110, 0) == 0) {
+        if ((++gRumblePakProbeCounter > 60) ) {
+            if (osMotorInit(&gSiEventQueue, gControllerPakHandles, 0) == 0) {
                 gRumbleState.hasRumblePak[0] = 1;
             } else {
                 gRumbleState.hasRumblePak[0] = 0;
             }
             if (gRumbleState.hasRumblePak[0] == 1) {
-                osMotorStop(D_80291110);
+                osMotorStop(gControllerPakHandles);
             }
-            D_802912DC = 0;
+            gRumblePakProbeCounter = 0;
         }
         return;
     }
@@ -330,13 +330,13 @@ void update_rumble(s16 cont) {
 
 void init_rumble_pak(void) {
     if (gRumbleState.hasRumblePak[0] != 0) {
-        if (osMotorInit(&D_8028D0A8, D_80291110, 0) == 0) {
+        if (osMotorInit(&gSiEventQueue, gControllerPakHandles, 0) == 0) {
             gRumbleState.hasRumblePak[0] = 1;
         } else {
             gRumbleState.hasRumblePak[0] = 0;
         }
         if (gRumbleState.hasRumblePak[0] == 1) {
-            osMotorStop(D_80291110);
+            osMotorStop(gControllerPakHandles);
         }
     }
 }

@@ -305,18 +305,18 @@ void thread6_loop(void) {
                 D_801D9ED4 -= 1;
             }
             if ((D_80152EBC < 2) && (phi_s1 == 0) && (D_80204292 >= gFrameStepDivisor)) {
-                func_80136F64(); // read input
+                snapshot_controller_button_history(); // save button-up state before the next read
                 if (gControllerConnected != 0) {
                     acquire_si_lock();
-                    osContStartReadData(&D_8028D0A8);
-                    osRecvMesg(&D_8028D0A8, &D_802042EC, OS_MESG_BLOCK);
+                    osContStartReadData(&gSiEventQueue);
+                    osRecvMesg(&gSiEventQueue, &D_802042EC, OS_MESG_BLOCK);
                     release_si_lock();
-                    osContGetReadData(D_802910E8);
+                    osContGetReadData(gControllerPads);
                     D_802912D0 = 1;
 #ifdef VERSION_US
-                    gControllerInput = &D_802910E8;
+                    gControllerInput = &gControllerPads;
 #else
-                    gControllerInput = &D_802910E8[D_801D9ED0];
+                    gControllerInput = &gControllerPads[D_801D9ED0];
 #endif
                 }
                 D_80204292 = 0;

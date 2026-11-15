@@ -818,7 +818,7 @@ void render_title_screen_frame(FrameContext *arg0) {
         D_80299E10_63D4B0 = 254; // red level
     }
 
-    gControllerInput = &D_802910E8[D_801D9ED0];
+    gControllerInput = &gControllerPads[D_801D9ED0];
 
     switch (gIntroSceneState) {
     case 0:

@@ -67,7 +67,7 @@ void func_80294E50_6A6500(void) {
         return;
     }
 
-    if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (gOverlayMenuState.unk0 == 0)) || (gOverlayMenuState.unk26 == 3)) {
+    if (((gControllerInput->button & START_BUTTON) && (gPrevStartButtonUp == 1) && (gOverlayMenuState.unk0 == 0)) || (gOverlayMenuState.unk26 == 3)) {
         if ((gInputMode == INPUT_MODE_USER) && (D_803C0426 == 0) && (gIsWidescreen != 1) && (gInitialisationState == 0)) {
             if ((gGameState.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (gGameState.level != END_CREDITS) && ((gLevelProgress & LEVEL_PROGRESS_FLAG_16) == 0)) {
                 if ((D_803C0420 == 0) || (D_803C0420 >= 11)) {
@@ -98,7 +98,7 @@ void func_80294E50_6A6500(void) {
     }
 
     if ((gControllerInput->button & START_BUTTON) &&
-        (1 == D_802912DE) && (D_803C0426 == 0) && (gAttractModeState == 10) && ((gEepromGlobal.unk8 & 1) == 0)) {
+        (1 == gPrevStartButtonUp) && (D_803C0426 == 0) && (gAttractModeState == 10) && ((gEepromGlobal.unk8 & 1) == 0)) {
         D_803C0426 = 1;
         D_803C042A = 1;
     }

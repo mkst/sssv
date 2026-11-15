@@ -109,11 +109,11 @@ void init_sprite2d_render_zdepth(Gfx **dl, u8 color);
 void init_sprite2d_render(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
 
 // main_123E0.c
-void func_80136F64(void);
+void snapshot_controller_button_history(void);
 void init_si_lock(void);
 void acquire_si_lock(void);
 void release_si_lock(void);
-void func_80137168(void);
+void reset_rumble_state(void);
 void request_rumble_motor_start(s16 arg0);
 void request_rumble_motor_stop(s16 arg0);
 void update_rumble(s16 arg0);

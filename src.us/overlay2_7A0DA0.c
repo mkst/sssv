@@ -687,8 +687,8 @@ void func_8038FF68_7A1618(void) {
             gFrameStepDivisor = 1;
             load_mission_brief_screen(0);
 
-            if ((((gControllerInput->button & START_BUTTON)) && (D_802912DE == 1)) ||
-                (((gControllerInput->button & A_BUTTON)) && (D_802912DF == 1))) {
+            if ((((gControllerInput->button & START_BUTTON)) && (gPrevStartButtonUp == 1)) ||
+                (((gControllerInput->button & A_BUTTON)) && (gPrevAButtonUp == 1))) {
                 play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
                 D_801D9ED4 = 0xA;
                 func_80395074_7A6724(0);
@@ -697,7 +697,7 @@ void func_8038FF68_7A1618(void) {
                 gOverlayMenuState.unk2A = 1;
                 gOverlayMenuState.unk2C = 1;
             }
-            if (((gControllerInput->button & B_BUTTON)) && (D_802912E0 == 1)) {
+            if (((gControllerInput->button & B_BUTTON)) && (gPrevBButtonUp == 1)) {
                 play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
                 func_80395074_7A6724(0);
                 D_801D9ED4 = 0xA;
@@ -801,8 +801,8 @@ void func_8038FF68_7A1618(void) {
         case 40:
             gFrameStepDivisor = 1;
             load_mission_brief_screen(0);
-            if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1)) ||
-                ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
+            if (((gControllerInput->button & START_BUTTON) && (gPrevStartButtonUp == 1)) ||
+                ((gControllerInput->button & A_BUTTON) && (gPrevAButtonUp == 1))) {
                 play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
                 gFrameStepDivisor = 2;
                 gOverlayMenuState.unk0 = 0;
@@ -865,9 +865,9 @@ void func_8038FF68_7A1618(void) {
         case 6:
             gFrameStepDivisor = 1;
             load_mission_brief_screen(0);
-            if ((((gControllerInput->button & START_BUTTON)) && (D_802912DE == 1)) ||
-                (((gControllerInput->button & A_BUTTON)) && (D_802912DF == 1)) ||
-                (((gControllerInput->button & B_BUTTON)) && (D_802912E0 == 1))) {
+            if ((((gControllerInput->button & START_BUTTON)) && (gPrevStartButtonUp == 1)) ||
+                (((gControllerInput->button & A_BUTTON)) && (gPrevAButtonUp == 1)) ||
+                (((gControllerInput->button & B_BUTTON)) && (gPrevBButtonUp == 1))) {
                 play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
                 D_801D9ED4 = 10;
                 func_80395074_7A6724(0);
@@ -1951,7 +1951,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         }
         // reset state
         if ((gControllerInput->button & CONT_B) &&
-            (D_802912E0 == 1) &&
+            (gPrevBButtonUp == 1) &&
             !((gOverlayMenuState.unk31 == 0) && (gOverlayMenuState.unk35 == 0) && (gOverlayMenuState.unk33 == 0))) {
             play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
             gOverlayMenuState.unk31 = 0;
@@ -2106,8 +2106,8 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             gOverlayMenuState.unk34 = 0;
         }
 
-        if (((gControllerInput->button & CONT_START) && (D_802912DE == 1)) ||
-            ((gControllerInput->button & CONT_A) && (D_802912DF == 1))) {
+        if (((gControllerInput->button & CONT_START) && (gPrevStartButtonUp == 1)) ||
+            ((gControllerInput->button & CONT_A) && (gPrevAButtonUp == 1))) {
             func_80395074_7A6724(0);
             switch (gOverlayMenuState.unk14) {
             case PAUSE_MENU_OPTION_CONTINUE:
@@ -2448,8 +2448,8 @@ s32 func_80396714_7A7DC4(void) {
 }
 
 s32 func_80396748_7A7DF8(void) {
-    if (((gControllerInput->button & CONT_START) && (D_802912DE == 1)) ||
-        ((gControllerInput->button & CONT_A) && (D_802912DF == 1))) {
+    if (((gControllerInput->button & CONT_START) && (gPrevStartButtonUp == 1)) ||
+        ((gControllerInput->button & CONT_A) && (gPrevAButtonUp == 1))) {
           play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
           gOverlayMenuState.unk2F = 1;
           return 1;

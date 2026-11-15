@@ -382,10 +382,10 @@ void display_zone_select_screen(void) {
     if (D_803F7DA3 != 0) {
         D_803F7DA3 -= 1;
     }
-    if ((D_802912E4 == 1) && (gControllerInput->stick_x <= 20)) {
+    if ((gPrevDpadRightButtonUp == 1) && (gControllerInput->stick_x <= 20)) {
         D_803F7DA3 = 0;
     }
-    if ((D_802912E3 == 1) && (gControllerInput->stick_x >= -20)) {
+    if ((gPrevDpadLeftButtonUp == 1) && (gControllerInput->stick_x >= -20)) {
         D_803F7DA2 = 0;
     }
     if (((gControllerInput->button & CONT_LEFT) || (gControllerInput->stick_x < -20)) && (D_803F7DA2 == 0)) {
@@ -437,14 +437,14 @@ void display_zone_select_screen(void) {
             func_80395074_7A6724(1);
         }
     }
-    if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1)) ||
-        ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
+    if (((gControllerInput->button & START_BUTTON) && (gPrevStartButtonUp == 1)) ||
+        ((gControllerInput->button & A_BUTTON) && (gPrevAButtonUp == 1))) {
         play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
         func_80395074_7A6724(0);
         gOverlayMenuState.unk18 += 1;
         gGameState.level = D_803F7DA8.currentLevel + 1;
     }
-    if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1)) {
+    if ((gControllerInput->button & B_BUTTON) && (gPrevBButtonUp == 1)) {
         play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
         func_80395074_7A6724(0);
         gOverlayMenuState.unk18 -= 1;
@@ -687,10 +687,10 @@ void func_8039A2DC_7AB98C(void) {
     }
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
 
-    if (D_802912E4 == 1) {
+    if (gPrevDpadRightButtonUp == 1) {
         D_803F7DA3 = 0;
     }
-    if (D_802912E3 == 1) {
+    if (gPrevDpadLeftButtonUp == 1) {
         D_803F7DA2 = 0;
     }
 
@@ -729,13 +729,13 @@ void func_8039A2DC_7AB98C(void) {
     }
 
     if (stick_input == 0) {
-        if (((gControllerInput->button & CONT_LEFT) != 0) && (D_802912E3 == 1)) {
+        if (((gControllerInput->button & CONT_LEFT) != 0) && (gPrevDpadLeftButtonUp == 1)) {
             cont_left = 1;
-        } else if (((gControllerInput->button & CONT_RIGHT) != 0) && (D_802912E4 == 1)) {
+        } else if (((gControllerInput->button & CONT_RIGHT) != 0) && (gPrevDpadRightButtonUp == 1)) {
             cont_right = 1;
-        } else if (((gControllerInput->button & CONT_UP) != 0) && (D_802912E1 == 1)) {
+        } else if (((gControllerInput->button & CONT_UP) != 0) && (gPrevDpadUpButtonUp == 1)) {
             cont_up = 1;
-        } else if (((gControllerInput->button & CONT_DOWN) != 0) && (D_802912E2 == 1)) {
+        } else if (((gControllerInput->button & CONT_DOWN) != 0) && (gPrevDpadDownButtonUp == 1)) {
             cont_down = 1;
         }
     }
@@ -757,13 +757,13 @@ void func_8039A2DC_7AB98C(void) {
             D_803F7DA8.bank += 2;
             play_sound_effect(0x90, 0, 0x5000, 1.0f, 64);
         }
-        if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1) && (gOverlayMenuState.unk24 == 0)) {
+        if ((gControllerInput->button & B_BUTTON) && (gPrevBButtonUp == 1) && (gOverlayMenuState.unk24 == 0)) {
             play_sound_effect(164, 0, 0x5000, 1.0f, 64);
             func_80395074_7A6724(0);
             func_8038F708_7A0DB8();
         }
-        if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1)) ||
-            ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
+        if (((gControllerInput->button & START_BUTTON) && (gPrevStartButtonUp == 1)) ||
+            ((gControllerInput->button & A_BUTTON) && (gPrevAButtonUp == 1))) {
             play_sound_effect(0x93, 0, 0x5000, 1.0f, 64);
             func_80395074_7A6724(0);
             if (D_803F7DA8.unk2F == 0) {
@@ -773,8 +773,8 @@ void func_8039A2DC_7AB98C(void) {
         }
         break;
     case 1: // "SELECT / COPY / DELETE" MENU OPEN
-        if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1)) ||
-            ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
+        if (((gControllerInput->button & START_BUTTON) && (gPrevStartButtonUp == 1)) ||
+            ((gControllerInput->button & A_BUTTON) && (gPrevAButtonUp == 1))) {
             func_80395074_7A6724(0);
             if (D_803F7DA8.unk30 == 0) { // SELECT
                 play_sound_effect(0x8F, 0, 0x5000, 1.0f, 64);
@@ -827,7 +827,7 @@ void func_8039A2DC_7AB98C(void) {
                 D_803F7DA8.unk30 = 0;
             }
         } else {
-            if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1)) {
+            if ((gControllerInput->button & B_BUTTON) && (gPrevBButtonUp == 1)) {
                 play_sound_effect(164, 0, 0x5000, 1.0f, 64);
                 D_803F7DA8.unk2F = 0;
             }
@@ -889,8 +889,8 @@ void func_8039A2DC_7AB98C(void) {
 
         break;
     case 2: // "COPY TO" MENU
-        if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1)) ||
-            ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
+        if (((gControllerInput->button & START_BUTTON) && (gPrevStartButtonUp == 1)) ||
+            ((gControllerInput->button & A_BUTTON) && (gPrevAButtonUp == 1))) {
             func_80395074_7A6724(0);
             memcpy_sssv((u8 *) &gPlayerEepromSlots[D_803F7DA8.bank], (u8 *) &gPlayerEepromSlots[D_803F7DA8.unk31], 64);
             memcpy_sssv((u8 *) &gPlayerEepromSlots[D_803F7DA8.bank], (u8 *) &gPlayerEeprom, 0x40);
@@ -898,7 +898,7 @@ void func_8039A2DC_7AB98C(void) {
             D_803F7DA8.unk2F = 0;
             play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
         } else {
-            if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1)) {
+            if ((gControllerInput->button & B_BUTTON) && (gPrevBButtonUp == 1)) {
                 play_sound_effect(164, 0, 0x5000, 1.0f, 64);
                 D_803F7DA8.unk2F = 0;
             }
@@ -957,8 +957,8 @@ void func_8039A2DC_7AB98C(void) {
         }
         break;
     case 3:
-        if ((((gControllerInput->button & START_BUTTON)) && (D_802912DE == 1)) ||
-            (((gControllerInput->button & A_BUTTON)) && (D_802912DF == 1))) {
+        if ((((gControllerInput->button & START_BUTTON)) && (gPrevStartButtonUp == 1)) ||
+            (((gControllerInput->button & A_BUTTON)) && (gPrevAButtonUp == 1))) {
             play_sound_effect(164, 0, 0x5000, 1.0f, 64);
             func_80395074_7A6724(0);
             if (D_803F7DA8.unk30 == 0) { // SELECT
@@ -971,7 +971,7 @@ void func_8039A2DC_7AB98C(void) {
                 D_803F7DA8.unk2F = 0;
             }
         } else {
-            if (((gControllerInput->button & B_BUTTON)) && (D_802912E0 == 1)) {
+            if (((gControllerInput->button & B_BUTTON)) && (gPrevBButtonUp == 1)) {
                 play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
                 D_803F7DA8.unk2F = 0;
             }
