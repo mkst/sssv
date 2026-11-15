@@ -818,7 +818,7 @@ D_803D60E2 = 0x803D60E2; // segment:overlay2
 D_803D60E8 = 0x803D60E8; // size:0x10
 D_803D60F8 = 0x803D60F8; // size:0x10
 
-// overlay2_6D9AF0
+// sssv/player_input.c
 gControllerDebounce = 0x803D6110; // segment:overlay2
 
 // overlay2_6DCA10

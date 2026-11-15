@@ -452,7 +452,11 @@ void init_and_spawn_evo_microchip(void);
 void func_802C85EC_6D9C9C(void);
 void func_802C87E0_6D9E90(void);
 void func_802C8878_6D9F28(void);
+
+// sssv/player_input.c
 void read_controller_input(OSContPad *cont);
+
+// sssv/objects.c
 s32  load_objects(void);
 // Entity *func_802C93E8_6DAA98(u16 arg0); // helps load_level_data_sections?
 void func_802C941C_6DAACC(void);
@@ -465,7 +469,7 @@ void func_802C9900_6DAFB0(Entity *arg0, Entity *arg1, u8 arg2);
 void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2);
 void func_802C9BA4_6DB254(Animal *arg0);
 
-// overlay2_6DB610
+// sssv/entity_physics.c
 void update_entity_physics(Entity *arg0);
 void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);
 
@@ -550,7 +554,7 @@ void func_802E86C8_6F9D78(void);
 void func_802E8760_6F9E10(void);
 void func_802E88C0_6F9F70(s16 arg0);
 
-// overlay2_6FA0A0
+// sssv/visibility.c
 s16 classify_object_visibility(s32 x, s32 y, s32 z, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
 s16 classify_dynamic_visibility(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9);
 s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);

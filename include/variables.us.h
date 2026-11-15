@@ -595,7 +595,7 @@ extern u8   D_803D60D4;
 extern Position *D_803D60D8;
 extern Position *D_803D60DC;
 
-// overlay2_6D9AF0
+// sssv/player_input.c
 extern s16  gControllerDebounce;
 
 // overlay2_6DCA10
