@@ -715,8 +715,10 @@ extern s16  D_803F2D18;
 extern s16  D_803F2CA6;
 extern s8   gWorldCellTranslucentEnabled[4][6];
 
-// overlay2_7688B0
+// sssv/music_control.c
 extern s16  D_803F2D24;
+
+// overlay2_7689A0
 extern GameState gGameState;
 
 // TODO:

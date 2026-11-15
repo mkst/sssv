@@ -130,8 +130,8 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
                         /* xh   */ (s16) xh,
                         /* yh   */ (s16) yh,
                         /* tile */ G_TX_RENDERTILE,
-                         (dsdx * ((s16) xl & 3)) >> 9,
-                         t,
+                        /* s    */ (dsdx * ((s16) xl & 3)) >> 9,
+                        /* t    */ t,
                         /* dsdx */ dsdx, // tbd
                         /* dtdy */ dtdy);
                     }
@@ -178,7 +178,7 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
         (gDisplayListContext->unk38A10.flat.unk20 * sp64) +
         (gDisplayListContext->unk38A10.flat.unk24 * sp60) +
         (gDisplayListContext->unk38A10.flat.unk28 * sp5C) +
-        (gDisplayListContext->unk38A10.flat.unk2C           ) ;
+        (gDisplayListContext->unk38A10.flat.unk2C       );
 
     if (temp_f0 <= -3.0) {
 

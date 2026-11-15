@@ -715,7 +715,7 @@ void func_80304170_715820(void);
 void func_80304194_715844(void);
 void func_803041FC_7158AC(void);
 
-// overlay2_716530
+// sssv/vector2.c
 s32  calculate_hypotenuse(struct039 *arg0);
 void func_80304EC4_716574(struct039 *arg0, struct039 *arg1);
 void func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2);
@@ -913,7 +913,7 @@ void func_8032CD20_73E3D0(void *object, s16 id, s16 volume, s16 arg3, f32 pitch)
 void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch, s16 x, s16 y, s16 z);
 void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
-// overlay2_73ED30
+// sssv/billboards.c
 void update_billboard_projection_cache(void);
 void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
 void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7);
@@ -1034,7 +1034,7 @@ void func_80356BD8_768288(u8 *tlut, u8 timg[][128], s16 id);
 void func_80356D84_768434(u8 *tlut, u8 *timg);
 void func_80356F64_768614(u8 *tlut1, u8 *tlut2, u8 *timg);
 
-// overlay2_7689A0
+// sssv/music_control.c
 void func_80357200_7688B0(void);
 void set_music_track(s8 arg0);
 s32  func_803572C0_768970(void);

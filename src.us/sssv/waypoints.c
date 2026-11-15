@@ -22,27 +22,27 @@ s64  gLevelRegionCollisionMasks[65];
 
 // ESA: func_8004C944
 void build_level_region_collision_masks(void) {
-    s16 temp_s3;
-    s16 temp_s6;
-    s16 temp_s7;
-    s16 temp_v1;
+    s16 maxTileZ;
+    s16 minTileZ;
+    s16 maxTileX;
+    s16 minTileX;
 
     s16 k;
     s16 j;
-    s16 i; // sp42
+    s16 i; 
 
     for (i = 0; i < 65; i++){
         gLevelRegionCollisionMasks[i] = 0;
     }
 
     for (i = 0; gLevelRegions[i].unk2 != WAYPOINT_END; i++) {
-        temp_v1 = gLevelRegions[i].minTileX;
-        temp_s7 = gLevelRegions[i].maxTileX;
-        temp_s6 = gLevelRegions[i].minTileZ;
-        temp_s3 = gLevelRegions[i].maxTileZ;
+        minTileX = gLevelRegions[i].minTileX;
+        maxTileX = gLevelRegions[i].maxTileX;
+        minTileZ = gLevelRegions[i].minTileZ;
+        maxTileZ = gLevelRegions[i].maxTileZ;
 
-        for (j = temp_v1; j <= temp_s7; j++) {
-            for (k = temp_s6; k <= temp_s3; k++) {
+        for (j = minTileX; j <= maxTileX; j++) {
+            for (k = minTileZ; k <= maxTileZ; k++) {
                 gLevelRegionCollisionMasks[i] |= (s64)1 << (s16)((j >> 4) + ((k >> 4) * 5));
             }
         }
