@@ -502,6 +502,16 @@ trigger_screen_transition = 0x802F07E8; // rom:0x701E98
 add_light_at_location  = 0x802F2B54; // rom:0x704204
 add_single_light       = 0x802F5964; // rom:0x707014
 
+update_entity_collision_spheres = 0x802F5C60; // rom:0x707310 segment:overlay2
+snapshot_entity_contact_state = 0x802FB49C; // rom:0x70CB4C segment:overlay2
+get_angle_step_deg = 0x802F63F8; // rom:0x707AA8 segment:overlay2
+step_angle_towards_deg = 0x802F649C; // rom:0x707B4C segment:overlay2
+start_fog_transition = 0x802FD94C; // rom:0x70EFFC segment:overlay2
+update_fog_transition = 0x802FDA44; // rom:0x70F0F4 segment:overlay2
+start_water_color_transition = 0x802FE560; // rom:0x70FC10 segment:overlay2
+update_water_color_transition = 0x802FE5E8; // rom:0x70FC98 segment:overlay2
+align_entity_rotation_to_velocity = 0x802FFD50; // rom:0x711400 segment:overlay2
+
 update_limbs_rigid      = 0x802BF3C0; // rom:0x6D0A70
 update_limbs_evo        = 0x8031FE40; // rom:0x7314F0
 update_limbs_bear       = 0x8032066C; // rom:0x731D1C
@@ -885,14 +895,14 @@ demoInput = 0x803E1BD4; // segment:overlay2
 
 // overlay2_707310
 sMaxSpeakerVolume = 0x803E1BE0; // segment:overlay2
-D_803E1BE8 = 0x803E1BE8; // segment:overlay2
-D_803E1CE0 = 0x803E1CE0; // segment:overlay2
-D_803E1CE8 = 0x803E1CE8; // segment:overlay2
+sRadialDamageEffects = 0x803E1BE8; // segment:overlay2
+sFogTransitionStart = 0x803E1CE0; // segment:overlay2
+sFogTransitionTarget = 0x803E1CE8; // segment:overlay2
 D_803E1CF0 = 0x803E1CF0; // segment:overlay2
 gFogState = 0x803E1CF8; // segment:overlay2
-D_803E1D00 = 0x803E1D00; // segment:overlay2
-D_803E1D02 = 0x803E1D02; // segment:overlay2
-D_803E1D04 = 0x803E1D04; // segment:overlay2
+sFogTransitionDuration = 0x803E1D00; // segment:overlay2
+sFogTransitionElapsed = 0x803E1D02; // segment:overlay2
+sFogTransitionComplete = 0x803E1D04; // segment:overlay2
 D_803E1D06 = 0x803E1D06; // segment:overlay2
 D_803E1D08 = 0x803E1D08; // segment:overlay2
 D_803E1D0A = 0x803E1D0A; // segment:overlay2

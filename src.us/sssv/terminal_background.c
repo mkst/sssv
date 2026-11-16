@@ -5,6 +5,11 @@
 
 #include "camera.h"
 
+// External data referenced by this file.
+extern u16  D_803B6310_7C79C0;
+extern s16  gTerminalFadeStep;
+extern u8   gTerminalPhase;
+
 // ========================================================
 // definitions
 // ========================================================

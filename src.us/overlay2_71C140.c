@@ -1,6 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern s32  D_803A5590_7B6C40[];
+
 
 // ========================================================
 // definitions

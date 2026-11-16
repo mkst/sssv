@@ -151,7 +151,7 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
     obj->newPosition.yPos.w = y << 0x10;
 
     register_entity_collision(obj);
-    func_802F5C60_707310(obj);
+    update_entity_collision_spheres(obj);
 
     obj->movementState = MOVEMENT_STATE_AIRBORNE;
 

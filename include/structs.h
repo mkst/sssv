@@ -2088,18 +2088,18 @@ typedef struct {
 
 typedef struct {
     u8  used;   // used flag
-    u8  unk1;   // not quite a counter, what?
+    u8  age;    // incremented each effect update
     s16 x;      // x
     s16 y;      // y
     s16 z;      // z
     s16 unk8;
     s16 unkA;
     s16 unkC;   // size?
-    s16 unkE;
+    s16 damage;
     s16 unk10;  // animal class maybe? relates to damage done on collision
     u8  pad12[0x2];
-    Entity *unk14;
-} struct085; // size 0x18
+    Entity *source;
+} RadialDamageEffect; // size 0x18
 
 typedef struct {
     s32 unk0;

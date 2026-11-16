@@ -2,6 +2,9 @@
 #include "common.h"
 #include "pp.h"
 
+// External data referenced by this file.
+extern u8   D_80154370[]; // 0x2FA70
+
 // ========================================================
 // definitions
 // ========================================================

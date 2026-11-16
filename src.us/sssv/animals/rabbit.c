@@ -1,6 +1,13 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern u8   D_803A53C4_7B6A74[];
+extern u8   D_803A53CC_7B6A7C[];
+extern s16  D_803A53D4_7B6A84[];
+extern struct077 D_803A53E0_7B6A90;
+extern struct077 D_803A53FC_7B6AAC;
+
 extern u8 D_803A5340_7B69F0[];
 extern u8 D_803A534C_7B69FC[];
 extern s16 D_803A5358_7B6A08[];

@@ -1,6 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern u8   gHudTimerAscii[]; // timer string written here
+
 
 // ========================================================
 // externs

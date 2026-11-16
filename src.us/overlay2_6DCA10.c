@@ -1,7 +1,14 @@
 #include <ultra64.h>
 #include "common.h"
+#include "particle_effects.h"
 
 #include "camera.h"
+
+// External data referenced by this file.
+extern u16  D_80151424; // 0x2cb24 ??? in aspMainText?
+extern struct098 D_803A1BB0_7B3260[];
+extern u16  D_803A20B0_7B3760[]; // colors
+extern struct099 D_803A20C0_7B3770[];
 
 
 // ========================================================
@@ -2860,7 +2867,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
         spBA = 24;
     }
 
-    if (flags & 1) {
+    if (flags & EXPLOSION_FX_FIRE) {
         create_particle_effect_2(
             x,
             z,
@@ -2885,7 +2892,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
 
         temp_s7 = ((SSSV_RAND(2)) * 3) + (guRandom() % 3);
 
-        if (flags & 0x20) {
+        if (flags & EXPLOSION_FX_BUBBLES) {
             for (j = 0; j < 4; j++) {
                 create_particle_effect_2(
                     (SSSV_RAND(16) + temp_s6) - 6,
@@ -2899,7 +2906,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
             }
         }
 
-        if (flags & 1) {
+        if (flags & EXPLOSION_FX_FIRE) {
             if (SSSV_RAND(4) == 0) {
                 create_particle_effect_2(
                     temp_s6,
@@ -2923,7 +2930,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
             }
         }
 
-        if (flags & 2) {
+        if (flags & EXPLOSION_FX_RISING_PARTICLES) {
             temp_s6 = (((guRandom() % arg5) * 2) + x) - (u32)arg5;
             temp_s5 = (((guRandom() % arg5) * 2) + z) - (u32)arg5;
             temp_s4 = (((guRandom() % arg5) * 2) + y);
@@ -2957,7 +2964,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 GPACK_RGBA5551(SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, 0),
                 SSSV_RAND(16));
         }
-        if (flags & 4) {
+        if (flags & EXPLOSION_FX_SMOKING_DEBRIS) {
 
             create_particle_effect(
                 x,
@@ -3024,7 +3031,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
                 0);
         }
-        if (flags & 8) {
+        if (flags & EXPLOSION_FX_COLORED_DEBRIS) {
             create_particle_effect(
                 x,
                 z,
@@ -3037,7 +3044,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 color,
                 func_8029A568_6ABC18(color),
                 0);
-            if ((flags & 4) == 0) {
+            if ((flags & EXPLOSION_FX_SMOKING_DEBRIS) == 0) {
                 create_particle_effect(
                     x,
                     z,
@@ -3080,7 +3087,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 }
             }
         }
-        if (flags & 0x10) {
+        if (flags & EXPLOSION_FX_NUTS_AND_BOLTS) {
             create_particle_effect(
                 x,
                 z,
@@ -3131,7 +3138,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 color,
                 func_8029A568_6ABC18(color), // reduce to 25%
                 0);
-            if ((flags & 4) == 0) {
+            if ((flags & EXPLOSION_FX_SMOKING_DEBRIS) == 0) {
                 create_particle_effect(
                     x,
                     z,
@@ -3185,7 +3192,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
     if (spBC == 2) {
         volume = 0x7FFF;
     }
-    if ((flags & 0x40) == 0) {
+    if ((flags & EXPLOSION_FX_NO_SOUND) == 0) {
         play_sound_effect_at_location(SFX_UNKNOWN_75, volume, 0x80, x, z, y, 1.0f);
     }
 }

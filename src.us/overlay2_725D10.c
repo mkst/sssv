@@ -1669,8 +1669,8 @@ s32 execute_entity_command(Entity *arg0) {
             temp_s1->unk23A = temp_s1->yRotation;
 
             if ((cmds->unk19C.payload.cmd.type50.unk0 & 1) && !(cmds->unk19C.payload.cmd.type50.unk0 & 0x10)) {
-                temp_s1->unk22E = func_802F63F8_707AA8(temp_s2, temp_s1->zRotation, 0xB5);
-                sp120 = func_802F63F8_707AA8(sp120, temp_s1->yRotation, 0xB5);
+                temp_s1->unk22E = get_angle_step_deg(temp_s2, temp_s1->zRotation, 0xB5);
+                sp120 = get_angle_step_deg(sp120, temp_s1->yRotation, 0xB5);
             } else {
                 temp_s1->unk22E = temp_s2;
             }
@@ -2153,7 +2153,7 @@ s32 execute_entity_command(Entity *arg0) {
             var_s1 = 1000;
         }
 
-        func_802FD94C_70EFFC(
+        start_fog_transition(
             temp_a1, // min
             var_s1,  // max
             cmds->unk19C.payload.cmd.type82.unk4,
@@ -2210,7 +2210,7 @@ s32 execute_entity_command(Entity *arg0) {
 
     case 0x59:
         // only used in WEIGHT_FOR_IT
-        func_802FE560_70FC10(
+        start_water_color_transition(
             (cmds->unk19C.payload.cmd.type89.unk0.unk1 << 1),
             (cmds->unk19C.payload.cmd.type89.unk1.unk1 << 1),
             (cmds->unk19C.payload.cmd.type89.unk2.unk1 << 1),

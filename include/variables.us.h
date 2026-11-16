@@ -87,15 +87,6 @@ extern Gfx D_040062C0_F7320[];
 extern Gfx D_04000E70_F1ED0[]; // to double-check
 extern Gfx D_04000EF0_F1F50[]; // to double-check
 
-// mouse
-extern Gfx  D_04005480_1051D0[];
-extern Gfx  D_040053D0_105120[];
-extern Gfx  D_04005A50_1057A0[];
-extern Gfx  D_04005CA0_1059F0[];
-extern Gfx  D_04006040_105D90[];
-extern Gfx  D_04006B00_106850[];
-extern Gfx  D_04006B60_1068B0[];
-
 extern Gfx  D_01003840_3D110[];
 
 extern Gfx  D_040077E0_E4DA0[];
@@ -114,7 +105,6 @@ extern Gfx  D_05006170_9D190[];
 
 // 0x8000xxxx
 
-extern s32  D_80000300;
 extern u8   gFramebuffer[2][320 * 240 * 2]; // 0x25C00
 
 // 0x800Bxxxx
@@ -152,12 +142,9 @@ extern u32  D_80100000[];
 
 // 0x8015xxxx
 
-extern u16  D_80151424; // 0x2cb24 ??? in aspMainText?
-
 // controller.h
 extern u16  gSeed;
 extern s16  gAsinDegreesQ8Table[];
-extern s16  D_80152212[];
 
 // mtx.h
 extern s16  gSineTable[1170];
@@ -172,13 +159,8 @@ extern u16  D_80152EB8; // frame buffer id?
 // overlay1_6384F0
 extern Gfx  D_801542D0[]; // 0x2F9D0
 
-// main_78F0
-extern u8   D_80154370[]; // 0x2FA70
-
 // audiomgr.c
 // core/audio.c .data
-extern f32  gMusicVolume;
-extern f32  gSfxVolume;
 extern s16  gMusicVolumeScale; // used in lots of places
 extern s16  D_801546E0;
 extern s32  D_80155160;
@@ -191,21 +173,9 @@ extern u8   gMusicChannel1NoteOn;
 extern u8   gMusicChannels3PlusNoteOn;
 
 // overlay1_6384F0
-extern u8   D_801552C0[]; // C
-extern u8   D_80155AC0[]; // H
-extern u8   D_801562C0[]; // .
-extern u8   D_80156AC0[]; // |
-extern u8   D_801572C0[]; // 1
-extern u8   D_80157AC0[]; // 0
-
 extern Gfx  D_801582C0[];
 extern Gfx  gOpaqueLit3DRenderSetupDl[];
-extern Gfx  D_80158420[];
 extern Gfx  D_801584A0[];
-
-// thread9 .data
-extern s16  gSiLockInitialized;
-extern s32  numControllers;
 
 // 0x8016xxxx
 
@@ -236,16 +206,10 @@ extern s32  D_801D9ED0;
 extern s16  D_801D9ED4; // either 10 or 6 - input debounce?
 extern struct050 gAnimalState;
 
-extern s32  D_801DD800;
-extern s32  D_801DD8EC;
-
 extern s16  gScreenWidth;
 extern s16  gScreenHeight;
 
 extern Objects D_801E9EB8;  // gObjects
-
-extern s16  D_80203FD0; // gScreenWidth
-extern s16  D_80203FD2; // gScreenHeight
 
 extern LimbConfig D_80203FE0[34];
 extern LimbConfig D_802040F0[34];
@@ -279,7 +243,6 @@ extern FrameContext *D_8020428C;
 extern s16  gFrameStepDivisor;
 extern s16  gRefreshRate;
 extern char gDebugTextBuffer[60];
-extern OSMesg D_802042EC;
 extern s16  gNoControllerMessageText[];
 extern s16  D_80204368[];
 extern u64  D_802043E0[]; // yield_data_ptr
@@ -308,8 +271,6 @@ extern LanguageData D_8022E3F0;
 
 // extern LevelText D_80231D50;
 
-extern u16  D_80231AA0[];
-
 extern s16  D_8023F208[32];
 
 extern PlayerEeprom gPlayerEeprom;
@@ -327,15 +288,12 @@ extern s16  gCurrentMusicTrack;
 // csplayer
 extern s16  gMusicBeatPhase;
 extern s16  gPreviousMusicBeatPhase;
-extern f32  D_80286564;
-extern f32  D_80286568;
 
 // thread1
 extern OSThread    gThread7; // 0x80286720
 extern OSThread    gThread9; // 0x80286A80
 extern u64         thread9_stack[512];
 
-extern OSMesgQueue D_8028D030;
 extern OSMesgQueue D_8028D048;
 extern OSMesgQueue D_8028D060;
 extern OSMesgQueue D_8028D078;
@@ -360,21 +318,13 @@ extern OSMesgQueue D_80291078;
 
 extern Controller gRumbleState;
 extern OSContPad *gControllerInput;
-extern OSContStatus gControllerStatus[MAXCONTROLLERS];
 extern OSContPad gControllerPads[MAXCONTROLLERS]; // 4?
 
 // thread9 bss
 
-extern RumbleMotorMessage gRumbleMotorMessage;
-extern OSPfs       gControllerPakHandles[MAXCONTROLLERS];
-extern OSMesgQueue gRumbleMotorQueue;
-extern OSMesg      gRumbleMotorQueueBuffer;
-extern OSMesg      gSiLockReceivedMessage;
 extern s32  D_802912D0;
 extern s32  gEepromType;
 extern s16  gControllerConnected;
-extern u16  D_802912DA;
-extern s16  gRumblePakProbeCounter;
 extern u8   gPrevStartButtonUp; // 1 when up in the previous sample
 extern u8   gPrevAButtonUp; // 1 when up in the previous sample
 extern u8   gPrevBButtonUp; // 1 when up in the previous sample
@@ -382,16 +332,12 @@ extern u8   gPrevDpadUpButtonUp; // 1 when up in the previous sample
 extern u8   gPrevDpadDownButtonUp; // 1 when up in the previous sample
 extern u8   gPrevDpadLeftButtonUp; // 1 when up in the previous sample
 extern u8   gPrevDpadRightButtonUp; // 1 when up in the previous sample
-extern u8   gPrevZButtonUp; // 1 when up in the previous sample
 
 // BSS (overlay1)
 
 extern s32  gGravity;
 extern s32  D_803A05B4_7B1C64;
 extern struct089 D_803A05D0_7B1C80[68];
-extern struct098 D_803A1BB0_7B3260[];
-extern u16  D_803A20B0_7B3760[]; // colors
-extern struct099 D_803A20C0_7B3770[];
 
 extern struct118 D_803A3990_7B5040[];
 extern struct118 D_803A39C0_7B5070[];
@@ -409,7 +355,6 @@ extern struct118 D_803A3D5C_7B540C[16];
 extern struct118 D_803A3E1C_7B54CC[16];
 extern struct118 D_803A3EDC_7B558C[16];
 extern struct118 D_803A3F9C_7B564C[16];
-extern struct118 D_803A405C_7B570C[16];
 extern struct118 D_803A411C_7B57CC[];
 extern struct118 D_803A41DC_7B588C[];
 extern struct118 D_803A429C_7B594C[];
@@ -420,43 +365,20 @@ extern struct118 D_803A4410_7B5AC0[];
 extern struct118 D_803A444C_7B5AFC[];
 extern struct118 D_803A4488_7B5B38[];
 
-extern s16  D_803A5560_7B6C10[4];
-extern s16  D_803A5568_7B6C18[];
-extern s16  D_803A5570_7B6C20[];
-extern s16  D_803A5578_7B6C28[];
-extern s32  D_803A5590_7B6C40[];
 extern u16  gWaypointPathCount; // number of waypoints?
 extern u16  D_803A5760_7B6E10;
 
 extern u8   gLevelLightTransitionComplete; // lights.c
 
-extern u8   D_803A52D0_7B6980;
-extern s16  D_803A52D4_7B6984; // a struct in ESA?
-extern s32  D_803A52E8_7B6998[];
-extern s16  D_803A5330_7B69E0;
-extern u8   D_803A53C4_7B6A74[];
-extern u8   D_803A53CC_7B6A7C[];
-extern s16  D_803A53D4_7B6A84[];
-extern struct077 D_803A53E0_7B6A90;
-extern struct077 D_803A53FC_7B6AAC;
-
 extern struct082 D_803A63B0_7B7A60[]; // animals?
 extern s16  D_803A65D0_7B7C80[];
 extern s16  D_803A6680_7B7D30[];
-extern s16  D_803A6730_7B7DE0[];
-extern s16  D_803A69F0_7B80A0[];
 
 extern s16  D_803A8340_7B99F0;
-extern u8   gHudTimerAscii[]; // timer string written here
 extern u8  *D_803A8370_7B9A20[];
 
 extern ObjectData D_803A8528_7B9BD8[247]; // 0x9C each
 extern u16  D_803A4638_7B5CE8[];
-extern u8   D_803A47F4_7B5EA4[]; // 68 big?
-extern u8   D_803A48C0_7B5F70[MAX_EUROPE_ANIMALS][MAX_EUROPE_ANIMALS]; // europe
-extern u8   D_803A4ABC_7B616C[MAX_ICE_ANIMALS][MAX_ICE_ANIMALS];       // ice
-extern u8   D_803A4A2C_7B60DC[MAX_JUNGLE_ANIMALS][MAX_JUNGLE_ANIMALS]; // jungle
-extern u8   D_803A4B38_7B61E8[MAX_DESERT_ANIMALS][MAX_DESERT_ANIMALS]; // desert
 
 // 0x803Bxxxx
 extern u16 D_803B1BAC_7C325C[];
@@ -469,35 +391,14 @@ extern DemoInput D_803B30D0_7C4780[];
 extern DemoInput D_803B3388_7C4A38[];
 extern DemoInput D_803B384C_7C4EFC[];
 
-extern s16  D_803B4958_7C6008[];
-extern s16  D_803B497C_7C602C[];
-extern s16  D_803B49CC_7C607C[];
-
-extern u8   D_803B4930_7C5FE0[];
-extern u8   D_803B4944_7C5FF4[];
-
-extern s16  D_803B52FC[];
 extern u8   D_803B5498_7C6B48[];
 extern u8   D_803B54A0_7C6B50[];
 extern s16  D_803B54A8_7C6B58[];
-extern struct076 D_803B555C_7C6C0C[];
-extern struct076 D_803B5574_7C6C24[];
-extern struct076 D_803B558C_7C6C3C[];
 extern s32  D_803B5764_7C6E14[];
-extern u8   D_803B5860_7C6F10[];
-extern u8   D_803B5864_7C6F14[];
-extern s16  D_803B5868_7C6F18[];
-extern s16  D_803B5870_7C6F20[];
-extern s16  D_803B5884_7C6F34[];
 
 extern struct107 D_803B58E0_7C6F90[];
-extern void (*D_803B5D20[])(void);
-extern u16  D_803B6310_7C79C0;
-extern s16  gTerminalFadeStep;
-extern u8   gTerminalPhase;
 
 extern Lights1 D_803B65A8_7C7C58;
-extern Lights1 D_803B65C0_7C7C70;
 extern Lights1 D_803B65D8_7C7C88;
 extern Lights1 D_803B65F0_7C7CA0;
 
@@ -507,34 +408,10 @@ extern Gfx D_0103EC20_784F0[];
 // overlay2_7A0DA0
 extern Vp  D_803B66F0_7C7DA0;
 
-extern u8  *D_803B7268_7C8918[64];
-extern u8  *D_803B7368_7C8A18[64];
-extern f32  D_803B7468_7C8B18;
-extern f32  D_803B74AC_7C8B5C;
-extern f32  D_803B74B0_7C8B60;
-extern f32  D_803B74B4_7C8B64;
-extern f32  D_803B74B8_7C8B68;
-extern f32  D_803B74BC_7C8B6C;
-extern f32  D_803B74C0_7C8B70;
-extern f32  D_803B74C4_7C8B74;
-
 // rodata starts at 0x803BACD0
 
 extern const LeftEyes  D_803BD530_7CEBE0;
 extern const RightEyes D_803BD600_7CECB0;
-
-// extern const s16  D_803BD530_7CEBE0[][13]; // [13];
-extern const s16  D_803BD54A_7CEBFA[]; // [13];
-extern const s16  D_803BD564_7CEC14[]; // [13];
-extern const s16  D_803BD5B2_7CEC62[];
-extern const s16  D_803BD5B6_7CEC66[];
-extern const s16  D_803BD5CC_7CEC7C[];
-// -- separate array for eye lookup
-extern const s16  D_803BD602_7CECB2[];
-extern const s16  D_803BD61C_7CECCC[];
-extern const s16  D_803BD66A_7CED1A[];
-extern const s16  D_803BD66E_7CED1E[];
-extern const s16  D_803BD684_7CED34[];
 
 // overlay2_6A6500
 extern s16  D_803C0420; // first var in BSS
@@ -542,7 +419,6 @@ extern u8   gInitialisationState;
 extern s16  D_803C0424;
 extern s16  D_803C0426;
 extern s16  D_803C0428;
-extern s16  D_803C042A;
 extern struct053 gWaterAnimState;
 
 extern s64  gRenderMode1;
@@ -584,17 +460,8 @@ extern s8   D_803D554B;
 extern s8   D_803D554C;
 extern s16  D_803D5558;
 
-// collision
-extern u8   D_803D60D4;
-extern Position *D_803D60D8;
-extern Position *D_803D60DC;
-
 // sssv/player_input.c
 extern s16  gControllerDebounce;
-
-// overlay2_6DCA10
-extern struct084 D_803D6120; // size 0x3FD8
-extern Particle D_803D6128[]; // eh
 
 // collist2
 extern CollisionNode gCollisionGridHeads[40];
@@ -739,7 +606,6 @@ extern u8   D_803F2EDE;
 
 // overlay2_785D10
 extern s16  D_803F2F00; // only used by husky/polar bear? snow footprints?
-extern struct060 D_803F2F08[64]; // 0x400 big
 
 // scorpion
 extern s16  gScorpionVtxIdx;

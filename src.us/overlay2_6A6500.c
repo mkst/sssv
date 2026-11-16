@@ -128,8 +128,8 @@ void func_80294E50_6A6500(void) {
             read_controller_input(gControllerInput);
         }
 
-        func_802FDA44_70F0F4();
-        func_802FE5E8_70FC98();
+        update_fog_transition();
+        update_water_color_transition();
         update_level_lighting();
 
         gSPDisplayList(gOpaqueDL++, D_01003498_3CD68);

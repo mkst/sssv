@@ -1,6 +1,13 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern s16  D_803A5560_7B6C10[4];
+extern s16  D_803A5568_7B6C18[];
+extern s16  D_803A5570_7B6C20[];
+extern s16  D_803A5578_7B6C28[];
+extern u8   D_803A47F4_7B5EA4[]; // 68 big?
+
 
 // ========================================================
 // definitions
