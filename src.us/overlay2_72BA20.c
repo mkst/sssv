@@ -69,7 +69,7 @@ void func_8031A370_72BA20(void) {
             var_v0->newPosition.zPos.h = var_v0->position.zPos.h = D_803E97C8.startZ + ((D_803E97C8.dirZ * ((i << 6) - 0x10)) >> 8);
             var_v0->newPosition.yPos.h = var_v0->position.yPos.h = (D_803E97C8.startY + ((D_803E97C8.dirY * ((i << 6) - 0x10)) >> 8)) - 0x20;
 
-            var_v0->unkC4[0].unkC = 0x1F;
+            var_v0->unkC4[0].radius = 0x1F;
             var_v0->unkC4[0].pos.xPos.w = 0;
             var_v0->unkC4[0].pos.zPos.w = 0;
             var_v0->unkC4[0].pos.yPos.w = 0x200000;
@@ -78,7 +78,7 @@ void func_8031A370_72BA20(void) {
             var_v0->newPosition.zPos.h = var_v0->position.zPos.h = D_803E97C8.endZ - ((D_803E97C8.dirZ * (D_803E97C8.unk8 + 0x10)) >> 8);
             var_v0->newPosition.yPos.h = var_v0->position.yPos.h = (D_803E97C8.endY - D_803E97C8.unk8) - ((D_803E97C8.dirY * (D_803E97C8.unk8 + 0x10)) >> 8);
 
-            var_v0->unkC4[0].unkC = D_803E97C8.unk8;
+            var_v0->unkC4[0].radius = D_803E97C8.unk8;
             var_v0->unkC4[0].pos.xPos.w = 0;
             var_v0->unkC4[0].pos.zPos.w = 0;
             var_v0->unkC4[0].pos.yPos.w = (D_803E97C8.unk8 << 0x10);

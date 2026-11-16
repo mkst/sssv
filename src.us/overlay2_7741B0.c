@@ -128,24 +128,24 @@ void func_80362CC4_774374(Animal *arg0) {
         break;
     case WAYPOINT_MODE_PATROL:
         if (arg0->navState == NAVIGATION_STATE_IDLE) {
-            temp_t7 = (D_803E93B0[arg0->unk294.type3.unk0].unk3 - D_803E93B0[arg0->unk294.type3.unk0].unk0) >> 2;
-            temp_t3 = (D_803E93B0[arg0->unk294.type3.unk0].unk4 - D_803E93B0[arg0->unk294.type3.unk0].unk1) >> 2;
+            temp_t7 = (gLevelRegions[arg0->unk294.type3.unk0].maxTileX - gLevelRegions[arg0->unk294.type3.unk0].minTileX) >> 2;
+            temp_t3 = (gLevelRegions[arg0->unk294.type3.unk0].maxTileZ - gLevelRegions[arg0->unk294.type3.unk0].minTileZ) >> 2;
             switch (arg0->unk290) {
             case 0:
-                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk0 + temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk1 + temp_t3;
+                sp54 = gLevelRegions[arg0->unk294.type3.unk0].minTileX + temp_t7;
+                sp52 = gLevelRegions[arg0->unk294.type3.unk0].minTileZ + temp_t3;
                 break;
             case 1:
-                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk3 - temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk1 + temp_t3;
+                sp54 = gLevelRegions[arg0->unk294.type3.unk0].maxTileX - temp_t7;
+                sp52 = gLevelRegions[arg0->unk294.type3.unk0].minTileZ + temp_t3;
                 break;
             case 2:
-                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk3 - temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk4 - temp_t3;
+                sp54 = gLevelRegions[arg0->unk294.type3.unk0].maxTileX - temp_t7;
+                sp52 = gLevelRegions[arg0->unk294.type3.unk0].maxTileZ - temp_t3;
                 break;
             case 3:
-                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk0 + temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk4 - temp_t3;
+                sp54 = gLevelRegions[arg0->unk294.type3.unk0].minTileX + temp_t7;
+                sp52 = gLevelRegions[arg0->unk294.type3.unk0].maxTileZ - temp_t3;
                 break;
             }
 
@@ -165,16 +165,16 @@ void func_80362CC4_774374(Animal *arg0) {
 
         case 1:
             if (arg0->unk290 == 0) {
-                phi_v1 = ((D_803E93B0[arg0->unk294.type4.unk0].unk3 - D_803E93B0[arg0->unk294.type4.unk0].unk0) - 1) << 6;
-                phi_t0 = ((D_803E93B0[arg0->unk294.type4.unk0].unk4 - D_803E93B0[arg0->unk294.type4.unk0].unk1) - 1) << 6;
+                phi_v1 = ((gLevelRegions[arg0->unk294.type4.unk0].maxTileX - gLevelRegions[arg0->unk294.type4.unk0].minTileX) - 1) << 6;
+                phi_t0 = ((gLevelRegions[arg0->unk294.type4.unk0].maxTileZ - gLevelRegions[arg0->unk294.type4.unk0].minTileZ) - 1) << 6;
                 if (phi_v1 <= 0) {
                     phi_v1 = 1;
                 }
                 if (phi_t0 <= 0) {
                     phi_t0 = 1;
                 }
-                tmp1 = (((D_803E93B0[arg0->unk294.type4.unk0].unk0) + 1) << 6) + (advance_random_seed() % phi_v1);
-                tmp2 = (((D_803E93B0[arg0->unk294.type4.unk0].unk1) + 1) << 6) + (advance_random_seed() % phi_t0);
+                tmp1 = (((gLevelRegions[arg0->unk294.type4.unk0].minTileX) + 1) << 6) + (advance_random_seed() % phi_v1);
+                tmp2 = (((gLevelRegions[arg0->unk294.type4.unk0].minTileZ) + 1) << 6) + (advance_random_seed() % phi_t0);
                 set_nav_state_goto_point(
                     arg0,
                     tmp1,
@@ -210,7 +210,7 @@ void func_80362CC4_774374(Animal *arg0) {
     case WAYPOINT_MODE_FOLLOW:
         xPos = arg0->unk294.type7.unk0->position.xPos.h - arg0->position.xPos.h;
         zPos = arg0->unk294.type7.unk0->position.zPos.h - arg0->position.zPos.h;
-        if (func_803051F0_7168A0((func_801284B8(xPos, zPos) << 8) / 360, arg0->yRotation) < 6) {
+        if (func_803051F0_7168A0((atan2_deg_s16(xPos, zPos) << 8) / 360, arg0->yRotation) < 6) {
             reset_waypoint_mode(arg0);
         }
         break;
@@ -245,7 +245,7 @@ void func_80362CC4_774374(Animal *arg0) {
         case 1:
             xPos2 = target->position.xPos.h - arg0->position.xPos.h;
             zPos2 = target->position.zPos.h - arg0->position.zPos.h;
-            if (func_803051F0_7168A0((func_801284B8(xPos2, zPos2) << 8) / 360, arg0->yRotation) < 4) {
+            if (func_803051F0_7168A0((atan2_deg_s16(xPos2, zPos2) << 8) / 360, arg0->yRotation) < 4) {
                 func_8037B754_78CE04(arg0, arg0->unk294.type9.target);
                 arg0->unk290 = 0;
                 arg0->unk28E = 2;
@@ -321,7 +321,7 @@ void func_803633C4_774A74(Animal *arg0) {
         xDist = arg0->xPosTarget - arg0->position.xPos.h;
         zDist = arg0->zPosTarget - arg0->position.zPos.h;
 
-        if (func_803051F0_7168A0((func_801284B8(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
+        if (func_803051F0_7168A0((atan2_deg_s16(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
             arg0->navState = NAVIGATION_STATE_GOTO_POINT;
             arg0->navTimer = arg0->navSpeedSetting;
         }
@@ -414,7 +414,7 @@ void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     WaypointData *wp_data;
     s16 next_wp_idx;
 
-    wp_data = D_803E8E60[pathId];
+    wp_data = gWaypointPaths[pathId];
     if (arg3 < 0) {
         next_wp_idx = wp_data->length - 2;
     } else {
@@ -443,7 +443,7 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     WaypointData *wp_data;
     s16 next_wp_idx;
 
-    wp_data = D_803E8E60[pathId];
+    wp_data = gWaypointPaths[pathId];
     next_wp_idx = get_closest_waypoint_index(wp_data, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h);
 
     arg0->waypointMode = WAYPOINT_MODE_PATH;

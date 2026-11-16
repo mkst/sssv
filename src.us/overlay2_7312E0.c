@@ -1,6 +1,11 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern struct076 D_803B555C_7C6C0C[];
+extern struct076 D_803B5574_7C6C24[];
+extern struct076 D_803B558C_7C6C3C[];
+
 
 void unused_8031FC30_7312E0(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5) {
     s16 pad[3];

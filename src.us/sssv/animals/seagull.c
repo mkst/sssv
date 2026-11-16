@@ -45,7 +45,7 @@ void func_80380920_791FD0(void) {
     }
 
     if (sp82 == 0) {
-        func_8038C98C_79E03C();
+        update_idle_head_yaw_clamped();
         func_8035D120_76E7D0();
         if ((D_803D5524->animalType == SEAGULL2) && (((D_803D552C->unk320 == NULL)) ||
             ((D_803D552C->unk320 != NULL) && (D_803D552C->unk320->unk26C != 0)))) {
@@ -85,14 +85,14 @@ void func_80380920_791FD0(void) {
             func_802BB1F0_6CC8A0(0x465, 0x7D);
             func_802BC1F4_6CD8A4(0x2EE);
             func_802C44E8_6D5B98(0x32C, 0xFA, 0x138, 0x138);
-            func_8038CCF0_79E3A0(0x5D, 0x13, 0x14, -1, -1, -1);
-            func_8038CCF0_79E3A0(-0x5E, 0x1A, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0x5D, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(-0x5E, 0x1A, -1, -1, -1, -1);
 
             var_a0_2 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
             temp_a2 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
 
-            temp_a1 = ((var_a0_2 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a2) >> 8);
-            temp_a3 = ((temp_a2 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * var_a0_2) >> 8);
+            temp_a1 = ((var_a0_2 * COSB(D_803D552C->headYawDegrees)) >> 8) + ((SINB(D_803D552C->headYawDegrees) * temp_a2) >> 8);
+            temp_a3 = ((temp_a2 * COSB(D_803D552C->headYawDegrees)) >> 8) - ((SINB(D_803D552C->headYawDegrees) * var_a0_2) >> 8);
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + temp_a1;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + temp_a3;
         }
@@ -248,17 +248,17 @@ void func_80380920_791FD0(void) {
         D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1),
         D_803D552C->heading, img_D_01033190_6CA60_i4__png, 18, 18, 0x9B, 0, 0, 0, 0, D_803D5538);
     if (sp82 == 0) {
-        func_80303820_714ED0(D_803D552C, 0, 1, 0x3A9, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x119, 0);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 0, 1, 0x3A9, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x119, 0);
 
         if (D_803D552C->unk320 != NULL) {
             func_80303C44_7152F4(D_803D552C, 2, 0, -D_803D552C->unk308 / 64);
-            func_80303D50_715400(D_803D552C, 3);
+            terminate_collision_spheres(D_803D552C, 3);
         } else {
-            func_80303D50_715400(D_803D552C, 2);
+            terminate_collision_spheres(D_803D552C, 2);
         }
     } else {
-        func_80303D00_7153B0(D_803D552C, 937, 0);
+        set_single_collision_sphere(D_803D552C, 937, 0);
     }
     if ((D_803D5524->animalType == SEAGULL2) && ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED))) {
         load_animal(SEAGULL);

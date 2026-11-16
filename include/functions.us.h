@@ -20,17 +20,17 @@ void build_ship_window_x_projection_matrix(Mtx *mtx, s16 xOffset);
 void build_spring_bounce_matrix(Mtx *mtx, s16 radius, s16 angle);
 
 // core/controller.c
-u32  func_80128200(void);
-void func_8012822C(s32 time);
+u32  random_u32(void);
+void seed_random_u32(s32 time);
 u16  advance_random_seed(void);
-s32  func_801282C4(void);
-s16  func_8012835C(s16 idx);
-s16  func_801283AC(s16 arg0);
+s32  advance_random_seed_16_steps(void);
+s16  asin_deg_q8(s16 idx);
+s16  acos_deg_q8(s16 arg0);
 s8   func_8012840C(u8 idx);
 s8   func_80128424(u8 idx);
-s16  func_8012844C(s16 arg0);
-s16  func_801284B8(s16 arg0, s16 arg1);
-f32  func_801286B8(f32 arg0, f32 arg1);
+s16  atan_deg_q6(s16 arg0);
+s16  atan2_deg_s16(s16 arg0, s16 arg1);
+f32  atan2_deg_f32(f32 arg0, f32 arg1);
 s16  func_80128C10(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 // core/string.c
@@ -56,7 +56,7 @@ void func_8012AD08(void);
 
 // main_78F0
 s16  get_message_width(s16 *arg0);
-s16  func_8012E78C(s16*, f32, f32, u8);
+s16  get_word_wrapped_text_height(s16*, f32, f32, u8);
 void func_8012D374(Gfx **arg0, s16 *arg1, u16 arg2, u16 arg3, f32 arg4, f32 arg5, s16 arg6);
 void display_text_word_wrapped(Gfx **, s16*, u16, u16, f32, f32, u8);
 
@@ -65,10 +65,10 @@ void junk_eeprom(void); // junk eeprom
 void clear_player_eeprom_state(void); // clear eeprom
 
 // main_C770
-void func_8013107C(FrameContext *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags);
+void submit_graphics_task(FrameContext *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags);
 
 // core/eeprom.c
-void func_80130E44(void);
+void load_eeprom_or_initialize_defaults(void);
 
 // core/audio
 
@@ -109,14 +109,14 @@ void init_sprite2d_render_zdepth(Gfx **dl, u8 color);
 void init_sprite2d_render(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
 
 // main_123E0.c
-void func_80136F64(void);
-void func_801370A4(void);
-void func_801370F4(void);
-void func_8013713C(void);
-void func_80137168(void);
-void func_80137204(s16 arg0);
-void func_8013724C(s16 arg0);
-void func_801375E8(s16 arg0);
+void snapshot_controller_button_history(void);
+void init_si_lock(void);
+void acquire_si_lock(void);
+void release_si_lock(void);
+void reset_rumble_state(void);
+void request_rumble_motor_start(s16 arg0);
+void request_rumble_motor_stop(s16 arg0);
+void update_rumble(s16 arg0);
 void init_rumble_pak(void);
 
 void func_80139200(f32);
@@ -179,16 +179,20 @@ u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
 void render_ship_window_projection_replay(void);
 
-// overlay2_6AC360
+// overlay2_6AC6B0
 u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, Animal **arg5, s32 *arg6, Animal *arg7, Animal **arg8, s32 *arg9);
+
+// sssv/terrain_map.c
 void func_8029ACB0_6AC360(void);
 void func_8029ACC8_6AC378(void);
 
-// overlay2_6ACF20
+// sssv/teleporters.c
 void maybe_trigger_exit_teleporter(Animal *animal, Entity *teleporter);
 void func_8029B9B8_6AD068(Animal *animal, Entity *teleporter);
 void maybe_do_teleport(Animal *animal, Entity *teleporter);
 void func_8029BB94_6AD244(void);
+
+// overlay2_6AE5A0
 void enqueue_dynamic_texture_billboard(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
 void render_dynamic_texture_billboards(void);
 void reset_dynamic_texture_billboard_queue(void);
@@ -324,9 +328,10 @@ void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *damage);
 s16  func_802B3C9C_6C534C(s16 arg0, Animal *arg1);
 s16  func_802B3D68_6C5418(void);
 
-// overlay2_6C5570
 void func_802B2FF4_6C46A4(void);
 void func_802B315C_6C480C(void);
+
+// sssv/starfield.c
 void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5);
 void func_802B3FAC_6C565C(void);
 void func_802B4148_6C57F8(Gfx **arg0);
@@ -447,7 +452,11 @@ void init_and_spawn_evo_microchip(void);
 void func_802C85EC_6D9C9C(void);
 void func_802C87E0_6D9E90(void);
 void func_802C8878_6D9F28(void);
+
+// sssv/player_input.c
 void read_controller_input(OSContPad *cont);
+
+// sssv/objects.c
 s32  load_objects(void);
 // Entity *func_802C93E8_6DAA98(u16 arg0); // helps load_level_data_sections?
 void func_802C941C_6DAACC(void);
@@ -457,10 +466,10 @@ void func_802C9834_6DAEE4(void);
 void func_802C985C_6DAF0C(void);
 void reset_objects_state(void);
 void func_802C9900_6DAFB0(Entity *arg0, Entity *arg1, u8 arg2);
-void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2);
-void func_802C9BA4_6DB254(Animal *arg0);
+void func_802C9918_6DAFC8(Entity *arg0, s16 arg1, s16 arg2);
+void func_802C9BA4_6DB254(Entity *arg0);
 
-// overlay2_6DB610
+// sssv/entity_physics.c
 void update_entity_physics(Entity *arg0);
 void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);
 
@@ -473,23 +482,25 @@ void func_802D6738_6E7DE8(void);
 void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
 s16  func_802D7434_6E8AE4(s16 arg0, s16 arg1);
 void func_802D7AD4_6E9184(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
-void func_802D7BE0_6E9290(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, u16 arg6);
+void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 size, u16 color);
 void create_sparks(s16 x, s16 z, s16 y, s16 arg3, u16 color);
 void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3);
 
 // collist2
 void func_802DA7F0_6EBEA0(void);
-void func_802DA90C_6EBFBC(Entity *arg0);
+void update_entity_collision_grid(Entity *arg0);
 void remove_collision_list(Entity *arg0);
-void func_802DADA0_6EC450(Entity *arg0);
-void func_802DAE5C_6EC50C(Entity *arg0);
-void func_802DAF5C_6EC60C(void);
+void register_entity_collision(Entity *arg0);
+void unregister_entity_collision(Entity *arg0);
+void reset_collision_lists(void);
 void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd);
 
-// overlay2_6EC720
+// sssv/pose_interpolation.c
 void func_802DB670_6ECD20(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3);
 void func_802DB7C4_6ECE74(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3);
 void backup_joint_positions(void);
+
+// overlay2_6ECFF0
 void func_802DB940_6ECFF0(s16 *arg0, s16 arg1, u16 arg2);
 void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 arg2);
 void func_802DBA58_6ED108(u8 arg0, Animal *animal);
@@ -512,7 +523,7 @@ void func_802DCCAC_6EE35C(u16 arg0);
 void func_802DCD70_6EE420(u16 arg0, u8 arg1);
 void func_802DD004_6EE6B4(u16 arg0);
 void reset_dynamic_tails(s32 arg0);
-s16  func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 arg3, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, Animal *argA, Animal *argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11);
+s16  func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 arg3, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, Entity *argA, Entity *argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11);
 void func_802DE770_6EFE20(s16 arg0, s16 arg1, s32 xVel, s32 zVel, s32 yVel);
 void func_802DE7F4_6EFEA4(s16 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_802DE890_6EFF40(s16 arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
@@ -543,7 +554,7 @@ void func_802E86C8_6F9D78(void);
 void func_802E8760_6F9E10(void);
 void func_802E88C0_6F9F70(s16 arg0);
 
-// overlay2_6FA0A0
+// sssv/visibility.c
 s16 classify_object_visibility(s32 x, s32 y, s32 z, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
 s16 classify_dynamic_visibility(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9);
 s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
@@ -581,34 +592,34 @@ void func_802F2A2C_7040DC(void);
 // overlay2_7041D0
 void clear_used_lights(void);
 void add_light_at_location(s16, s16, s16, s16, s16 r, s16 g, s16 b);
-void func_802F2DF8_7044A8(void);
+void reset_level_lighting(void);
 void start_level_light_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6);
 void func_802F301C_7046CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7);
-void func_802F30A4_704754(void);
+void update_level_lighting(void);
 
 // demo
 void get_controller_input(void);
 
 // overlay2_707310
-void func_802F5C60_707310(Entity *arg0);
+void update_entity_collision_spheres(Entity *arg0);
 void func_802F5F44_7075F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, struct077 *arg5);
 void func_802F603C_7076EC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, u16 arg5, struct077 *arg6); // tbd
 Entity *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s32 scale);
-s16  func_802F63F8_707AA8(s16 arg0, s16 arg1, s16 arg2);
-s16  func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2);
+s16  get_angle_step_deg(s16 targetAngle, s16 currentAngle, s16 maxStep);
+s16  step_angle_towards_deg(s16 targetAngle, s16 currentAngle, s16 maxStep);
 void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
-void func_802F65BC_707C6C(Animal *arg0);
-void func_802F6750_707E00(Animal *arg0);
-void head_towards_waypoint(Animal *arg0);
-s16  func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, f32 arg8);
-void func_802F6DEC_70849C(Animal *arg0, s16 arg1);
+void func_802F65BC_707C6C(Entity *arg0);
+void func_802F6750_707E00(Entity *arg0);
+void head_towards_waypoint(Entity *arg0);
+s16  func_802F8160_709810(Entity *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, f32 arg8);
+void func_802F6DEC_70849C(Entity *arg0, s16 arg1);
 void func_802F7054_708704(s32 arg0);
-void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u16 arg7); // tbd
-void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 enabled, s16 arg5, s16 arg6, s16 arg7);
+void func_802F705C_70870C(Entity *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u16 arg7); // tbd
+void func_802F7940_708FF0(Entity *arg0, s16 xPos, s16 zPos, s16 yPos, s16 enabled, s16 arg5, s16 arg6, s16 arg7);
 s16  func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
-u8   func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4);
-Entity *find_closest_animal(Entity *arg0);
-s32  func_802F8918_709FC8(Animal *arg0, Animal *arg1);
+u8   func_802F8658_709D08(Entity *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4);
+Animal *find_closest_animal(Entity *arg0);
+s32  func_802F8918_709FC8(Entity *arg0, Animal *arg1);
 void func_802F8DCC_70A47C(Entity *arg0);
 void update_object_noop(Entity * arg0);
 void func_802F908C_70A73C(Entity *arg0);
@@ -622,24 +633,24 @@ void func_802F9A08_70B0B8(Animal *arg0);
 void func_802F9C50_70B300(Entity *arg0);
 void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5);
 void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s16 arg4, u8 arg5);
-void func_802FA4F8_70BBA8(Animal *arg0);
+void func_802FA4F8_70BBA8(Entity *arg0);
 void func_802FA6D8_70BD88(void);
-void func_802FA730_70BDE0(Animal *arg0);
+void func_802FA730_70BDE0(Entity *arg0);
 void func_802FB270_70C920(Entity *arg0);
-void func_802FB49C_70CB4C(Animal *arg0);
-void func_802FB4C0_70CB70(Animal *arg0);
-void func_802FB680_70CD30(Animal *arg0);
-void func_802FB85C_70CF0C(Animal *arg0);
-void func_802FBA40_70D0F0(Animal *arg0);
-void func_802FBBF8_70D2A8(Animal *arg0);
-void func_802FBDA8_70D458(Animal *arg0);
-void func_802FBF58_70D608(Animal *arg0);
-void func_802FC108_70D7B8(Animal *arg0);
+void snapshot_entity_contact_state(Entity *arg0);
+void func_802FB4C0_70CB70(Entity *arg0);
+void func_802FB680_70CD30(Entity *arg0);
+void func_802FB85C_70CF0C(Entity *arg0);
+void func_802FBA40_70D0F0(Entity *arg0);
+void func_802FBBF8_70D2A8(Entity *arg0);
+void func_802FBDA8_70D458(Entity *arg0);
+void func_802FBF58_70D608(Entity *arg0);
+void func_802FC108_70D7B8(Entity *arg0);
 void func_802FC2B8_70D968(s16 x, s16 z, s16 y);
 void func_802FC438_70DAE8(s16 x, s16 z, s16 y);
-void func_802FC5C0_70DC70(Animal *arg0);
-void func_802FC6E4_70DD94(Animal *arg0);
-void func_802FC808_70DEB8(Animal *arg0);
+void func_802FC5C0_70DC70(Entity *arg0);
+void func_802FC6E4_70DD94(Entity *arg0);
+void func_802FC808_70DEB8(Entity *arg0);
 void func_802FC8F4_70DFA4(Animal *arg0);
 void run_commands(Entity *arg0);
 void func_802FCA08_70E0B8(Entity *arg0, s16 arg1);
@@ -654,22 +665,22 @@ s32  func_802FD538_70EBE8(Animal *arg0); // tbd
 s16  func_802FD5DC_70EC8C(Animal *arg0);
 void func_802FD674_70ED24(Entity *arg0, Animal *arg1);
 void func_802FD8CC_70EF7C(void);
-void func_802FD94C_70EFFC(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5);
+void start_fog_transition(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5);
 void func_802FD9C4_70F074(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5, s16 arg6);
-void func_802FDA44_70F0F4(void);
+void update_fog_transition(void);
 void func_802FE4C4_70FB74(void);
-void func_802FE560_70FC10(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 arg6, u8 arg7, s16 arg8);
-void func_802FE5E8_70FC98(void);
+void start_water_color_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 arg6, u8 arg7, s16 arg8);
+void update_water_color_transition(void);
 void func_802FED68_710418(Entity *owner, Animal *target, s16 x, s16 z, s16 y, s16 arg5, s16 arg6, s16 arg7, s16 angle, s16 rotation, s16 unkA, f32 scale, u8 argC);
 void func_802FF140_7107F0(void);
-void func_802FF184_710834(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9);
+void func_802FF184_710834(Entity *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9);
 void func_802FF25C_71090C(void);
 void update_speaker(Entity *arg0);
 void func_802FF7D4_710E84(Entity *arg0);
 void func_802FF828_710ED8(Entity *arg0);
 void func_802FFA20_7110D0(Entity *arg0);
 void func_802FFC34_7112E4(Entity *arg0);
-void func_802FFD50_711400(Entity *arg0);
+void align_entity_rotation_to_velocity(Entity *arg0);
 void func_802FFE94_711544(Entity *arg0);
 void func_802FFED0_711580(Entity *arg0);
 void func_802FFEFC_7115AC(Entity *arg0);
@@ -695,24 +706,24 @@ void func_8030322C_7148DC(s16 arg0, s16 arg1); // tbd
 void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2);
 void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2);
 
-// overlay2_714B80
-void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3);
-void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4);
-void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6);
-void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4);
+// sssv/collision_spheres.c
+void set_body_collision_sphere_pair(Animal *arg0, u16 arg1, s16 arg2, u16 arg3);
+void set_collision_sphere_at_joint_midpoint(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4);
+void set_collision_sphere_from_joint_pairs(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6);
+void set_collision_sphere_at_joint(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4);
 void func_80303C44_7152F4(Animal *arg0, u16 arg1, s16 arg2, s16 arg3);
-void func_80303D00_7153B0(Animal *arg0, u16 arg1, u16 arg2);
-void func_80303D50_715400(Animal *arg0, u16 arg1);
+void set_single_collision_sphere(Animal *arg0, u16 arg1, u16 arg2);
+void terminate_collision_spheres(Animal *arg0, u16 arg1);
 void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2);
 void func_80303F90_715640(Animal *arg0, DisplayList *arg1);
-s32  func_8030400C_7156BC(Animal*, s16, s16, s32*, s32*);
+s32  get_animal_collision_vertical_bounds(Animal*, s16, s16, s32*, s32*);
 
 // overlay2_715820
 void func_80304170_715820(void);
 void func_80304194_715844(void);
 void func_803041FC_7158AC(void);
 
-// overlay2_716530
+// sssv/vector2.c
 s32  calculate_hypotenuse(struct039 *arg0);
 void func_80304EC4_716574(struct039 *arg0, struct039 *arg1);
 void func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2);
@@ -757,7 +768,7 @@ s32  func_803123A4_723A54(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4, u8 ar
 s32  func_803126F4_723DA4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4, u8 arg5);
 s32  func_80312A44_7240F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4, u8 arg5);
 s32  func_80313448_724AF8(Animal *arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_803136B0_724D60(Animal *arg0);
+void func_803136B0_724D60(Entity *arg0);
 u8   func_803136FC_724DAC(s16 x, s16 z, s16 y);
 
 // sssv/animals/parrot
@@ -790,19 +801,21 @@ void run_entity_script(Entity *arg0);
 // overlay2_72A930
 s32  func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2, Animal *arg3, Vec3f *arg4, Vec3f *arg5, f32 arg6, f32 arg7);
 void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s16 arg5, s16 arg6);
-void func_803198B0_72AF60(void);
 
-// overlay2_72B100
+// sssv/waypoints.c
+void build_level_region_collision_masks(void);
 void reset_waypoints(void);
 void func_80319AA0_72B150(struct002 *arg0, u8 arg1);
 void func_80319AC4_72B174(struct002 *arg0, u8 arg1);
-void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5);
-u8   func_80319E1C_72B4CC(u8 x, u8 z, u8 y, u8 arg3, u8 arg4);
+void get_level_regions_at_point(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5);
+u8   point_matches_level_region(u8 x, u8 z, u8 y, u8 arg3, u8 arg4);
 u16  func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6);
 
-// overlay2_72B800
+// sssv/animal_eyes.c
 void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye);
 void func_8031A278_72B928(s16 *arg0, s16 *arg1, s16 *arg2);
+
+// overlay2_72BA20
 void func_8031A370_72BA20(void);
 void func_8031A4E0_72BB90(void);
 void func_8031AA0C_72C0BC(Entity *arg0);
@@ -899,6 +912,7 @@ s32  func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s16 
 void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b);
 
 
+// sssv/sfx.c
 void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch);
 void func_8032C508_73DBB8(s16 id, s16 volume, s16 unused, f32 pitch); // sound effect helper?
 void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5);
@@ -907,7 +921,7 @@ void func_8032CD20_73E3D0(void *object, s16 id, s16 volume, s16 arg3, f32 pitch)
 void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch, s16 x, s16 y, s16 z);
 void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
-// overlay2_73ED30
+// sssv/billboards.c
 void update_billboard_projection_cache(void);
 void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
 void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7);
@@ -952,8 +966,8 @@ void func_80344240_7558F0(void);
 void osd_draw_health_and_power_bars(s16 arg0);
 void osd_draw_score(void);
 void func_80349278_75A928(void);
-void func_80349280_75A930(Animal *arg0, s16 arg1);
-void func_803493C8_75AA78(void);
+void notify_animal_damage(Animal *arg0, s16 arg1);
+void draw_and_update_target_health_bar(void);
 void func_8034967C_75AD2C(void);
 void func_80349720_75ADD0(void);
 void func_803497DC_75AE8C(void);
@@ -1028,12 +1042,12 @@ void func_80356BD8_768288(u8 *tlut, u8 timg[][128], s16 id);
 void func_80356D84_768434(u8 *tlut, u8 *timg);
 void func_80356F64_768614(u8 *tlut1, u8 *tlut2, u8 *timg);
 
-// overlay2_7689A0
+// sssv/music_control.c
 void func_80357200_7688B0(void);
 void set_music_track(s8 arg0);
 s32  func_803572C0_768970(void);
 
-// overlay2_7689A0
+// sssv/level_results.c
 void func_803572F0_7689A0(void);
 void func_8035739C_768A4C(void);
 void func_80357438_768AE8(void);
@@ -1206,11 +1220,13 @@ void empty_8037D32C_78E9DC(s32 *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
 void func_8037D340_78E9F0(s16 arg0, s16 arg1);
 void set_target_speed(s8 arg0);
 void func_8037D9D4_78F084(void);
+void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage);
 void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
 Animal *func_8037E9AC_79005C(void);
 Animal *func_8037ED1C_7903CC(void);
-void trigger_contagious_laughter();
+void trigger_contagious_laughter(void);
 s16  func_8037F07C_79072C(s16 arg0, s16 arg1);
+void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage);
 u8   get_missile_side(void);
 void func_8037FCA8_791358(void);
 void func_8037FE24_7914D4(void);
@@ -1261,12 +1277,12 @@ void func_8038C484_79DB34(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4);
 
 // overlay2_79DE10
 void empty_8038C760_79DE10(void);
-void func_8038C768_79DE18(void);
-void func_8038C98C_79E03C(void);
+void update_idle_head_yaw(void);
+void update_idle_head_yaw_clamped(void);
 
-s16  func_8038CCA4_79E354(void);
-s16  func_8038CCC0_79E370(void);
-s16  func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5);
+s16  get_music_animation_phase(void);
+s16  did_music_animation_phase_wrap(void);
+s16  apply_music_bounce_to_joints(s16 amplitude, s16 joint1, s16 joint2, s16 joint3, s16 joint4, s16 joint5);
 
 // sssv/terminal_background (overlay2_79E640)
 void func_8038CF90_79E640(void);

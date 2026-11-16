@@ -1,6 +1,13 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern s16  D_803B4958_7C6008[];
+extern s16  D_803B497C_7C602C[];
+extern s16  D_803B49CC_7C607C[];
+extern u8   D_803B4930_7C5FE0[];
+extern u8   D_803B4944_7C5FF4[];
+
 extern Gfx D_040000A0_E7650[];
 extern Gfx D_040006F0_E7CA0[];
 
@@ -88,8 +95,8 @@ void func_8036C0B0_77D760(void) {
             func_802BB1F0_6CC8A0(900, 100);
             func_802BC1F4_6CD8A4(600);
             func_802C44E8_6D5B98(650, 200, 250, 250);
-            func_8038CCF0_79E3A0(62, 19, 20, -1, -1, -1);
-            func_8038CCF0_79E3A0(-125, 26, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(62, 19, 20, -1, -1, -1);
+            apply_music_bounce_to_joints(-125, 26, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
@@ -225,16 +232,16 @@ void func_8036C0B0_77D760(void) {
         D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1),
         D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     if (!offscreen) {
-        func_80303820_714ED0(D_803D552C, 0, 1, 750, 1);
-        func_80303820_714ED0(D_803D552C, 1, 19, 0x177, 0);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 0, 1, 750, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 19, 0x177, 0);
         if (D_803D552C->unk320 != 0) {
             func_80303C44_7152F4(D_803D552C, 2, 0, -D_803D552C->unk308 / 64);
-            func_80303D50_715400(D_803D552C, 3);
+            terminate_collision_spheres(D_803D552C, 3);
         } else {
-            func_80303D50_715400(D_803D552C, 2);
+            terminate_collision_spheres(D_803D552C, 2);
         }
     } else {
-        func_80303D00_7153B0(D_803D552C, 750, 0);
+        set_single_collision_sphere(D_803D552C, 750, 0);
     }
     if (D_803D5524->animalType == VULTURE) {
         if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {

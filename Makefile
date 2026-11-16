@@ -52,10 +52,11 @@ I4_OBJS         := $(call ld_objs,i4.png)
 I8_OBJS         := $(call ld_objs,i8.png)
 IA16_OBJS       := $(call ld_objs,ia16.png)
 CI4_OBJS        := $(call ld_objs,ci4.png)
-CI4_PAL_OBJS    := $(call ld_objs,pal)
-CI4_PAL_OBJS    += $(CI4_OBJS:.ci4.png.o=.pal.o)
+CI8_OBJS        := $(call ld_objs,ci8.png)
+CI_PAL_OBJS     := $(call ld_objs,pal)
+CI_PAL_OBJS     += $(CI4_OBJS:.ci4.png.o=.pal.o) $(CI8_OBJS:.ci8.png.o=.pal.o)
 
-ALL_IMAGE_OBJS  := $(RGBA16_OBJS) $(I4_OBJS) $(I8_OBJS) $(IA16_OBJS) $(CI4_OBJS) $(CI4_PAL_OBJS)
+ALL_IMAGE_OBJS  := $(RGBA16_OBJS) $(I4_OBJS) $(I8_OBJS) $(IA16_OBJS) $(CI4_OBJS) $(CI8_OBJS) $(CI_PAL_OBJS)
 
 # Generic RNC compressed files
 ALL_RNC_FILES      := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
@@ -422,7 +423,17 @@ $(BUILD_DIR)/%.ci4.png: %.ci4.png
 	@$(IMG_CONVERT) ci4 $< $@
 	@printf "[$(GREEN)  ci4   $(NO_COL)]  $<\n"
 
+$(BUILD_DIR)/%.ci8.png: %.ci8.png
+	@mkdir -p $$(dirname $@)
+	@$(IMG_CONVERT) ci8 $< $@
+	@printf "[$(GREEN)  ci8   $(NO_COL)]  $<\n"
+
 $(BUILD_DIR)/%.pal: %.ci4.png
+	@mkdir -p $$(dirname $@)
+	@$(IMG_CONVERT) palette $< $@
+	@printf "[$(GREEN)  pal   $(NO_COL)]  $<\n"
+
+$(BUILD_DIR)/%.pal: %.ci8.png
 	@mkdir -p $$(dirname $@)
 	@$(IMG_CONVERT) palette $< $@
 	@printf "[$(GREEN)  pal   $(NO_COL)]  $<\n"

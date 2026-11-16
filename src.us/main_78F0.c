@@ -2,6 +2,9 @@
 #include "common.h"
 #include "pp.h"
 
+// External data referenced by this file.
+extern u8   D_80154370[]; // 0x2FA70
+
 // ========================================================
 // definitions
 // ========================================================
@@ -26,7 +29,7 @@ void func_8012FAD4(Gfx **dl, s32 addr);
 // ========================================================
 
 // language file offsets at ROM 0x2fc00
-Addr* D_80154500[36*2] = {
+u8 *D_80154500[36*2] = {
     _lang_lang1_dat_rncSegmentRomStart, _lang_lang1_dat_rncSegmentRomEnd,
     _lang_lang2_dat_rncSegmentRomStart, _lang_lang2_dat_rncSegmentRomEnd,
     _lang_lang3_dat_rncSegmentRomStart, _lang_lang3_dat_rncSegmentRomEnd,
@@ -616,7 +619,7 @@ s16 get_char_type(s16 *text, u16 arg1 UNUSED, u16 arg2 UNUSED) {
     return 0;
 }
 
-s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
+s16 get_word_wrapped_text_height(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     s16 wchr;
     s16 xPos;
     u16 xPos2;

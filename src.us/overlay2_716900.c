@@ -1,6 +1,13 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern s16  D_803A5560_7B6C10[4];
+extern s16  D_803A5568_7B6C18[];
+extern s16  D_803A5570_7B6C20[];
+extern s16  D_803A5578_7B6C28[];
+extern u8   D_803A47F4_7B5EA4[]; // 68 big?
+
 
 // ========================================================
 // definitions
@@ -143,7 +150,7 @@ void func_80305368_716A18(struct079 *arg0) {
     for (j = start_1; j <= end_1; j++) {
         for (k = start_2; k <= end_2; k++) {
             idx = (k + (j * 5));
-            for (var_s5 = D_803DA110[idx].next; var_s5 != NULL; var_s5 = var_s5->next) {
+            for (var_s5 = gCollisionGridHeads[idx].next; var_s5 != NULL; var_s5 = var_s5->next) {
                 animal = var_s5->animal;
                 temp_v1_4 = animal->unk16C;
 
@@ -416,7 +423,7 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
         return 0;
     }
 
-    for (var_a1_4 = D_803DA110[(s16) ((arg0 >> 0xA) + ((arg1 >> 0xA) * 5))].next; var_a1_4 != NULL; var_a1_4 = var_a1_4->next) {
+    for (var_a1_4 = gCollisionGridHeads[(s16) ((arg0 >> 0xA) + ((arg1 >> 0xA) * 5))].next; var_a1_4 != NULL; var_a1_4 = var_a1_4->next) {
         animal = var_a1_4->animal;
         if ((animal->unk16C->behaviourFlags.unk1) && (animal != sp50) && (animal->xVelocity.h == 0) && (animal->zVelocity.h == 0) && (animal->yVelocity.h == 0)) {
 
@@ -878,7 +885,7 @@ void func_803071BC_71886C(void) {
     if ((var_t2 | var_t1) == 0) {
         yRotation2 = D_803D5530->yRotation;
     } else {
-        yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+        yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
     }
     var_s2 = -1;
 
@@ -898,7 +905,7 @@ void func_803071BC_71886C(void) {
         } else {
             if ((var_s1 < xPos) || (yRotation2 < 0x80)) {
                 var_t2 = var_t2 + 0x280;
-                yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+                yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
                 if (var_s5 < 0xA) {
                     var_s5 = 0xA;
                 }
@@ -919,7 +926,7 @@ void func_803071BC_71886C(void) {
         } else {
             if ((xPos < var_s1) || (yRotation2 >= 0x80)) {
                 var_t2 = var_t2 - 0x280;
-                yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+                yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
                 if (var_s5 < 0xA) {
                     var_s5 = 0xA;
                 }
@@ -959,7 +966,7 @@ case_3:
         } else {
             if ((var_s0 < zPos) || (yRotation2 < 0x40) || (yRotation2 >= 0xC0)) {
                 var_t1 = var_t1 + 0x280;
-                yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+                yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
                 if (var_s5 < 0xA) {
                     var_s5 = 0xA;
                 }
@@ -990,7 +997,7 @@ case_3:
                             var_s2 = 0;
                         }
                     } else {
-                        var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                        var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                     }
                 } else if ((yRotation2 >= 0x20) && (yRotation2 < 0xA0)) {
                     if (zPos < (var_s0 - maxDist)) {
@@ -1002,13 +1009,13 @@ case_3:
                         var_s2 = 0x40;
                     }
                 } else {
-                    var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                    var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                 }
             }
         } else if ((var_s1 < xPos) && (var_s0 < zPos)) {
             var_t1 = var_t1 + 0x280;
             var_t2 = var_t2 + 0x280;
-            yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+            yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
             if (var_s5 <= 0xA) {
                 var_s5 = 0xA;
             }
@@ -1038,7 +1045,7 @@ case_3:
                             }
                         }
                     } else {
-                        var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                        var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                     }
                 } else if ((yRotation2 >= 0x60) && (yRotation2 < 0xE0)) {
                     if (zPos < (var_s0 - maxDist)) {
@@ -1050,13 +1057,13 @@ case_3:
                         var_s2 = 0xC0;
                     }
                 } else {
-                    var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                    var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                 }
             }
         } else if ((xPos < var_s1) && (var_s0 < zPos)) {
             var_t1 = var_t1 + 0x280;
             var_t2 = var_t2 - 0x280;
-            yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+            yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
             if (var_s5 <= 0xA) {
                 var_s5 = 0xA;
             }
@@ -1071,10 +1078,10 @@ case_7:
             if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
                 var_s5 = -1;
             } else {
-                var_s2 = ((func_801284B8(var_s1 - xPos, (var_s0 - zPos)) << 8) / 360) + 1000;
+                var_s2 = ((atan2_deg_s16(var_s1 - xPos, (var_s0 - zPos)) << 8) / 360) + 1000;
             }
         } else {
-            var_s2 = ((func_801284B8(var_s1 - xPos, (var_s0 + (sp86 >> 1)) - zPos) << 8) / 360) + 1000;
+            var_s2 = ((atan2_deg_s16(var_s1 - xPos, (var_s0 + (sp86 >> 1)) - zPos) << 8) / 360) + 1000;
         }
         break;
 
@@ -1090,7 +1097,7 @@ case_7:
         } else {
             if ((zPos < var_s0) || ((yRotation2 >= 0x40) && (yRotation2 < 0xC0))) {
                 var_t1 = var_t1 - 0x280;
-                yRotation2 = ((func_801284B8(var_t2, var_t1) << 8) / 360);
+                yRotation2 = ((atan2_deg_s16(var_t2, var_t1) << 8) / 360);
                 if (var_s5 <= 0xA) {
                     var_s5 = 0xA;
                 }
@@ -1121,7 +1128,7 @@ case_7:
                             }
                         }
                     } else {
-                        var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                        var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                     }
                 } else if ((yRotation2 >= 0x60) && (yRotation2 < 0xE0)) {
                     if (xPos < (var_s1 - maxDist)) {
@@ -1133,13 +1140,13 @@ case_7:
                         var_s2 = 0x80;
                     }
                 } else {
-                    var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                    var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                 }
             }
         } else if ((var_s1 < xPos) && (zPos < var_s0)) {
             var_t1 = (var_t1 - 0x280);
             var_t2 = var_t2 + 0x280;
-            yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+            yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
             if (var_s5 <= 0xA) {
                 var_s5 = 0xA;
             }
@@ -1169,7 +1176,7 @@ case_7:
                             }
                         }
                     } else {
-                        var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                        var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                     }
                 } else if ((yRotation2 >= 0x20) && (yRotation2 < 0xA0)) {
                     if (xPos < (var_s1 - maxDist)) {
@@ -1182,13 +1189,13 @@ case_7:
                         }
                     }
                 } else {
-                    var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                    var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
                 }
             }
         } else if ((xPos < var_s1) && (zPos < var_s0)) {
             var_t1 = var_t1 - 0x280;
             var_t2 = var_t2 - 0x280;
-            yRotation2 = (func_801284B8(var_t2, var_t1) << 8) / 360;
+            yRotation2 = (atan2_deg_s16(var_t2, var_t1) << 8) / 360;
             if (var_s5 <= 0xA) {
                 var_s5 = 0xA;
             }
@@ -1203,10 +1210,10 @@ case_11:
             if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
                 var_s5 = -1;
             } else {
-                var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
             }
         } else {
-            var_s2 = ((func_801284B8(var_s1 - xPos, (var_s0 - (sp86 >> 1)) - zPos) << 8) / 360) + 1000;
+            var_s2 = ((atan2_deg_s16(var_s1 - xPos, (var_s0 - (sp86 >> 1)) - zPos) << 8) / 360) + 1000;
         }
         break;
 
@@ -1235,10 +1242,10 @@ case_13:
             if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
                     var_s5 = -1;
             } else {
-                var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
             }
         } else {
-            var_s2 = ((func_801284B8((var_s1 + (sp86 >> 1)) - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+            var_s2 = ((atan2_deg_s16((var_s1 + (sp86 >> 1)) - xPos, var_s0 - zPos) << 8) / 360) + 1000;
         }
         break;
 
@@ -1248,17 +1255,17 @@ case_14:
             if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
                 var_s5 = -1;
             } else {
-                var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+                var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
             }
         } else {
-            var_s2 = ((func_801284B8((var_s1 - (sp86 >> 1)) - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+            var_s2 = ((atan2_deg_s16((var_s1 - (sp86 >> 1)) - xPos, var_s0 - zPos) << 8) / 360) + 1000;
         }
         break;
     case 15:
         if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
             var_s5 = -1;
         } else {
-            var_s2 = ((func_801284B8(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
+            var_s2 = ((atan2_deg_s16(var_s1 - xPos, var_s0 - zPos) << 8) / 360) + 1000;
         }
         break;
     default:
@@ -1558,13 +1565,13 @@ void func_80309EDC_71B58C(Animal *arg0) {
 }
 
 void func_80309F38_71B5E8(void) {
-    struct067 *tmp;
+    LevelRegion *tmp;
 
     if (D_803D552C->unk2C4 > 0) {
         D_803D552C->unk2C4--;
     }
 
-    func_80319C38_72B2E8(
+    get_level_regions_at_point(
         D_803D5530->position.xPos.h >> 6,
         D_803D5530->position.zPos.h >> 6,
         D_803D5530->position.yPos.h >> 6,
@@ -1576,11 +1583,11 @@ void func_80309F38_71B5E8(void) {
 
     if (D_803D552C->unk270 != 2) {
         if (D_803D5530->unk192.unk1[4] == 0) {
-            tmp = &D_803E93B0[D_803D5530->unk18C.unk1[4]];
+            tmp = &gLevelRegions[D_803D5530->unk18C.unk1[4]];
             set_nav_state_goto_point(
                 D_803D5530,
-                (tmp->unk3 + tmp->unk0) << 5,
-                (tmp->unk4 + tmp->unk1) << 5,
+                (tmp->maxTileX + tmp->minTileX) << 5,
+                (tmp->maxTileZ + tmp->minTileZ) << 5,
                 -1,
                 16,
                 32);
@@ -1788,7 +1795,7 @@ void func_80309F38_71B5E8(void) {
 // ESA: func_8007CE7C
 void func_8030A8EC_71BF9C(void) {
     Animal *animal = gAnimalState.animals[gCurrentAnimalIndex].animal;
-    func_80319C38_72B2E8(animal->position.xPos.h >> 6, animal->position.zPos.h >> 6, animal->position.yPos.h >> 6,
+    get_level_regions_at_point(animal->position.xPos.h >> 6, animal->position.zPos.h >> 6, animal->position.yPos.h >> 6,
                          animal->unk192.unk1, &animal->unk192.length, animal->unk160);
 }
 

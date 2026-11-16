@@ -59,7 +59,7 @@ void func_802B9130_6CA7E0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     } else if (-arg2 >= temp_v1) {
         phi_a1 = -90;
     } else {
-        phi_a1 = func_8012835C((temp_v1 * 256) / arg2);
+        phi_a1 = asin_deg_q8((temp_v1 * 256) / arg2);
     }
 
     if (phi_a1 < -30) {
@@ -79,7 +79,7 @@ void func_802B9130_6CA7E0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     } else if (-arg2 >= temp_v1) {
         phi_a1 = -90;
     } else {
-        phi_a1 = func_8012835C((temp_v1 * 256) / arg2);
+        phi_a1 = asin_deg_q8((temp_v1 * 256) / arg2);
     }
 
     if (phi_a1 < -30) {
@@ -105,7 +105,7 @@ void func_802B9130_6CA7E0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     } else if (-arg1 >= temp_v1) {
         phi_a1 = 90;
     } else {
-        phi_a1 = (func_8012835C(((temp_v1 * 256) / arg1)) * -1);
+        phi_a1 = (asin_deg_q8(((temp_v1 * 256) / arg1)) * -1);
     }
 
     if (phi_a1 < -40) {

@@ -2,7 +2,7 @@
 #include "common.h"
 
 
-void func_803034D0_714B80(Animal *animal, u16 radius, s16 heightOffset, u16 index) {
+void set_body_collision_sphere_pair(Animal *animal, u16 radius, s16 heightOffset, u16 index) {
     s32 sp4C;
     s32 sp48;
     s32 sp44;
@@ -35,15 +35,15 @@ void func_803034D0_714B80(Animal *animal, u16 radius, s16 heightOffset, u16 inde
     if (0) { }
     animal->unkC4[index].pos.zPos.h = ((sp48 * 5) + sp40) / 192;
     animal->unkC4[index].pos.yPos.h = (heightOffset / 32) + sp34;
-    animal->unkC4[index].unkC = ((radius * 7) / 32) >> 4;
+    animal->unkC4[index].radius = ((radius * 7) / 32) >> 4;
 
     animal->unkC4[index+1].pos.xPos.h = ((sp44 * 5) + sp4C) / 192;
     animal->unkC4[index+1].pos.zPos.h = ((sp40 * 5) + sp48) / 192;
     animal->unkC4[index+1].pos.yPos.h = (heightOffset / 32) + sp28;
-    animal->unkC4[index+1].unkC = ((radius * 7) / 32) >> 4;
+    animal->unkC4[index+1].radius = ((radius * 7) / 32) >> 4;
 }
 
-void func_80303820_714ED0(Animal *animal, u16 joint1, u16 joint2, u16 boneLength, u16 index) {
+void set_collision_sphere_at_joint_midpoint(Animal *animal, u16 joint1, u16 joint2, u16 boneLength, u16 index) {
     s32 midX;
     s32 midZ;
     s32 midY;
@@ -64,10 +64,10 @@ void func_80303820_714ED0(Animal *animal, u16 joint1, u16 joint2, u16 boneLength
     animal->unkC4[index].pos.zPos.h = ((((midZ * cosAngle) - (midX * sinAngle))) >> 7) / 32;
     animal->unkC4[index].pos.yPos.h = midY;
 
-    animal->unkC4[index].unkC = boneLength / 32;
+    animal->unkC4[index].radius = boneLength / 32;
 }
 
-void func_80303990_715040(Animal *animal, u16 joint1, u16 joint2, u16 joint3, u16 joint4, u16 boneLength, u16 jointIndex) {
+void set_collision_sphere_from_joint_pairs(Animal *animal, u16 joint1, u16 joint2, u16 joint3, u16 joint4, u16 boneLength, u16 jointIndex) {
     s32 midX;
     s32 midZ;
     s32 midY;
@@ -88,10 +88,10 @@ void func_80303990_715040(Animal *animal, u16 joint1, u16 joint2, u16 joint3, u1
     animal->unkC4[jointIndex].pos.zPos.h = ((((midZ * cosAngle) - (midX * sinAngle))) >> 7) / 32;
     animal->unkC4[jointIndex].pos.yPos.h = midY;
 
-    animal->unkC4[jointIndex].unkC = boneLength / 32;
+    animal->unkC4[jointIndex].radius = boneLength / 32;
 }
 
-void func_80303B18_7151C8(Animal *animal, u16 arg1, s16 arg2, u16 arg3, u16 arg4) {
+void set_collision_sphere_at_joint(Animal *animal, u16 arg1, s16 arg2, u16 arg3, u16 arg4) {
     s32 tmp0;
     s32 tmp2;
     s32 tmp4;
@@ -111,7 +111,7 @@ void func_80303B18_7151C8(Animal *animal, u16 arg1, s16 arg2, u16 arg3, u16 arg4
     animal->unkC4[arg4].pos.xPos.h = (((temp_t2 * tmp0) + (tmp2 * temp_t7)) >> 7) / 32;
     animal->unkC4[arg4].pos.zPos.h = (((temp_t2 * tmp2) - (tmp0 * temp_t7)) >> 7) / 32;
     animal->unkC4[arg4].pos.yPos.h = tmp4;
-    animal->unkC4[arg4].unkC = arg3 / 32;
+    animal->unkC4[arg4].radius = arg3 / 32;
 }
 
 void func_80303C44_7152F4(Animal *animal, u16 index, s16 arg2, s16 arg3) {
@@ -119,20 +119,20 @@ void func_80303C44_7152F4(Animal *animal, u16 index, s16 arg2, s16 arg3) {
     animal->unkC4[index].pos.xPos.h = ((SIN(D_803D552C->heading) >> 7) * arg2) >> 8;
     animal->unkC4[index].pos.zPos.h = ((COS(D_803D552C->heading) >> 7) * arg2) >> 8;
     animal->unkC4[index].pos.yPos.h = temp_v0->unk74[0].pos.yPos.h + arg3;
-    animal->unkC4[index].unkC = (temp_v0->unk74[0].unkC * 3) >> 2;
+    animal->unkC4[index].radius = (temp_v0->unk74[0].radius * 3) >> 2;
 }
 
-void func_80303D00_7153B0(Animal *animal, u16 arg1, u16 arg2) {
+void set_single_collision_sphere(Animal *animal, u16 arg1, u16 arg2) {
     animal->unkC4[0].pos.xPos.h = 0;
     animal->unkC4[0].pos.zPos.h = 0;
     animal->unkC4[0].pos.yPos.h = arg2 / 32;
-    animal->unkC4[0].unkC = arg1 / 32;
-    animal->unkC4[1].unkC = 0;
+    animal->unkC4[0].radius = arg1 / 32;
+    animal->unkC4[1].radius = 0;
 }
 
 // set_end_collision_index ?
-void func_80303D50_715400(Animal *animal, u16 idx) {
-    animal->unkC4[idx].unkC = 0;
+void terminate_collision_spheres(Animal *animal, u16 idx) {
+    animal->unkC4[idx].radius = 0;
 }
 
 #ifdef __sgi
@@ -145,7 +145,7 @@ void func_80303D68_715418(Animal *animal, u16 index, DisplayList *arg2) {
 
     gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-    guScale(&arg2->modelViewMtx[arg2->usedModelViewMtxs], (f64)animal->unkC4[index].unkC * 1.0f, (f64)animal->unkC4[index].unkC * 1.0f, (f64)animal->unkC4[index].unkC * 1.0f);
+    guScale(&arg2->modelViewMtx[arg2->usedModelViewMtxs], (f64)animal->unkC4[index].radius * 1.0f, (f64)animal->unkC4[index].radius * 1.0f, (f64)animal->unkC4[index].radius * 1.0f);
 
     gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -157,7 +157,7 @@ void func_80303D68_715418(Animal *animal, u16 index, DisplayList *arg2) {
 
 void func_80303F90_715640(Animal *animal, DisplayList *dl) {
     s16 i;
-    for (i = 0; (i < 5) && (animal->unkC4[i].unkC != 0); i++) {
+    for (i = 0; (i < 5) && (animal->unkC4[i].radius != 0); i++) {
         func_80303D68_715418(animal, i, dl);
     }
 }
@@ -165,11 +165,11 @@ void func_80303F90_715640(Animal *animal, DisplayList *dl) {
 
 // ESA: func_8001C944
 // check if x/z inside animals hitbox and returns vertical boundaries if inside
-s32 func_8030400C_7156BC(Animal *animal, s16 x, s16 z, s32 *upperBoundary, s32 *lowerBoundary) {
+s32 get_animal_collision_vertical_bounds(Animal *animal, s16 x, s16 z, s32 *upperBoundary, s32 *lowerBoundary) {
     s32 temp_t2;
     s32 temp_t3;
     s16 i;
-    struct043 *hitbox;
+    CollisionSphere *hitbox;
 
     s16 tmp1;
     s16 tmp2;
@@ -189,14 +189,14 @@ s32 func_8030400C_7156BC(Animal *animal, s16 x, s16 z, s32 *upperBoundary, s32 *
     i = 1;
     hitbox = &animal->unkC4[i];
 
-    while ((i < 5) && (hitbox->unkC != 0)) {
+    while ((i < 5) && (hitbox->radius != 0)) {
         tmp1 = x - hitbox->pos.xPos.h;
         tmp2 = z - hitbox->pos.zPos.h;
         dist = SQ(tmp1) + SQ(tmp2);
 
-        if (dist < SQ(hitbox->unkC)) {
-            temp_t2 = (animal->position.yPos.w + hitbox->pos.yPos.w) + (hitbox->unkC << 0x10);
-            temp_t3 = (animal->position.yPos.w + hitbox->pos.yPos.w) - (hitbox->unkC << 0x10);
+        if (dist < SQ(hitbox->radius)) {
+            temp_t2 = (animal->position.yPos.w + hitbox->pos.yPos.w) + (hitbox->radius << 0x10);
+            temp_t3 = (animal->position.yPos.w + hitbox->pos.yPos.w) - (hitbox->radius << 0x10);
 
             if (res != 0) {
                 *upperBoundary = MAX(*upperBoundary, temp_t2);

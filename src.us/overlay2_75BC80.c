@@ -314,8 +314,8 @@ void func_8034B848_75CEF8(s16 arg0) {
                 (SSSV_RAND(33) + (phi_t3 * 3 * temp_t7)) << 7,
                 (phi_t3 << 4) << 0xE,
                 SSSV_RAND(16) + 4,
-                GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
-                GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
+                GPACK_RGBA5551((gWaterPrimRed + 511) / 3, (gWaterPrimGreen + 511) / 3, (gWaterPrimBlue + 511) / 3, 1),
+                GPACK_RGBA5551((gWaterPrimRed + 511) / 3, (gWaterPrimGreen + 511) / 3, (gWaterPrimBlue + 511) / 3, 1),
                 0);
         }
     }

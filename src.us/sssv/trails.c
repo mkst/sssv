@@ -38,7 +38,7 @@ void func_8039DD90_7AF440(Trail *arg0) {
 }
 
 // ESA: func_800884F4
-Trail *add_regular_trail(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
+Trail *add_regular_trail(Entity *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
     s16 i;
 
     if (arg12 != 0) {
@@ -204,7 +204,7 @@ void func_8039E33C_7AF9EC(WalrusWake *arg0) {
     xVel = animal->xVelocity.w >> 8;
     zVel = animal->zVelocity.w >> 8;
 
-    arg0->unkBE[arg0->numVtxs >> 1] = func_801284B8(xVel, zVel);
+    arg0->unkBE[arg0->numVtxs >> 1] = atan2_deg_s16(xVel, zVel);
 
     // these numbers are squared, so why?
     xVel = -xVel;
@@ -257,7 +257,7 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     s16 sp5A;
     s16 sp58;
     s16 temp_v0;
-    Animal *animal;
+    Entity *animal;
     struct077 sp48; // 0x6 big
     s16 pad;
     s16 sp44;
@@ -275,9 +275,9 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
 
     if (sp38 | sp34) {
       new_var = sqrtf(SQ(sp38) + SQ(sp34));
-        sp44 = func_801284B8(
+        sp44 = atan2_deg_s16(
             -animal->yVelocity.w >> 8, new_var);
-        temp_v0 = func_801284B8(sp38, sp34);
+        temp_v0 = atan2_deg_s16(sp38, sp34);
 
         if (animal->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             // it's an animal
@@ -307,8 +307,8 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
         case 3:
             sp58 = ( COS(arg0->unk4) * arg0->unk5) >> 0xF;
             sp5A = (-SIN(arg0->unk4) * arg0->unk5) >> 0xF;
-            sp5E = (COSB((s32)func_80128200() % 360) *  sp58) >> 8;
-            sp5C = (SINB((s32)func_80128200() % 360) * -sp58) >> 8;
+            sp5E = (COSB((s32)random_u32() % 360) *  sp58) >> 8;
+            sp5C = (SINB((s32)random_u32() % 360) * -sp58) >> 8;
             break;
         default:
             break;
@@ -385,7 +385,7 @@ void display_trails(void) {
     RegularTrail *trail;
     s16 *sineTable = gSineTable;
     SimpleTrail *simpleTrail;
-    Animal *animal;
+    Entity *animal;
 
     gSPDisplayList(gLayer0DL++, D_01004A70_3E340);
 
@@ -496,7 +496,7 @@ void display_trails(void) {
 
             case 4:
                 simpleTrail = &gTrails[i].trail.simple;
-                animal = simpleTrail->animal;
+                animal = (Entity *)simpleTrail->animal;
 
                 if (animal->unk26C != 0) {
                     if (gTrails[i].unk0.unk4 != 2U) {
@@ -605,7 +605,7 @@ void display_trails(void) {
 
             case 3:
                 walrusWake = &gTrails[i].trail.walrus;
-                animal = walrusWake->unk328;
+                animal = (Entity *)walrusWake->unk328;
 
                 if (gTrails[i].unk0.unk4 != 2) {
                     if ((animal->xVelocity.h | animal->zVelocity.h) != 0) {

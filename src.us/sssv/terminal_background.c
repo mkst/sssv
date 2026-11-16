@@ -5,6 +5,11 @@
 
 #include "camera.h"
 
+// External data referenced by this file.
+extern u16  D_803B6310_7C79C0;
+extern s16  gTerminalFadeStep;
+extern u8   gTerminalPhase;
+
 // ========================================================
 // definitions
 // ========================================================
@@ -491,9 +496,9 @@ void render_terminal_background_frame(void) {
         start_sfx_volume_fade(1.0f, 0.0f, 20.0f);
         D_803F6470 = 0;
         D_803F646C = 0.0f;
-        if (D_80291090.hasRumblePak[0] != 0) { // Controller array
-            func_80137168();
-            func_8013724C(0);
+        if (gRumbleState.hasRumblePak[0] != 0) { // Controller array
+            reset_rumble_state();
+            request_rumble_motor_stop(0);
         }
     }
     if (D_803F6470 < 100) {

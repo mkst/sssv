@@ -61,7 +61,7 @@ void func_8036F7A0_780E50(void) {
     }
 
     if (sp9E == 0) {
-        func_8038C98C_79E03C();
+        update_idle_head_yaw_clamped();
         ticks_remaining = gGameplayTick - D_803D552C->lastInputTick;
         if (((ticks_remaining & 0xFF) < 0x50) && (ticks_remaining >= 0x100) && ((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_INJURED))) {
             if ((advance_random_seed() & 0x1F00) == 0x1900) {
@@ -131,14 +131,14 @@ void func_8036F7A0_780E50(void) {
             func_802BB840_6CCEF0(0x196);
             D_80203FE0[26].unk4 += 182;
             func_802C4A70_6D6120(0x1E7, 0x28A, 8);
-            func_8038CCF0_79E3A0(0x65, 3, 7, 0x13, 0x14, -1);
-            func_8038CCF0_79E3A0(-0x66, 4, 0xA, -1, -1, -1);
+            apply_music_bounce_to_joints(0x65, 3, 7, 0x13, 0x14, -1);
+            apply_music_bounce_to_joints(-0x66, 4, 0xA, -1, -1, -1);
 
             temp_a1 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
             temp_a3 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
 
-            tmp3 = (((temp_a1 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a3) >> 8));
-            tmp4 = (((temp_a3 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * temp_a1) >> 8));
+            tmp3 = (((temp_a1 * COSB(D_803D552C->headYawDegrees)) >> 8) + ((SINB(D_803D552C->headYawDegrees) * temp_a3) >> 8));
+            tmp4 = (((temp_a3 * COSB(D_803D552C->headYawDegrees)) >> 8) - ((SINB(D_803D552C->headYawDegrees) * temp_a1) >> 8));
 
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + tmp3;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + tmp4;
@@ -274,11 +274,11 @@ void func_8036F7A0_780E50(void) {
         }
     }
     if (sp9E == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 2, 0x391, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x28A, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2, 0x391, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x28A, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x891, 0x2DB);
+        set_single_collision_sphere(D_803D552C, 0x891, 0x2DB);
     }
 }
 
@@ -326,7 +326,7 @@ void func_80370C84_782334(void) {
     }
 
     if (spDE == 0) {
-        func_8038C98C_79E03C();
+        update_idle_head_yaw_clamped();
         if ((D_803D5538 != 0) && (((gGameplayTick - D_803D552C->lastInputTick) & 0x1FF) == 0xAA)) {
             func_80372698_783D48();
         }
@@ -346,8 +346,8 @@ void func_80370C84_782334(void) {
             temp_v0 = (D_80203FE0[20].unk0 - D_80203FE0[19].unk0);
             temp_a0 = (D_80203FE0[20].unk2 - D_80203FE0[19].unk2);
 
-            tmp1 = ((temp_v0 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a0) >> 8);
-            tmp2 = ((temp_a0 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * temp_v0) >> 8);
+            tmp1 = ((temp_v0 * COSB(D_803D552C->headYawDegrees)) >> 8) + ((SINB(D_803D552C->headYawDegrees) * temp_a0) >> 8);
+            tmp2 = ((temp_a0 * COSB(D_803D552C->headYawDegrees)) >> 8) - ((SINB(D_803D552C->headYawDegrees) * temp_v0) >> 8);
 
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + tmp1;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + tmp2;
@@ -654,11 +654,11 @@ void func_80370C84_782334(void) {
         }
     }
     if (spDE == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 2, 0x391, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x28A, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2, 0x391, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x28A, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x448, 0x3CF);
+        set_single_collision_sphere(D_803D552C, 0x448, 0x3CF);
     }
 }
 

@@ -345,15 +345,15 @@ void func_803574E0_768B90(void) {
     }
     if (sp96 == 0) {
         if ((D_803D5528->unk3C0.unk0 == 0x10) && (D_803D5528->unk3C0.unk2 < 0x11)) {
-            func_803034D0_714B80(D_803D552C, 1425, 0, 0);
-            func_80303D50_715400(D_803D552C, 2);
+            set_body_collision_sphere_pair(D_803D552C, 1425, 0, 0);
+            terminate_collision_spheres(D_803D552C, 2);
         } else {
-            func_803034D0_714B80(D_803D552C, 1425, 0, 1);
-            func_80303990_715040(D_803D552C, 32, 33, 19, 20, 534, 0);
-            func_80303D50_715400(D_803D552C, 3);
+            set_body_collision_sphere_pair(D_803D552C, 1425, 0, 1);
+            set_collision_sphere_from_joint_pairs(D_803D552C, 32, 33, 19, 20, 534, 0);
+            terminate_collision_spheres(D_803D552C, 3);
         }
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x3B6, 712);
+        set_single_collision_sphere(D_803D552C, 0x3B6, 712);
     }
 }
 
@@ -410,7 +410,7 @@ void func_80358E3C_76A4EC(void) {
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(712, 0x1DB, 0);
             func_802C56D0_6D6D80(0x28);
-            func_8038CCF0_79E3A0(0x164, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(0x164, 0x13, 0x14, -1, -1, -1);
             func_802C7310_6D89C0();
 
             if (D_803D5528->unk3C0.unk0 == 16) {
@@ -500,19 +500,19 @@ void func_80358E3C_76A4EC(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, (s16) 0x19, (s16) 0xF, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
     if (spA2 == 0) {
-        func_803034D0_714B80(D_803D552C, 1425, 0, 1);
+        set_body_collision_sphere_pair(D_803D552C, 1425, 0, 1);
         if ((D_803D5528->unk3C0.unk0 == 0x10) && (((D_803D5528->unk3C0.unk2 < 9)))) {
-            func_80303820_714ED0(D_803D552C, 19, 20, (-(D_803D5528->unk3C0.unk2 - 9) * 356) >> 3, 0);
-            func_80303D50_715400(D_803D552C, 3);
+            set_collision_sphere_at_joint_midpoint(D_803D552C, 19, 20, (-(D_803D5528->unk3C0.unk2 - 9) * 356) >> 3, 0);
+            terminate_collision_spheres(D_803D552C, 3);
         } else if ((D_803D5528->unk3C0.unk0 == 0x10) && (((D_803D5528->unk3C0.unk2 < 0x10)))) {
-            func_80303820_714ED0(D_803D552C, 19, 20, ((D_803D5528->unk3C0.unk2 - 7) * 356) >> 3, 0);
-            func_80303D50_715400(D_803D552C, 3);
+            set_collision_sphere_at_joint_midpoint(D_803D552C, 19, 20, ((D_803D5528->unk3C0.unk2 - 7) * 356) >> 3, 0);
+            terminate_collision_spheres(D_803D552C, 3);
         } else {
-            func_80303990_715040(D_803D552C, 32, 33, 19, 20, 356, 0);
-            func_80303D50_715400(D_803D552C, 3);
+            set_collision_sphere_from_joint_pairs(D_803D552C, 32, 33, 19, 20, 356, 0);
+            terminate_collision_spheres(D_803D552C, 3);
         }
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x3B6, 712);
+        set_single_collision_sphere(D_803D552C, 0x3B6, 712);
     }
 
     if ((D_803D5538 == 0) && (D_803D552C->unk2EC > 0)) {

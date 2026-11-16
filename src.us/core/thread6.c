@@ -228,7 +228,7 @@ void thread6(s32 arg0) {
     }
     // eeprom stuff
     clear_player_eeprom_state();
-    func_80130E44(); // read_eeprom
+    load_eeprom_or_initialize_defaults(); // read_eeprom
 
     gAttractModeState = 0;
 
@@ -305,18 +305,18 @@ void thread6_loop(void) {
                 D_801D9ED4 -= 1;
             }
             if ((D_80152EBC < 2) && (phi_s1 == 0) && (D_80204292 >= gFrameStepDivisor)) {
-                func_80136F64(); // read input
+                snapshot_controller_button_history(); // save button-up state before the next read
                 if (gControllerConnected != 0) {
-                    func_801370F4();
-                    osContStartReadData(&D_8028D0A8);
-                    osRecvMesg(&D_8028D0A8, &D_802042EC, OS_MESG_BLOCK);
-                    func_8013713C();
-                    osContGetReadData(D_802910E8);
+                    acquire_si_lock();
+                    osContStartReadData(&gSiEventQueue);
+                    osRecvMesg(&gSiEventQueue, &D_802042EC, OS_MESG_BLOCK);
+                    release_si_lock();
+                    osContGetReadData(gControllerPads);
                     D_802912D0 = 1;
 #ifdef VERSION_US
-                    gControllerInput = &D_802910E8;
+                    gControllerInput = gControllerPads;
 #else
-                    gControllerInput = &D_802910E8[D_801D9ED0];
+                    gControllerInput = &gControllerPads[D_801D9ED0];
 #endif
                 }
                 D_80204292 = 0;
@@ -329,7 +329,7 @@ void thread6_loop(void) {
                 D_801D9EC8 = 0;
                 reset_task_list();
 
-                func_8013107C(
+                submit_graphics_task(
                     &gFrameContext[D_80152EB8],
                     &gFrameContext[D_80152EB8].dl,
                     (gMainDL - gFrameContext[D_80152EB8].dl.mainDL) * sizeof(Gfx),
@@ -388,7 +388,7 @@ void thread7(void) {
         gAuxDL = temp_a0->dl.gAuxDL;
 
         for (i = 0; i < 8; i++) {
-            D_801D9E98[i] = &gDisplayListContext->unk109A0[i];
+            D_801D9E98[i] = gDisplayListContext->unk109A0[i];
         }
 
         gFrameContextPtr = temp_a0;

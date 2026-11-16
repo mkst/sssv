@@ -5,7 +5,18 @@
 // definitions
 // ========================================================
 
-s16  func_8038CC28_79E2D8(void);
+s16  get_music_bounce_factor(void);
+
+// ========================================================
+// .data
+// ========================================================
+
+static s16 musicBounceCurve[32] = {
+    38, 50, 60, 64, 63, 61, 59, 57,
+    55, 52, 49, 46, 43, 40, 37, 34,
+    31, 28, 25, 22, 18, 15, 12, 10,
+    7, 5, 3, 1, 0, 5, 15, 27,
+};
 
 // ========================================================
 // .bss (gAnimalBehaviourEnabled to D_803F6460)
@@ -20,122 +31,122 @@ s16  gAnimalBehaviourEnabled;
 void empty_8038C760_79DE10(void) {
 }
 
-void func_8038C768_79DE18(void) {
-    u16 ticks_remaining;
-    s16 tmp2;
+void update_idle_head_yaw(void) {
+    u16 ticksSinceInput;
+    s16 yawDelta;
 
-    ticks_remaining = gGameplayTick - D_803D552C->lastInputTick;
-    if ((gUiFlowState.unk0 == 0) && ((D_803D5530->unk4A == 0)) && (ticks_remaining != 0)) {
+    ticksSinceInput = gGameplayTick - D_803D552C->lastInputTick;
+    if ((gUiFlowState.unk0 == 0) && ((D_803D5530->unk4A == 0)) && (ticksSinceInput != 0)) {
         if (D_803D5538 != 0) {
-            if ((ticks_remaining & 0xFF) >= 150) {
+            if ((ticksSinceInput & 0xFF) >= 150) {
                 if (SSSV_RAND(16) == 13) {
-                    D_803D552C->unk314 = advance_random_seed() % 360;
+                    D_803D552C->targetHeadYawDegrees = advance_random_seed() % 360;
                 }
             } else {
-                D_803D552C->unk314 = 0;
+                D_803D552C->targetHeadYawDegrees = 0;
             }
-        } else if ((ticks_remaining & 0xFF) >= 130) {
-            D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
+        } else if ((ticksSinceInput & 0xFF) >= 130) {
+            D_803D552C->targetHeadYawDegrees = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
         } else {
-            D_803D552C->unk314 = 0;
+            D_803D552C->targetHeadYawDegrees = 0;
         }
     } else {
-        D_803D552C->unk314 = 0;
+        D_803D552C->targetHeadYawDegrees = 0;
     }
     if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
-        D_803D552C->unk314 = 0;
+        D_803D552C->targetHeadYawDegrees = 0;
     }
 
-    tmp2 = D_803D552C->unk314 - D_803D552C->unk316;
+    yawDelta = D_803D552C->targetHeadYawDegrees - D_803D552C->headYawDegrees;
 
-    while (tmp2 >= 360) {
-        tmp2 -= 360;
+    while (yawDelta >= 360) {
+        yawDelta -= 360;
     }
-    while (tmp2 < 0) {
-        tmp2 += 360;
+    while (yawDelta < 0) {
+        yawDelta += 360;
     }
 
-    if (tmp2 > 180) {
-        D_803D552C->unk316 += MAX(tmp2 - 360, -18);
+    if (yawDelta > 180) {
+        D_803D552C->headYawDegrees += MAX(yawDelta - 360, -18);
     } else {
-        D_803D552C->unk316 += MIN(tmp2, 18);
+        D_803D552C->headYawDegrees += MIN(yawDelta, 18);
     }
-    D_803D552C->unk316 %= 360;
+    D_803D552C->headYawDegrees %= 360;
 }
 
-void func_8038C98C_79E03C(void) {
-    u16 ticks_remaining;
-    s16 tmp2;
+void update_idle_head_yaw_clamped(void) {
+    u16 ticksSinceInput;
+    s16 yawDelta;
 
-    ticks_remaining = gGameplayTick - D_803D552C->lastInputTick;
-    if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (ticks_remaining != 0)) {
+    ticksSinceInput = gGameplayTick - D_803D552C->lastInputTick;
+    if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (ticksSinceInput != 0)) {
         if (D_803D5538 != 0) {
-            if ((ticks_remaining & 0xFF) >= 150) {
+            if ((ticksSinceInput & 0xFF) >= 150) {
                 if (SSSV_RAND(32) == 13) {
-                    D_803D552C->unk314 = (advance_random_seed() % 140) - 70;
-                    if (D_803D552C->unk314 < 0) {
-                        D_803D552C->unk314 += 360;
+                    D_803D552C->targetHeadYawDegrees = (advance_random_seed() % 140) - 70;
+                    if (D_803D552C->targetHeadYawDegrees < 0) {
+                        D_803D552C->targetHeadYawDegrees += 360;
                     }
                 }
             } else {
-                D_803D552C->unk314 = 0;
+                D_803D552C->targetHeadYawDegrees = 0;
             }
-        } else if ((ticks_remaining & 0xFF) >= 200) {
-            D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
+        } else if ((ticksSinceInput & 0xFF) >= 200) {
+            D_803D552C->targetHeadYawDegrees = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
 
-            if (D_803D552C->unk314 > 85) {
-                D_803D552C->unk314 = 85;
+            if (D_803D552C->targetHeadYawDegrees > 85) {
+                D_803D552C->targetHeadYawDegrees = 85;
             }
-            if (D_803D552C->unk314 < -85) {
-                D_803D552C->unk314 = -85;
+            if (D_803D552C->targetHeadYawDegrees < -85) {
+                D_803D552C->targetHeadYawDegrees = -85;
             }
         } else {
-            D_803D552C->unk314 = 0;
+            D_803D552C->targetHeadYawDegrees = 0;
         }
     } else {
-        D_803D552C->unk314 = 0;
+        D_803D552C->targetHeadYawDegrees = 0;
     }
     if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
-        D_803D552C->unk314 = 0;
+        D_803D552C->targetHeadYawDegrees = 0;
     }
     if ((u16)D_803D5528->unk3C0.unk0 != 0) {
-        D_803D552C->unk314 = 0;
+        D_803D552C->targetHeadYawDegrees = 0;
     }
 
-    tmp2 = D_803D552C->unk314 - D_803D552C->unk316;
+    yawDelta = D_803D552C->targetHeadYawDegrees - D_803D552C->headYawDegrees;
 
-    while (tmp2 >= 360) {
-        tmp2 -= 360;
+    while (yawDelta >= 360) {
+        yawDelta -= 360;
     }
-    while (tmp2 < 0) {
-        tmp2 += 360;
+    while (yawDelta < 0) {
+        yawDelta += 360;
     }
 
-    if (tmp2 > 180) {
-        D_803D552C->unk316 += MAX(tmp2 - 360, -8);
+    if (yawDelta > 180) {
+        D_803D552C->headYawDegrees += MAX(yawDelta - 360, -8);
     } else {
-        D_803D552C->unk316 += MIN(tmp2, 8);
+        D_803D552C->headYawDegrees += MIN(yawDelta, 8);
     }
-    D_803D552C->unk316 %= 360;
+    D_803D552C->headYawDegrees %= 360;
 }
 
-s16 func_8038CC28_79E2D8(void) {
-    return D_803B62D0_7C7980[((D_80286560 + 3) & 0x3F) >> 1];
+s16 get_music_bounce_factor(void) {
+    return musicBounceCurve[((gMusicBeatPhase + 3) & 0x3F) >> 1];
 }
 
 s16 unused_8038CC50_79E300(void) {
-    return ((COS((D_80286560 - 7) << 2) >> 7) + 256) / 8;
+    return ((COS((gMusicBeatPhase - 7) << 2) >> 7) + 256) / 8;
 }
 
-s16 func_8038CCA4_79E354(void) {
-    return (D_80286560 + 7) & 0x3F;
+s16 get_music_animation_phase(void) {
+    return (gMusicBeatPhase + 7) & 0x3F;
 }
 
-s16 func_8038CCC0_79E370(void) {
-    return ((D_80286560 + 7) & 0x3F) < ((D_80286562 + 7) & 0x3F);
+s16 did_music_animation_phase_wrap(void) {
+    return ((gMusicBeatPhase + 7) & 0x3F) < ((gPreviousMusicBeatPhase + 7) & 0x3F);
 }
 
-s16 func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5) {
+s16 apply_music_bounce_to_joints(s16 amplitude, s16 joint1, s16 joint2, s16 joint3, s16 joint4, s16 joint5) {
     s16 phi_v0;
     if (gAnimalBehaviourEnabled == 0) {
         return 0;
@@ -170,21 +181,21 @@ s16 func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                     }
                 }
                 if (((gGameplayTick + ((u16)D_803D552C->ambientPhaseSeed << 6)) & 0x1FF) < phi_v0) {
-                    phi_v0 = (arg0 * func_8038CC28_79E2D8()) >> 6;
-                    if (arg1 >= 0) {
-                        D_80203FE0[arg1].unk4 -= phi_v0;
+                    phi_v0 = (amplitude * get_music_bounce_factor()) >> 6;
+                    if (joint1 >= 0) {
+                        D_80203FE0[joint1].unk4 -= phi_v0;
                     }
-                    if (arg2 >= 0) {
-                        D_80203FE0[arg2].unk4 -= phi_v0;
+                    if (joint2 >= 0) {
+                        D_80203FE0[joint2].unk4 -= phi_v0;
                     }
-                    if (arg3 >= 0) {
-                        D_80203FE0[arg3].unk4 -= phi_v0;
+                    if (joint3 >= 0) {
+                        D_80203FE0[joint3].unk4 -= phi_v0;
                     }
-                    if (arg4 >= 0) {
-                        D_80203FE0[arg4].unk4 -= phi_v0;
+                    if (joint4 >= 0) {
+                        D_80203FE0[joint4].unk4 -= phi_v0;
                     }
-                    if (arg5 >= 0) {
-                        D_80203FE0[arg5].unk4 -= phi_v0;
+                    if (joint5 >= 0) {
+                        D_80203FE0[joint5].unk4 -= phi_v0;
                     }
                 }
             }

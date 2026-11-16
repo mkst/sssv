@@ -156,7 +156,7 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     D_803D5530->unk4C.unk1B = 1;
     D_803D5530->unk4C.unk1C = 1;
     D_803D5530->unk4C.unk1D = 1;
-    D_803D552C->ambientPhaseSeed = func_801282C4();
+    D_803D552C->ambientPhaseSeed = advance_random_seed_16_steps();
 
     i = sample_ground_height_at_xz(arg0, arg1) >> 0x10;
     if (arg2 < i) {
@@ -181,10 +181,10 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     D_803D5530->zVelocity.w = 0;
     D_803D5530->yVelocity.w = -1;
     D_803D5530->unk46 = D_803D5530->unk16C->mass;
-    func_802DADA0_6EC450(gAnimalState.animals[slot].animal);
+    register_entity_collision(gAnimalState.animals[slot].animal);
     D_803D5528->unk3C8.unk2 = load_dynamic_tail(id);
     D_803D552C->aiFlags = AI_FLAG_CAN_ATTACK | AI_FLAG_AVOID_NEUTRAL_ANIMALS | AI_FLAG_CAN_FLEE | AI_FLAG_HERD_OR_FOLLOW | AI_FLAG_COLLIDE_WITH_STATIC | AI_FLAG_ALLOW_STEEP_NAVIGATION | AI_FLAG_SCRIPTED_PLAYER_ENGAGEMENT;
-    func_802C9BA4_6DB254(gAnimalState.animals[slot].animal);
+    func_802C9BA4_6DB254((Entity *)gAnimalState.animals[slot].animal);
     D_803D552C->energy[0].unk0 = 0x3FF;
     D_803D552C->energy[1].unk0 = 0x3FF;
     if ((arg6 != 0) && (((gCameraId == 0)) || (gCameraId == 1))) {

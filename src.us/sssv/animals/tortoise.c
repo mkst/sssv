@@ -151,7 +151,7 @@ void update_tortoise_tank(void) {
             func_802B9130_6CA7E0(&sp140, 453, 308, 498, 0);
             func_802C1830_6D2EE0(498, &sp140);
             func_802B964C_6CACFC();
-            D_803D552C->unk312 = func_8012844C(((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 5) / (D_80203FE0[1].unk2 - D_80203FE0[2].unk2));
+            D_803D552C->unk312 = atan_deg_q6(((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 5) / (D_80203FE0[1].unk2 - D_80203FE0[2].unk2));
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
@@ -367,7 +367,7 @@ void update_tortoise_tank(void) {
         sp132 = sp132 * 4;
 
         gSPDisplayList(gAuxDL++, D_01003AD0_3D3A0);
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01036E90_70760_bin);
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_D_01036C90_70560_pal);
         gDPTileSync(gAuxDL++);
         gDPSetTile(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync(gAuxDL++);
@@ -377,7 +377,7 @@ void update_tortoise_tank(void) {
 
         // FIXME: this is 1 macro (hence the newline breaks)
 #pragma _permuter sameline start
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (u32)D_01036C90_70560_bin & 0x1FFFFFFF);\
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (u32)img_D_01036C90_70560_ci8__png & 0x1FFFFFFF);\
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);\
         gDPLoadSync(gAuxDL++);\
         gDPLoadBlock(gAuxDL++, G_TX_LOADTILE, 0, 0, 127, 1024);\
@@ -414,7 +414,7 @@ void update_tortoise_tank(void) {
         );
 
         // TODO: replace with single gDPLoadTextureBlock
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, K0_TO_PHYS(D_01036D90_70660_bin));
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, K0_TO_PHYS((img_D_01036C90_70560_ci8__png + 0x100)));
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync(gAuxDL++);
         gDPLoadBlock(gAuxDL++, G_TX_LOADTILE, 0, 0, 127, 1024);
@@ -452,10 +452,10 @@ void update_tortoise_tank(void) {
     }
 
     if (sp128 == 0) {
-        func_803034D0_714B80(D_803D552C, 0x2A7, 0, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_body_collision_sphere_pair(D_803D552C, 0x2A7, 0, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x54F, 0x1C5);
+        set_single_collision_sphere(D_803D552C, 0x54F, 0x1C5);
     }
 }
 
@@ -625,7 +625,7 @@ void update_racing_tortoise(void) {
             D_80203FE0[1].unk4 += var_v1_6;
             D_80203FE0[0].unk4 += var_v1_6 >> 1;
             func_802C5EF4_6D75A4(181, 362);
-            func_8038CCF0_79E3A0(90, 20, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(90, 20, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
@@ -761,10 +761,10 @@ void update_racing_tortoise(void) {
             D_803D5538);
     }
     if (sp88 == 0) {
-        func_803034D0_714B80(D_803D552C, 679, 0, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_body_collision_sphere_pair(D_803D552C, 679, 0, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 1359, 453);
+        set_single_collision_sphere(D_803D552C, 1359, 453);
     }
 }
 
@@ -861,10 +861,10 @@ void update_tortoise_defending(void) {
         func_8035D6D0_76ED80();
     }
     if (!offscreen) {
-        func_803034D0_714B80(D_803D552C, 0x7F6, 0, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_body_collision_sphere_pair(D_803D552C, 0x7F6, 0, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x54F, 0x1C5);
+        set_single_collision_sphere(D_803D552C, 0x54F, 0x1C5);
     }
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {

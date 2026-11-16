@@ -172,7 +172,7 @@ static s16  ratBehaviorMode; // only used by RAT
 // ESA: func_80064DC4
 s32 target_within_current_fov(u16 fov) {
     Animal *target = D_803D552C->aiTarget;
-    if (fov < func_803051F0_7168A0((func_801284B8(target->position.xPos.h - D_803D5530->position.xPos.h, target->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360, D_803D5530->yRotation)) {
+    if (fov < func_803051F0_7168A0((atan2_deg_s16(target->position.xPos.h - D_803D5530->position.xPos.h, target->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360, D_803D5530->yRotation)) {
         return 0;
     } else {
         return 1;
@@ -183,7 +183,7 @@ s32 target_within_current_fov(u16 fov) {
 s32 target_within_custom_fov(u16 rotation, u16 fov) {
     Animal *a = D_803D552C->aiTarget;
 
-    if (fov < func_803051F0_7168A0(((func_801284B8(a->position.xPos.h - D_803D5530->position.xPos.h, a->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360), rotation)) {
+    if (fov < func_803051F0_7168A0(((atan2_deg_s16(a->position.xPos.h - D_803D5530->position.xPos.h, a->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360), rotation)) {
         return 0;
     } else {
         return 1;
@@ -214,22 +214,22 @@ void perform_behavior_lion(void) {
 #endif
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 100) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 111) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 101) && (target_within_current_fov(5) != 0)) {
             lion_roar();
             D_803D552C->unk2C4 = (advance_random_seed() % 40) + 50;
         } else if (D_803D552C->unk2C4 <= 0) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2B8 = 0;
         }
@@ -238,7 +238,7 @@ void perform_behavior_lion(void) {
         if ((D_803D552C->targetDistance >= 200) || (D_803D552C->unk2B8++ >= 61)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -247,21 +247,21 @@ void perform_behavior_lion(void) {
 void perform_behavior_hippo(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2C0 = 0;
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 100) && (D_803D552C->unk2C0 == 0)) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2C0 = 1;
         } else if ((D_803D552C->targetDistance >= 121) && (D_803D552C->unk2C0 == 1)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2C0 = 0;
         }
         if ((target_within_current_fov(5) != 0) && (D_803D552C->targetDistance < 350) && (D_803D552C->unk2C4 <= 0)) {
             if (D_803D552C->unk2B8 >= 2) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2B8 = 0;
                 D_803D552C->unk2B4.state = 2;
             } else {
@@ -277,7 +277,7 @@ void perform_behavior_hippo(void) {
             D_803D552C->unk2C4 = 60;
         }
         if ((D_803D552C->targetDistance >= 401) || (D_803D552C->unk2B8++ >= 60)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2B8 = 0;
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
@@ -292,12 +292,12 @@ void perform_behavior_racing_hippo(void) {
 void perform_behavior_racing_dog(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 401) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -306,10 +306,10 @@ void perform_behavior_racing_dog(void) {
             D_803D552C->unk2C0 -= 1;
         }
         if (D_803D552C->targetDistance >= 441) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->targetDistance < 300) && (D_803D552C->unk2C0 <= 0)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0) ){
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
@@ -318,7 +318,7 @@ void perform_behavior_racing_dog(void) {
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 351) || (D_803D552C->unk2C0++ >= 61) ) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
     }
@@ -332,14 +332,14 @@ void perform_behavior_flying_dog(void) {
         osSyncPrintf("staet %d FC %d\n", D_803D552C->unk2B4.state, D_803D552C->unk2C4);
         switch (D_803D552C->unk2B4.state) {
         case 0:
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
             if (D_803D552C->targetDistance < 100) {
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2B4.state = 2;
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             } else if ((target_within_current_fov(5) != 0) && (D_803D552C->targetDistance < 220) && (D_803D552C->unk2C4 == 0)) {
                 D_803D552C->unk2C4 = 140;
             }
@@ -351,23 +351,23 @@ void perform_behavior_flying_dog(void) {
             if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance > 250)) {
                 D_803D552C->unk2B4.state = 1;
                 D_803D552C->unk2C0 = 0;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             }
         }
     } else {
         switch (D_803D552C->unk2B4.state) {
         case 0:
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -180, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -180, 16);
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
             if (D_803D552C->targetDistance < 64) {
                 D_803D552C->unk2B4.state = 3;
-                set_nav_state_scripted(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -180, 16);
+                set_nav_state_scripted((Animal *)D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -180, 16);
             } else if ((D_803D552C->unk2C4 == 0) && (target_within_current_fov(10) != 0) && (D_803D552C->targetDistance < 200)) {
                 D_803D552C->unk2C4 = 80;
                 D_803D552C->unk2B4.state = 2;
-                set_nav_state_scripted(D_803D5530, (D_803D5530->yRotation * 360) >> 8, -180, 16);
+                set_nav_state_scripted((Animal *)D_803D5530, (D_803D5530->yRotation * 360) >> 8, -180, 16);
             }
             break;
         case BEHAVIOUR_DEFEND:
@@ -375,7 +375,7 @@ void perform_behavior_flying_dog(void) {
                 flying_dog_drop_bomb(0, 0, 0);
             } else if (D_803D552C->unk2C4 < 60) {
                 D_803D552C->unk2B4.state = 3;
-                set_nav_state_scripted(D_803D5530, (D_803D5530->yRotation * 360) >> 8, -180, 16);
+                set_nav_state_scripted((Animal *)D_803D5530, (D_803D5530->yRotation * 360) >> 8, -180, 16);
                 return;
             }
             break;
@@ -383,7 +383,7 @@ void perform_behavior_flying_dog(void) {
             if ((D_803D552C->targetDistance >= 0x119) || (D_803D552C->unk2C4 == 0)) {
                 D_803D552C->unk2B4.state = 1;
                 D_803D552C->unk2C0 = 0;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -180, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -180, 16);
             }
         }
     }
@@ -392,25 +392,25 @@ void perform_behavior_flying_dog(void) {
 void perform_behavior_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 -= 1;
             if (D_803D552C->unk2C0 == 0) {
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             }
         } else if ((D_803D552C->unk2C0 == 0) && ((D_803D5530->unk5C.unk0 & 4) != 0) && ((Animal*)D_803D5530->unk5C.unk4 == D_803D552C->aiTarget)) {
             D_803D552C->unk2C0 = 40;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 51) && (target_within_current_fov(5) != 0)) {
             func_802E88C0_6F9F70(100);
             D_803D552C->unk2C4 = SSSV_RAND(8) + 25;
             D_803D552C->unk2BC += 1;
             if (D_803D552C->unk2BC >= 3) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2B4.state = 2;
                 D_803D552C->unk2BC = 0;
             }
@@ -419,7 +419,7 @@ void perform_behavior_fox(void) {
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance >= 100) || (++D_803D552C->unk2C0 >= 0x1F)) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -431,26 +431,26 @@ void perform_behavior_fire_fox(void) {
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -70, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -70, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0x78) {
             D_803D552C->unk2B4.state = 2;
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         }
         if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance < 200) && (target_within_current_fov(20) != 0)) {
             fire_fox_fire_missile(D_803D552C->aiTarget);
             D_803D552C->unk2C4 = 0x96;
             D_803D552C->unk2B4.state = 2;
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         }
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance >= 0xF1)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -70, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -70, 16);
         }
     }
 }
@@ -458,19 +458,19 @@ void perform_behavior_fire_fox(void) {
 void perform_behavior_frog(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 61) {
             D_803D552C->unk2B4.state = 2;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance >= 61) && (D_803D552C->unk2BC < 4)) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2BC += 1;
             if (D_803D552C->unk2BC < 4) {
@@ -478,7 +478,7 @@ void perform_behavior_frog(void) {
             }
             D_803D552C->unk2C4 =  SSSV_RAND(8) + 10;
             if (D_803D552C->unk2BC >= 5) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2B4.state = 3;
                 D_803D552C->unk2BC = 0;
             }
@@ -487,7 +487,7 @@ void perform_behavior_frog(void) {
     case 3:
         if ((D_803D552C->targetDistance >= 250) || (++D_803D552C->unk2C0 >= 0x29)) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -495,13 +495,13 @@ void perform_behavior_frog(void) {
 void perform_behavior_rabbit(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         D_803D552C->unk2C0 = 0;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 201) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -510,10 +510,10 @@ void perform_behavior_rabbit(void) {
             D_803D552C->unk2C0 -= 1;
         }
         if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance >= 0xFB)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance < 100)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             func_803021A8_713858();
@@ -522,7 +522,7 @@ void perform_behavior_rabbit(void) {
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 301) || (D_803D552C->unk2C0++ >= 101)) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 100;
         }
@@ -532,17 +532,17 @@ void perform_behavior_rabbit(void) {
 void perform_behavior_heli_rabbit(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -200, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -200, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 64) {
             D_803D552C->unk2B4.state = 3;
-            set_nav_state_scripted(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
+            set_nav_state_scripted((Animal *)D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
         } else if ((target_within_current_fov(10) != 0) && (D_803D552C->targetDistance < 180)) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C4 = 80;
-            set_nav_state_scripted(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
+            set_nav_state_scripted((Animal *)D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
         }
         break;
     case BEHAVIOUR_DEFEND:
@@ -550,14 +550,14 @@ void perform_behavior_heli_rabbit(void) {
             heli_rabbit_drop_bomb(0, 0, 0);
         } else if (D_803D552C->unk2C4 < 60) {
             D_803D552C->unk2B4.state = 3;
-            set_nav_state_scripted(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -180, 16);
+            set_nav_state_scripted((Animal *)D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -180, 16);
         }
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 0xC9) || ((D_803D552C->unk2C4 == 0))) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -180, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -180, 16);
         }
     }
 }
@@ -568,12 +568,12 @@ void perform_behavior_cod(void) {
 void perform_behavior_parrot(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -240, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -240, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 5) {
-            set_nav_state_scripted(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -240, 16);
+            set_nav_state_scripted((Animal *)D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -240, 16);
             D_803D552C->unk2B4.state = 2;
             parrot_fly();
         }
@@ -582,7 +582,7 @@ void perform_behavior_parrot(void) {
         if ((D_803D552C->targetDistance >= 351) || ((++D_803D552C->unk2C0 >= 151))) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -240, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -240, 16);
         }
     }
 }
@@ -596,15 +596,15 @@ void perform_behavior_mouse(void) {
 void perform_behavior_racing_mouse(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+        set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->unk2C4 == 0) && (target_within_current_fov(2) != 0)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2B4.state = 2;
         } else if ((D_803D552C->unk2C4 != 0) && (D_803D552C->targetDistance < 70)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 4;
             D_803D552C->unk2B8 = 0;
         }
@@ -619,14 +619,14 @@ void perform_behavior_racing_mouse(void) {
         }
         break;
     case 3:
-        func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+        func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         D_803D552C->unk2B4.state = 4;
         D_803D552C->unk2B8 = 0;
         break;
     case 4:
         if ((D_803D552C->targetDistance >= 0xFA) || (D_803D552C->unk2B8++ >= 0x1F) || (D_803D552C->unk2C4 == 0)) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
         break;
 
@@ -646,7 +646,7 @@ void perform_behavior_bear(void) {
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 20);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 20);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
@@ -656,7 +656,7 @@ void perform_behavior_bear(void) {
         break;
     case BEHAVIOUR_DEFEND:
         if (D_803D552C->targetDistance >= 0x38) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 20);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 20);
             D_803D552C->unk2B4.state = 1;
         } else {
             func_80327B94_739244(70);
@@ -665,13 +665,13 @@ void perform_behavior_bear(void) {
         }
         break;
     case 3:
-        func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+        func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         D_803D552C->unk2B4.state = 4;
         // fallthru
     case 4:
         if ((D_803D552C->targetDistance >= 0xC8) || (D_803D552C->unk2B8++ >= 0x3D)) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 20);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 20);
         }
     }
 }
@@ -685,21 +685,21 @@ void perform_behavior_mystery_bear(void) {
 void perform_behavior_racing_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 -= 1;
             if (D_803D552C->unk2C0 == 0) {
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             }
         } else {
             if (D_803D552C->unk2C0 == 0) {
                 if ((D_803D5530->unk5C.unk0 & 4) != 0) {
                     if ((Animal*)D_803D5530->unk5C.unk4 == D_803D552C->aiTarget) {
                         D_803D552C->unk2C0 = 40;
-                        set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+                        set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
                     }
                 }
             }
@@ -712,7 +712,7 @@ void perform_behavior_racing_fox(void) {
                 }
                 D_803D552C->unk2C4 = SSSV_RAND(8) + 10;
                 if (D_803D552C->unk2BC >= 4) {
-                    func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                    func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                     D_803D552C->unk2B4.state = 2;
                     D_803D552C->unk2B8 = 0;
                     D_803D552C->unk2BC = 0;
@@ -729,7 +729,7 @@ void perform_behavior_racing_fox(void) {
         } else {
             if (D_803D552C->targetDistance >= 250) {
                 D_803D552C->unk2B4.state = 1;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             }
         }
     }
@@ -740,12 +740,12 @@ void perform_behavior_tortoise_tank(void) {
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 501) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -754,11 +754,11 @@ void perform_behavior_tortoise_tank(void) {
             D_803D552C->unk2B8--;
         }
         if (D_803D552C->targetDistance >= 441) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if (((D_803D552C->targetDistance < 280) && (D_803D552C->unk2B8 <= 0)) ||
                    (D_803D552C->targetDistance < 120)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2B8 = 0;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
@@ -768,7 +768,7 @@ void perform_behavior_tortoise_tank(void) {
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 351) || (D_803D552C->unk2B8++ >= 100)) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
             if (D_803D552C->unk2B8 >= 90) {
                 D_803D552C->unk2B8 = 100;
@@ -794,24 +794,24 @@ void perform_behavior_tortoise_tank_defending(void) {
 void perform_behavior_racing_tortoise(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+        set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (target_within_current_fov(2) != 0) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case BEHAVIOUR_DEFEND:
         if (((D_803D5530->unk5C.unk0 & 4) != 0) && ((Animal*)D_803D5530->unk5C.unk4 == D_803D552C->aiTarget)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2B8 = 0;
         }
         if ((D_803D552C->targetDistance < 70) && (target_within_current_fov(5) != 0) && (func_8038395C_79500C() >= 12)) {
             racing_tortoise_defend(20);
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2B8 = 0;
         }
@@ -819,7 +819,7 @@ void perform_behavior_racing_tortoise(void) {
     case 3:
         if ((D_803D552C->targetDistance >= 300) || (D_803D552C->unk2B8++ >= 91)) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
     }
 }
@@ -827,17 +827,17 @@ void perform_behavior_racing_tortoise(void) {
 void perform_behavior_dog(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 0x28) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if (D_803D552C->targetDistance >= 0x33) {
             if (D_803D552C->unk2C0 != 0) {
                 D_803D552C->unk2C0 = 0;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             }
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
@@ -848,7 +848,7 @@ void perform_behavior_dog(void) {
                 }
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 if (D_803D552C->unk2BC >= 5) {
-                    func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                    func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                     D_803D552C->unk2B4.state = 2;
                     D_803D552C->unk2BC = 0;
                 }
@@ -859,7 +859,7 @@ void perform_behavior_dog(void) {
         if ((D_803D552C->targetDistance >= 200) || (D_803D552C->unk2C0++ >= 61)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -868,12 +868,12 @@ void perform_behavior_dog(void) {
 void perform_behavior_king_rat(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+        set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0xFB) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 2;
         } else if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2B4.unk8 > 0)) {
@@ -883,7 +883,7 @@ void perform_behavior_king_rat(void) {
         break;
     case BEHAVIOUR_DEFEND:
         if (D_803D552C->targetDistance >= 401) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->targetDistance < 200)) {
             king_rat_fart(60);
@@ -900,12 +900,12 @@ void perform_behavior_rat(void) {
     if (ratBehaviorMode == RAT_BEHAVIOUR_KING) {
         switch (D_803D552C->unk2B4.state) {
         case 0:
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
             if (D_803D552C->targetDistance < 0x65) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2B4.state = 2;
             }
@@ -917,15 +917,15 @@ void perform_behavior_rat(void) {
             }
             if (D_803D552C->unk2C0 > 0) {
                 if (D_803D552C->targetDistance < 0x96) {
-                    func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                    func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                     D_803D552C->unk2C0 = 0;
                 } else if (--D_803D552C->unk2C0 <= 0) {
-                    set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+                    set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
                     D_803D552C->unk2C0 = 0;
                     D_803D552C->unk2B4.state = 1;
                 }
             } else if (D_803D552C->targetDistance >= 0x12C) {
-                set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+                set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
                 D_803D552C->unk2C0 = ((guRandom() & 0x3F) + 0x96);
             }
             break;
@@ -933,13 +933,13 @@ void perform_behavior_rat(void) {
     } else if (ratBehaviorMode == RAT_BEHAVIOUR_ASSIST) {
         switch (D_803D552C->unk2B4.state) {
         case 0:
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
             if (--D_803D552C->unk2C0 <= 0) {
                 D_803D552C->unk2B4.state = 2;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             }
             break;
         case BEHAVIOUR_DEFEND:
@@ -948,7 +948,7 @@ void perform_behavior_rat(void) {
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 D_803D552C->unk2BC += 1;
                 if (D_803D552C->unk2BC >= 6) {
-                    set_nav_state_chase_target(D_803D5530, D_803D552C->unk280, -1, 16);
+                    set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->unk280, -1, 16);
                     D_803D552C->unk2B4.state = 3;
                     D_803D552C->unk2BC = 0;
                 }
@@ -956,7 +956,7 @@ void perform_behavior_rat(void) {
             break;
         case 3:
             if (D_803E4BE0.distance < 101) {
-                set_nav_state_idle(D_803D5530);
+                set_nav_state_idle((Animal *)D_803D5530);
                 D_803D552C->unk2B4.state = 4;
                 break;
             }
@@ -966,7 +966,7 @@ void perform_behavior_rat(void) {
     } else if (ratBehaviorMode == RAT_BEHAVIOUR_NORMAL) {
         switch (D_803D552C->unk2B4.state) {
         case 0:
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
@@ -974,7 +974,7 @@ void perform_behavior_rat(void) {
                 rat_bite();
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 if (++D_803D552C->unk2BC >= 6) {
-                    set_nav_state_idle(D_803D5530);
+                    set_nav_state_idle((Animal *)D_803D5530);
                     D_803D552C->unk2B4.state = 2;
                     D_803D552C->unk2BC = 0;
                     D_803D552C->unk2C0 = guRandom() & 0x3F;
@@ -983,7 +983,7 @@ void perform_behavior_rat(void) {
             break;
         case BEHAVIOUR_DEFEND:
             if (--D_803D552C->unk2C0 <= 0) {
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
                 D_803D552C->unk2B4.state = 1;
             }
         }
@@ -993,7 +993,7 @@ void perform_behavior_rat(void) {
 void perform_behavior_sheep(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
@@ -1003,10 +1003,10 @@ void perform_behavior_sheep(void) {
                 D_803D552C->aiFlags = D_803D552C->savedAiFlags;
                 D_803D552C->unk2B4.unk4 = 0;
                 D_803D552C->aiTarget = 0;
-                func_80363FF0_7756A0(D_803D5530);
+                func_80363FF0_7756A0((Animal *)D_803D5530);
             } else {
                 animal_jump();
-                set_nav_state_scripted(D_803D5530, RAND(360), 0, 16);
+                set_nav_state_scripted((Animal *)D_803D5530, RAND(360), 0, 16);
                 D_803D552C->unk2C0 = (RAND(0xF) + 20);
             }
         }
@@ -1019,16 +1019,16 @@ void perform_behavior_sheep(void) {
 void perform_behavior_ram(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 40) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 0x33) && (D_803D552C->unk2C0 != 0)){
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
             if (target_within_current_fov(5) != 0) {
@@ -1037,7 +1037,7 @@ void perform_behavior_ram(void) {
                 }
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 if (D_803D552C->unk2BC >= 3) {
-                    func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                    func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                     D_803D552C->unk2B4.state = 2;
                     D_803D552C->unk2BC = 0;
                 }
@@ -1048,7 +1048,7 @@ void perform_behavior_ram(void) {
         if ((D_803D552C->targetDistance >= 200) || (++D_803D552C->unk2C0 >= 0x1E)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -1059,16 +1059,16 @@ void perform_behavior_springy_thingy(void) {
 void perform_behavior_springy_ram(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 0x28) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 0x33) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
             if (target_within_current_fov(5) != 0) {
@@ -1077,7 +1077,7 @@ void perform_behavior_springy_ram(void) {
                 }
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 if (D_803D552C->unk2BC >= 5) {
-                    func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                    func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                     D_803D552C->unk2B4.state = 2;
                     D_803D552C->unk2BC = 0;
                 }
@@ -1088,13 +1088,13 @@ void perform_behavior_springy_ram(void) {
         if ((D_803D552C->targetDistance >= 200) || (++D_803D552C->unk2C0 >= 0x33)) {
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_idle(D_803D5530);
+            set_nav_state_idle((Animal *)D_803D5530);
         }
         break;
     case 3:
         if (++D_803D552C->unk2C0 >= 71) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -1102,18 +1102,18 @@ void perform_behavior_springy_ram(void) {
 void perform_behavior_penguin(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->unk2C0 == 1) {
             if (D_803D552C->targetDistance >= 351) {
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
                 D_803D552C->unk2B4.state = 1;
                 D_803D552C->unk2C0 = 0;
             }
         } else if (D_803D552C->targetDistance < 250) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2C0 = 1;
         }
         if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
@@ -1131,13 +1131,13 @@ void perform_behavior_polar_bear(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         D_803D552C->unk2B4.state = 1;
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 <= 0) && (D_803D552C->unk2B8 >= 2)) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 0;
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(24) != 0)) {
             polar_bear_jump_thump();
             D_803D552C->unk2C4 = ((guRandom() & 60) + 25);
@@ -1152,7 +1152,7 @@ void perform_behavior_polar_bear(void) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2B8 = 0;
             D_803D552C->unk2C0 = 80;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         }
     }
 }
@@ -1160,21 +1160,21 @@ void perform_behavior_polar_bear(void) {
 void perform_behavior_polar_tank(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 301) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case BEHAVIOUR_DEFEND:
         if (D_803D552C->targetDistance >= 301) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if (D_803D552C->targetDistance < 200) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
         } else if (D_803D552C->unk2C4 <= 0) {
             if (target_within_current_fov(5) != 0) {
@@ -1189,7 +1189,7 @@ void perform_behavior_polar_tank(void) {
             D_803D552C->unk2C4 = (guRandom() & 0xF) + 70;
         }
         if (D_803D552C->targetDistance >= 0xFB) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
     }
@@ -1198,7 +1198,7 @@ void perform_behavior_polar_tank(void) {
 void perform_behavior_husky(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
@@ -1209,7 +1209,7 @@ void perform_behavior_husky(void) {
         }
         break;
     case BEHAVIOUR_DEFEND:
-        func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+        func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         D_803D552C->unk2C0 = 0;
         D_803D552C->unk2B4.state = 3;
         // fallthru
@@ -1217,7 +1217,7 @@ void perform_behavior_husky(void) {
         if (D_803D552C->unk2C4 == 0) {
             if ((D_803D552C->targetDistance >= 200) || (D_803D552C->unk2C0++ >= 0x1E)) {
                 D_803D552C->unk2B4.state = 1;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
             }
         }
     }
@@ -1229,12 +1229,12 @@ void perform_behavior_crazy_husky(void) {
 void perform_behavior_ski_husky(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 401) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -1243,10 +1243,10 @@ void perform_behavior_ski_husky(void) {
             D_803D552C->unk2C0 -= 1;
         }
         if (D_803D552C->targetDistance >= 441) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->targetDistance < 250) && (D_803D552C->unk2C0 <= 0)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
         } else {
             if (D_803D552C->unk2C4 <= 0) {
@@ -1259,7 +1259,7 @@ void perform_behavior_ski_husky(void) {
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 351) || (D_803D552C->unk2C0++ >= 71)) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
     }
@@ -1268,12 +1268,12 @@ void perform_behavior_ski_husky(void) {
 void perform_behavior_walrus(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0x191) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -1282,10 +1282,10 @@ void perform_behavior_walrus(void) {
             D_803D552C->unk2C0 = (D_803D552C->unk2C0 - 1);
         }
         if (D_803D552C->targetDistance >= 441) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->targetDistance < 0xFA) && (D_803D552C->unk2C0 <= 0)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(0x14) != 0)) {
             D_803D552C->unk2C4 = (RAND(30) + 30);
@@ -1294,7 +1294,7 @@ void perform_behavior_walrus(void) {
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 0x15F) || (D_803D552C->unk2C0++ >= 0x47)) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
     }
@@ -1307,12 +1307,12 @@ void perform_behavior_vulture2(void) {
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, (-80 - D_803D552C->aiTarget->unk42), 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, (-80 - D_803D552C->aiTarget->unk42), 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 2) {
-            set_nav_state_idle(D_803D5530);
+            set_nav_state_idle((Animal *)D_803D5530);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2B8 = 0;
         }
@@ -1326,7 +1326,7 @@ void perform_behavior_vulture2(void) {
     case 3:
         if (D_803D552C->unk2C4 <= 0) {
             D_803D552C->unk2B4.state = 4;
-            func_80363EDC_77558C(D_803D5530, (-80 - D_803D552C->aiTarget->unk42), D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, (-80 - D_803D552C->aiTarget->unk42), D_803D552C->aiTarget);
         } else if ((D_803D552C->unk2C4 % 15) == 0) {
             func_8036D5CC_77EC7C();
         }
@@ -1335,7 +1335,7 @@ void perform_behavior_vulture2(void) {
         if ((D_803D552C->targetDistance >= 0xC9) || (++D_803D552C->unk2C0 >= 0x79)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, (-0x50 - D_803D552C->aiTarget->unk42), 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, (-0x50 - D_803D552C->aiTarget->unk42), 16);
         }
     }
 }
@@ -1343,20 +1343,20 @@ void perform_behavior_vulture2(void) {
 void perform_behavior_camel(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 0xE6) && (D_803D552C->unk2C0 != 1)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 0xFB) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
         if (D_803D552C->unk2C4 == 1) {
             if (++D_803D552C->unk2BC >= ((guRandom() & 1) + 2)) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2B4.state = 2;
             }
@@ -1372,7 +1372,7 @@ void perform_behavior_camel(void) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2BC = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -1380,23 +1380,23 @@ void perform_behavior_camel(void) {
 void perform_behavior_cannon_camel(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->unk2C0 != 2) && (D_803D552C->targetDistance < 0xFA)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2C0 = 2;
         } else if ((D_803D552C->unk2C0 != 1) && (D_803D552C->targetDistance < 300) && (D_803D552C->targetDistance >= 251)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->unk2C0 != 0) && (D_803D552C->targetDistance >= 0x15F)) {
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
 
         if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->targetDistance < 70)) {
-            cannon_camel_dash((func_801284B8(D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360);
+            cannon_camel_dash((atan2_deg_s16(D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360);
             D_803D552C->unk2B8 = 0x14A;
         }
         if ((D_803D552C->unk2C4 <= 0) && (target_within_custom_fov(D_803D552C->unk308, 5) != 0)) {
@@ -1414,21 +1414,21 @@ void perform_behavior_cannon_camel(void) {
 void perform_behavior_pogo_kangaroo(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0x12D) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case BEHAVIOUR_DEFEND:
         if (D_803D552C->targetDistance >= 0x15F) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if (D_803D552C->targetDistance < 0x96) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             func_80372698_783D48();
@@ -1437,7 +1437,7 @@ void perform_behavior_pogo_kangaroo(void) {
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 0xB5) || (++D_803D552C->unk2C0 >= 0x3D)) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
     }
@@ -1446,29 +1446,29 @@ void perform_behavior_pogo_kangaroo(void) {
 void perform_behavior_boxing_kangaroo(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0x28) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance < 0x28) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 0x3D) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
         if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(40) != 0)) {
             func_80372604_783CB4();
             D_803D552C->unk2C4 = ((advance_random_seed() % 4)) + 5;
             if (++D_803D552C->unk2BC >= 9) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2B4.state = 3;
                 D_803D552C->unk2BC = 0;
             }
@@ -1477,7 +1477,7 @@ void perform_behavior_boxing_kangaroo(void) {
     case 3:
         if (++D_803D552C->unk2C0 >= 0x65) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -1485,7 +1485,7 @@ void perform_behavior_boxing_kangaroo(void) {
 void perform_behavior_desert_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
@@ -1494,7 +1494,7 @@ void perform_behavior_desert_fox(void) {
             D_803D552C->unk2C4 = 0xB4;
         } else if (D_803D552C->unk2C4 > 0) {
             if (D_803D552C->unk2C4 < 0x3D) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2B4.state = 2;
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2C4 = 0xF0;
@@ -1505,23 +1505,23 @@ void perform_behavior_desert_fox(void) {
         if (D_803D552C->unk2C0 == 0) {
             if (D_803D552C->targetDistance >= 0x15F) {
                 D_803D552C->unk2C0 = 1U;
-                set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+                set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             }
         } else if (D_803D552C->unk2C0 == 1) {
             if (D_803D552C->targetDistance < 0x12C) {
                 D_803D552C->unk2C0 = 0U;
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             } else if (D_803D552C->targetDistance >= 0x1C3) {
                 D_803D552C->unk2C0 = 2;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             }
         } else if (D_803D552C->targetDistance < 0x190) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
         if (D_803D552C->unk2C4 <= 0) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -1529,7 +1529,7 @@ void perform_behavior_desert_fox(void) {
 void perform_behavior_armed_desert_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
@@ -1537,18 +1537,18 @@ void perform_behavior_armed_desert_fox(void) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2BC = 0;
             D_803D552C->unk2C0 = 0;
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance < 0xC8) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 0x12D) && (1 == D_803D552C->unk2C0)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2C0 = 0;
         }
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance >= 0xFB) || (++D_803D552C->unk2C0 >= 0x29)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B8 = 0x14;
             D_803D552C->unk2B4.state = 1;
@@ -1572,16 +1572,16 @@ void perform_behavior_armed_desert_fox(void) {
 void perform_behavior_scorpion(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if (D_803D552C->targetDistance >= 0x3D) {
             if (D_803D552C->unk2C0 == 1) {
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
                 D_803D552C->unk2C0 = 0;
             }
         }
@@ -1599,12 +1599,12 @@ void perform_behavior_scorpion(void) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2BC = 0;
             D_803D552C->unk2C0 = 0;
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         }
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance >= 401) || (D_803D552C->unk2C0++ >= 90)) { // regalloc here
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 1;
         }
@@ -1619,12 +1619,12 @@ void perform_behavior_scorpion(void) {
 void perform_behavior_gorilla(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 <= 0)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 0;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(32) != 0)) {
@@ -1637,7 +1637,7 @@ void perform_behavior_gorilla(void) {
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance >= 0xAB) || (D_803D552C->unk2C0++ >= 0x1F)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0x50;
         }
@@ -1647,18 +1647,18 @@ void perform_behavior_gorilla(void) {
 void perform_behavior_elephant(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0xFB) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case BEHAVIOUR_DEFEND:
         if (D_803D552C->targetDistance >= 0x137) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             func_8037D268_78E918(0x5A);
@@ -1670,18 +1670,18 @@ void perform_behavior_elephant(void) {
     case 3:
         if ((D_803D552C->unk2C4 < 0x3D)) {
             if (( D_803D552C->targetDistance < 0x96)) {
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
                 D_803D552C->unk2B8 = 0;
                 D_803D552C->unk2B4.state = 4;
             } else {
-                set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+                set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
                 D_803D552C->unk2B4.state = 2;
             }
         }
         break;
     case 4:
         if ((D_803D552C->targetDistance >= 0xAB) || (D_803D552C->unk2B8++ >= 0x3D)) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -1693,7 +1693,7 @@ void perform_behavior_hyena(void) {
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         D_803D552C->unk2C0 = 2;
         // fallthru
@@ -1701,19 +1701,19 @@ void perform_behavior_hyena(void) {
         if (D_803D552C->unk2C0 == 0) {
             if (D_803D552C->targetDistance >= 0xA1) {
                 D_803D552C->unk2C0 = 1;
-                set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+                set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             }
         } else if (D_803D552C->unk2C0 == 1) {
             if (D_803D552C->targetDistance < 0x64) {
                 D_803D552C->unk2C0 = 0U;
-                func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+                func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             } else if (D_803D552C->targetDistance >= 0xB5) {
                 D_803D552C->unk2C0 = 2U;
-                set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+                set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             }
         } else if (D_803D552C->targetDistance < 0xA0) {
             D_803D552C->unk2C0 = 1U;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
 
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0xC9)) {
@@ -1727,13 +1727,13 @@ void perform_behavior_hyena(void) {
 void perform_behavior_hyena_biker(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         D_803D552C->unk2C0 = 0;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0x1F5) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -1742,10 +1742,10 @@ void perform_behavior_hyena_biker(void) {
             D_803D552C->unk2C0 -= 1;
         }
         if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance >= 0x227)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 10);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance < 0x12C)) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 0x14) + 0x14;
@@ -1754,7 +1754,7 @@ void perform_behavior_hyena_biker(void) {
         break;
     case 3:
         if ((D_803D552C->targetDistance >= 0x15F) || (D_803D552C->unk2C0++ >= 0x47)){
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 70;
         }
@@ -1766,15 +1766,15 @@ void perform_behavior_chameleon(void) {
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 0x3D) && (D_803D552C->unk2C0 == 1)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2C0 = 0;
         }
         if ((D_803D552C->targetDistance < 0x3D) && (D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2BC < 3)) {
@@ -1785,12 +1785,12 @@ void perform_behavior_chameleon(void) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2BC = 0;
             D_803D552C->unk2C0 = 0;
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
         }
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance >= 0xC9) || (D_803D552C->unk2C0++ >= 0x5A)) {
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 1;
         }
@@ -1806,12 +1806,12 @@ void perform_behavior_evo(void) {
 void perform_behavior_king_penguin(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+        set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 0xFB) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 2;
         } else if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2B4.unk8 > 0)) {
@@ -1821,7 +1821,7 @@ void perform_behavior_king_penguin(void) {
         break;
     case BEHAVIOUR_DEFEND:
         if (D_803D552C->targetDistance >= 0x191) {
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 1;
         } else if (D_803D552C->unk2C4 <= 0) {
             func_80365E70_777520(0x78);
@@ -1845,12 +1845,12 @@ void perform_behavior_vulture(void) {
 void perform_behavior_seagull(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -0x50 - D_803D552C->aiTarget->unk42, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -0x50 - D_803D552C->aiTarget->unk42, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (D_803D552C->targetDistance < 2) {
-            set_nav_state_idle(D_803D5530);
+            set_nav_state_idle((Animal *)D_803D5530);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2B8 = 0;
         }
@@ -1865,7 +1865,7 @@ void perform_behavior_seagull(void) {
         if (D_803D552C->unk2C4 < 60) {
             D_803D552C->unk2B4.state = 4;
             D_803D552C->unk2C0 = 0;
-            func_80363EDC_77558C(D_803D5530, -0x50 - D_803D552C->aiTarget->unk42, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, -0x50 - D_803D552C->aiTarget->unk42, D_803D552C->aiTarget);
         } else if ((D_803D552C->unk2C4 % 0xF) == 0) {
             func_80381F14_7935C4();
         }
@@ -1874,7 +1874,7 @@ void perform_behavior_seagull(void) {
         if ((D_803D552C->targetDistance >= 0xC9) || (++D_803D552C->unk2C0 >= 0x79)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -0x50 - D_803D552C->aiTarget->unk42, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -0x50 - D_803D552C->aiTarget->unk42, 16);
         }
     }
 }
@@ -1885,7 +1885,7 @@ void perform_behavior_seagull2(void) {
 void perform_behavior_piranha(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
+        set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
@@ -1894,19 +1894,19 @@ void perform_behavior_piranha(void) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C4 = 0x96;
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         }
         break;
     case BEHAVIOUR_DEFEND:
         if ((D_803D552C->targetDistance < 0x1E) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
-            set_nav_state_follow_target(D_803D5530, D_803D552C->aiTarget);
+            set_nav_state_follow_target((Animal *)D_803D5530, D_803D552C->aiTarget);
         } else if ((D_803D552C->targetDistance >= 0x3D) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
         if (D_803D552C->unk2C4 <= 0) {
-            func_80363EDC_77558C(D_803D5530, 0, D_803D552C->aiTarget);
+            func_80363EDC_77558C((Animal *)D_803D5530, 0, D_803D552C->aiTarget);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2BC = 0;
         }
@@ -1914,7 +1914,7 @@ void perform_behavior_piranha(void) {
     case 3:
         if ((D_803D552C->targetDistance >= 0xC8) || (++D_803D552C->unk2C0 >= 0x5B)) {
             D_803D552C->unk2B4.state = 1;
-            set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, 0, 16);
+            set_nav_state_chase_target((Animal *)D_803D5530, D_803D552C->aiTarget, 0, 16);
         }
     }
 }
@@ -1956,13 +1956,13 @@ s32 func_803897B0_79AE60(u8 arg0) {
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        set_nav_state_scripted(D_803D5530, guRandom() % 360, -180, phi_a3);
+        set_nav_state_scripted((Animal *)D_803D5530, guRandom() % 360, -180, phi_a3);
         D_803D552C->unk2B8 = (guRandom() & 0xF) + 20;
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (--D_803D552C->unk2B8 <= 0) {
-            set_nav_state_scripted(D_803D5530, guRandom() % 360, -128, -1);
+            set_nav_state_scripted((Animal *)D_803D5530, guRandom() % 360, -128, -1);
             D_803D552C->unk2B8 = 0;
             D_803D552C->unk2BC = (guRandom() & 3) + 4;
             D_803D552C->unk2B4.state = 2;
@@ -1970,7 +1970,7 @@ s32 func_803897B0_79AE60(u8 arg0) {
         break;
     case BEHAVIOUR_DEFEND:
         if (++D_803D552C->unk2B8 >= delay) {
-            set_nav_state_scripted(D_803D5530, guRandom() % 360, -128, -1);
+            set_nav_state_scripted((Animal *)D_803D5530, guRandom() % 360, -128, -1);
             D_803D552C->unk2B8 = 0;
             if (--D_803D552C->unk2BC <= 0) {
                 return 1;

@@ -1,7 +1,14 @@
 #include <ultra64.h>
 #include "common.h"
+#include "particle_effects.h"
 
 #include "camera.h"
+
+// External data referenced by this file.
+extern u16  D_80151424; // 0x2cb24 ??? in aspMainText?
+extern struct098 D_803A1BB0_7B3260[];
+extern u16  D_803A20B0_7B3760[]; // colors
+extern struct099 D_803A20C0_7B3770[];
 
 
 // ========================================================
@@ -18,7 +25,7 @@ extern u8  D_01027B50_61420[][512]; // 32 x 32 x 0.5
 
 extern Gfx *D_801D9EB0;
 
-extern s16 D_803A2C00_7B42B0[32][3];
+extern s16 D_803A2C00_7B42B0[64][3];
 
 
 // ========================================================
@@ -306,7 +313,7 @@ void reset_particles(void) {
     D_803D6120.unk3FD4 = 0; // ?
 }
 
-#define D_01024550_5DE20 ((u8 (*)[512])&D_01024550_5DE20_bin)
+#define D_01024550_5DE20 ((u8 (*)[512])&img_D_01024550_5DE20_i4__png)
 #define D_803B74D0_7C8B80 ((u8 (*)[2048])&img_butterflies_rgba16__png)
 // CURRENT (3350)
 void func_802CB394_6DCA44(DisplayList *arg0) {
@@ -366,7 +373,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[0]++,
-    /* timg   */  D_0102C210_65AE0_bin,
+    /* timg   */  img_D_0102C210_65AE0_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -382,7 +389,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[0]++,
-    /* timg   */  D_0102CA10_662E0_bin, // ???
+    /* timg   */  (img_D_0102C810_660E0_i8__png + 0x200), // overlapping I4 view of the I8 animation bank
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -402,7 +409,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[2]++,
-    /* timg   */  D_010226D0_5BFA0_bin,
+    /* timg   */  img_D_010226D0_5BFA0_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -418,7 +425,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[2]++,
-    /* timg   */  D_01022ED0_5C7A0_bin,
+    /* timg   */  (img_D_010226D0_5BFA0_i4__png + 0x800),
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -436,7 +443,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[6]++,
-    /* timg   */  D_01020DB0_5A680_bin,
+    /* timg   */  img_D_01020DB0_5A680_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -452,7 +459,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[6]++,
-    /* timg   */  D_010215B0_5AE80_bin,
+    /* timg   */  (img_D_01020DB0_5A680_i4__png + 0x800),
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -474,7 +481,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[4]++,
-    /* timg   */  D_01023550_5CE20_bin,
+    /* timg   */  (img_D_010226D0_5BFA0_i4__png + 0xE80),
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -490,7 +497,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[4]++,
-    /* timg   */  D_01023D50_5D620_bin,
+    /* timg   */  (img_D_010226D0_5BFA0_i4__png + 0x1680),
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -508,7 +515,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
-    /* timg   */  D_01028D50_62620_bin,
+    /* timg   */  img_D_01028D50_62620_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -524,7 +531,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
-    /* timg   */  D_01029550_62E20_bin,
+    /* timg   */  img_D_01029550_62E20_i4__png,
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -544,7 +551,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
     // TODO: gDPLoadTextureBlock
-    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (D_0102A210_63AE0_bin + 0x80000000));
+    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, ((img_D_01029E10_636E0_i8__png + 0x400) + 0x80000000));
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync(D_801D9E98[1]++);
     gDPLoadBlock(D_801D9E98[1]++, G_TX_LOADTILE, 0, 0, 2047, 512);
@@ -656,8 +663,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 (var_s1->unk10 >> 0x10) + 20,
                                 0x15,
                                 0x1E,
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                                 0);
                         }
                     } else if (!(flags & 0x20)) {
@@ -692,7 +699,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01024550_5DE20_bin + (var_s4 * 512),
+                        /* timg   */  img_D_01024550_5DE20_i4__png + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -764,7 +771,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
+                        /* timg   */  img_D_01025750_5F020_i4__png + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -784,7 +791,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
+                        /* timg   */  img_D_01025750_5F020_i4__png + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -834,7 +841,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
+                        /* timg   */  img_D_01026950_60220_i4__png + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -854,7 +861,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
+                        /* timg   */  img_D_01026950_60220_i4__png + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -891,7 +898,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                             D_801D9E98[sp7DD]++,
-                          /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
+                          /* timg   */  img_D_01027B50_61420_i4__png + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
@@ -911,7 +918,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                             D_801D9E98[sp7DD]++,
-                          /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
+                          /* timg   */  img_D_01027B50_61420_i4__png + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
@@ -1014,8 +1021,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 var_s1->unk10 >> 0x10,
                                 0x13,
                                 8,
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                                 0);
                         }
                     } else {
@@ -1049,8 +1056,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 var_s1->unk10 >> 0x10,
                                 0x13,
                                 1,
-                                GPACK_RGBA5551((D_803E1BBA + 0x1FF) / 3, (D_803E1BBB + 0x1FF) / 3, (D_803E1BBC + 0x1FF) / 3, 1),
-                                GPACK_RGBA5551((D_803E1BBA + 0x1FF) / 3, (D_803E1BBB + 0x1FF) / 3, (D_803E1BBC + 0x1FF) / 3, 1),
+                                GPACK_RGBA5551((gWaterPrimRed + 0x1FF) / 3, (gWaterPrimGreen + 0x1FF) / 3, (gWaterPrimBlue + 0x1FF) / 3, 1),
+                                GPACK_RGBA5551((gWaterPrimRed + 0x1FF) / 3, (gWaterPrimGreen + 0x1FF) / 3, (gWaterPrimBlue + 0x1FF) / 3, 1),
                                 0);
                         }
                     } else {
@@ -1065,8 +1072,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                     sp7C0 + 8,
                                     0x3A,
                                     8,
-                                    GPACK_RGBA5551(((s32) (D_803E1BBA + 0x1FF) / 3), ((s32) (D_803E1BBB + 0x1FF) / 3), ((s32) (D_803E1BBC + 0x1FF) / 3), 1),
-                                    GPACK_RGBA5551(((s32) (D_803E1BBA + 0x1FF) / 3), ((s32) (D_803E1BBB + 0x1FF) / 3), ((s32) (D_803E1BBC + 0x1FF) / 3), 1),
+                                    GPACK_RGBA5551(((s32) (gWaterPrimRed + 0x1FF) / 3), ((s32) (gWaterPrimGreen + 0x1FF) / 3), ((s32) (gWaterPrimBlue + 0x1FF) / 3), 1),
+                                    GPACK_RGBA5551(((s32) (gWaterPrimRed + 0x1FF) / 3), ((s32) (gWaterPrimGreen + 0x1FF) / 3), ((s32) (gWaterPrimBlue + 0x1FF) / 3), 1),
                                     0);
                             }
                         }
@@ -1133,8 +1140,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                             var_s1->unk10 >> 0x10,
                             0x13,
                             8,
-                            GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                            GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                            GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                            GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                             0);
                     } else {
                         sp7C0 = func_802D7434_6E8AE4(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
@@ -1146,8 +1153,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 sp7C0 + 8,
                                 0x3A,
                                 0x12,
-                                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
-                                GPACK_RGBA5551(D_803E1BBD, D_803E1BBE, D_803E1BBF, 1),
+                                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
+                                GPACK_RGBA5551(gWaterEnvRed, gWaterEnvGreen, gWaterEnvBlue, 1),
                                 0);
                         } else {
                             if ((var_s1->unk10 < func_80310F58_722608(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10)) && (var_s1->unk38 & 1)) {
@@ -1158,8 +1165,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                     sp7C0 + 8,
                                     0x3A,
                                     0x12,
-                                    GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
-                                    GPACK_RGBA5551(D_803E1BBD, D_803E1BBE, D_803E1BBF, 1),
+                                    GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
+                                    GPACK_RGBA5551(gWaterEnvRed, gWaterEnvGreen, gWaterEnvBlue, 1),
                                     0);
                             }
                         }
@@ -1207,8 +1214,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                             var_s1->unk10 >> 0x10,
                             0x13,
                             1,
-                            GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                            GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                            GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                            GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                             0);
                     }
                     if (var_s4 >= 3) {
@@ -1520,8 +1527,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 var_s1->unk10 >> 0x10,
                                 0x13,
                                 1,
-                                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
-                                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
+                                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
+                                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
                                 0);
                         }
                     } else {
@@ -1559,8 +1566,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 var_s1->unk10 >> 0x10,
                                 0x13,
                                 8,
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                                 0);
 
                             create_particle_effect_2(
@@ -1569,8 +1576,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 (var_s1->unk10 + 0x19) >> 0x10, //(s32) (u32) (u64) __ll_rshift(var_s1->unk10 + (temp_a1_2 < 0x19U), temp_a1_2, 0, 0x10),
                                 0x3A,
                                 var_s1->size,
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                                 0);
                         }
                     } else {
@@ -1603,8 +1610,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                     0,
                                     0,
                                     var_s1->size,
-                                    GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                                    GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                                    GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                                    GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                                     0);
                             }
                         }
@@ -1630,8 +1637,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 var_s1->unk10 >> 0x10,
                                 0x13,
                                 8,
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
-                                GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
+                                GPACK_RGBA5551(((gWaterPrimRed + 0x1FF) / 3), ((gWaterPrimGreen + 0x1FF) / 3), ((gWaterPrimBlue + 0x1FF) / 3), 1),
                                 0);
 
                             create_particle_effect_2(
@@ -1640,8 +1647,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 ((var_s1->unk10 + 0x19) >> 0x10),
                                 0x3A,
                                 var_s1->size,
-                                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
-                                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
+                                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
+                                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
                                 0);
                         }
                     } else {
@@ -1655,8 +1662,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 sp7C0 + 8,
                                 0x3A,
                                 var_s1->size,
-                                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
-                                GPACK_RGBA5551(D_803E1BBD, D_803E1BBE, D_803E1BBF, 1),
+                                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
+                                GPACK_RGBA5551(gWaterEnvRed, gWaterEnvGreen, gWaterEnvBlue, 1),
                                 0);
                         } else {
                             if (var_s1->id == 0x39) {
@@ -1670,8 +1677,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                         (sp7C0 >> 0x10) + 8,
                                         0x3A,
                                         var_s1->size,
-                                        GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
-                                        GPACK_RGBA5551(D_803E1BBD, D_803E1BBE, D_803E1BBF, 1),
+                                        GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
+                                        GPACK_RGBA5551(gWaterEnvRed, gWaterEnvGreen, gWaterEnvBlue, 1),
                                         0);
                                 }
                             }
@@ -2543,8 +2550,8 @@ void func_802D6738_6E7DE8(void) {
                 0,
                 0,
                 0,
-                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
-                GPACK_RGBA5551(D_803E1BBA, D_803E1BBB, D_803E1BBC, 1),
+                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
+                GPACK_RGBA5551(gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, 1),
                 0);
         }
     }
@@ -2637,8 +2644,8 @@ void func_802D6738_6E7DE8(void) {
                     sp76,
                     53,
                     0,
-                    GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
-                    GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
+                    GPACK_RGBA5551((gWaterPrimRed + 511) / 3, (gWaterPrimGreen + 511) / 3, (gWaterPrimBlue + 511) / 3, 1),
+                    GPACK_RGBA5551((gWaterPrimRed + 511) / 3, (gWaterPrimGreen + 511) / 3, (gWaterPrimBlue + 511) / 3, 1),
                     2);
             }
         }
@@ -2779,8 +2786,8 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
             COSB((360 / tmp0) * i) * tmp2 << 4,
             ((random & 0x7FFF) << 2) + (phi_v1 << 16),
             2,
-            GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
-            GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
+            GPACK_RGBA5551((gWaterPrimRed + 511) / 3, (gWaterPrimGreen + 511) / 3, (gWaterPrimBlue + 511) / 3, 1),
+            GPACK_RGBA5551((gWaterPrimRed + 511) / 3, (gWaterPrimGreen + 511) / 3, (gWaterPrimBlue + 511) / 3, 1),
             0);
     }
     if (tmp1 == 0) {
@@ -2860,7 +2867,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
         spBA = 24;
     }
 
-    if (flags & 1) {
+    if (flags & EXPLOSION_FX_FIRE) {
         create_particle_effect_2(
             x,
             z,
@@ -2885,7 +2892,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
 
         temp_s7 = ((SSSV_RAND(2)) * 3) + (guRandom() % 3);
 
-        if (flags & 0x20) {
+        if (flags & EXPLOSION_FX_BUBBLES) {
             for (j = 0; j < 4; j++) {
                 create_particle_effect_2(
                     (SSSV_RAND(16) + temp_s6) - 6,
@@ -2899,7 +2906,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
             }
         }
 
-        if (flags & 1) {
+        if (flags & EXPLOSION_FX_FIRE) {
             if (SSSV_RAND(4) == 0) {
                 create_particle_effect_2(
                     temp_s6,
@@ -2923,7 +2930,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
             }
         }
 
-        if (flags & 2) {
+        if (flags & EXPLOSION_FX_RISING_PARTICLES) {
             temp_s6 = (((guRandom() % arg5) * 2) + x) - (u32)arg5;
             temp_s5 = (((guRandom() % arg5) * 2) + z) - (u32)arg5;
             temp_s4 = (((guRandom() % arg5) * 2) + y);
@@ -2957,7 +2964,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 GPACK_RGBA5551(SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, 0),
                 SSSV_RAND(16));
         }
-        if (flags & 4) {
+        if (flags & EXPLOSION_FX_SMOKING_DEBRIS) {
 
             create_particle_effect(
                 x,
@@ -3024,7 +3031,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
                 0);
         }
-        if (flags & 8) {
+        if (flags & EXPLOSION_FX_COLORED_DEBRIS) {
             create_particle_effect(
                 x,
                 z,
@@ -3037,7 +3044,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 color,
                 func_8029A568_6ABC18(color),
                 0);
-            if ((flags & 4) == 0) {
+            if ((flags & EXPLOSION_FX_SMOKING_DEBRIS) == 0) {
                 create_particle_effect(
                     x,
                     z,
@@ -3080,7 +3087,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 }
             }
         }
-        if (flags & 0x10) {
+        if (flags & EXPLOSION_FX_NUTS_AND_BOLTS) {
             create_particle_effect(
                 x,
                 z,
@@ -3131,7 +3138,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 color,
                 func_8029A568_6ABC18(color), // reduce to 25%
                 0);
-            if ((flags & 4) == 0) {
+            if ((flags & EXPLOSION_FX_SMOKING_DEBRIS) == 0) {
                 create_particle_effect(
                     x,
                     z,
@@ -3185,7 +3192,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
     if (spBC == 2) {
         volume = 0x7FFF;
     }
-    if ((flags & 0x40) == 0) {
+    if ((flags & EXPLOSION_FX_NO_SOUND) == 0) {
         play_sound_effect_at_location(SFX_UNKNOWN_75, volume, 0x80, x, z, y, 1.0f);
     }
 }

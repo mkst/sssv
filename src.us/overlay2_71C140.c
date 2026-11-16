@@ -1,6 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern s32  D_803A5590_7B6C40[];
+
 
 // ========================================================
 // definitions
@@ -1702,8 +1705,8 @@ s16 func_80310E10_7224C0(s16 tileX, s16 tileZ) {
     }
 
     for (i = 0; i < D_803E4C94->unk18C.length; i++) {
-        if ((tileX >= D_803E93B0[D_803E4C94->unk18C.unk1[i]].unk0) && (tileX <= D_803E93B0[D_803E4C94->unk18C.unk1[i]].unk3) &&
-            (tileZ >= D_803E93B0[D_803E4C94->unk18C.unk1[i]].unk1) && (tileZ <= D_803E93B0[D_803E4C94->unk18C.unk1[i]].unk4)) {
+        if ((tileX >= gLevelRegions[D_803E4C94->unk18C.unk1[i]].minTileX) && (tileX <= gLevelRegions[D_803E4C94->unk18C.unk1[i]].maxTileX) &&
+            (tileZ >= gLevelRegions[D_803E4C94->unk18C.unk1[i]].minTileZ) && (tileZ <= gLevelRegions[D_803E4C94->unk18C.unk1[i]].maxTileZ)) {
             return 1;
         }
     }
@@ -2614,7 +2617,7 @@ void func_803135FC_724CAC(Animal *arg0)
 }
 
 // ESA: func_8003950C
-void func_803136B0_724D60(Animal *arg0) {
+void func_803136B0_724D60(Entity *arg0) {
     arg0->unk160 = func_803136FC_724DAC(arg0->position.xPos.h, arg0->position.zPos.h, (arg0->position.yPos.h + (arg0->unk42 >> 1)));
 }
 

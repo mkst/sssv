@@ -14,7 +14,7 @@ Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator);
 // .bss
 // ========================================================
 
-static Animal *D_803E4CA0;
+static Entity *D_803E4CA0;
 static u8   D_803E4CA4;
 static u8   D_803E4CA5;
 static u8   D_803E4CA6;
@@ -64,10 +64,10 @@ Entity *resolve_entity_ref(Entity *self, s16 refType, u16 regionId) {
         ret = (Entity*) gAnimalState.animals[gCurrentAnimalIndex].animal;
         break;
     case 10: // get next animal
-        ret = find_next_animal_in_region(regionId, 1);
+        ret = (Entity *)find_next_animal_in_region(regionId, 1);
         break;
     case 11: // get first animal
-        ret = find_next_animal_in_region(regionId, 0);
+        ret = (Entity *)find_next_animal_in_region(regionId, 0);
         break;
     case 12:
         ret = self->unk248[0];
@@ -90,8 +90,8 @@ void func_80314788_725E38(void) {
     D_803A05B4_7B1C64 = gGravity * 2;
     gTasksCompleted = 0;
     D_803E4D30 = 16;
-    D_803E4D38[0] = D_8023F260.unk30;
-    D_803E4D38[1] = D_8023F260.unk34;
+    D_803E4D38[0] = gPlayerEeprom.unk30;
+    D_803E4D38[1] = gPlayerEeprom.unk34;
     gLevelProgress = 0; // clear gameplay flags
     D_803E4CA0 = NULL;
     D_801546E0 = 0x800;
@@ -122,7 +122,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         if (!(arg0->unk4C.unk1A /* & 0x20 */) || (arg0->Info.health < arg2)) {
             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
                 if (arg2 < arg0->Info.health) {
-                    func_80349280_75A930(arg0, arg0->Info.health - arg2);
+                    notify_animal_damage(arg0, arg0->Info.health - arg2);
                 }
             }
             arg0->Info.health = MIN(0x7F, MAX(0, arg2));
@@ -130,27 +130,27 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_RANDOM_SEED:
-        func_8012822C(arg2);
+        seed_random_u32(arg2);
         break;
 
     case ST_SET_XPOS:
         arg0->position.xPos.w = arg2 << 16;
-        func_803136B0_724D60(arg0);
+        func_803136B0_724D60((Entity *)arg0);
         break;
 
     case ST_SET_ZPOS:
         arg0->position.zPos.w = arg2 << 16;
-        func_803136B0_724D60(arg0);
+        func_803136B0_724D60((Entity *)arg0);
         break;
 
     case ST_SET_YPOS:
         arg0->position.yPos.w = arg2 << 16;
-        func_803136B0_724D60(arg0);
+        func_803136B0_724D60((Entity *)arg0);
         break;
 
     case ST_SET_SCALE:
         arg0->unk40 = arg2;
-        func_802C9BA4_6DB254(arg0);
+        func_802C9BA4_6DB254((Entity *)arg0);
         break;
 
     case ST_SET_TIMER:
@@ -233,9 +233,9 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case 22+0x7F7F:
-        D_803F2CD8 = ABS(arg2);
+        gHudTimerTicksPerStep = ABS(arg2);
         new_var = SIGNUM(arg2);
-        D_803F2CD6 = new_var;
+        gHudTimerStepSeconds = new_var;
         break;
 
     case ST_SET_GRAVITY:
@@ -262,7 +262,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_EEPROM_SCORES_1:
-        D_8023F260.unk30 = D_803E4D38[0] = arg2;
+        gPlayerEeprom.unk30 = D_803E4D38[0] = arg2;
         write_eeprom(D_803F7DA8.bank);
         break;
 
@@ -270,7 +270,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         // is arg2 an object ID?
         if (arg2 < OB_TYPE_ANIMAL_OFFSET) {
             arg0->unk16C = (struct035*)&D_801E9EB8.unk0[arg2];
-            func_802C9BA4_6DB254(arg0);
+            func_802C9BA4_6DB254((Entity *)arg0);
         } else {
             // arg2 is an animal ID
             var_t1 = NULL;
@@ -287,7 +287,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
                 D_803D5524 = var_t1->unk0;
                 D_803D5528 = var_t1->animal;
                 D_803D552C = D_803D5528;
-                D_803D5530 = D_803D5528;
+                D_803D5530 = (Entity *)D_803D5528;
                 if (i == gCurrentAnimalIndex) {
                     D_803D5538 = 1;
                 } else {
@@ -303,7 +303,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
                     D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
                     func_80327DA8_739458();
                 }
-                func_802C9BA4_6DB254(arg0);
+                func_802C9BA4_6DB254((Entity *)arg0);
             }
         }
         break;
@@ -317,7 +317,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_EEPROM_SCORES_2:
-        D_8023F260.unk34 = D_803E4D38[1] = arg2;
+        gPlayerEeprom.unk34 = D_803E4D38[1] = arg2;
         write_eeprom(D_803F7DA8.bank);
         break;
 
@@ -351,7 +351,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->Info.health;
             break;
         case ST_GET_RANDOM:
-            res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
+            res = (s32) (random_u32() & 0x7FFF) % 0x7F7E;
             break;
         case ST_GET_XPOS:
             res = arg0->position.xPos.h;
@@ -366,11 +366,11 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->unk40;
             break;
         case ST_GET_TIMER:
-            if (D_803F2CD6 < 0) {
+            if (gHudTimerStepSeconds < 0) {
                 res = gHudTimerSeconds;
             } else {
                 res = gHudTimerSeconds - 1;
-                if ((D_803F2CD8 >> 1) < D_803F2CD4) {
+                if ((gHudTimerTicksPerStep >> 1) < gHudTimerTickCounter) {
                     res += 1;
                 }
             }
@@ -418,7 +418,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->state;
             break;
         case 22+0x7F7F:
-            res = D_803F2CD8 * D_803F2CD6;
+            res = gHudTimerTicksPerStep * gHudTimerStepSeconds;
             break;
         case ST_GET_GRAVITY:
             res = gGravity >> 6;
@@ -561,15 +561,15 @@ Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator) {
 
     i = 0;
     result = NULL;
-    bucketMask = D_803E95B8[regionId];
+    bucketMask = gLevelRegionCollisionMasks[regionId];
 
     while ((i < 0x28) && (bucketMask != 0)) {
         if (bucketMask & 0xFF) {
             for (j = 0; j < 8; j++) {
                 if (((bucketMask & ((s64)1 << j)))) {
-                    for (node = D_803DA110[i+j].next; node != NULL; node = node->next) {
-                        if ((node->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == node->animal->unk114[0])) {
-                            if ((lastReturnedAnimal == node->animal) || (func_80319E1C_72B4CC(node->animal->position.xPos.h >> 6, node->animal->position.zPos.h >> 6, node->animal->position.yPos.h >> 6, regionId , node->animal->unk160) != 0)) {
+                    for (node = gCollisionGridHeads[i+j].next; node != NULL; node = node->next) {
+                        if ((node->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == node->animal->collisionGridCells[0])) {
+                            if ((lastReturnedAnimal == node->animal) || (point_matches_level_region(node->animal->position.xPos.h >> 6, node->animal->position.zPos.h >> 6, node->animal->position.yPos.h >> 6, regionId , node->animal->unk160) != 0)) {
                                 if (canReturnMatch != 0) {
                                     lastReturnedAnimal = node->animal;
                                     result = node->animal;
@@ -607,13 +607,13 @@ u8 func_80315658_726D08(s16 regionId, s32 func(Animal *, s16), s16 arg2) {
 
     ret = 0;
 
-    for (sp50 = D_803E95B8[regionId], i = 0; ((i < 0x28) && (sp50 != 0)); sp50 >>= 8, i += 8) {
+    for (sp50 = gLevelRegionCollisionMasks[regionId], i = 0; ((i < 0x28) && (sp50 != 0)); sp50 >>= 8, i += 8) {
         if (sp50 & 0xFF) {
             for (j = 0; j < 8; j++) {
                 if (sp50 & ((s64)1 << j)) {
-                    for (var_s1 = D_803DA110[i + j].next; var_s1 != NULL; var_s1 = var_s1->next) {
-                        if ((var_s1->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s1->animal->unk114[0] == (i + j)) && (func(var_s1->animal, arg2))) {
-                            if (func_80319E1C_72B4CC(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, regionId, var_s1->animal->unk160) != 0) {
+                    for (var_s1 = gCollisionGridHeads[i + j].next; var_s1 != NULL; var_s1 = var_s1->next) {
+                        if ((var_s1->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s1->animal->collisionGridCells[0] == (i + j)) && (func(var_s1->animal, arg2))) {
+                            if (point_matches_level_region(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, regionId, var_s1->animal->unk160) != 0) {
                                 ret = 1;
                                 goto done;
                             }
@@ -714,7 +714,7 @@ u8 evaluate_entity_condition(Animal *arg0, Cmd *arg1) {
             break;
         }
         if (arg1->dummy.unk2 & 0x10) {
-            if (func_80319E1C_72B4CC(
+            if (point_matches_level_region(
                 gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
                 gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
                 gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6,
@@ -845,7 +845,7 @@ u8 evaluate_entity_condition(Animal *arg0, Cmd *arg1) {
         }
         break;
     case 14:
-        if (D_803A52B8_7B6968 != 0) {
+        if (gLevelLightTransitionComplete != 0) {
             res = 1;
         }
         break;
@@ -855,7 +855,7 @@ u8 evaluate_entity_condition(Animal *arg0, Cmd *arg1) {
         }
         break;
     case 16:
-        if (func_80319E1C_72B4CC(
+        if (point_matches_level_region(
               arg0->position.xPos.h >> 6,
               arg0->position.zPos.h >> 6,
               arg0->position.yPos.h >> 6,
@@ -1296,7 +1296,7 @@ s32 execute_entity_command(Entity *arg0) {
             switch (temp_s1->unk21E.type24.State) { // unk220
             case 0x8C: // L80316BCC_72827C
                 temp_s1->unk248[8] = add_regular_trail(
-                    temp_s1,
+                    (Entity *)temp_s1,
                     0,
                     temp_s1->unk21E.type24.S,
                     temp_s1->unk21E.type24.unk5,
@@ -1318,7 +1318,7 @@ s32 execute_entity_command(Entity *arg0) {
                 break;
             case 0x8D: // L80316C70_728320
                 temp_s1->unk248[8] = add_regular_trail(
-                    temp_s1,
+                    (Entity *)temp_s1,
                     1,
                     temp_s1->unk21E.type24.S,
                     temp_s1->unk21E.type24.unk5,
@@ -1340,7 +1340,7 @@ s32 execute_entity_command(Entity *arg0) {
                 break;
             case 0x8E: // L80316D14_7283C4
                 temp_s1->unk248[8] = add_regular_trail(
-                    temp_s1,
+                    (Entity *)temp_s1,
                     2,
                     temp_s1->unk21E.type24.S,
                     temp_s1->unk21E.type24.unk5,
@@ -1382,7 +1382,7 @@ s32 execute_entity_command(Entity *arg0) {
                 break;
             }
         } else {
-            func_802FA730_70BDE0(temp_s1);
+            func_802FA730_70BDE0((Entity *)temp_s1);
         }
         return 69;
 
@@ -1435,7 +1435,7 @@ s32 execute_entity_command(Entity *arg0) {
                     &sp12C,
                     &sp130,
                     &sp134,
-                    D_803E8E60[cmds->unk19C.payload.cmd.type29.unk0],
+                    gWaypointPaths[cmds->unk19C.payload.cmd.type29.unk0],
                     0,
                     !(cmds->unk19C.payload.cmd.type29.unk6 == 1)); // unkA
 
@@ -1590,8 +1590,13 @@ s32 execute_entity_command(Entity *arg0) {
         return 69;
 
     case 0x2D:
-        // UB???
+#ifdef AVOID_UB
+        // Treat this empty command as a no-op and continue the script.
+        return 69;
+#else
+        // IDO preserves the incoming v0 here in the matching build.
         return;
+#endif
 
     case 0x2E:
         func_80343AE0_755190(
@@ -1625,7 +1630,7 @@ s32 execute_entity_command(Entity *arg0) {
     case 0x31:
         // add_thing?
         func_802FF184_710834(
-            temp_s1,
+            (Entity *)temp_s1,
             1,
             temp_s1->position.xPos.h,
             temp_s1->position.zPos.h,
@@ -1664,8 +1669,8 @@ s32 execute_entity_command(Entity *arg0) {
             temp_s1->unk23A = temp_s1->yRotation;
 
             if ((cmds->unk19C.payload.cmd.type50.unk0 & 1) && !(cmds->unk19C.payload.cmd.type50.unk0 & 0x10)) {
-                temp_s1->unk22E = func_802F63F8_707AA8(temp_s2, temp_s1->zRotation, 0xB5);
-                sp120 = func_802F63F8_707AA8(sp120, temp_s1->yRotation, 0xB5);
+                temp_s1->unk22E = get_angle_step_deg(temp_s2, temp_s1->zRotation, 0xB5);
+                sp120 = get_angle_step_deg(sp120, temp_s1->yRotation, 0xB5);
             } else {
                 temp_s1->unk22E = temp_s2;
             }
@@ -1721,14 +1726,14 @@ s32 execute_entity_command(Entity *arg0) {
 
     case 0x36:
         temp_s1->unk40 = arg0->commands.unk19C.payload.cmd.type54.unk0;
-        func_802C9BA4_6DB254((Entity *) temp_s1);
+        func_802C9BA4_6DB254((Entity *)temp_s1);
         return 69;
 
     case 0x30: // not here
         return 69;
 
     case 0x37:
-        if (arg0 == (Entity*)D_803E4CA0) {
+        if (arg0 == D_803E4CA0) {
             D_803E4CA0 = NULL;
             D_803E4CA4 = 0;
         }
@@ -1833,8 +1838,8 @@ s32 execute_entity_command(Entity *arg0) {
             sp7C = tmp2->position.zPos.h - temp_s1->position.zPos.h;
             spF8 = (tmp2->position.yPos.h + (tmp2->unk42 >> 1)) - temp_s1->position.yPos.h;
             spF4 = (s16) sqrtf(SQ(spF0) + SQ(sp7C));
-            temp_s1->yRotation = func_801284B8(spF0, sp7C);
-            temp_s1->zRotation = func_801284B8(spF8, spF4);
+            temp_s1->yRotation = atan2_deg_s16(spF0, sp7C);
+            temp_s1->zRotation = atan2_deg_s16(spF8, spF4);
         }
         return 69;
 
@@ -1856,14 +1861,14 @@ s32 execute_entity_command(Entity *arg0) {
             return 69;
         }
         if ((D_803E4CA4 != 0) && (D_803E8E58 != 0)) {
-            if ((arg0 == (Entity*)D_803E4CA0) && (func_80349874_75AF24() != 0)) {
+            if ((arg0 == D_803E4CA0) && (func_80349874_75AF24() != 0)) {
                 D_803E4CA4 = 0;
                 D_803E4CA0 = NULL;
                 return 69;
             }
         } else if (func_80349874_75AF24() != 0) {
             D_803E4CA4 = 1;
-            D_803E4CA0 = (Entity*)arg0;
+            D_803E4CA0 = arg0;
             func_80314660_725D10();
             func_80349900_75AFB0(
                 &D_803F34C0[(s16)D_803F3330[cmds->unk19C.payload.cmd.type68.unk0]],
@@ -2129,7 +2134,7 @@ s32 execute_entity_command(Entity *arg0) {
     case 0x50:
         // camera related
         func_80343D44_7553F4(
-            &D_803E8E60[cmds->unk19C.payload.cmd.dummy.unk0]->length,
+            gWaypointPaths[cmds->unk19C.payload.cmd.dummy.unk0],
             !cmds->unk19C.payload.cmd.dummy.unk1);
         return 69;
 
@@ -2148,7 +2153,7 @@ s32 execute_entity_command(Entity *arg0) {
             var_s1 = 1000;
         }
 
-        func_802FD94C_70EFFC(
+        start_fog_transition(
             temp_a1, // min
             var_s1,  // max
             cmds->unk19C.payload.cmd.type82.unk4,
@@ -2205,7 +2210,7 @@ s32 execute_entity_command(Entity *arg0) {
 
     case 0x59:
         // only used in WEIGHT_FOR_IT
-        func_802FE560_70FC10(
+        start_water_color_transition(
             (cmds->unk19C.payload.cmd.type89.unk0.unk1 << 1),
             (cmds->unk19C.payload.cmd.type89.unk1.unk1 << 1),
             (cmds->unk19C.payload.cmd.type89.unk2.unk1 << 1),
@@ -2372,7 +2377,7 @@ s32 execute_entity_command(Entity *arg0) {
 
         D_803D5528 = animal2->animal;
         D_803D552C = D_803D5528;
-        D_803D5530 = D_803D5528;
+        D_803D5530 = (Entity *)D_803D5528;
 
         if (i2 == gCurrentAnimalIndex) {
             D_803D5538 = 1;

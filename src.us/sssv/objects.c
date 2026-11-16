@@ -134,10 +134,10 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
 
     obj->unk46 = obj->unk16C->mass;
 
-    obj->unk114[0] = 0x7FFF;
-    obj->unk114[1] = 0x7FFF;
-    obj->unk114[2] = 0x7FFF;
-    obj->unk114[3] = 0x7FFF;
+    obj->collisionGridCells[0] = 0x7FFF;
+    obj->collisionGridCells[1] = 0x7FFF;
+    obj->collisionGridCells[2] = 0x7FFF;
+    obj->collisionGridCells[3] = 0x7FFF;
 
     func_802C9BA4_6DB254(obj);
     if ((obj->unk16C->orientationMode == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
@@ -150,8 +150,8 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
     obj->newPosition.zPos.w = z << 0x10;
     obj->newPosition.yPos.w = y << 0x10;
 
-    func_802DADA0_6EC450(obj);
-    func_802F5C60_707310(obj);
+    register_entity_collision(obj);
+    update_entity_collision_spheres(obj);
 
     obj->movementState = MOVEMENT_STATE_AIRBORNE;
 
@@ -175,7 +175,7 @@ void reset_object_render_queues(void);
 void reset_objects_state(void) {
     u16 i;
 
-    func_802DAF5C_6EC60C();
+    reset_collision_lists();
     func_802C941C_6DAACC();
 
     for (i = 0; i <= MAX_OBJECTS; i++) {
@@ -193,7 +193,7 @@ void func_802C9900_6DAFB0(Entity *parent, Entity *child, u8 idx) {
 
 // update_hitbox_after_rotation?
 // ESA: func_8004D5DC
-void func_802C9918_6DAFC8(Animal *arg0, s16 newZRotation, s16 newYRotation) {
+void func_802C9918_6DAFC8(Entity *arg0, s16 newZRotation, s16 newYRotation) {
     s16 width;
     s16 depth;
     s16 height;
@@ -250,7 +250,7 @@ void func_802C9918_6DAFC8(Animal *arg0, s16 newZRotation, s16 newYRotation) {
 }
 
 // ESA: func_8004D86C
-void func_802C9BA4_6DB254(Animal *arg0) {
+void func_802C9BA4_6DB254(Entity *arg0) {
     s16 tempSwap;
     s16 i;
     s16 width;
@@ -292,7 +292,12 @@ void func_802C9BA4_6DB254(Animal *arg0) {
     arg0->unk34 = ((s64)arg0->unk34 * arg0->unk40) >> 11;
     arg0->unk36 = ((s64)arg0->unk36 * arg0->unk40) >> 11;
 
-    if ((arg0->unk16C->objectType >= 128) && ((arg0->movementMode == MOVEMENT_MODE_DEACTIVATED) || (arg0->movementMode == MOVEMENT_MODE_2))) {
+#ifdef AVOID_UB
+    // Only animals have movementMode and the extended descriptor height.
+    if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && ((((Animal *)arg0)->movementMode == MOVEMENT_MODE_DEACTIVATED) || (((Animal *)arg0)->movementMode == MOVEMENT_MODE_2))) {
+#else
+    if ((arg0->unk16C->objectType >= 128) && ((((Animal *)arg0)->movementMode == MOVEMENT_MODE_DEACTIVATED) || (((Animal *)arg0)->movementMode == MOVEMENT_MODE_2))) {
+#endif
         // override height?
         arg0->unk42 = arg0->unk16C->unkBC;
     }
@@ -313,11 +318,11 @@ void func_802C9BA4_6DB254(Animal *arg0) {
         arg0->unk74[i].pos.xPos.w = arg0->unk16C->unk20[i][0] << 0x10;
         arg0->unk74[i].pos.zPos.w = arg0->unk16C->unk20[i][1] << 0x10;
         arg0->unk74[i].pos.yPos.w = arg0->unk16C->unk20[i][2] << 0x10;
-        arg0->unk74[i].unkC       = arg0->unk16C->unk20[i][3];
+        arg0->unk74[i].radius       = arg0->unk16C->unk20[i][3];
 
         arg0->unk74[i].pos.xPos.w = ((s64)arg0->unk74[i].pos.xPos.w * arg0->unk40) >> 11;
         arg0->unk74[i].pos.zPos.w = ((s64)arg0->unk74[i].pos.zPos.w * arg0->unk40) >> 11;
         arg0->unk74[i].pos.yPos.w = ((s64)arg0->unk74[i].pos.yPos.w * arg0->unk40) >> 11;
-        arg0->unk74[i].unkC       = ((s64)arg0->unk74[i].unkC * arg0->unk40) >> 11;
+        arg0->unk74[i].radius       = ((s64)arg0->unk74[i].radius * arg0->unk40) >> 11;
     }
 }

@@ -73,7 +73,7 @@ void func_80368DD0_77A480(void) {
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x20, 0xDA, 6);
             func_802BB938_6CCFE8(0xF6);
-            func_8038CCF0_79E3A0(8, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(8, 0x14, -1, -1, -1, -1);
 
             temp_a0_3 = D_80203FE0[1].unk4 - D_80203FE0[2].unk4;
             if (temp_a0_3 > 0) {
@@ -182,11 +182,11 @@ void func_80368DD0_77A480(void) {
         D_80203FE0[1].unk4 += spA8 >> 1;
         D_80203FE0[19].unk4 += spA8 >> 1;
         D_80203FE0[20].unk4 += spA8 >> 1;
-        func_803034D0_714B80(D_803D552C, 0x3D8, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0xDA, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0x3D8, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0xDA, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x1EC, 0x111);
+        set_single_collision_sphere(D_803D552C, 0x1EC, 0x111);
     }
 }
 
@@ -270,7 +270,7 @@ void func_8036A05C_77B70C(void) {
                                  &sp104, 1);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x20, 0xDA, 6);
-            func_8038CCF0_79E3A0(0x36, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0x36, 0x14, -1, -1, -1, -1);
 
             switch (D_803D5524->animalType) {
             case HUSKY:
@@ -518,11 +518,11 @@ void func_8036A05C_77B70C(void) {
         }
     }
     if (spFE == 0) {
-        func_803034D0_714B80(D_803D552C, 0x3D8, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x1B4, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0x3D8, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x1B4, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x1EC, 0x111);
+        set_single_collision_sphere(D_803D552C, 0x1EC, 0x111);
     }
     if ((D_803D5538 == 0) && (D_803D5524->animalType == CRAZY_HUSKY)) {
         if (D_803D552C->unk2EC <= 0) {

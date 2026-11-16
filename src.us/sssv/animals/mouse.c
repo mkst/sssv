@@ -79,7 +79,7 @@ done:
                 D_803D552C->unk312 = 0xA;
             }
         }
-        func_8038C768_79DE18();
+        update_idle_head_yaw();
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -131,11 +131,11 @@ done:
             func_802C78B0_6D8F60(2U, 0x12U, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 1, 0, D_04005580_CCFB0);
             add_hilite();
             func_802C78B0_6D8F60(1U, 2U, (D_803F2EBC * 0xA) >> 6, (D_803F2EC0 * 0xA) >> 6, (D_803F2EC4 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_040056C0_CD0F0);
-            if (D_803D552C->unk316 != 0) {
-                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->unk316, 0.0f, 0.0f, 1.0f);
+            if (D_803D552C->headYawDegrees != 0) {
+                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->headYawDegrees, 0.0f, 0.0f, 1.0f);
                 gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             }
-            func_8038CCF0_79E3A0(0x2E, 1, 0x14, 0x13, 0x16, 0x17);
+            apply_music_bounce_to_joints(0x2E, 1, 0x14, 0x13, 0x16, 0x17);
             func_802C78B0_6D8F60(1U, 0x14U, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04005A50_CD480);
             if (D_803D5524->animalType == MOUSE) {
                 func_802C78B0_6D8F60(19, 22, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, D_803A5E84_7B7534[D_803D552C->unk30A], 0, 0, D_040053D0_CCE00);
@@ -196,10 +196,10 @@ done:
         }
     }
     if (sp86 == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 436, 0);
-        func_80303D50_715400(D_803D552C, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 436, 0);
+        terminate_collision_spheres(D_803D552C, 1);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0xFA, 0x7D);
+        set_single_collision_sphere(D_803D552C, 0xFA, 0x7D);
     }
     if ((D_803D5538 == 0) && (D_803D5524->animalType == MOUSE2)) {
         if (D_803D552C->unk2EC <= 0) {
@@ -245,6 +245,26 @@ void func_8031D624_72ECD4(void) {
             }
         }
     }
+
+#ifdef AVOID_UB
+    // Classify visibility before the movement sound check, as racing dog/fox do.
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp92 = 0;
+        gLodDetailState = 0;
+    } else {
+        sp92 = classify_object_visibility(
+            D_803D552C->position.xPos.w,
+            D_803D552C->position.zPos.w,
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
+            0x640,
+            7,
+            0x3F,
+            0x51,
+            0x9E,
+            1,
+            CHECK_SEGMENT == 0);
+    }
+#endif
 
     if ((sp92 != 4) && (sp92 != 1) && (D_803D5530->movementState == MOVEMENT_STATE_GROUND)) {
         temp_f12 = sqrtf(SQ((f32)D_803D552C->xVelocity.w) + SQ((f32)D_803D552C->zVelocity.w)) / (D_803D5524->walkSpeed << 0xA);
@@ -292,6 +312,7 @@ void func_8031D624_72ECD4(void) {
         }
     }
 
+#ifndef AVOID_UB
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp92 = 0;
         gLodDetailState = 0;
@@ -308,6 +329,7 @@ void func_8031D624_72ECD4(void) {
             1,
             CHECK_SEGMENT == 0);
     }
+#endif
 
     if (sp92 == 0) {
         func_8035D120_76E7D0();
@@ -448,11 +470,11 @@ void func_8031D624_72ECD4(void) {
         }
     }
     if (sp92 == 0) {
-        func_803034D0_714B80(D_803D552C, 0xFA, 0x75, 1);
-        func_80303820_714ED0(D_803D552C, 0x13, 0x14, 0x9C, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0xFA, 0x75, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 0x13, 0x14, 0x9C, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x177, 0x7D);
+        set_single_collision_sphere(D_803D552C, 0x177, 0x7D);
     }
 
     if (0) {
@@ -675,11 +697,11 @@ void func_8031E6A0_72FD50(void) {
         }
     }
     if (spA6 == 0) {
-        func_803034D0_714B80(D_803D552C, 250, 117, 1);
-        func_80303820_714ED0(D_803D552C, 19, 20, 156, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 250, 117, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 19, 20, 156, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 375, 125);
+        set_single_collision_sphere(D_803D552C, 375, 125);
     }
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {

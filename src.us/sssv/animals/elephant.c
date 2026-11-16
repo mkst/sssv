@@ -245,7 +245,7 @@ block_33:
                 D_80203FE0[19].unk2 -= ((D_803D552C->unk320->unk40 * 0x2EE) - FTOFIX32(17.1661376953125)) / 1600;
                 D_80203FE0[20].unk2 -= ((D_803D552C->unk320->unk40 * 0x2EE) - FTOFIX32(17.1661376953125)) / 1600;
             } else {
-                func_8038CCF0_79E3A0(0x177, 0x13, 0x14, -1, -1, -1);
+                apply_music_bounce_to_joints(0x177, 0x13, 0x14, -1, -1, -1);
             }
         }
         if (D_803F2ECC != 0) {
@@ -335,12 +335,12 @@ block_33:
     }
     func_80321B70_733220(0, spA4, spA2);
     if (spAA == 0) {
-        func_803034D0_714B80(D_803D552C, 0xE09, -0x271, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2EE, 0);
+        set_body_collision_sphere_pair(D_803D552C, 0xE09, -0x271, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2EE, 0);
         D_803D5530->unkC4[0].pos.yPos.h -= 0xA;
-        func_80303D50_715400(D_803D552C, 3);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x4E2, 0xFA);
+        set_single_collision_sphere(D_803D552C, 0x4E2, 0xFA);
     }
 }
 

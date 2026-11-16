@@ -332,7 +332,7 @@ void update_gorilla(void) {
             func_802C2D98_6D4448(0x2D1, 0x2D1);
             update_limbs_gorilla(0x386, 0x386, 0, 0);
             func_802C4A70_6D6120(0x78, 0x2D1, 7);
-            func_8038CCF0_79E3A0(0xB4, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0xB4, 0x14, -1, -1, -1, -1);
             spC4 += ((D_80203FE0[2].unk4 - 0x5A2) / 32) + 0x1E;
             spC2 = D_80203FE0[1].unk0 / 32;
             func_802BAE24_6CC4D4(&spC6, &spC4, 0x1E);
@@ -510,17 +510,17 @@ void update_gorilla(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spEA == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 2, 0x467, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x2D1, 0);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2, 0x467, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x2D1, 0);
 
         if (D_803D552C->unk320 != NULL) {
             func_80303C44_7152F4(D_803D552C, 2, spC6, spC4);
-            func_80303D50_715400(D_803D552C, 3);
+            terminate_collision_spheres(D_803D552C, 3);
         } else {
-            func_80303D50_715400(D_803D552C, 2);
+            terminate_collision_spheres(D_803D552C, 2);
         }
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x549, 0x386);
+        set_single_collision_sphere(D_803D552C, 0x549, 0x386);
     }
 }
 

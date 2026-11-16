@@ -198,7 +198,7 @@ void func_80389B30_79B1E0(void) {
                 if (var_v1 <= 0) {
                     var_v1 = 1;
                 }
-                var_v1_2 = func_8012844C((temp_s0 << 5) / var_v1) * -1;
+                var_v1_2 = atan_deg_q6((temp_s0 << 5) / var_v1) * -1;
             } else {
                 var_v1_2 = 0;
             }
@@ -339,10 +339,10 @@ void func_80389B30_79B1E0(void) {
 
     func_8035D6A0_76ED50();
     func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xC, 0x1C, 0x9B, 0, 0, 0, 0, D_803D5538);
-    func_80303820_714ED0(D_803D552C, 1, 2,  0x2BF, 0);
-    func_80303820_714ED0(D_803D552C, 2, 2,  0x2BF, 1);
-    func_80303820_714ED0(D_803D552C, 1, 19, 0x1D4, 2);
-    func_80303D50_715400(D_803D552C, 3);
+    set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2,  0x2BF, 0);
+    set_collision_sphere_at_joint_midpoint(D_803D552C, 2, 2,  0x2BF, 1);
+    set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 19, 0x1D4, 2);
+    terminate_collision_spheres(D_803D552C, 3);
 }
 
 // evo shellsuit jetpack

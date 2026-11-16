@@ -114,7 +114,7 @@ void func_802C8878_6D9F28(void) {
             D_803D553C = i;
             D_803D553A = 0;
 
-            func_802FB49C_70CB4C(D_803D5530);
+            snapshot_entity_contact_state(D_803D5530);
             if (gUiFlowState.unk0 == 0) {
                 if (D_803D5530->unk4A == 0) {
                     if (i == gCurrentAnimalIndex) {
@@ -320,9 +320,9 @@ void func_802C8878_6D9F28(void) {
                 add_single_light(&gOpaqueDL);
             }
             if (D_803D552C->movementMode != MOVEMENT_MODE_DELETED) {
-                func_802DA90C_6EBFBC((Entity*)D_803D5530);
+                update_entity_collision_grid((Entity*)D_803D5530);
             }
         }
     }
-    D_80286562 = D_80286560;
+    gPreviousMusicBeatPhase = gMusicBeatPhase;
 }

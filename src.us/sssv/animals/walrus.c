@@ -151,7 +151,7 @@ void func_80374C70_786320(void) {
             D_80203FE0[20].unk4 = (D_80203FE0[20].unk4 + t4) - D_80203FE0[19].unk4;
             D_80203FE0[19].unk4 = t4;
 
-            func_8038CCF0_79E3A0(114, 19, 20, -1, -1, -1);
+            apply_music_bounce_to_joints(114, 19, 20, -1, -1, -1);
 
             D_80203FE0[26].unk0 = (D_80203FE0[8].unk0 + D_80203FE0[11].unk0) >> 1;
             D_80203FE0[26].unk2 = (D_80203FE0[8].unk2 + D_80203FE0[11].unk2) >> 1;
@@ -213,14 +213,14 @@ void func_80374C70_786320(void) {
                 }
                 if (temp_v1_8 > 0) {
                     if (var_v0_6 > 0) {
-                        var_a0 = 180 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                        var_a0 = 180 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                     } else {
-                        var_a0 = 0 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                        var_a0 = 0 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                     }
                 } else if (var_v0_6 > 0) {
-                    var_a0 = 180 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                    var_a0 = 180 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                 } else {
-                    var_a0 = 360 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
+                    var_a0 = 360 - atan_deg_q6((temp_v1_8 << 6) / var_v0_6);
                 }
                 var_a0 = (((-(var_a0 - 540) * 256)) / 360) & 0xFF;
                 var_v1_5 = (var_a0 - D_803D552C->heading) >> 1;
@@ -310,11 +310,11 @@ void func_80374C70_786320(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x1F, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp11E == 0) {
-        func_803034D0_714B80(D_803D552C, 0x47C, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x1CB, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0x47C, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x1CB, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x6BA, 0x264);
+        set_single_collision_sphere(D_803D552C, 0x6BA, 0x264);
     }
 }
 

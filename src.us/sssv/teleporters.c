@@ -202,7 +202,7 @@ void func_8029BB94_6AD244(void) {
                         do_rumble(0, 0x46, 32, 0x2D, distance_from_player(D_803D2D90.unk4C, D_803D2D90.unk4E, D_803D2D90.unk50));
                     }
                     if (D_803D2DF8 < 2.0) {
-                        D_803D2DF8 += func_801283AC(D_803D2D90.unk42 - 0x32) / 8000.0f;
+                        D_803D2DF8 += acos_deg_q8(D_803D2D90.unk42 - 0x32) / 8000.0f;
                         if (D_803D2D90.unk42 < 0x50) {
                             D_803D2D90.unk40 -= 2;
                         } else {
@@ -248,7 +248,7 @@ void func_8029BB94_6AD244(void) {
                     }
                     if (D_803D2DF8 < 2.0) {
                         temp = (D_803D2D90.unk44 - 0x32);
-                        D_803D2DF8 += func_801283AC(temp) / 8000.0f;
+                        D_803D2DF8 += acos_deg_q8(temp) / 8000.0f;
                     }
                 }
                 if (D_803D2D90.unk44 >= 0x6E) {

@@ -19,8 +19,8 @@ OSMesgQueue D_8028D030;
 OSMesgQueue D_8028D048;
 OSMesgQueue D_8028D060;
 OSMesgQueue D_8028D078;
-OSMesgQueue D_8028D090;
-OSMesgQueue D_8028D0A8; // OS_EVENT_SI events
+OSMesgQueue gSiLockQueue;
+OSMesgQueue gSiEventQueue; // OS_EVENT_SI events
 OSIoMesg    D_8028D0C0; // single?
 
 u64         thread1_stack[43]; // weird size? could add some padding before?
@@ -34,8 +34,8 @@ OSMesg      D_8028F640[800]; // cmdBuf for osCreatePiManager
 OSMesg      D_802902C0[800];
 OSMesg      D_80290F40[34]; // 32 + spare padding?
 OSMesg      D_80290FC8[32];
-OSMesg      D_80291048[1];
-OSMesg      D_8029104C[1];
+OSMesg      gSiLockQueueBuffer[1];
+OSMesg      gSiEventQueueBuffer[1];
 
 static OSMesg D_80291050[1]; // unused
 

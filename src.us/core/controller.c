@@ -5,23 +5,23 @@
 #include "controller.h"
 
 // randu
-u32 func_80128200(void) {
+u32 random_u32(void) {
     u32 temp_v1;
     u32 temp_v2;
 
-    temp_v1 = (D_80151430 << 2) + 2;
+    temp_v1 = (sRandomState32 << 2) + 2;
     temp_v2 = temp_v1 + 1;
     temp_v1 = (temp_v1 * temp_v2) >> 2;
-    D_80151430 = temp_v1;
-    return D_80151430;
+    sRandomState32 = temp_v1;
+    return sRandomState32;
 }
 
 // set_random_seed
-void func_8012822C(s32 time) {
+void seed_random_u32(s32 time) {
     if (time == 0) {
         time = osGetTime() >> 2;
     }
-    D_80151430 = time;
+    sRandomState32 = time;
 }
 
 u16 advance_random_seed(void) {
@@ -41,7 +41,7 @@ u16 advance_random_seed(void) {
 }
 
 // is this some pseudo-random number generator?
-s32 func_801282C4(void) {
+s32 advance_random_seed_16_steps(void) {
     advance_random_seed();
     advance_random_seed();
     advance_random_seed();
@@ -61,21 +61,21 @@ s32 func_801282C4(void) {
 }
 
 // ESA: func_8001CED4
-s16 func_8012835C(s16 idx) {
+s16 asin_deg_q8(s16 idx) {
     if (idx >= 0) {
-        return D_80152040[idx];
+        return gAsinDegreesQ8Table[idx];
     } else {
-        return -D_80152040[-idx];
+        return -gAsinDegreesQ8Table[-idx];
     }
 }
 
 // get_angle_in_degrees?
 // ESA: func_8001CF24
-s16 func_801283AC(s16 arg0) {
+s16 acos_deg_q8(s16 arg0) {
     if (arg0 >= 0) {
-        return 90 - D_80152040[arg0];
+        return 90 - gAsinDegreesQ8Table[arg0];
     } else {
-        return 90 + D_80152040[-arg0];
+        return 90 + gAsinDegreesQ8Table[-arg0];
     }
 }
 
@@ -90,7 +90,7 @@ s8 func_80128424(u8 idx) {
 
 // is this mapping controller input?
 // ESA: func_8001CF98
-s16 func_8012844C(s16 arg0) {
+s16 atan_deg_q6(s16 arg0) {
     if (arg0 > 2047) {
         return 89;
     } else
@@ -98,33 +98,33 @@ s16 func_8012844C(s16 arg0) {
         return -89;
     } else
     if (arg0 < 0) {
-        return -D_80151438[-arg0];
+        return -sAtanDegreesQ6Table[-arg0];
     } else {
-        return D_80151438[arg0];
+        return sAtanDegreesQ6Table[arg0];
     }
 }
 
 // ESA: func_8001CFEC
-s16 func_801284B8(s16 arg0, s16 arg1) {
+s16 atan2_deg_s16(s16 arg0, s16 arg1) {
     s16 res;
 
     if (ABS(arg0) < ABS(arg1)) {
         if (arg1 > 0) {
-            res = func_8012844C((arg0 * 64) / arg1);
+            res = atan_deg_q6((arg0 * 64) / arg1);
             if (res < 0) {
                 res += 360;
             }
         } else if (arg1 < 0) {
-            res = (func_8012844C(((arg0 * 64) / arg1)) + 180);
+            res = (atan_deg_q6(((arg0 * 64) / arg1)) + 180);
         } else if (arg0 >= 0) {
             res = 90;
         } else {
             res = 270;
         }
     } else if (arg0 > 0) {
-        res = 90 - func_8012844C((arg1 * 64) / arg0);
+        res = 90 - atan_deg_q6((arg1 * 64) / arg0);
     } else if (arg0 < 0) {
-        res = 270 - func_8012844C((arg1 * 64) / arg0);
+        res = 270 - atan_deg_q6((arg1 * 64) / arg0);
     } else {
         if (arg1 >= 0) {
             res = 0;
@@ -136,7 +136,7 @@ s16 func_801284B8(s16 arg0, s16 arg1) {
 }
 
 // ESA: func_8001D140
-f32 func_801286B8(f32 arg0, f32 arg1) {
+f32 atan2_deg_f32(f32 arg0, f32 arg1) {
     f32 temp_f16;
     f32 temp_f2;
     s16 temp_v0;
@@ -147,13 +147,13 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
             if (arg0 > 0.0f) {
                 temp_f2 = (arg0 / arg1) * 256.0;
                 temp_v0 = temp_f2;
-                temp_v1 = &D_80151C38[temp_v0];
+                temp_v1 = &sAtanDegreesQ8Table[temp_v0];
                 temp_f16 = temp_f2 - temp_v0;
                 return ((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]) ;
             } else {
                 temp_f2 = (-arg0 / arg1) * 256.0;
                 temp_v0 = temp_f2;
-                temp_v1 = &D_80151C38[temp_v0];
+                temp_v1 = &sAtanDegreesQ8Table[temp_v0];
                 temp_f16 = temp_f2 - temp_v0;
                 return 360.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
             }
@@ -161,13 +161,13 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
         if (arg0 > 0.0f) {
             temp_f2 = (arg0 / -arg1) * 256.0;
             temp_v0 = temp_f2;
-            temp_v1 = &D_80151C38[temp_v0];
+            temp_v1 = &sAtanDegreesQ8Table[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
             return 180.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
         } else {
             temp_f2 = (arg0 / arg1) * 256.0;
             temp_v0 = temp_f2;
-            temp_v1 = &D_80151C38[temp_v0];
+            temp_v1 = &sAtanDegreesQ8Table[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
             return ((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]) + 180.0;
         }
@@ -176,26 +176,26 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
         if (arg0 > 0.0f) {
             temp_f2 = (arg1 / arg0) * 256.0;
             temp_v0 = temp_f2;
-            temp_v1 = &D_80151C38[temp_v0];
+            temp_v1 = &sAtanDegreesQ8Table[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
             return 90.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
         } else {
             temp_f2 = (arg1 / -arg0) * 256.0;
             temp_v0 = temp_f2;
-            temp_v1 = &D_80151C38[temp_v0];
+            temp_v1 = &sAtanDegreesQ8Table[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
             return ((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]) + 270.0;
         }
     } else if (arg0 > 0.0f) {
         temp_f2 = (-arg1 / arg0) * 256.0;
         temp_v0 = temp_f2;
-        temp_v1 = &D_80151C38[temp_v0];
+        temp_v1 = &sAtanDegreesQ8Table[temp_v0];
         temp_f16 = temp_f2 - temp_v0;
         return (((1.0 - temp_f16) * temp_v1[0]) + temp_f16 * temp_v1[1]) + 90.0;
     } else {
         temp_f2 = (arg1 / arg0) * 256.0;
         temp_v0 = temp_f2;
-        temp_v1 = &D_80151C38[temp_v0];
+        temp_v1 = &sAtanDegreesQ8Table[temp_v0];
         temp_f16 = temp_f2 - temp_v0;
         return 270.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
     }
@@ -214,14 +214,14 @@ s16 func_80128C10(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     if (temp_v0 > 0) {
         if (phi_v1 > 0) {
-            res = 180 - func_8012844C((temp_v0 * 64) / phi_v1);
+            res = 180 - atan_deg_q6((temp_v0 * 64) / phi_v1);
         } else {
-            res = -func_8012844C((temp_v0 * 64) / phi_v1);
+            res = -atan_deg_q6((temp_v0 * 64) / phi_v1);
         }
     } else if (phi_v1 > 0) {
-        res = 180 - func_8012844C((temp_v0 * 64) / phi_v1);
+        res = 180 - atan_deg_q6((temp_v0 * 64) / phi_v1);
     } else {
-        res = 360 - func_8012844C((temp_v0 * 64) / phi_v1);
+        res = 360 - atan_deg_q6((temp_v0 * 64) / phi_v1);
     }
 
     if (res < 0) {

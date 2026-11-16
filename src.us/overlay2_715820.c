@@ -103,7 +103,7 @@ void func_803041FC_7158AC(void) {
         D_803E4BD1 = guRandom() % 3;
     }
 
-    imgBase = D_0102C810_660E0_bin;
+    imgBase = img_D_0102C810_660E0_i8__png;
 
     for (i = 0; i < D_803F2CA6; i++) {
         // if free?
@@ -148,7 +148,7 @@ void func_803041FC_7158AC(void) {
 
             switch (D_803E3130[i].type) {
             case 7:
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
+                gDPSetPrimColor(dl++, 128, 128, gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, D_803F2D50.waterPrimAlpha);
                 break;
             case 0:
                 gDPSetTileSize(
@@ -165,7 +165,7 @@ void func_803041FC_7158AC(void) {
                     D_803E3130[i].ult2 >> 16,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
+                gDPSetPrimColor(dl++, 128, 128, gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, D_803F2D50.waterPrimAlpha);
                 break;
             case 1:
             case 11:
@@ -206,7 +206,7 @@ void func_803041FC_7158AC(void) {
                     COSB(290 - D_803E4BD8) >> 2,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
+                gDPSetPrimColor(dl++, 128, 128, gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, D_803F2D50.waterPrimAlpha);
                 break;
             case 3:
                 gDPSetTileSize(
@@ -223,7 +223,7 @@ void func_803041FC_7158AC(void) {
                     D_803E3130[i].ult2 >> 16,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
+                gDPSetPrimColor(dl++, 128, 128, gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, D_803F2D50.waterPrimAlpha);
                 break;
             case 4:
                 gDPSetTileSize(

@@ -398,9 +398,9 @@ void func_802BC350_6CDA00(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
 
     sp38 = MAX(sp38, sp3C);
 
-    sp36 = func_801283AC((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
-    sp34 = func_801283AC((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
-    sp38 = -func_8012835C((sp3E * 256) / sp38);
+    sp36 = acos_deg_q8((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
+    sp34 = acos_deg_q8((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
+    sp38 = -asin_deg_q8((sp3E * 256) / sp38);
 
     // fakematch
     *arg0 = sp38 - ((((((sp36 & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF);
@@ -434,9 +434,9 @@ void func_802BC628_6CDCD8(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
 
     sp38 = MAX(sp38, sp3C);
 
-    sp36 = func_801283AC((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
-    sp34 = func_801283AC((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
-    sp38 = -func_8012835C((sp3E * 256) / sp38);
+    sp36 = acos_deg_q8((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
+    sp34 = acos_deg_q8((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
+    sp38 = -asin_deg_q8((sp3E * 256) / sp38);
 
   // fakematch
 #ifdef __sgi
@@ -1715,8 +1715,8 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
                 temp_a1_2->unk10 = 0;
             }
 
-            var_t0 += ((s32) (func_8038CCA4_79E354() * arg0) >> 7);
-            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
+            var_t0 += ((s32) (get_music_animation_phase() * arg0) >> 7);
+            if ((did_music_animation_phase_wrap() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
@@ -1781,8 +1781,8 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
             if (temp_a1_2->unk12 >= 0x190) {
                 temp_a1_2->unk10 = 0;
             }
-            var_t0 += ((func_8038CCA4_79E354() * arg0) >> 7);
-            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
+            var_t0 += ((get_music_animation_phase() * arg0) >> 7);
+            if ((did_music_animation_phase_wrap() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
@@ -1958,8 +1958,8 @@ void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
             if (arg0->unk12 >= 0x190) {
                 arg0->unk10 = 0;
             }
-            var_t0 += ((func_8038CCA4_79E354() * arg4) >> 7);
-            if (func_8038CCC0_79E370() != 0) {
+            var_t0 += ((get_music_animation_phase() * arg4) >> 7);
+            if (did_music_animation_phase_wrap() != 0) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
@@ -2087,8 +2087,8 @@ void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 a
             if (arg0->unk12 >= 0x190) {
                 arg0->unk10 = 0U;
             }
-            var_t0 = (func_8038CCA4_79E354() * arg6) >> 6;
-            if (func_8038CCC0_79E370() != 0) {
+            var_t0 = (get_music_animation_phase() * arg6) >> 6;
+            if (did_music_animation_phase_wrap() != 0) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }

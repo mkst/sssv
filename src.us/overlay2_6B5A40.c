@@ -850,7 +850,7 @@ s32 func_802A64B0_6B7B60(void) {
                 D_803D5530->unk68->unk65 = 0x14;
                 D_803D5530->movementState = MOVEMENT_STATE_AIRBORNE;
                 play_sound_effect_at_location(0x4B, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
-                func_80349280_75A930(D_803D5530->unk68, 0x14);
+                notify_animal_damage(D_803D5530->unk68, 0x14);
                 func_802B8890_6C9F40();
             } else if (var_a1 == D_803D5524->scoreTier) {
                 D_803D5530->yVelocity.w = (ABS(D_803D5530->yVelocity.w) >> 3);
@@ -1539,14 +1539,14 @@ void func_802A78CC_6B8F7C(void) {
 
         if ((D_803D5530->unk4B > 32) && (D_803D5530->unk4C.unk1A == 0)) {
             D_803D5530->Info.health= MAX(0, D_803D5530->Info.health - 1);
-            func_80349280_75A930(D_803D5530, 1);
+            notify_animal_damage(D_803D5530, 1);
             if (D_803D5530->unk4B > 48) {
                 D_803D5530->Info.health = MAX(0, D_803D5530->Info.health - 1);
-                func_80349280_75A930(D_803D5530, 1);
+                notify_animal_damage(D_803D5530, 1);
             }
             if (D_803D5530->unk4B > 60) {
                 D_803D5530->Info.health = MAX(0, D_803D5530->Info.health - 4);
-                func_80349280_75A930(D_803D5530, 4);
+                notify_animal_damage(D_803D5530, 4);
             }
         }
         func_802B3230_6C48E0();
@@ -1912,16 +1912,16 @@ void func_802AA0A0_6BB750(void) {
     }
     if ((D_803D5530->unk4B > 32) && (D_803D5530->unk4C.unk1A == 0)) {
         D_803D5530->Info.health = MAX(0, D_803D5530->Info.health - 1);
-        func_80349280_75A930(D_803D5530, 1);
+        notify_animal_damage(D_803D5530, 1);
 
         if (D_803D5530->unk4B > 48) {
             D_803D5530->Info.health = MAX(0, D_803D5530->Info.health - 1);
-            func_80349280_75A930(D_803D5530, 1);
+            notify_animal_damage(D_803D5530, 1);
         }
 
         if (D_803D5530->unk4B > 60) {
             D_803D5530->Info.health = 0;
-            func_80349280_75A930(D_803D5530, 40);
+            notify_animal_damage(D_803D5530, 40);
         }
     }
 }
@@ -5242,7 +5242,7 @@ void func_802B356C_6C4C1C(Animal *arg0, s16 damage, s16 arg2, u8 arg3) {
         hpDrop = 1;
     }
 
-    func_80349280_75A930(arg0, hpDrop >> 4);
+    notify_animal_damage(arg0, hpDrop >> 4);
 
     if (hpDrop > 0) {
         arg0->Info.health = MAX(0, (arg0->Info.health - MAX(1, hpDrop >> 4)));
@@ -5301,7 +5301,7 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 damage, s16 arg2, u8 stars) {
     if (hpDrop >= 35) {
         hpDrop = 35;
     }
-    func_80349280_75A930(arg0, hpDrop);
+    notify_animal_damage(arg0, hpDrop);
     arg0->Info.health = MAX(0, arg0->Info.health - hpDrop);
 }
 

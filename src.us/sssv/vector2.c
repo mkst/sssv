@@ -39,7 +39,7 @@ s16 func_80304F94_716644(struct039 *arg0, struct039 *arg1) {
     if (tmp == 0.0f) {
         res = 0;
     } else {
-        res = func_801283AC((tmp2 * 256) / tmp);
+        res = acos_deg_q8((tmp2 * 256) / tmp);
     }
     return res;
 }
@@ -55,7 +55,7 @@ s16 func_80305084_716734(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     if (tmp == 0.0f) {
         res = (u16)0;
     } else {
-        res = func_801283AC((((arg0 * arg2) + (arg1 * arg3)) * 256) / tmp);
+        res = acos_deg_q8((((arg0 * arg2) + (arg1 * arg3)) * 256) / tmp);
     }
     return res;
 }

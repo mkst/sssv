@@ -144,7 +144,7 @@ void update_hippo(void) {
             func_802BD40C_6CEABC(0x493, 0x35B, 0, 0xDA, 0, 0x80, 0x64, 0x80, D_803A4EF0_7B65A0, D_803A4F20_7B65D0, D_803A4F50_7B6600, 0x493, 0x35B, 0, 0xDA, 0, 0x80, 0, 0x1E, D_803A4F64_7B6614, D_803A4F94_7B6644, D_803A4FC4_7B6674, &sp100, 0);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x1D4, 0x445, 4);
-            func_8038CCF0_79E3A0(0xEA, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0xEA, 0x14, -1, -1, -1, -1);
             func_802C7600_6D8CB0(0x445, 0x1C);
         }
         if (D_803F2ECC != 0) {
@@ -221,11 +221,11 @@ void update_hippo(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x3E, 0x2E, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spFA == 0) {
-        func_803034D0_714B80(D_803D552C, 0xC95, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x333, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0xC95, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x333, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x6B6, 0x35B);
+        set_single_collision_sphere(D_803D552C, 0x6B6, 0x35B);
     }
 }
 

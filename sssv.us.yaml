@@ -561,15 +561,14 @@ segments:
       - [0x403F0, sssv_vtx, data/inc/D_01006B20_403F0]
       - [0x404F0, .data, data/D_01006C20_404F0] # OBJECT_ACTIVE_SWITCH displaylist
       - [0x40530, i4, img/D_01006C60_40530, 32, 128]
-      - [0x40D30, bin] # more textures 16x8?
+      - [0x40D30, bin] # no C texture load found
       - [0x40D70, rgba16, img/hud/unused_powerbar, 128, 16]
       - [0x41D70, bin, D_010084A0_41D70] # rgba16 mipmaps
       - [0x43DA0, .data, data/D_0100A6D0_43FA0]
       - [0x43DA0, sssv_vtx, data/inc/D_0100A4D0_43DA0]
       - [0x43E20, sssv_vtx, data/inc/D_0100A550_43E20]
       - [0x43FA0] # end of 43FA0
-      - [0x44000, ia16, img/D_0100A730_44000, 16, 16] # D_0100A730_44000 16x16 i16 texture
-      - [0x44200, ia16, img/D_0100A930_44200, 16, 16] # D_0100A930_44200 16x16 i16 texture
+      - [0x44000, i8, img/D_0100A730_44000, 32, 32]
       - [0x44400, sssv_vtx, data/inc/D_0100AB30_44400]
       - [0x445F0, sssv_vtx, data/inc/D_0100AD20_445F0]
       - [0x44760, sssv_vtx, data/inc/D_0100AE90_44760]
@@ -851,78 +850,28 @@ segments:
       - [0x5A0B0, .data, data/D_010207E0_5A0B0]
       - [0x5A190, sssv_vtx, data/inc/D_010208C0_5A190]
       - [0x5A220, .data, data/D_01020950_5A220] # object 241
-      - [0x5A280, bin, D_010209B0_5A280] # I4, 128x16, lightning bolt?
-      - [0x5A680, bin, D_01020DB0_5A680] # bunch of textures/palettes, 16x256
-      - [0x5AE80, bin, D_010215B0_5AE80] #
-      - [0x5B480, bin, D_01021BB0_5B480] # I4
+      - [0x5A280, i4, img/D_010209B0_5A280, 128, 16]
+      - [0x5A680, i4, img/D_01020DB0_5A680, 16, 448]
+      - [0x5B480, i4, img/D_01021BB0_5B480, 16, 32]
+      - [0x5B580, rgba16, img/D_01021CB0_5B580, 32, 1]
+      - [0x5B5C0, bin] # partial I4 load
       - [0x5BD80, ci4, img/bear_nose, 32, 32] # D_010224B0_5BD80
       - [0x5BF80, palette, img/bear_nose] # D_010226B0_5BF80
-      - [0x5BFA0, bin, D_010226D0_5BFA0] # D_010226D0_5BFA0 16x16 I4
-      - [0x5C020, bin] # 16x16 I4
-      - [0x5C0A0, bin] # 16x16 I4 100, 200, 500
-      - [0x5C7A0, bin, D_01022ED0_5C7A0] # D_01022ED0_5C7A0 16x16 I4 leaves?
-      - [0x5CE20, bin, D_01023550_5CE20] #  more 16x16 I4 images...
-      - [0x5CF20, bin]
-      - [0x5CFA0, bin]
-      - [0x5D020, bin]
-      - [0x5D0A0, bin]
-      - [0x5D120, bin]
-      - [0x5D1A0, bin]
-      - [0x5D220, bin]
-      - [0x5D2A0, bin]
-      - [0x5D320, bin]
-      - [0x5D3A0, bin]
-      - [0x5D420, bin]
-      - [0x5D4A0, bin]
-      - [0x5D520, bin]
-      - [0x5D5A0, bin]
-      - [0x5D620, bin, D_01023D50_5D620] # D_01023D50_5D620
-      - [0x5D6A0, bin]
-      - [0x5D720, bin]
-      - [0x5D7A0, bin]
-      - [0x5D820, bin]
-      - [0x5D8A0, bin]
-      - [0x5D920, bin]
-      - [0x5D9A0, bin]
-      - [0x5DA20, bin]
-      - [0x5DAA0, bin]
-      - [0x5DB20, bin]
-      - [0x5DBA0, bin]
-      - [0x5DC20, bin]
-      - [0x5DCA0, bin]
-      - [0x5DD20, bin]
-      - [0x5DDA0, bin]
-      - [0x5DE20, bin, D_01024550_5DE20] # D_01024550_5DE20, bunch more images - particles mostly?
-      - [0x5F020, bin, D_01025750_5F020] # D_01025750_5F020
-      - [0x60220, bin, D_01026950_60220] # D_01026950_60220
-      - [0x61420, bin, D_01027B50_61420] # D_01027B50_61420
-      - [0x62620, bin, D_01028D50_62620] # D_01028D50_62620
-      - [0x62E20, bin, D_01029550_62E20] # D_01029550_62E20
-      - [0x636A0, bin, D_01029DD0_636A0] # D_01029DD0_636A0
-      - [0x636E0, bin, D_01029E10_636E0] # D_01029E10_636E0
-      - [0x63700, bin] # I8?
-      - [0x63AE0, bin, D_0102A210_63AE0] # D_0102A210_63AE0, 32x32 I8 (D_8102A210)
-      - [0x63F00, bin] # I8?
-      - [0x64300, bin] # I8?
-      - [0x64700, bin] # I8?
-      - [0x64B00, bin] # I8, music note, pinball blizzard?
-      - [0x64EE0, bin, D_0102B610_64EE0] # D_0102B610_64EE0 palette ?
-      - [0x64F00, bin] # I4, 32x32
-      - [0x650E0, bin, D_0102B810_650E0] # palette?
-      - [0x65100, bin] #
-      - [0x652E0, i4, img/D_0102BA10_652E0, 64, 64] # D_0102BA10_652E0
-      - [0x65AE0, bin, D_0102C210_65AE0] # D_0102C210_65AE0, 16x256
-      - [0x660E0, bin, D_0102C810_660E0] # (D_8102C810)
-      - [0x66100, bin] # 32x32, fan
-      - [0x662E0, bin, D_0102CA10_662E0] # D_0102CA10_662E0, 16x256
-      - [0x66500, bin] # 32x32, fan
-      - [0x66900, bin] # 32x32, fan
-      - [0x66D00, bin] # 32x32, fan
-      - [0x670E0, bin, D_0102D810_670E0] # palette? D_8102D810
-      - [0x67100, bin] # symbols and stars
-      - [0x672E0, bin] #
-      - [0x67CE0, bin, D_0102E410_67CE0] # D_0102E410_67CE0
-      - [0x67EE0, bin, D_0102E610_67EE0] # D_8102E410 (D_0102E410_67CE0)
+      - [0x5BFA0, i4, img/D_010226D0_5BFA0, 16, 976]
+      - [0x5DE20, i4, img/D_01024550_5DE20, 32, 288]
+      - [0x5F020, i4, img/D_01025750_5F020, 32, 288]
+      - [0x60220, i4, img/D_01026950_60220, 32, 288]
+      - [0x61420, i4, img/D_01027B50_61420, 32, 288]
+      - [0x62620, i4, img/D_01028D50_62620, 16, 256]
+      - [0x62E20, i4, img/D_01029550_62E20, 16, 256]
+      - [0x63620, bin] # no C texture load found
+      - [0x636A0, i4, img/D_01029DD0_636A0, 16, 8]
+      - [0x636E0, i8, img/D_01029E10_636E0, 32, 192]
+      - [0x64EE0, i4, img/D_0102B610_64EE0, 32, 32]
+      - [0x650E0, i4, img/D_0102B810_650E0, 32, 32]
+      - [0x652E0, ia16, img/D_0102BA10_652E0, 32, 32]
+      - [0x65AE0, i4, img/D_0102C210_65AE0, 16, 192]
+      - [0x660E0, i8, img/D_0102C810_660E0, 32, 320]
       - [0x688E0, rgba16, img/D_0102F010_688E0, 32, 32] # environment map?
       - [0x690E0, rgba16, img/gold, 32, 32]
       - [0x698E0, rgba16, img/bronze, 32, 32]
@@ -943,17 +892,18 @@ segments:
       - [0x6D260, i4, img/D_01033990_6D260, 64, 64] # 64x64, I4 (IA4?)
       - [0x6DA60, i4, img/D_01034190_6DA60, 64, 64] # 64x64, I4 (IA4?)
       - [0x6E260, i4, img/D_01034990_6E260, 64, 64] # 64x64, I4 (IA4?)
-      - [0x6EA60, i4, img/D_01035190_6EA60, 64, 64]
-      - [0x6F260, i4, img/D_01035990_6F260, 64, 64]
-      - [0x6FA60, i4, img/D_01036190_6FA60, 64, 64]
-      - [0x70260, bin]
-      - [0x70560, bin, D_01036C90_70560] # tortoise G_IM_FMT_CI
-      - [0x70660, bin, D_01036D90_70660] # tortoise G_IM_FMT_CI
-      - [0x70760, bin, D_01036E90_70760] # tortoise G_IM_FMT_RGBA
-      - [0x70960, bin] # D_01037090_70960 image?
+      - [0x6EA60, ia16, img/D_01035190_6EA60, 32, 32]
+      - [0x6F260, ia16, img/D_01035990_6F260, 32, 32]
+      - [0x6FA60, ia16, img/D_01036190_6FA60, 32, 32]
+      - [0x70260, bin] # chain load overread only
+      - [0x70560, ci8, img/D_01036C90_70560, 16, 32]
+      - [0x70760, palette, img/D_01036C90_70560]
+      - [0x70960, bin] # no C texture load found
+      - [0x70B60, i4, img/D_01037290_70B60, 32, 32]
+      - [0x70D60, bin] # no C texture load found
       - [0x70F60, sssv_vtx, data/inc/D_01037690_70F60]
       - [0x70FD0, .data, data/D_01037700_70FD0]
-      - [0x71020, bin, D_01037750_71020] # D_01037750_71020 img
+      - [0x71020, i4, img/D_01037750_71020, 32, 32]
       - [0x71220, .data, data/D_01037950_71220] # dynamic tail dls
       - [0x712F0, i4, img/D_01037A20_712F0, 64, 64] # ring
       - [0x71AF0, i4, img/D_01038220_71AF0, 64, 64] # barrel-roll shadow?
@@ -984,7 +934,7 @@ segments:
       - [0x7A580, rgba16, img/D_01040CB0_7A580, 32, 256]
       - [0x7E580, i4, img/D_01044CB0_7E580, 32, 128]
       - [0x7ED80, i4, img/D_010454B0_7ED80, 32, 128]
-      - [0x7F580, bin] # image?
+      - [0x7F580, bin] # no C texture load found
       - [0x7F780, .data, data/D_01045EB0_7F780] # empty displaylist
   - name: data_7F790 # Dan Danger
     type: code
@@ -2047,7 +1997,7 @@ segments:
       - [0xC9490, ci4, img/flying_dog_body, 32, 32] # D_04001A60_C9490 palette for
       - [0xC9690, palette, img/flying_dog_body] # D_04001C60_C9690 (palette)
       - [0xC96B0, ci4, img/dog_body, 32, 32]
-      - [0xC98B0, bin] # junk? too small to be a palette?
+      - [0xC98B0, bin] # no C texture/palette load found
       - [0xC98C0, palette, img/dog_body] # D_04001E90_C98C0 TLUT for D_04001C80_C96B0
       - {
           name: img/flying_dog_wing,
@@ -2540,7 +2490,7 @@ segments:
       - [0xE4100, sssv_vtx, data/inc/D_04006B40_E4100]
       - [0xE4140, .data, data/D_04006B80_E4140] # walrus propeller
       - [0xE4190, ci4, img/walrus_nose, 32, 32]
-      - [0xE4390, bin] # too small to be a palette?
+      - [0xE4390, bin] # no C texture/palette load found
       - [0xE43A0, palette, img/walrus_nose]
       - [0xE43C0, sssv_vtx, data/inc/D_04006E00_E43C0]
       - [0xE4400, sssv_vtx, data/inc/D_04006E40_E4400]
@@ -3207,13 +3157,21 @@ segments:
       - [0x1016F0, sssv_vtx, data/inc/D_040019A0_1016F0]
       - [0x101730, sssv_vtx, data/inc/D_040019E0_101730]
       - [0x101770, .data, data/D_04001A20_101770]
-      - [0x1017B0, bin] # 32x32 I4
-      - [0x1019B0, bin] # palette?
-      - [0x1019D0, bin] # 32x32 I4
-      - [0x101BD0, bin] # palette?
-      - [0x101C20, bin] # 48x32 I4
-      - [0x101F20, bin] # 48x32 I4
-      - [0x102220, bin] # 48x32 I4
+      - [0x1017B0, ci4, img/city_flying_dog_body, 32, 32]
+      - [0x1019B0, palette, img/city_flying_dog_body]
+      - [0x1019D0, ci4, img/city_dog_body, 32, 32]
+      - [0x101BD0, bin] # no C texture/palette load found
+      - [0x101BE0, palette, img/city_dog_body]
+      - {
+          name: img/city_flying_dog_wing,
+          start: 0x101C00,
+          type: ci4,
+          width: 48,
+          height: 64,
+          palettes: [img/city_flying_dog_wing/TLUT1, img/city_flying_dog_wing/TLUT2],
+        }
+      - [0x102200, palette, img/city_flying_dog_wing/TLUT1]
+      - [0x102220, palette, img/city_flying_dog_wing/TLUT2]
       - [0x102240, sssv_vtx, data/inc/D_040024F0_102240]
       - [0x102440, sssv_vtx, data/inc/D_040026F0_102440]
       - [0x102470, .data, data/D_04002720_102470] # missile
@@ -3837,7 +3795,7 @@ segments:
   - [0x544960, rnc, img/trophies/BIG_CELEBRATION_PARADE, rgba16, 32, 32]
   - [0x544990, rnc, img/trophies/SECRET_LEVEL, rgba16, 32, 32]
   #
-  - [0x5449C0, i8, img/water, 16, 544] # I4 WaterTexture (16x1088) (34 * 16x32)
+  - [0x5449C0, i4, img/water, 32, 544]
   - [0x546BC0, bin] # tbd, unused?
   # game levels (nested RNC compressed) (differ from EU ROM)
   - [0x546D00, bin, levels/SMASHING_START]
@@ -3951,7 +3909,7 @@ segments:
       - [0x659B40, rnc, img/intro/newscaster_5, rgba16, 32, 2560]
       - [0x65FAD0, rnc, img/space_background, rgba16, 160, 128]
       - [0x662810, rgba16, img/intro/200_credz, 32, 128] # chunked
-      - [0x664810, bin] # tbd
+      - [0x664810, bin] # no C reference found
       - [0x664860, rnc, img/intro/newsflash, rgba16, 32, 2560] # 23248 => 163840 # newflash (32x32*80)
       - [0x66A330, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
       - [0x673790, rnc, img/intro/professor_cheese, rgba16, 320, 240]
@@ -4033,14 +3991,14 @@ segments:
       - [0x6A6500, c, overlay2_6A6500]
       - [0x6A7A80, c, overlay2_6A7A80]
       - [0x6AB090, c, overlay2_6AB090]
-      - [0x6AC360, c, overlay2_6AC360]
+      - [0x6AC360, c, sssv/terrain_map]
       - [0x6AC6B0, c, overlay2_6AC6B0]
       - [0x6ACE80, c, overlay2_6ACE80]
-      - [0x6ACF20, c, overlay2_6ACF20]
+      - [0x6ACF20, c, sssv/teleporters]
       - [0x6AE5A0, c, overlay2_6AE5A0]
       - [0x6B5380, c, overlay2_6B5380]
       - [0x6B5A40, c, overlay2_6B5A40]
-      - [0x6C5570, c, overlay2_6C5570]
+      - [0x6C5570, c, sssv/starfield]
       - [0x6C63D0, c, sssv/collision]
       - [0x6C9DD0, c, overlay2_6C9DD0]
       - [0x6CA7E0, c, overlay2_6CA7E0]
@@ -4048,17 +4006,17 @@ segments:
       - [0x6D6120, c, overlay2_6D6120]
       - [0x6D9330, c, overlay2_6D9330]
       - [0x6D9AF0, c, overlay2_6D9AF0]
-      - [0x6DA670, c, overlay2_6DA670]
+      - [0x6DA670, c, sssv/player_input]
       - [0x6DA9F0, c, sssv/objects]
-      - [0x6DB610, c, overlay2_6DB610]
+      - [0x6DB610, c, sssv/entity_physics]
       - [0x6DCA10, c, overlay2_6DCA10]
       - [0x6EBEA0, c, sssv/collist2]
-      - [0x6EC720, c, overlay2_6EC720]
+      - [0x6EC720, c, sssv/pose_interpolation]
       - [0x6ECFF0, c, overlay2_6ECFF0]
       - [0x6ED230, c, overlay2_6ED230]
       - [0x6EE6F0, c, sssv/dynamic_tail]
       - [0x6F66B0, c, sssv/animals/fox]
-      - [0x6FA0A0, c, overlay2_6FA0A0]
+      - [0x6FA0A0, c, sssv/visibility]
       - [0x6FBA90, c, sssv/aidata]
       - [0x6FBEA0, c, sssv/animals/dog]
       - [0x700770, c, sssv/animals/hippo]
@@ -4071,16 +4029,16 @@ segments:
       - [0x7118C0, c, sssv/animals/rabbit]
       - [0x7138B0, c, sssv/animals/frog]
       - [0x714500, c, overlay2_714500]
-      - [0x714B80, c, overlay2_714B80]
+      - [0x714B80, c, sssv/collision_spheres]
       - [0x715820, c, overlay2_715820]
-      - [0x716530, c, overlay2_716530]
+      - [0x716530, c, sssv/vector2]
       - [0x716900, c, overlay2_716900]
       - [0x71C140, c, overlay2_71C140]
       - [0x724E40, c, sssv/animals/parrot]
       - [0x725D10, c, overlay2_725D10] # sssv/commands
       - [0x72A930, c, overlay2_72A930]
-      - [0x72AF60, c, overlay2_72AF60]
-      - [0x72B800, c, overlay2_72B800]
+      - [0x72AF60, c, sssv/waypoints]
+      - [0x72B800, c, sssv/animal_eyes]
       - [0x72BA20, c, overlay2_72BA20]
       - [0x72C680, c, overlay2_72C680]
       - [0x72DE50, c, sssv/animals/mouse]
@@ -4089,9 +4047,9 @@ segments:
       - [0x734D30, c, sssv/animals/bear]
       - [0x739290, c, overlay2_739290] # sssv/bonus?
       - [0x73C890, c, overlay2_73C890]
-      - [0x73D980, c, overlay2_73D980] # sssv/sfx ?  # EU ROM suggests extra split at 0x73E580
+      - [0x73D980, c, sssv/sfx] # EU ROM suggests extra split at 0x73E580
       - [0x73EA30, c, sssv/vector]
-      - [0x73ED30, c, overlay2_73ED30]
+      - [0x73ED30, c, sssv/billboards]
       - [0x741000, c, sssv/camera]
       - [0x7558F0, c, overlay2_7558F0]
       - [0x7598E0, c, sssv/osd]
@@ -4101,8 +4059,8 @@ segments:
       - [0x763930, c, sssv/init]
       - [0x763A30, c, sssv/animals/tortoise] # EU ROM suggests extra split at 0x7667E0
       - [0x767AC0, c, sssv/tile]
-      - [0x7688B0, c, overlay2_7688B0]
-      - [0x7689A0, c, overlay2_7689A0]
+      - [0x7688B0, c, sssv/music_control]
+      - [0x7689A0, c, sssv/level_results]
       - [0x768B90, c, sssv/animals/hyena]
       - [0x76BCA0, c, sssv/animals/chameleon]
       - [0x76D850, c, sssv/animals/evo_microchip]
@@ -4126,7 +4084,7 @@ segments:
       - [0x78E970, c, overlay2_78E970]
       - [0x78E9F0, c, overlay2_78E9F0]
       - [0x7917A0, c, sssv/animinit]
-      - [0x791CD0, c, overlay2_791CD0]
+      - [0x791CD0, c, sssv/laughter]
       - [0x791FD0, c, sssv/animals/seagull]
       - [0x793700, c, sssv/animals/piranha]
       - [0x7943A0, c, sssv/animals/cool_cod]
@@ -4147,14 +4105,14 @@ segments:
       - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
       - [0x7B1BB0, .data, overlay2_6AB090] # D_803A0500_7B1BB0
       - [0x7B1BC0, .data, overlay2_6AC6B0] # D_803A0510_7B1BC0
-      - [0x7B1BE0, .data, overlay2_6ACF20] # D_803A0530_7B1BE0
-      - [0x7B1C30, .data, overlay2_6AE5A0] # D_803A0580_7B1C30 overlay2_6ACF20
+      - [0x7B1BE0, .data, sssv/teleporters] # D_803A0530_7B1BE0
+      - [0x7B1C30, .data, overlay2_6AE5A0] # D_803A0580_7B1C30
       - [0x7B1C60, .data, overlay2_6B5A40] # D_803A05B0_7B1C60
-      - [0x7B1C70, .data, overlay2_6C5570]
+      - [0x7B1C70, .data, sssv/starfield]
       - [0x7B1C80, .data, sssv/animals/stats] # (struct089 -> struct035)
       - [0x7B3250, data] # padding?
       - [0x7B3260, data, overlay2_6DCA10]
-      - [0x7B4440, .data, overlay2_6EC720]
+      - [0x7B4440, .data, sssv/pose_interpolation]
       - [0x7B5040, .data, sssv/dynamic_tail]
       - [0x7B5B80, .data, sssv/animals/fox]
       - [0x7B5E60, data, overlay2_716900_data] # ?
@@ -4172,7 +4130,7 @@ segments:
       - [0x7B6C30, .data, overlay2_716900]
       - [0x7B6C40, data, overlay2_716900_cont] # overlay2_716900 data continued
       - [0x7B6D60, .data, sssv/animals/parrot]
-      - [0x7B6E00, .data, overlay2_72AF60]
+      - [0x7B6E00, .data, sssv/waypoints]
       - [0x7B6E10, .data, overlay2_72BA20]
       - [0x7B6E20, .data, overlay2_72C680]
       - [0x7B73D0, .data, sssv/animals/mouse]
@@ -4217,7 +4175,8 @@ segments:
       - [0x7C73D0, .data, sssv/behaviours] # list of all behaviours
       - [0x7C74E0, data, sssv/animals/evo]
       - [0x7C76B0, .data, sssv/credits]
-      - [0x7C7960, data] # tbd
+      - [0x7C7960, .data, sssv/cheats]
+      - [0x7C7980, .data, overlay2_79DE10]
       - [0x7C79C0, data] # D_803B6310_7C79C0
       - [0x7C79D0, .data, sssv/terminal_background]
       - [0x7C7DA0, .data, overlay2_7A0DA0]
@@ -4227,20 +4186,20 @@ segments:
       - [0x7C8B80, rgba16, img/butterflies, 32, 224]
       # rodata
       - [0x7CC380, .rodata, overlay2_6A7A80]
-      - [0x7CC3C0, .rodata, overlay2_6ACF20]
+      - [0x7CC3C0, .rodata, sssv/teleporters]
       - [0x7CC3F0, .rodata, overlay2_6AE5A0]
       - [0x7CC470, .rodata, overlay2_6B5A40]
       - [0x7CD5B0, .rodata, sssv/collision]
       - [0x7CD610, .rodata, overlay2_6CCEF0]
       - [0x7CD7D0, .rodata, overlay2_6D6120]
       - [0x7CD890, .rodata, overlay2_6D9AF0]
-      - [0x7CD9A0, .rodata, overlay2_6DB610]
+      - [0x7CD9A0, .rodata, sssv/entity_physics]
       - [0x7CD9E0, .rodata, overlay2_6DCA10]
       - [0x7CDD70, .rodata, sssv/collist2]
       - [0x7CDE00, .rodata, overlay2_6ED230]
       - [0x7CDE40, .rodata, sssv/dynamic_tail]
       - [0x7CE0B0, .rodata, sssv/animals/fox]
-      - [0x7CE100, .rodata, overlay2_6FA0A0]
+      - [0x7CE100, .rodata, sssv/visibility]
       - [0x7CE120, .rodata, sssv/aidata]
       - [0x7CE440, .rodata, sssv/animals/dog]
       - [0x7CE490, .rodata, sssv/animals/hippo]
@@ -4256,15 +4215,15 @@ segments:
       - [0x7CE780, .rodata, overlay2_71C140]
       - [0x7CE7C0, .rodata, sssv/animals/parrot]
       - [0x7CE7D0, .rodata, overlay2_725D10]
-      - [0x7CEBA0, .rodata, overlay2_72AF60]
-      - [0x7CEBE0, .rodata, overlay2_72B800]
+      - [0x7CEBA0, .rodata, sssv/waypoints]
+      - [0x7CEBE0, .rodata, sssv/animal_eyes]
       - [0x7CEF30, .rodata, overlay2_72C680]
       - [0x7CF050, .rodata, sssv/animals/mouse]
       - [0x7CF090, .rodata, overlay2_7312E0]
       - [0x7CF120, .rodata, sssv/animals/bear]
       - [0x7CF180, .rodata, overlay2_739290]
-      - [0x7CF530, .rodata, overlay2_73D980]
-      - [0x7CF810, .rodata, overlay2_73ED30]
+      - [0x7CF530, .rodata, sssv/sfx]
+      - [0x7CF810, .rodata, sssv/billboards]
       - [0x7CF860, .rodata, sssv/camera]
       - [0x7CFFD0, .rodata, overlay2_7558F0]
       - [0x7CFFF0, .rodata, sssv/osd]

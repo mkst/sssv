@@ -67,7 +67,7 @@ void func_80294E50_6A6500(void) {
         return;
     }
 
-    if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (gOverlayMenuState.unk0 == 0)) || (gOverlayMenuState.unk26 == 3)) {
+    if (((gControllerInput->button & START_BUTTON) && (gPrevStartButtonUp == 1) && (gOverlayMenuState.unk0 == 0)) || (gOverlayMenuState.unk26 == 3)) {
         if ((gInputMode == INPUT_MODE_USER) && (D_803C0426 == 0) && (gIsWidescreen != 1) && (gInitialisationState == 0)) {
             if ((gGameState.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (gGameState.level != END_CREDITS) && ((gLevelProgress & LEVEL_PROGRESS_FLAG_16) == 0)) {
                 if ((D_803C0420 == 0) || (D_803C0420 >= 11)) {
@@ -98,7 +98,7 @@ void func_80294E50_6A6500(void) {
     }
 
     if ((gControllerInput->button & START_BUTTON) &&
-        (1 == D_802912DE) && (D_803C0426 == 0) && (gAttractModeState == 10) && ((gEepromGlobal.unk8 & 1) == 0)) {
+        (1 == gPrevStartButtonUp) && (D_803C0426 == 0) && (gAttractModeState == 10) && ((gEepromGlobal.unk8 & 1) == 0)) {
         D_803C0426 = 1;
         D_803C042A = 1;
     }
@@ -128,9 +128,9 @@ void func_80294E50_6A6500(void) {
             read_controller_input(gControllerInput);
         }
 
-        func_802FDA44_70F0F4();
-        func_802FE5E8_70FC98();
-        func_802F30A4_704754();
+        update_fog_transition();
+        update_water_color_transition();
+        update_level_lighting();
 
         gSPDisplayList(gOpaqueDL++, D_01003498_3CD68);
         gSPDisplayList(gOpaqueDL++, D_01004360_3DC30);
@@ -158,7 +158,7 @@ void func_80294E50_6A6500(void) {
         setup_frame_render_state(gDisplayListContext, &gMainDL);
         set_fog_position_and_color(&gMainDL);
         func_802C87E0_6D9E90();
-        if (func_8038CCC0_79E370() != 0) {
+        if (did_music_animation_phase_wrap() != 0) {
             gLevelProgress |= LEVEL_PROGRESS_FLAG_32;
         } else {
             gLevelProgress &= ~LEVEL_PROGRESS_FLAG_32;
@@ -344,7 +344,7 @@ void func_80294E50_6A6500(void) {
                 }
             }
         }
-        func_801375E8(0);
+        update_rumble(0);
     }
 
     check_cheats(gControllerInput);
@@ -390,7 +390,7 @@ void reset_player_progress(void) {
 // unused?
 void reset_player_health(void) {
     gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = 0x7F;
-    D_803F2CE8 = 0;
+    gHudDisplayedPlayerHealth = 0;
     D_8020427C = 1;
 }
 
@@ -444,7 +444,7 @@ s32 get_evo_suit_color(void) {
             (i != EVOS_ESCAPE) &&
             (i != PUNCHUP_PYRAMID) &&
             (i != BIG_CELEBRATION_PARADE)) {
-                powercells += D_8023F260.level[i-1].powercells;
+                powercells += gPlayerEeprom.level[i-1].powercells;
             }
     }
     if (powercells < 200) {

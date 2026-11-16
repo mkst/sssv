@@ -49,7 +49,7 @@ D_803D45D0                  = 0x803D45D0; // segment:overlay2 size:0x5e0
 // images
 
 img_D_01006C60_40530_rgba16__png = 0x01006C60;
-img_D_0100A730_44000_ia16__png   = 0x0100A730;
+img_D_0100A730_44000_i8__png   = 0x0100A730;
 
 img_eyes6_ci4__png    = 0x010025A0;
 img_eyes6_TLUT1_pal   = 0x01002C20;
@@ -88,43 +88,36 @@ D_01006AE8_403B8 = 0x1006AE8;
 D_010084A0_41D70_bin = 0x10084A0;
 D_0100A6D0_43FA0 = 0x100A6D0;
 D_01011B78_4B448 = 0x1011B78;
-D_010209B0_5A280_bin = 0x010209B0;
-D_01020DB0_5A680_bin = 0x1020DB0;
-D_010215B0_5AE80_bin = 0x10215B0;
-D_01021BB0_5B480_bin = 0x1021BB0;
+img_D_010209B0_5A280_i4__png = 0x010209B0;
+img_D_01020DB0_5A680_i4__png = 0x1020DB0;
+img_D_01021BB0_5B480_i4__png = 0x1021BB0;
+img_D_01021CB0_5B580_rgba16__png = 0x1021CB0;
 img_bear_nose_ci4__png = 0x10224B0;
 img_bear_nose_pal = 0x10226B0;
-D_010226D0_5BFA0_bin = 0x10226D0;
-D_01022ED0_5C7A0_bin = 0x1022ED0;
-D_01023550_5CE20_bin = 0x1023550;
-D_01023D50_5D620_bin = 0x1023D50;
-D_01024550_5DE20_bin = 0x1024550;
-D_01025750_5F020_bin = 0x1025750;
-D_01026950_60220_bin = 0x1026950;
-D_01027B50_61420_bin = 0x1027B50;
-D_01028D50_62620_bin = 0x1028D50;
-D_01029550_62E20_bin = 0x1029550;
-D_01029DD0_636A0_bin = 0x1029DD0;
-D_01029E10_636E0_bin = 0x1029E10;
-D_0102A210_63AE0_bin = 0x0102A210; // rom:0x63AE0
-D_0102D810_670E0_bin = 0x0102D810; // rom:0x670E0
-D_0102B610_64EE0_bin = 0x102B610;
-D_0102B810_650E0_bin = 0x102B810;
-D_0102BA10_652E0 = 0x102BA10;
-D_0102C210_65AE0_bin = 0x102C210;
-D_0102C810_660E0_bin = 0x102C810; // rom:0x660E0
-D_0102CA10_662E0_bin = 0x102CA10;
+img_D_010226D0_5BFA0_i4__png = 0x10226D0;
+img_D_01024550_5DE20_i4__png = 0x1024550;
+img_D_01025750_5F020_i4__png = 0x1025750;
+img_D_01026950_60220_i4__png = 0x1026950;
+img_D_01027B50_61420_i4__png = 0x1027B50;
+img_D_01028D50_62620_i4__png = 0x1028D50;
+img_D_01029550_62E20_i4__png = 0x1029550;
+img_D_01029DD0_636A0_i4__png = 0x1029DD0;
+img_D_01029E10_636E0_i8__png = 0x1029E10;
+img_D_0102B610_64EE0_i4__png = 0x102B610;
+img_D_0102B810_650E0_i4__png = 0x102B810;
+img_D_0102BA10_652E0_ia16__png = 0x102BA10;
+img_D_0102C210_65AE0_i4__png = 0x102C210;
+img_D_0102C810_660E0_i8__png = 0x102C810; // rom:0x660E0
 img_D_0102F010_688E0_rgba16__png = 0x102F010;
 D_01030810_6A0E0 = 0x1030810;
 img_D_01031010_6A8E0_rgba16__png = 0x1031010;
 img_D_01033190_6CA60_i4__png = 0x1033190;
-D_01035190_6EA60 = 0x1035190;
-D_01035990_6F260 = 0x1035990;
-D_01036190_6FA60 = 0x1036190;
-D_01036C90_70560_bin = 0x1036C90;
-D_01036D90_70660_bin = 0x1036D90;
-D_01036E90_70760_bin = 0x1036E90;
-D_01037750_71020_bin = 0x1037750;
+img_D_01035190_6EA60_ia16__png = 0x1035190;
+img_D_01035990_6F260_ia16__png = 0x1035990;
+img_D_01036190_6FA60_ia16__png = 0x1036190;
+img_D_01036C90_70560_ci8__png = 0x1036C90;
+img_D_01036C90_70560_pal = 0x1036E90;
+img_D_01037750_71020_i4__png = 0x1037750;
 D_01037998_71268 = 0x1037998;
 D_010379D8_712A8 = 0x10379D8;
 D_01037A00_712D0 = 0x1037A00;
@@ -334,9 +327,9 @@ D_8023F206             = 0x8023F206;
 D_8023F208             = 0x8023F208;
 D_8023F248             = 0x8023F248;
 
-D_8023F260             = 0x8023F260; // size:0x40 segment:main
+gPlayerEeprom             = 0x8023F260; // size:0x40 segment:main
 gEepromGlobal          = 0x8023F2A0; // size:0x40 segment:main
-D_8023F2E0             = 0x8023F2E0; // size:0x100 segment:main
+gPlayerEepromSlots             = 0x8023F2E0; // size:0x100 segment:main
 
 backup_joint_positions = 0x802DB8DC; // rom:0x6ECF8C
 
@@ -367,7 +360,7 @@ D_803A6D08_7B83B8      = 0x803A6D08; // rom:0x7B83B8 size:0xC
 D_803A6D14_7B83C4      = 0x803A6D14; // rom:0x7B83C4 size:0xC
 D_803A7B24_7B91D4      = 0x803A7B24; // rom:0x7B91D4 size:0x14
 
-D_80152040             = 0x80152040; // segment:main size:0x208
+gAsinDegreesQ8Table             = 0x80152040; // segment:main size:0x208
 D_80152248             = 0x80152248; // segment:main size:0x108
 gSineTable             = 0x80152350; // segment:main size:0x438
 gSineTable256          = 0x80152C78; // segment:main size:0x200
@@ -508,6 +501,16 @@ reset_screen_transition   = 0x802F07D0; // rom:0x701E80
 trigger_screen_transition = 0x802F07E8; // rom:0x701E98
 add_light_at_location  = 0x802F2B54; // rom:0x704204
 add_single_light       = 0x802F5964; // rom:0x707014
+
+update_entity_collision_spheres = 0x802F5C60; // rom:0x707310 segment:overlay2
+snapshot_entity_contact_state = 0x802FB49C; // rom:0x70CB4C segment:overlay2
+get_angle_step_deg = 0x802F63F8; // rom:0x707AA8 segment:overlay2
+step_angle_towards_deg = 0x802F649C; // rom:0x707B4C segment:overlay2
+start_fog_transition = 0x802FD94C; // rom:0x70EFFC segment:overlay2
+update_fog_transition = 0x802FDA44; // rom:0x70F0F4 segment:overlay2
+start_water_color_transition = 0x802FE560; // rom:0x70FC10 segment:overlay2
+update_water_color_transition = 0x802FE5E8; // rom:0x70FC98 segment:overlay2
+align_entity_rotation_to_velocity = 0x802FFD50; // rom:0x711400 segment:overlay2
 
 update_limbs_rigid      = 0x802BF3C0; // rom:0x6D0A70
 update_limbs_evo        = 0x8031FE40; // rom:0x7314F0
@@ -663,8 +666,8 @@ gThread7          = 0x80286720;
 gThread1          = 0x802868D0;
 gThread9          = 0x80286A80;
 
-D_80286560        = 0x80286560;
-D_80286562        = 0x80286562;
+gMusicBeatPhase        = 0x80286560;
+gPreviousMusicBeatPhase        = 0x80286562;
 D_80286564        = 0x80286564;
 D_80286568        = 0x80286568;
 
@@ -675,8 +678,8 @@ D_8028D030        = 0x8028D030;
 D_8028D048        = 0x8028D048;
 D_8028D060        = 0x8028D060;
 D_8028D078        = 0x8028D078;
-D_8028D090        = 0x8028D090;
-D_8028D0A8        = 0x8028D0A8;
+gSiLockQueue        = 0x8028D090;
+gSiEventQueue        = 0x8028D0A8;
 D_8028D0C0        = 0x8028D0C0;
 thread9_stack     = 0x8028D230;
 D_8028E230        = 0x8028E230;
@@ -685,8 +688,8 @@ D_8028F640        = 0x8028F640;
 D_802902C0        = 0x802902C0;
 D_80290F40        = 0x80290F40;
 D_80290FC8        = 0x80290FC8;
-D_80291048        = 0x80291048;
-D_8029104C        = 0x8029104C;
+gSiLockQueueBuffer        = 0x80291048;
+gSiEventQueueBuffer        = 0x8029104C;
 D_80291054        = 0x80291054;
 D_80291058        = 0x80291058;
 D_8029105C        = 0x8029105C;
@@ -694,28 +697,28 @@ D_80291060        = 0x80291060;
 D_80291078        = 0x80291078;
 
 // thread9
-D_80291090             = 0x80291090;
+gRumbleState             = 0x80291090;
 gControllerInput       = 0x802910D0;
 gControllerStatus      = 0x802910D8;
-D_802910E8             = 0x802910E8;
-D_80291100 = 0x80291100;
-D_80291110 = 0x80291110;
-D_802912B0 = 0x802912B0;
-D_802912C8 = 0x802912C8;
-D_802912CC = 0x802912CC;
+gControllerPads             = 0x802910E8;
+gRumbleMotorMessage = 0x80291100;
+gControllerPakHandles = 0x80291110;
+gRumbleMotorQueue = 0x802912B0;
+gRumbleMotorQueueBuffer = 0x802912C8;
+gSiLockReceivedMessage = 0x802912CC;
 D_802912D0 = 0x802912D0;
-D_802912D4 = 0x802912D4;
+gEepromType = 0x802912D4;
 gControllerConnected = 0x802912D8;
 D_802912DA = 0x802912DA;
-D_802912DC = 0x802912DC;
-D_802912DE = 0x802912DE;
-D_802912DF = 0x802912DF;
-D_802912E0 = 0x802912E0;
-D_802912E1 = 0x802912E1;
-D_802912E2 = 0x802912E2;
-D_802912E3 = 0x802912E3;
-D_802912E4 = 0x802912E4;
-D_802912E5 = 0x802912E5;
+gRumblePakProbeCounter = 0x802912DC;
+gPrevStartButtonUp = 0x802912DE;
+gPrevAButtonUp = 0x802912DF;
+gPrevBButtonUp = 0x802912E0;
+gPrevDpadUpButtonUp = 0x802912E1;
+gPrevDpadDownButtonUp = 0x802912E2;
+gPrevDpadLeftButtonUp = 0x802912E3;
+gPrevDpadRightButtonUp = 0x802912E4;
+gPrevZButtonUp = 0x802912E5;
 
 // overlay1
 gIntroPerspNorm = 0x80302E60;
@@ -750,14 +753,16 @@ gWorldPerspNorm = 0x803C0658; // segment:overlay2
 // overlay2_6AB090
 gVisibleWorldCellQueue = 0x803C0660; // size:0xe0
 
-// overlay2_6AC360
+// sssv/terrain_map.c
 D_803C0740 = 0x803C0740; // size:0x12648 segment:overlay2
 
-// overlay2_6ACF20
+// sssv/teleporters.c
 D_803D2D90 = 0x803D2D90; // size:0x66 segment:overlay2
 D_803D2DF8 = 0x803D2DF8; // segment:overlay2
 D_803D2DFC = 0x803D2DFC; // segment:overlay2
 D_803D2DFE = 0x803D2DFE; // segment:overlay2
+
+// overlay2_6AE5A0
 D_803D2E00 = 0x803D2E00; // segment:overlay2
 gDynamicTextureBillboardQueue = 0x803D2E08; // segment:overlay2 size:0x620
 
@@ -800,7 +805,7 @@ D_803D5570 = 0x803D5570; // segment:overlay2
 D_803D5572 = 0x803D5572; // segment:overlay2
 D_803D5574 = 0x803D5574;
 
-// overlay2_6C5570
+// sssv/starfield.c
 D_803D5590 = 0x803D5590; // segment:overlay2
 D_803D5860 = 0x803D5860; // segment:overlay2
 D_803D5B30 = 0x803D5B30; // segment:overlay2
@@ -816,14 +821,14 @@ D_803D60E2 = 0x803D60E2; // segment:overlay2
 D_803D60E8 = 0x803D60E8; // size:0x10
 D_803D60F8 = 0x803D60F8; // size:0x10
 
-// overlay2_6D9AF0
+// sssv/player_input.c
 gControllerDebounce = 0x803D6110; // segment:overlay2
 
 // overlay2_6DCA10
 D_803D6120 = 0x803D6120; // size:0x3FD8 segment:overlay2
 
 // collist2
-D_803DA110 = 0x803DA110; // segment:overlay2
+gCollisionGridHeads = 0x803DA110; // segment:overlay2
 D_803DA2F0 = 0x803DA2F0; // segment:overlay2
 D_803DA2F4 = 0x803DA2F4; // segment:overlay2
 
@@ -845,25 +850,25 @@ D_803E1B1C = 0x803E1B1C; // segment:overlay2
 D_803E1B1E = 0x803E1B1E; // segment:overlay2
 
 // overlay2_7041D0
-D_803E1B20 = 0x803E1B20; // size:0xA segment:overlay2
-D_803E1B30 = 0x803E1B30; // size:0xA segment:overlay2
-D_803E1B40 = 0x803E1B40; // size:0xA segment:overlay2
-D_803E1B50 = 0x803E1B50; // size:0xA segment:overlay2
-D_803E1B60 = 0x803E1B60; // size:0xA segment:overlay2
-D_803E1B70 = 0x803E1B70; // size:0xA segment:overlay2
-D_803E1B80 = 0x803E1B80; // size:0xA segment:overlay2
-D_803E1B8A = 0x803E1B8A; // segment:overlay2
-D_803E1B8C = 0x803E1B8C; // segment:overlay2
-D_803E1B8E = 0x803E1B8E; // segment:overlay2
-D_803E1B90 = 0x803E1B90; // segment:overlay2
-D_803E1B92 = 0x803E1B92; // segment:overlay2
-D_803E1B94 = 0x803E1B94; // segment:overlay2
-D_803E1B96 = 0x803E1B96; // segment:overlay2
-D_803E1B97 = 0x803E1B97; // segment:overlay2
-D_803E1B98 = 0x803E1B98; // segment:overlay2
-D_803E1B99 = 0x803E1B99; // segment:overlay2
-D_803E1B9A = 0x803E1B9A; // segment:overlay2
-D_803E1B9B = 0x803E1B9B; // segment:overlay2
+sLocalLightIntensities = 0x803E1B20; // size:0xA segment:overlay2
+sLocalLightRed = 0x803E1B30; // size:0xA segment:overlay2
+sLocalLightGreen = 0x803E1B40; // size:0xA segment:overlay2
+sLocalLightBlue = 0x803E1B50; // size:0xA segment:overlay2
+sLocalLightDirectionX = 0x803E1B60; // size:0xA segment:overlay2
+sLocalLightDirectionY = 0x803E1B70; // size:0xA segment:overlay2
+sLocalLightDirectionZ = 0x803E1B80; // size:0xA segment:overlay2
+sLightTransitionAmbientDeltaRed = 0x803E1B8A; // segment:overlay2
+sLightTransitionAmbientDeltaGreen = 0x803E1B8C; // segment:overlay2
+sLightTransitionAmbientDeltaBlue = 0x803E1B8E; // segment:overlay2
+sLightTransitionDirectionalDeltaRed = 0x803E1B90; // segment:overlay2
+sLightTransitionDirectionalDeltaGreen = 0x803E1B92; // segment:overlay2
+sLightTransitionDirectionalDeltaBlue = 0x803E1B94; // segment:overlay2
+sLightTransitionStartDirectionalRed = 0x803E1B96; // segment:overlay2
+sLightTransitionStartDirectionalGreen = 0x803E1B97; // segment:overlay2
+sLightTransitionStartDirectionalBlue = 0x803E1B98; // segment:overlay2
+sLightTransitionStartAmbientRed = 0x803E1B99; // segment:overlay2
+sLightTransitionStartAmbientGreen = 0x803E1B9A; // segment:overlay2
+sLightTransitionStartAmbientBlue = 0x803E1B9B; // segment:overlay2
 sLevelLightTransitionDurationTicks = 0x803E1BA2; // segment:overlay2
 sLevelLightTransitionElapsedTicks = 0x803E1BA4; // segment:overlay2
 D_803E1BA6 = 0x803E1BA6; // segment:overlay2
@@ -876,12 +881,12 @@ D_803E1BB2 = 0x803E1BB2; // segment:overlay2
 D_803E1BB4 = 0x803E1BB4; // segment:overlay2
 D_803E1BB6 = 0x803E1BB6; // segment:overlay2
 D_803E1BB8 = 0x803E1BB8; // segment:overlay2
-D_803E1BBA = 0x803E1BBA; // segment:overlay2
-D_803E1BBB = 0x803E1BBB; // segment:overlay2
-D_803E1BBC = 0x803E1BBC; // segment:overlay2
-D_803E1BBD = 0x803E1BBD; // segment:overlay2
-D_803E1BBE = 0x803E1BBE; // segment:overlay2
-D_803E1BBF = 0x803E1BBF; // segment:overlay2
+gWaterPrimRed = 0x803E1BBA; // segment:overlay2
+gWaterPrimGreen = 0x803E1BBB; // segment:overlay2
+gWaterPrimBlue = 0x803E1BBC; // segment:overlay2
+gWaterEnvRed = 0x803E1BBD; // segment:overlay2
+gWaterEnvGreen = 0x803E1BBE; // segment:overlay2
+gWaterEnvBlue = 0x803E1BBF; // segment:overlay2
 
 // input
 gInputMode = 0x803E1BC0; // segment:overlay2
@@ -890,14 +895,14 @@ demoInput = 0x803E1BD4; // segment:overlay2
 
 // overlay2_707310
 sMaxSpeakerVolume = 0x803E1BE0; // segment:overlay2
-D_803E1BE8 = 0x803E1BE8; // segment:overlay2
-D_803E1CE0 = 0x803E1CE0; // segment:overlay2
-D_803E1CE8 = 0x803E1CE8; // segment:overlay2
+sRadialDamageEffects = 0x803E1BE8; // segment:overlay2
+sFogTransitionStart = 0x803E1CE0; // segment:overlay2
+sFogTransitionTarget = 0x803E1CE8; // segment:overlay2
 D_803E1CF0 = 0x803E1CF0; // segment:overlay2
 gFogState = 0x803E1CF8; // segment:overlay2
-D_803E1D00 = 0x803E1D00; // segment:overlay2
-D_803E1D02 = 0x803E1D02; // segment:overlay2
-D_803E1D04 = 0x803E1D04; // segment:overlay2
+sFogTransitionDuration = 0x803E1D00; // segment:overlay2
+sFogTransitionElapsed = 0x803E1D02; // segment:overlay2
+sFogTransitionComplete = 0x803E1D04; // segment:overlay2
 D_803E1D06 = 0x803E1D06; // segment:overlay2
 D_803E1D08 = 0x803E1D08; // segment:overlay2
 D_803E1D0A = 0x803E1D0A; // segment:overlay2
@@ -980,12 +985,12 @@ D_803DA108 = 0x803DA108; // segment:overlay2
 // TODO: D_803E8E5C = 0x803E8E5C;
 
 // overlay2_72B100
-D_803E8E60 = 0x803E8E60; // segment:overlay2
-D_803E8F60 = 0x803E8F60; // segment:overlay2
-D_803E93B0 = 0x803E93B0; // size:0x208 segment:overlay2
-D_803E95B8 = 0x803E95B8; // size:0x208 segment:overlay2
+gWaypointPaths = 0x803E8E60; // segment:overlay2
+gWaypointPathBuffer = 0x803E8F60; // segment:overlay2
+gLevelRegions = 0x803E93B0; // size:0x208 segment:overlay2
+gLevelRegionCollisionMasks = 0x803E95B8; // size:0x208 segment:overlay2
 
-// overlay2_72B800
+// overlay2_72BA20
 D_803E97C0 = 0x803E97C0; // segment:overlay2
 D_803E97C8 = 0x803E97C8; // segment:overlay2
 
@@ -1093,9 +1098,9 @@ D_803F2CC0 = 0x803F2CC0; // segment:overlay2 size:0x8
 // osd
 D_803F2CD0 = 0x803F2CD0; // segment:overlay2
 gHudTimerSeconds = 0x803F2CD2; // segment:overlay2
-D_803F2CD4 = 0x803F2CD4; // segment:overlay2
-D_803F2CD6 = 0x803F2CD6; // segment:overlay2
-D_803F2CD8 = 0x803F2CD8; // segment:overlay2
+gHudTimerTickCounter = 0x803F2CD4; // segment:overlay2
+gHudTimerStepSeconds = 0x803F2CD6; // segment:overlay2
+gHudTimerTicksPerStep = 0x803F2CD8; // segment:overlay2
 D_803F2CDA = 0x803F2CDA; // segment:overlay2
 D_803F2CDC = 0x803F2CDC; // segment:overlay2
 D_803F2CDD = 0x803F2CDD; // segment:overlay2
@@ -1104,11 +1109,11 @@ D_803F2CDF = 0x803F2CDF; // segment:overlay2
 gHudCenterText = 0x803F2CE0; // segment:overlay2
 D_803F2CE4 = 0x803F2CE4; // segment:overlay2
 D_803F2CE6 = 0x803F2CE6; // segment:overlay2
-D_803F2CE8 = 0x803F2CE8; // segment:overlay2
+gHudDisplayedPlayerHealth = 0x803F2CE8; // segment:overlay2
 D_803F2CEC = 0x803F2CEC; // segment:overlay2
 gHudBarBaseY = 0x803F2CF0; // segment:overlay2
 D_803F2CF2 = 0x803F2CF2; // segment:overlay2
-D_803F2CF8 = 0x803F2CF8; // segment:overlay2
+sTargetHealthBar = 0x803F2CF8; // segment:overlay2
 D_803F2D04 = 0x803F2D04;
 gUiFlowState = 0x803F2D10; // segment:overlay2 size:0x4
 D_803F2D18 = 0x803F2D18; // segment:overlay2
@@ -1173,9 +1178,6 @@ D_803F63F0 = 0x803F63F0; // segment:overlay2
 // credits
 entryOffset      = 0x803F6400; // segment:overlay2
 verticalPosition = 0x803F6402; // segment:overlay2
-
-// cheats
-D_803F6410 = 0x803F6410; // segment:overlay2
 
 // overlay2_79DE10
 gAnimalBehaviourEnabled = 0x803F6450; // segment:overlay2
@@ -1923,9 +1925,6 @@ setup_pause_menu_perspective_b = 0x80395854; // rom:0x7A6F04
 append_rig_modelview_transform_xlu = 0x80397414; // rom:0x7A8AC4
 render_rig_instance_xlu = 0x80397F5C; // rom:0x7A960C
 gHudTimerAscii = 0x803A8344; // rom:0x7B99F4
-gCheatInputNeutralLatch = 0x803B62B4; // rom:0x7C7964
-gCheatInputDebounceTimer = 0x803B62BC; // rom:0x7C796C
-gCheatLastButtonCode = 0x803B62C0; // rom:0x7C7970
 gTerminalFadeStep = 0x803B6314; // rom:0x7C79C4
 gTerminalPhase = 0x803B6318; // rom:0x7C79C8
 gTerminalTransitionCounter = 0x803B631C; // rom:0x7C79CC
@@ -1941,3 +1940,79 @@ setup_water_grid_material = 0x802985AC; // rom:0x6A9C5C
 advance_water_animation = 0x8029877C; // rom:0x6A9E2C
 update_watch_tv_camera = 0x8033B594; // rom:0x74CC44
 start_level_light_transition = 0x802F2EEC; // rom:0x70459C
+
+// US naming pass: random_math
+random_u32 = 0x80128200; // segment:main
+seed_random_u32 = 0x8012822C; // segment:main
+sRandomState32 = 0x80151430; // segment:main
+advance_random_seed_16_steps = 0x801282C4; // segment:main
+asin_deg_q8 = 0x8012835C; // segment:main
+acos_deg_q8 = 0x801283AC; // segment:main
+atan_deg_q6 = 0x8012844C; // segment:main
+atan2_deg_s16 = 0x801284B8; // segment:main
+atan2_deg_f32 = 0x801286B8; // segment:main
+sAtanDegreesQ6Table = 0x80151438; // segment:main
+sAtanDegreesQ8Table = 0x80151C38; // segment:main
+
+// US naming pass: collision
+update_entity_collision_grid = 0x802DA90C; // segment:overlay2
+register_entity_collision = 0x802DADA0; // segment:overlay2
+unregister_entity_collision = 0x802DAE5C; // segment:overlay2
+reset_collision_lists = 0x802DAF5C; // segment:overlay2
+
+// US naming pass: rumble
+request_rumble_motor_start = 0x80137204; // segment:main
+request_rumble_motor_stop = 0x8013724C; // segment:main
+update_rumble = 0x801375E8; // segment:main
+init_si_lock = 0x801370A4; // segment:main
+acquire_si_lock = 0x801370F4; // segment:main
+release_si_lock = 0x8013713C; // segment:main
+
+// US naming pass: eeprom
+load_eeprom_or_initialize_defaults = 0x80130E44; // segment:main
+
+// US naming pass: graphics_text
+submit_graphics_task = 0x8013107C; // segment:main
+get_word_wrapped_text_height = 0x8012E78C; // segment:main
+
+// US naming pass: lighting
+reset_level_lighting = 0x802F2DF8; // segment:overlay2
+update_level_lighting = 0x802F30A4; // segment:overlay2
+gLevelAmbientRed = 0x803A52A0; // segment:overlay2
+gLevelAmbientGreen = 0x803A52A4; // segment:overlay2
+gLevelAmbientBlue = 0x803A52A8; // segment:overlay2
+gLevelDirectionalLightRed = 0x803A52AC; // segment:overlay2
+gLevelDirectionalLightGreen = 0x803A52B0; // segment:overlay2
+gLevelDirectionalLightBlue = 0x803A52B4; // segment:overlay2
+
+gLevelLightTransitionComplete = 0x803A52B8; // segment:overlay2
+
+// US naming pass: controller/SI and rumble state
+snapshot_controller_button_history = 0x80136F64; // segment:main
+reset_rumble_state = 0x80137168; // segment:main
+gSiLockInitialized = 0x80158540; // segment:main
+
+// US naming pass: HUD health bars and timer
+notify_animal_damage = 0x80349280; // segment:overlay2
+draw_and_update_target_health_bar = 0x803493C8; // segment:overlay2
+
+// US naming pass: level regions and waypoint storage
+build_level_region_collision_masks = 0x803198B0; // segment:overlay2
+get_level_regions_at_point = 0x80319C38; // segment:overlay2
+point_matches_level_region = 0x80319E1C; // segment:overlay2
+gWaypointPathCount = 0x803A5750; // segment:overlay2
+
+// US naming pass: collision spheres
+set_body_collision_sphere_pair = 0x803034D0; // segment:overlay2
+set_collision_sphere_at_joint_midpoint = 0x80303820; // segment:overlay2
+set_collision_sphere_from_joint_pairs = 0x80303990; // segment:overlay2
+set_collision_sphere_at_joint = 0x80303B18; // segment:overlay2
+set_single_collision_sphere = 0x80303D00; // segment:overlay2
+terminate_collision_spheres = 0x80303D50; // segment:overlay2
+get_animal_collision_vertical_bounds = 0x8030400C; // segment:overlay2
+update_idle_head_yaw = 0x8038C768; // segment:overlay2
+update_idle_head_yaw_clamped = 0x8038C98C; // segment:overlay2
+get_music_bounce_factor = 0x8038CC28; // segment:overlay2
+get_music_animation_phase = 0x8038CCA4; // segment:overlay2
+did_music_animation_phase_wrap = 0x8038CCC0; // segment:overlay2
+apply_music_bounce_to_joints = 0x8038CCF0; // segment:overlay2

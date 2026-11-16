@@ -794,7 +794,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
 }
 
 void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
-    s16 temp_t0_3;
+    s16 temp_t0;
     s16 temp_t1;
     s16 temp_t2;
     s16 var_v0_2;
@@ -859,13 +859,13 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
         break;
     }
 
-    temp_t0_3 = D_80203FE0[1].unk0;
+    temp_t0 = D_80203FE0[1].unk0;
     temp_t1 = D_80203FE0[1].unk2;
     temp_t2 = D_80203FE0[1].unk4;
     temp_t2 += arg0;
 
     D_80203FE0[19].unk4 = temp_t2;
-    D_80203FE0[19].unk0 = temp_t0_3;
+    D_80203FE0[19].unk0 = temp_t0;
     D_80203FE0[19].unk2 = temp_t1;
 
     var_v0_2 += (D_803D552C->unk30E * 360) / 1024;
@@ -888,19 +888,19 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
     temp_t7_2 = (COSB(var_v0_2) * arg1) / 256;
     temp_t7_3 = ((SIN(D_803D552C->unk310 >> 3) >> 7) * arg1) >> 8;
 
-    D_80203FE0[20].unk0 = temp_t0_3 + temp_t7;
+    D_80203FE0[20].unk0 = temp_t0 + temp_t7;
     D_80203FE0[20].unk2 = temp_t1 + temp_t7_2;
     D_80203FE0[20].unk4 = temp_t2 + temp_t7_3;
 
-    D_80203FE0[26].unk0 = temp_t0_3 - temp_t7;
+    D_80203FE0[26].unk0 = temp_t0 - temp_t7;
     D_80203FE0[26].unk2 = temp_t1 - temp_t7_2;
     D_80203FE0[26].unk4 = temp_t2 - temp_t7_3;
 }
 
 // only used by rabbit
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
-    s16 liftL; // left ear?
-    s16 liftR; // right ear?
+    s16 liftL;
+    s16 liftR;
     s16 temp_hi;
 
     s16 tmp1;
@@ -924,7 +924,6 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
         liftR = 16;
     }
 
-    // not a switch
     if ((D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
         (D_803D552C->movementMode == MOVEMENT_MODE_2)) {
         liftL = liftR = 0;
@@ -943,8 +942,8 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     D_80203FE0[26].unk2 = tmp2; /* 0xD2 */
     D_80203FE0[26].unk4 = tmp3; /* 0xD4 */
 
-    D_80203FE0[28].unk2 = tmp2; /* 0xE2 */
     D_80203FE0[28].unk0 = tmp4; /* 0xE0 */
+    D_80203FE0[28].unk2 = tmp2; /* 0xE2 */
     D_80203FE0[28].unk4 = tmp3; /* 0xE4 */
 
     D_80203FE0[27].unk0 = tmp1;

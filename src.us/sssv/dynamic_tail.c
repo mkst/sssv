@@ -43,7 +43,7 @@ void reset_dynamic_tails(s32 arg0) {
 s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 tailType, s8 swingMode,
         s32 anchorX, s32 anchorZ, s32 anchorY,
         u8 flags, u8 phaseSeed,
-        Animal *endObject, Animal *anchorObject,
+        Entity *endObject, Entity *anchorObject,
         s16 endOffsetX, s16 endOffsetZ, s16 endOffsetY,
         s16 anchorOffsetX, s16 anchorOffsetZ, s16 anchorOffsetY) {
     u16 i;
@@ -568,7 +568,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
+                    func_802E4F20_6F65D0(img_D_01036190_6FA60_ia16__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x14, 0x31, 0x00);
@@ -628,7 +628,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
+                    func_802E4F20_6F65D0(img_D_01036190_6FA60_ia16__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x14, 0x31, 0x00);
@@ -726,7 +726,7 @@ void func_802DE950_6F0000(void) {
                     case TAIL_TYPE_CHAIN_GRN_B:
                     case TAIL_TYPE_CHAIN_GRN_C:
                     case TAIL_TYPE_CHAIN_GRN_D:
-                        func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
+                        func_802E4F20_6F65D0(img_D_01036190_6FA60_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x52, 0xDC, 0x63, 0xFF); // #52dc63
                         gDPSetEnvColor(gOpaqueDL++, 0x00, 0x31, 0x00, 0x00);
                         break;
@@ -734,7 +734,7 @@ void func_802DE950_6F0000(void) {
                     case TAIL_TYPE_CHAIN_ORN_B:
                     case TAIL_TYPE_CHAIN_ORN_C:
                     case TAIL_TYPE_CHAIN_ORN_D:
-                        func_802E4F20_6F65D0(img_D_01035990_6F260_i4__png);
+                        func_802E4F20_6F65D0(img_D_01035990_6F260_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x9C, 0x31, 0xFF); // #ff9c31
                         gDPSetEnvColor(gOpaqueDL++, 0x31, 0x08, 0x00, 0x00);
                         break;
@@ -742,13 +742,13 @@ void func_802DE950_6F0000(void) {
                     case TAIL_TYPE_CHAIN_WHT_B:
                     case TAIL_TYPE_CHAIN_WHT_C:
                     case TAIL_TYPE_CHAIN_WHT_D:
-                        func_802E4F20_6F65D0(img_D_01035190_6EA60_i4__png);
+                        func_802E4F20_6F65D0(img_D_01035190_6EA60_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF); // #ffffff
                         gDPSetEnvColor(gOpaqueDL++, 0x00, 0x00, 0x00, 0x00);
                         break;
                     case TAIL_TYPE_CHAIN_LAV_A:
                     case TAIL_TYPE_CHAIN_LAV_B:
-                        func_802E4F20_6F65D0(img_D_0102BA10_652E0_i4__png);
+                        func_802E4F20_6F65D0(img_D_0102BA10_652E0_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xD7, 0xD7, 0xFF, 0xFF); // #d7d7ff
                         gDPSetEnvColor(gOpaqueDL++, 0x89, 0x65, 0xB4, 0x00);
                         break;
@@ -812,7 +812,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(img_D_01035190_6EA60_i4__png);
+                    func_802E4F20_6F65D0(img_D_01035190_6EA60_ia16__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x00, 0x00, 0x00);
@@ -1344,7 +1344,7 @@ u32 func_802E3C88_6F5338(DynamicTail* arg0) {
         vtx[i*2].n.n[0] = s7;
         vtx[i*2].n.n[1] = s7;
         vtx[i*2].n.n[2] = s7;
-        vtx[i*2].n.n[3] = t1;
+        vtx[i*2].n.a = t1;
 
         vtx[i*2+1].n.ob[0] = (D_803DA300[arg0->workspaceIndex + i].unk0 >> 0xE) - var_s2;
         vtx[i*2+1].n.ob[1] = (D_803DA300[arg0->workspaceIndex + i].unk4 >> 0xE) - var_s3;
@@ -1355,7 +1355,7 @@ u32 func_802E3C88_6F5338(DynamicTail* arg0) {
         vtx[i*2+1].n.n[0] = s7;
         vtx[i*2+1].n.n[1] = s7;
         vtx[i*2+1].n.n[2] = s7;
-        vtx[i*2+1].n.n[3] = t1;
+        vtx[i*2+1].n.a = t1;
 
         vtx[i*2].n.tc[1] = ((i << 5) - 0x80) << 6;
         vtx[i*2+1].n.tc[1] = ((i << 5) - 0x80) << 6;

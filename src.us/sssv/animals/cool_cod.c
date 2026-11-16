@@ -160,7 +160,7 @@ void func_80382CF0_7943A0(void) {
             0,
             D_803D5538);
     }
-    func_80303D00_7153B0(D_803D552C, 500, 500);
+    set_single_collision_sphere(D_803D552C, 500, 500);
 }
 
 void func_80383804_794EB4(void) {

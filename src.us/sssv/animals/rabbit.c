@@ -1,6 +1,13 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern u8   D_803A53C4_7B6A74[];
+extern u8   D_803A53CC_7B6A7C[];
+extern s16  D_803A53D4_7B6A84[];
+extern struct077 D_803A53E0_7B6A90;
+extern struct077 D_803A53FC_7B6AAC;
+
 extern u8 D_803A5340_7B69F0[];
 extern u8 D_803A534C_7B69FC[];
 extern s16 D_803A5358_7B6A08[];
@@ -32,7 +39,7 @@ void func_80300210_7118C0(void) {
     }
 
     if (sp88 == 0) {
-        func_8038C768_79DE18();
+        update_idle_head_yaw();
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -176,8 +183,8 @@ void func_80300210_7118C0(void) {
 
             func_802C6FF4_6D86A4(0x96, 0x258);
 
-            if (D_803D552C->unk316 != 0) {
-                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->unk316, 0.0f, 0.0f, 1.0f);
+            if (D_803D552C->headYawDegrees != 0) {
+                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->headYawDegrees, 0.0f, 0.0f, 1.0f);
                 gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             }
             func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_040005A0_DDB60);
@@ -203,12 +210,12 @@ void func_80300210_7118C0(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp88 == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 1, 0x177, 1);
-        func_80303820_714ED0(D_803D552C, 0x13, 0x14, 0x14C, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 1, 0x177, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 0x13, 0x14, 0x14C, 0);
+        terminate_collision_spheres(D_803D552C, 2);
         return;
     }
-    func_80303D00_7153B0(D_803D552C, 0x465, 0x177);
+    set_single_collision_sphere(D_803D552C, 0x465, 0x177);
 }
 
 // HELI_RABBIT
@@ -367,11 +374,11 @@ void func_80301248_7128F8(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp84 == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 1, 375, 1);
-        func_80303820_714ED0(D_803D552C, 19, 20, 332, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 1, 375, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 19, 20, 332, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 1125, 375);
+        set_single_collision_sphere(D_803D552C, 1125, 375);
     }
 }
 

@@ -1,6 +1,10 @@
 #include <ultra64.h>
 #include "common.h"
 
+// External data referenced by this file.
+extern s16  D_803A6730_7B7DE0[];
+extern s16  D_803A69F0_7B80A0[];
+
 
 void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch) {
     s32 pad UNUSED;

@@ -27,9 +27,9 @@ void get_controller_input(void) {
 
     switch (gInputMode) {
     case INPUT_MODE_USER:
-        D_803E1BC4.button =  D_802910E8[D_801D9ED0].button;
-        D_803E1BC4.stick_x = D_802910E8[D_801D9ED0].stick_x;
-        D_803E1BC4.stick_y = D_802910E8[D_801D9ED0].stick_y;
+        D_803E1BC4.button =  gControllerPads[D_801D9ED0].button;
+        D_803E1BC4.stick_x = gControllerPads[D_801D9ED0].stick_x;
+        D_803E1BC4.stick_y = gControllerPads[D_801D9ED0].stick_y;
         break;
     case INPUT_MODE_DISABLED:
         D_803E1BC4.button =  0;
@@ -39,7 +39,7 @@ void get_controller_input(void) {
     case INPUT_MODE_DEMO:
         if (D_803A52C0_7B6970 == 0) {
             gSeed = 0xB57; // reset seed
-            func_8012822C(1); // set random seed to 1
+            seed_random_u32(1); // set random seed to 1
 
             switch (D_803F2D50.segment) {
             case SEGMENT_EUROPE:
@@ -87,7 +87,7 @@ void get_controller_input(void) {
             }
         }
         // start pressed by user
-        if ((D_802910E8[D_801D9ED0].button & CONT_START)) {
+        if ((gControllerPads[D_801D9ED0].button & CONT_START)) {
             // no more input...
             gInputMode = INPUT_MODE_DISABLED;
         }
