@@ -32,7 +32,7 @@ void func_80300210_7118C0(void) {
     }
 
     if (sp88 == 0) {
-        func_8038C768_79DE18();
+        update_idle_head_yaw();
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -176,8 +176,8 @@ void func_80300210_7118C0(void) {
 
             func_802C6FF4_6D86A4(0x96, 0x258);
 
-            if (D_803D552C->unk316 != 0) {
-                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->unk316, 0.0f, 0.0f, 1.0f);
+            if (D_803D552C->headYawDegrees != 0) {
+                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->headYawDegrees, 0.0f, 0.0f, 1.0f);
                 gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             }
             func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_040005A0_DDB60);

@@ -144,7 +144,7 @@ void update_hippo(void) {
             func_802BD40C_6CEABC(0x493, 0x35B, 0, 0xDA, 0, 0x80, 0x64, 0x80, D_803A4EF0_7B65A0, D_803A4F20_7B65D0, D_803A4F50_7B6600, 0x493, 0x35B, 0, 0xDA, 0, 0x80, 0, 0x1E, D_803A4F64_7B6614, D_803A4F94_7B6644, D_803A4FC4_7B6674, &sp100, 0);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x1D4, 0x445, 4);
-            func_8038CCF0_79E3A0(0xEA, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0xEA, 0x14, -1, -1, -1, -1);
             func_802C7600_6D8CB0(0x445, 0x1C);
         }
         if (D_803F2ECC != 0) {

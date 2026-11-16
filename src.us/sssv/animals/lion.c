@@ -93,7 +93,7 @@ void func_802F1730_702DE0(void) {
             func_802B964C_6CACFC();
             func_802BB840_6CCEF0(0x2EE);
             func_802C4A70_6D6120(0xF, 0x384, 4);
-            func_8038CCF0_79E3A0(0xE1, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0xE1, 0x14, -1, -1, -1, -1);
             D_80203FE0[19].unk2 += 600;
             D_80203FE0[20].unk2 += 600;
             func_802C7600_6D8CB0(600, 0x1C);

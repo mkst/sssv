@@ -1275,12 +1275,12 @@ void func_8038C484_79DB34(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4);
 
 // overlay2_79DE10
 void empty_8038C760_79DE10(void);
-void func_8038C768_79DE18(void);
-void func_8038C98C_79E03C(void);
+void update_idle_head_yaw(void);
+void update_idle_head_yaw_clamped(void);
 
-s16  func_8038CCA4_79E354(void);
-s16  func_8038CCC0_79E370(void);
-s16  func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5);
+s16  get_music_animation_phase(void);
+s16  did_music_animation_phase_wrap(void);
+s16  apply_music_bounce_to_joints(s16 amplitude, s16 joint1, s16 joint2, s16 joint3, s16 joint4, s16 joint5);
 
 // sssv/terminal_background (overlay2_79E640)
 void func_8038CF90_79E640(void);

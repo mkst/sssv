@@ -568,8 +568,7 @@ segments:
       - [0x43DA0, sssv_vtx, data/inc/D_0100A4D0_43DA0]
       - [0x43E20, sssv_vtx, data/inc/D_0100A550_43E20]
       - [0x43FA0] # end of 43FA0
-      - [0x44000, ia16, img/D_0100A730_44000, 16, 16] # D_0100A730_44000 16x16 i16 texture
-      - [0x44200, ia16, img/D_0100A930_44200, 16, 16] # D_0100A930_44200 16x16 i16 texture
+      - [0x44000, i8, img/D_0100A730_44000, 32, 32]
       - [0x44400, sssv_vtx, data/inc/D_0100AB30_44400]
       - [0x445F0, sssv_vtx, data/inc/D_0100AD20_445F0]
       - [0x44760, sssv_vtx, data/inc/D_0100AE90_44760]
@@ -893,9 +892,9 @@ segments:
       - [0x6D260, i4, img/D_01033990_6D260, 64, 64] # 64x64, I4 (IA4?)
       - [0x6DA60, i4, img/D_01034190_6DA60, 64, 64] # 64x64, I4 (IA4?)
       - [0x6E260, i4, img/D_01034990_6E260, 64, 64] # 64x64, I4 (IA4?)
-      - [0x6EA60, i4, img/D_01035190_6EA60, 64, 64]
-      - [0x6F260, i4, img/D_01035990_6F260, 64, 64]
-      - [0x6FA60, i4, img/D_01036190_6FA60, 64, 64]
+      - [0x6EA60, ia16, img/D_01035190_6EA60, 32, 32]
+      - [0x6F260, ia16, img/D_01035990_6F260, 32, 32]
+      - [0x6FA60, ia16, img/D_01036190_6FA60, 32, 32]
       - [0x70260, bin] # chain load overread only
       - [0x70560, ci8, img/D_01036C90_70560, 16, 32]
       - [0x70760, palette, img/D_01036C90_70560]
@@ -3796,7 +3795,7 @@ segments:
   - [0x544960, rnc, img/trophies/BIG_CELEBRATION_PARADE, rgba16, 32, 32]
   - [0x544990, rnc, img/trophies/SECRET_LEVEL, rgba16, 32, 32]
   #
-  - [0x5449C0, i8, img/water, 16, 544] # I4 WaterTexture (16x1088) (34 * 16x32)
+  - [0x5449C0, i4, img/water, 32, 544]
   - [0x546BC0, bin] # tbd, unused?
   # game levels (nested RNC compressed) (differ from EU ROM)
   - [0x546D00, bin, levels/SMASHING_START]
@@ -4176,7 +4175,8 @@ segments:
       - [0x7C73D0, .data, sssv/behaviours] # list of all behaviours
       - [0x7C74E0, data, sssv/animals/evo]
       - [0x7C76B0, .data, sssv/credits]
-      - [0x7C7960, data] # tbd
+      - [0x7C7960, .data, sssv/cheats]
+      - [0x7C7980, .data, overlay2_79DE10]
       - [0x7C79C0, data] # D_803B6310_7C79C0
       - [0x7C79D0, .data, sssv/terminal_background]
       - [0x7C7DA0, .data, overlay2_7A0DA0]

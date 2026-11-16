@@ -81,8 +81,8 @@ void func_80313790_724E40(void) {
             func_802BB1F0_6CC8A0(0x177, 0x232);
             func_802BC1F4_6CD8A4(0x232);
             func_802C4448_6D5AF8(0x261);
-            func_8038CCF0_79E3A0( 0xEA, 0x13, -1, -1, -1, -1);
-            func_8038CCF0_79E3A0(-0xEA, 0x1A, -1, -1, -1, -1);
+            apply_music_bounce_to_joints( 0xEA, 0x13, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(-0xEA, 0x1A, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();

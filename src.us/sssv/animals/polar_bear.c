@@ -158,7 +158,7 @@ void func_80365F10_7775C0(void) {
                                &spB8);
             func_802B964C_6CACFC();
             func_802C58E4_6D6F94(0x77, 0x1DE);
-            func_8038CCF0_79E3A0(0x77, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0x77, 0x14, -1, -1, -1, -1);
             func_802C7600_6D8CB0(0x3BC, 8);
 
             D_80203FE0[19].unk2 -= (spB0 * 0x3BC) >> 5;

@@ -324,5 +324,5 @@ void func_802C8878_6D9F28(void) {
             }
         }
     }
-    D_80286562 = D_80286560;
+    gPreviousMusicBeatPhase = gMusicBeatPhase;
 }

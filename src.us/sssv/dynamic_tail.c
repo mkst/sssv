@@ -568,7 +568,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
+                    func_802E4F20_6F65D0(img_D_01036190_6FA60_ia16__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x14, 0x31, 0x00);
@@ -628,7 +628,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
+                    func_802E4F20_6F65D0(img_D_01036190_6FA60_ia16__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x14, 0x31, 0x00);
@@ -726,7 +726,7 @@ void func_802DE950_6F0000(void) {
                     case TAIL_TYPE_CHAIN_GRN_B:
                     case TAIL_TYPE_CHAIN_GRN_C:
                     case TAIL_TYPE_CHAIN_GRN_D:
-                        func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
+                        func_802E4F20_6F65D0(img_D_01036190_6FA60_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x52, 0xDC, 0x63, 0xFF); // #52dc63
                         gDPSetEnvColor(gOpaqueDL++, 0x00, 0x31, 0x00, 0x00);
                         break;
@@ -734,7 +734,7 @@ void func_802DE950_6F0000(void) {
                     case TAIL_TYPE_CHAIN_ORN_B:
                     case TAIL_TYPE_CHAIN_ORN_C:
                     case TAIL_TYPE_CHAIN_ORN_D:
-                        func_802E4F20_6F65D0(img_D_01035990_6F260_i4__png);
+                        func_802E4F20_6F65D0(img_D_01035990_6F260_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x9C, 0x31, 0xFF); // #ff9c31
                         gDPSetEnvColor(gOpaqueDL++, 0x31, 0x08, 0x00, 0x00);
                         break;
@@ -742,7 +742,7 @@ void func_802DE950_6F0000(void) {
                     case TAIL_TYPE_CHAIN_WHT_B:
                     case TAIL_TYPE_CHAIN_WHT_C:
                     case TAIL_TYPE_CHAIN_WHT_D:
-                        func_802E4F20_6F65D0(img_D_01035190_6EA60_i4__png);
+                        func_802E4F20_6F65D0(img_D_01035190_6EA60_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF); // #ffffff
                         gDPSetEnvColor(gOpaqueDL++, 0x00, 0x00, 0x00, 0x00);
                         break;
@@ -812,7 +812,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(img_D_01035190_6EA60_i4__png);
+                    func_802E4F20_6F65D0(img_D_01035190_6EA60_ia16__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x00, 0x00, 0x00);

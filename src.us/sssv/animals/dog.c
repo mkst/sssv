@@ -146,7 +146,7 @@ void func_802EA7F0_6FBEA0(void) {
             func_802C4A70_6D6120(0x22C, 0x1BB, 0);
             D_80203FE0[19].unk2 -= sp90;
             D_80203FE0[20].unk2 -= sp90;
-            func_8038CCF0_79E3A0(0xDD, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(0xDD, 0x13, 0x14, -1, -1, -1);
             func_802C7310_6D89C0();
 
             if (D_803D5528->unk3C0.unk0 == 16) {
@@ -375,7 +375,7 @@ done:
             func_802BAA38_6CC0E8(0x12C, 0x96);
             func_802C4A70_6D6120(0x22C, 0x1BB, 0);
             func_802BB70C_6CCDBC(0x12C, 0x2BC);
-            func_8038CCF0_79E3A0(0xDD, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(0xDD, 0x13, 0x14, -1, -1, -1);
             func_802C7310_6D89C0();
         }
 
@@ -600,7 +600,7 @@ void func_802ED108_6FE7B8(void) {
             func_802BD40C_6CEABC(0x1DA, 0xC8, 0x12C, 0x96, 0, 0x34, 0, 0x20, D_803A4C34_7B62E4, D_803A4C64_7B6314, D_803A4C94_7B6344, 0x1DA, 0xC8, 0x12C, 0x96, 0x64, 0xE4, 0x64, 0x84, D_803A4C34_7B62E4, D_803A4C64_7B6314, D_803A4C94_7B6344, &spB8, 1);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x22C, 0x1BB, 0);
-            func_8038CCF0_79E3A0(0xDD, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(0xDD, 0x13, 0x14, -1, -1, -1);
             func_802C7310_6D89C0();
 
             if (D_803D5528->unk3C0.unk0 == 16) {

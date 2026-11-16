@@ -245,7 +245,7 @@ block_33:
                 D_80203FE0[19].unk2 -= ((D_803D552C->unk320->unk40 * 0x2EE) - FTOFIX32(17.1661376953125)) / 1600;
                 D_80203FE0[20].unk2 -= ((D_803D552C->unk320->unk40 * 0x2EE) - FTOFIX32(17.1661376953125)) / 1600;
             } else {
-                func_8038CCF0_79E3A0(0x177, 0x13, 0x14, -1, -1, -1);
+                apply_music_bounce_to_joints(0x177, 0x13, 0x14, -1, -1, -1);
             }
         }
         if (D_803F2ECC != 0) {

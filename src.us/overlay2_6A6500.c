@@ -158,7 +158,7 @@ void func_80294E50_6A6500(void) {
         setup_frame_render_state(gDisplayListContext, &gMainDL);
         set_fog_position_and_color(&gMainDL);
         func_802C87E0_6D9E90();
-        if (func_8038CCC0_79E370() != 0) {
+        if (did_music_animation_phase_wrap() != 0) {
             gLevelProgress |= LEVEL_PROGRESS_FLAG_32;
         } else {
             gLevelProgress &= ~LEVEL_PROGRESS_FLAG_32;

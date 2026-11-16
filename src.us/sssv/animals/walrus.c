@@ -151,7 +151,7 @@ void func_80374C70_786320(void) {
             D_80203FE0[20].unk4 = (D_80203FE0[20].unk4 + t4) - D_80203FE0[19].unk4;
             D_80203FE0[19].unk4 = t4;
 
-            func_8038CCF0_79E3A0(114, 19, 20, -1, -1, -1);
+            apply_music_bounce_to_joints(114, 19, 20, -1, -1, -1);
 
             D_80203FE0[26].unk0 = (D_80203FE0[8].unk0 + D_80203FE0[11].unk0) >> 1;
             D_80203FE0[26].unk2 = (D_80203FE0[8].unk2 + D_80203FE0[11].unk2) >> 1;

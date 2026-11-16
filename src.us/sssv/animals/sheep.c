@@ -126,7 +126,7 @@ void update_sheep_or_ram(void) {
                 func_803032DC_71498C(0x1A, 0, -D_803D552C->unk35A / 110.0);
                 func_803032DC_71498C(0x1B, 0, -D_803D552C->unk35A / 110.0);
             }
-            func_8038CCF0_79E3A0(0x164, 0x1A, 0x1B, -1, -1, -1);
+            apply_music_bounce_to_joints(0x164, 0x1A, 0x1B, -1, -1, -1);
 
             // determine which head to draw
             switch (D_803D5524->animalType) {

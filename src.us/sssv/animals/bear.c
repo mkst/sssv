@@ -213,7 +213,7 @@ void func_80323680_734D30(void) {
             }
             spB0 += D_80203FE0[2].unk4 / 32;
             func_802C652C_6D7BDC(0x81, 0x30A);
-            func_8038CCF0_79E3A0(0x247, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0x247, 0x14, -1, -1, -1, -1);
             func_802BAE24_6CC4D4(&spB2, &spB0, 0x2C);
         }
         if (D_803F2ECC != 0) {

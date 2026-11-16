@@ -192,7 +192,7 @@ void func_802E5000_6F66B0(void) {
             func_802BBC90_6CD340(0x366);
             func_803033D4_714A84(0x1A, 2, spA8);
             func_8034B3A8_75CA58(0);
-            func_8038CCF0_79E3A0(0xC8, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0xC8, 0x14, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
@@ -647,7 +647,7 @@ void func_802E7394_6F8A44(void) {
             func_802BBC90_6CD340(0x366);
             func_803033D4_714A84(0x1A, 2, sp98);
             func_8034B3A8_75CA58(0);
-            func_8038CCF0_79E3A0(0xC8, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0xC8, 0x14, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();

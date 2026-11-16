@@ -49,7 +49,7 @@ D_803D45D0                  = 0x803D45D0; // segment:overlay2 size:0x5e0
 // images
 
 img_D_01006C60_40530_rgba16__png = 0x01006C60;
-img_D_0100A730_44000_ia16__png   = 0x0100A730;
+img_D_0100A730_44000_i8__png   = 0x0100A730;
 
 img_eyes6_ci4__png    = 0x010025A0;
 img_eyes6_TLUT1_pal   = 0x01002C20;
@@ -112,9 +112,9 @@ img_D_0102F010_688E0_rgba16__png = 0x102F010;
 D_01030810_6A0E0 = 0x1030810;
 img_D_01031010_6A8E0_rgba16__png = 0x1031010;
 img_D_01033190_6CA60_i4__png = 0x1033190;
-D_01035190_6EA60 = 0x1035190;
-D_01035990_6F260 = 0x1035990;
-D_01036190_6FA60 = 0x1036190;
+img_D_01035190_6EA60_ia16__png = 0x1035190;
+img_D_01035990_6F260_ia16__png = 0x1035990;
+img_D_01036190_6FA60_ia16__png = 0x1036190;
 img_D_01036C90_70560_ci8__png = 0x1036C90;
 img_D_01036C90_70560_pal = 0x1036E90;
 img_D_01037750_71020_i4__png = 0x1037750;
@@ -656,8 +656,8 @@ gThread7          = 0x80286720;
 gThread1          = 0x802868D0;
 gThread9          = 0x80286A80;
 
-D_80286560        = 0x80286560;
-D_80286562        = 0x80286562;
+gMusicBeatPhase        = 0x80286560;
+gPreviousMusicBeatPhase        = 0x80286562;
 D_80286564        = 0x80286564;
 D_80286568        = 0x80286568;
 
@@ -1168,9 +1168,6 @@ D_803F63F0 = 0x803F63F0; // segment:overlay2
 // credits
 entryOffset      = 0x803F6400; // segment:overlay2
 verticalPosition = 0x803F6402; // segment:overlay2
-
-// cheats
-D_803F6410 = 0x803F6410; // segment:overlay2
 
 // overlay2_79DE10
 gAnimalBehaviourEnabled = 0x803F6450; // segment:overlay2
@@ -1918,9 +1915,6 @@ setup_pause_menu_perspective_b = 0x80395854; // rom:0x7A6F04
 append_rig_modelview_transform_xlu = 0x80397414; // rom:0x7A8AC4
 render_rig_instance_xlu = 0x80397F5C; // rom:0x7A960C
 gHudTimerAscii = 0x803A8344; // rom:0x7B99F4
-gCheatInputNeutralLatch = 0x803B62B4; // rom:0x7C7964
-gCheatInputDebounceTimer = 0x803B62BC; // rom:0x7C796C
-gCheatLastButtonCode = 0x803B62C0; // rom:0x7C7970
 gTerminalFadeStep = 0x803B6314; // rom:0x7C79C4
 gTerminalPhase = 0x803B6318; // rom:0x7C79C8
 gTerminalTransitionCounter = 0x803B631C; // rom:0x7C79CC
@@ -2006,3 +2000,9 @@ set_collision_sphere_at_joint = 0x80303B18; // segment:overlay2
 set_single_collision_sphere = 0x80303D00; // segment:overlay2
 terminate_collision_spheres = 0x80303D50; // segment:overlay2
 get_animal_collision_vertical_bounds = 0x8030400C; // segment:overlay2
+update_idle_head_yaw = 0x8038C768; // segment:overlay2
+update_idle_head_yaw_clamped = 0x8038C98C; // segment:overlay2
+get_music_bounce_factor = 0x8038CC28; // segment:overlay2
+get_music_animation_phase = 0x8038CCA4; // segment:overlay2
+did_music_animation_phase_wrap = 0x8038CCC0; // segment:overlay2
+apply_music_bounce_to_joints = 0x8038CCF0; // segment:overlay2

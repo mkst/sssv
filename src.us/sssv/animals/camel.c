@@ -78,7 +78,7 @@ void func_8036D700_77EDB0(void) {
     }
 
     if (spDA == VISIBILITY_VISIBLE) {
-        func_8038C98C_79E03C();
+        update_idle_head_yaw_clamped();
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
@@ -250,14 +250,14 @@ void func_8036D700_77EDB0(void) {
                 &spE0, 0);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x493, 0x1D4, 5);
-            func_8038CCF0_79E3A0(0x75, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(0x75, 0x13, 0x14, -1, -1, -1);
             func_802C7310_6D89C0();
 
             temp_v0 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
             temp_a1 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
 
-            temp_t3 = ((temp_v0 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a1) >> 8);
-            temp_t4 = ((temp_a1 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * temp_v0) >> 8);
+            temp_t3 = ((temp_v0 * COSB(D_803D552C->headYawDegrees)) >> 8) + ((SINB(D_803D552C->headYawDegrees) * temp_a1) >> 8);
+            temp_t4 = ((temp_a1 * COSB(D_803D552C->headYawDegrees)) >> 8) - ((SINB(D_803D552C->headYawDegrees) * temp_v0) >> 8);
 
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + temp_t3;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + temp_t4;

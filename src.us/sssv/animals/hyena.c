@@ -410,7 +410,7 @@ void func_80358E3C_76A4EC(void) {
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(712, 0x1DB, 0);
             func_802C56D0_6D6D80(0x28);
-            func_8038CCF0_79E3A0(0x164, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(0x164, 0x13, 0x14, -1, -1, -1);
             func_802C7310_6D89C0();
 
             if (D_803D5528->unk3C0.unk0 == 16) {

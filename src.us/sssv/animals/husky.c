@@ -73,7 +73,7 @@ void func_80368DD0_77A480(void) {
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x20, 0xDA, 6);
             func_802BB938_6CCFE8(0xF6);
-            func_8038CCF0_79E3A0(8, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(8, 0x14, -1, -1, -1, -1);
 
             temp_a0_3 = D_80203FE0[1].unk4 - D_80203FE0[2].unk4;
             if (temp_a0_3 > 0) {
@@ -270,7 +270,7 @@ void func_8036A05C_77B70C(void) {
                                  &sp104, 1);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x20, 0xDA, 6);
-            func_8038CCF0_79E3A0(0x36, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0x36, 0x14, -1, -1, -1, -1);
 
             switch (D_803D5524->animalType) {
             case HUSKY:

@@ -1136,7 +1136,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                             var_t5 = temp_v0 / 4;
                                         }
                                         gSPDisplayList(gLayer0DL++, D_010049A0_3E270);
-                                        gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img_D_0100A730_44000_ia16__png);
+                                        gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img_D_0100A730_44000_i8__png);
                                         gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                         gDPLoadSync(gLayer0DL++);
                                         gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 511, 512);

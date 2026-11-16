@@ -332,7 +332,7 @@ void update_gorilla(void) {
             func_802C2D98_6D4448(0x2D1, 0x2D1);
             update_limbs_gorilla(0x386, 0x386, 0, 0);
             func_802C4A70_6D6120(0x78, 0x2D1, 7);
-            func_8038CCF0_79E3A0(0xB4, 0x14, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0xB4, 0x14, -1, -1, -1, -1);
             spC4 += ((D_80203FE0[2].unk4 - 0x5A2) / 32) + 0x1E;
             spC2 = D_80203FE0[1].unk0 / 32;
             func_802BAE24_6CC4D4(&spC6, &spC4, 0x1E);

@@ -79,7 +79,7 @@ done:
                 D_803D552C->unk312 = 0xA;
             }
         }
-        func_8038C768_79DE18();
+        update_idle_head_yaw();
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -131,11 +131,11 @@ done:
             func_802C78B0_6D8F60(2U, 0x12U, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 1, 0, D_04005580_CCFB0);
             add_hilite();
             func_802C78B0_6D8F60(1U, 2U, (D_803F2EBC * 0xA) >> 6, (D_803F2EC0 * 0xA) >> 6, (D_803F2EC4 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_040056C0_CD0F0);
-            if (D_803D552C->unk316 != 0) {
-                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->unk316, 0.0f, 0.0f, 1.0f);
+            if (D_803D552C->headYawDegrees != 0) {
+                guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D552C->headYawDegrees, 0.0f, 0.0f, 1.0f);
                 gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             }
-            func_8038CCF0_79E3A0(0x2E, 1, 0x14, 0x13, 0x16, 0x17);
+            apply_music_bounce_to_joints(0x2E, 1, 0x14, 0x13, 0x16, 0x17);
             func_802C78B0_6D8F60(1U, 0x14U, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04005A50_CD480);
             if (D_803D5524->animalType == MOUSE) {
                 func_802C78B0_6D8F60(19, 22, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, D_803A5E84_7B7534[D_803D552C->unk30A], 0, 0, D_040053D0_CCE00);

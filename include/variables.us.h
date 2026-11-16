@@ -325,8 +325,8 @@ extern s16  gSpeakerUpdatesThisFrame;
 extern s16  gCurrentMusicTrack;
 
 // csplayer
-extern s16  D_80286560;
-extern s16  D_80286562;
+extern s16  gMusicBeatPhase;
+extern s16  gPreviousMusicBeatPhase;
 extern f32  D_80286564;
 extern f32  D_80286568;
 
@@ -492,12 +492,6 @@ extern s16  D_803B5884_7C6F34[];
 
 extern struct107 D_803B58E0_7C6F90[];
 extern void (*D_803B5D20[])(void);
-extern s16  D_803B62B0_7C7960;
-extern s16  gCheatInputNeutralLatch;
-extern u16  D_803B62B8_7C7968;
-extern s16  gCheatInputDebounceTimer;
-extern u8   gCheatLastButtonCode;
-extern s16  D_803B62D0_7C7980[];
 extern u16  D_803B6310_7C79C0;
 extern s16  gTerminalFadeStep;
 extern u8   gTerminalPhase;

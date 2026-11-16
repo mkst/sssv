@@ -625,7 +625,7 @@ void update_racing_tortoise(void) {
             D_80203FE0[1].unk4 += var_v1_6;
             D_80203FE0[0].unk4 += var_v1_6 >> 1;
             func_802C5EF4_6D75A4(181, 362);
-            func_8038CCF0_79E3A0(90, 20, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(90, 20, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();

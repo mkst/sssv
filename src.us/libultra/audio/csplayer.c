@@ -49,8 +49,8 @@
 // .bss (0x80286560 to 0x80286570)
 // ========================================================
 
-s16  D_80286560;
-s16  D_80286562;
+s16  gMusicBeatPhase;
+s16  gPreviousMusicBeatPhase;
 f32  D_80286564;
 f32  D_80286568;
 
@@ -884,7 +884,7 @@ void func_801352E8(void) {
         if ((u8)D_80155168[i] == 1) {
             // fakematch
             s32 curTime = ((0, D_802863C8[i]->curTime - D_80155160)) / D_802863C8[i]->uspt;
-            D_80286560 = ((s32) ((D_802863CC[i]->qnpt * curTime) * 64.0)) & 0x3F;
+            gMusicBeatPhase = ((s32) ((D_802863CC[i]->qnpt * curTime) * 64.0)) & 0x3F;
         }
 
         if (D_80155164[i] != -1) {

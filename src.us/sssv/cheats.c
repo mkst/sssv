@@ -6,22 +6,28 @@
 // .data
 // ========================================================
 
+static s16 cheatInputHistoryIndex = 0;
+static s16 cheatInputNeutralLatch = 0;
+static u16 D_803B62B8_7C7968 = 0;
+static s16 cheatInputDebounceTimer = 0;
+static u8  cheatLastButtonCode = 0;
+
 // ========================================================
-// .bss (D_803F6410 to gAnimalBehaviourEnabled)
+// .bss (0x803F6410 to gAnimalBehaviourEnabled)
 // ========================================================
 
-static u8   D_803F6410[20];
-Cheats  gCheats;
+static u8     cheatInputHistory[20];
+       Cheats gCheats;
 
 // ========================================================
 // .text
 // ========================================================
 
 void reset_cheats(void) {
-    D_803B62B0_7C7960 = 0;
-    gCheatInputNeutralLatch = 0;
+    cheatInputHistoryIndex = 0;
+    cheatInputNeutralLatch = 0;
     D_803B62B8_7C7968 = 0;
-    gCheatInputDebounceTimer = 0;
+    cheatInputDebounceTimer = 0;
     gCheats.unk0 = 0;      // unused?
     gCheats.unk2 = 0;      // unused
     gCheats.unk4 = 0;      // always 0? checked in func_80294E50_6A6500
@@ -44,7 +50,7 @@ void reset_cheats(void) {
 #endif
     gCheats.unk16 = 0;     // unused
     gCheats.unk18 = 0;     // unused
-    sprintf((char*)D_803F6410, "%9d", 111111111);
+    sprintf((char*)cheatInputHistory, "%9d", 111111111);
 }
 
 void check_cheats(OSContPad *contPad) {
@@ -72,25 +78,25 @@ void check_cheats(OSContPad *contPad) {
     // reset
     lastButton = 0;
     // button debounce
-    if (gCheatInputDebounceTimer != 0) {
-        gCheatInputDebounceTimer--;
+    if (cheatInputDebounceTimer != 0) {
+        cheatInputDebounceTimer--;
     }
     // TODO: can this be simplified and still match?
     butDown = contPad->button;
     butDown2 = butDown;
-    if ((gCheatInputNeutralLatch == 0) && (butDown2 == 0)) {
-        gCheatInputNeutralLatch = 1;
+    if ((cheatInputNeutralLatch == 0) && (butDown2 == 0)) {
+        cheatInputNeutralLatch = 1;
         return;
     } else if (butDown2 != 0) {
-        gCheatInputNeutralLatch = 0;
+        cheatInputNeutralLatch = 0;
     }
 
-    if ((gCheatInputDebounceTimer == 0) && (butDown2 != 0) && (gCheatLastButtonCode != butDown)) {
+    if ((cheatInputDebounceTimer == 0) && (butDown2 != 0) && (cheatLastButtonCode != butDown)) {
         u16 down = butDown;
         if (gFrameStepDivisor == 1) {
-            gCheatInputDebounceTimer = 12;
+            cheatInputDebounceTimer = 12;
         } else {
-            gCheatInputDebounceTimer = 6;
+            cheatInputDebounceTimer = 6;
         }
         if (down & CONT_A) {
             lastButton = 'A';
@@ -131,77 +137,77 @@ void check_cheats(OSContPad *contPad) {
         if (down & R_TRIG) {
             lastButton = 'T';
         }
-        gCheatLastButtonCode = lastButton;
+        cheatLastButtonCode = lastButton;
     }
 
     // if key pressed
     if (lastButton != 0) {
         // increment position
-        if (++D_803B62B0_7C7960 >= 20) { // store last 20 values
+        if (++cheatInputHistoryIndex >= 20) { // store last 20 values
             // wrap back to start
-            D_803B62B0_7C7960 = 0;
+            cheatInputHistoryIndex = 0;
         }
-        D_803F6410[D_803B62B0_7C7960] = lastButton;
+        cheatInputHistory[cheatInputHistoryIndex] = lastButton;
     }
-    if (check_cheat_code(D_803F6410, "WIZDIZWE")) {
+    if (check_cheat_code(cheatInputHistory, "WIZDIZWE")) {
         gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = 127;
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        D_803B62B0_7C7960 = 0; // reset cursor position
+        cheatInputHistoryIndex = 0; // reset cursor position
     }
-    if (check_cheat_code(D_803F6410, "UDIZDUZD")) {
+    if (check_cheat_code(cheatInputHistory, "UDIZDUZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         gCheats.europe = 1 - gCheats.europe;
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "UDZIDEZD")) {
+    if (check_cheat_code(cheatInputHistory, "UDZIDEZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         gCheats.ice = 1 - gCheats.ice;
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "UDIZDWZD")) {
+    if (check_cheat_code(cheatInputHistory, "UDIZDWZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         gCheats.jungle = 1 - gCheats.jungle;
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "UDIZDLZD")) {
+    if (check_cheat_code(cheatInputHistory, "UDIZDLZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         gCheats.desert = 1 - gCheats.desert;
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "UDIZDRZD")) {
+    if (check_cheat_code(cheatInputHistory, "UDIZDRZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         gCheats.bcp = 1 - gCheats.bcp;
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "DUZIDLZD")) {
+    if (check_cheat_code(cheatInputHistory, "DUZIDLZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         gCheats.hidden = 1 - gCheats.hidden;
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "UIZDLZDU")) {
+    if (check_cheat_code(cheatInputHistory, "UIZDLZDU")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         cheat_activate_scale_pulse_effect(); // "funny effect 1"
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "IDZIDUIL")) {
+    if (check_cheat_code(cheatInputHistory, "IDZIDUIL")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         cheat_activate_energy_camera_effect(); // "funny effect 2"
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "ZDUIRILR")) {
+    if (check_cheat_code(cheatInputHistory, "ZDUIRILR")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         cheat_activate_big_head_effect(); // "funny effect 3"
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "LRZILZRL")) {
+    if (check_cheat_code(cheatInputHistory, "LRZILZRL")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         cheat_toggle_mystery_bear();  // "funny effect 4"
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
-    if (check_cheat_code(D_803F6410, "DANISIL\0")) {
+    if (check_cheat_code(cheatInputHistory, "DANISIL\0")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         cheat_clear_camera_effects();  // "disable walrace cam?"
-        D_803B62B0_7C7960 = 0;
+        cheatInputHistoryIndex = 0;
     }
 }
 
@@ -215,7 +221,7 @@ s32 check_cheat_code(const u8 *buttonPresses, const char *cheatCode) {
 
     res = 1;
     for (i = 0; i < len; i++) {
-        idx = D_803B62B0_7C7960 - i;
+        idx = cheatInputHistoryIndex - i;
         if (idx < 0) {
             idx += 10; // wrap around
         }
@@ -228,6 +234,6 @@ s32 check_cheat_code(const u8 *buttonPresses, const char *cheatCode) {
     if (res == 0) { // user has not entered a cheat code sequence
         return 0;
     }
-    sprintf((char*)D_803F6410, "%9d", 111111111);
+    sprintf((char*)cheatInputHistory, "%9d", 111111111);
     return 1;
 }

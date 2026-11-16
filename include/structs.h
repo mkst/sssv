@@ -959,8 +959,8 @@ struct Animal {
     /* 0x30E */ s16 unk30E;
     /* 0x310 */ s16 unk310;
     /* 0x312 */ s16 unk312;
-    /* 0x314 */ s16 unk314;
-    /* 0x316 */ s16 unk316;
+    /* 0x314 */ s16 targetHeadYawDegrees;
+    /* 0x316 */ s16 headYawDegrees;
     /* 0x318 */ s16 unk318;
     /* 0x31A */ s16 unk31A;
     /* 0x31C */ u16 ambientPhaseSeed;

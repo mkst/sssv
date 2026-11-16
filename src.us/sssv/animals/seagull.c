@@ -45,7 +45,7 @@ void func_80380920_791FD0(void) {
     }
 
     if (sp82 == 0) {
-        func_8038C98C_79E03C();
+        update_idle_head_yaw_clamped();
         func_8035D120_76E7D0();
         if ((D_803D5524->animalType == SEAGULL2) && (((D_803D552C->unk320 == NULL)) ||
             ((D_803D552C->unk320 != NULL) && (D_803D552C->unk320->unk26C != 0)))) {
@@ -85,14 +85,14 @@ void func_80380920_791FD0(void) {
             func_802BB1F0_6CC8A0(0x465, 0x7D);
             func_802BC1F4_6CD8A4(0x2EE);
             func_802C44E8_6D5B98(0x32C, 0xFA, 0x138, 0x138);
-            func_8038CCF0_79E3A0(0x5D, 0x13, 0x14, -1, -1, -1);
-            func_8038CCF0_79E3A0(-0x5E, 0x1A, -1, -1, -1, -1);
+            apply_music_bounce_to_joints(0x5D, 0x13, 0x14, -1, -1, -1);
+            apply_music_bounce_to_joints(-0x5E, 0x1A, -1, -1, -1, -1);
 
             var_a0_2 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
             temp_a2 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
 
-            temp_a1 = ((var_a0_2 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a2) >> 8);
-            temp_a3 = ((temp_a2 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * var_a0_2) >> 8);
+            temp_a1 = ((var_a0_2 * COSB(D_803D552C->headYawDegrees)) >> 8) + ((SINB(D_803D552C->headYawDegrees) * temp_a2) >> 8);
+            temp_a3 = ((temp_a2 * COSB(D_803D552C->headYawDegrees)) >> 8) - ((SINB(D_803D552C->headYawDegrees) * var_a0_2) >> 8);
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + temp_a1;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + temp_a3;
         }
