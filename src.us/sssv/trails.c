@@ -38,7 +38,7 @@ void func_8039DD90_7AF440(Trail *arg0) {
 }
 
 // ESA: func_800884F4
-Trail *add_regular_trail(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
+Trail *add_regular_trail(Entity *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
     s16 i;
 
     if (arg12 != 0) {
@@ -257,7 +257,7 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     s16 sp5A;
     s16 sp58;
     s16 temp_v0;
-    Animal *animal;
+    Entity *animal;
     struct077 sp48; // 0x6 big
     s16 pad;
     s16 sp44;
@@ -385,7 +385,7 @@ void display_trails(void) {
     RegularTrail *trail;
     s16 *sineTable = gSineTable;
     SimpleTrail *simpleTrail;
-    Animal *animal;
+    Entity *animal;
 
     gSPDisplayList(gLayer0DL++, D_01004A70_3E340);
 
@@ -496,7 +496,7 @@ void display_trails(void) {
 
             case 4:
                 simpleTrail = &gTrails[i].trail.simple;
-                animal = simpleTrail->animal;
+                animal = (Entity *)simpleTrail->animal;
 
                 if (animal->unk26C != 0) {
                     if (gTrails[i].unk0.unk4 != 2U) {
@@ -605,7 +605,7 @@ void display_trails(void) {
 
             case 3:
                 walrusWake = &gTrails[i].trail.walrus;
-                animal = walrusWake->unk328;
+                animal = (Entity *)walrusWake->unk328;
 
                 if (gTrails[i].unk0.unk4 != 2) {
                     if ((animal->xVelocity.h | animal->zVelocity.h) != 0) {

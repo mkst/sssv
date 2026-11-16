@@ -90,7 +90,7 @@ void update_evo_microchip(void) {
             D_803E9820 = 27;
             D_803E9822 = 0;
             func_80327DA8_739458();
-            func_802C9BA4_6DB254(gAnimalState.animals[0].animal);
+            func_802C9BA4_6DB254((Entity *)gAnimalState.animals[0].animal);
             D_803D552C->unk365 = ATTACK_NONE;
         }
         break;

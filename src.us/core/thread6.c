@@ -314,7 +314,7 @@ void thread6_loop(void) {
                     osContGetReadData(gControllerPads);
                     D_802912D0 = 1;
 #ifdef VERSION_US
-                    gControllerInput = &gControllerPads;
+                    gControllerInput = gControllerPads;
 #else
                     gControllerInput = &gControllerPads[D_801D9ED0];
 #endif
@@ -388,7 +388,7 @@ void thread7(void) {
         gAuxDL = temp_a0->dl.gAuxDL;
 
         for (i = 0; i < 8; i++) {
-            D_801D9E98[i] = &gDisplayListContext->unk109A0[i];
+            D_801D9E98[i] = gDisplayListContext->unk109A0[i];
         }
 
         gFrameContextPtr = temp_a0;

@@ -97,8 +97,8 @@ u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Anim
             var_s2 = var_s2->next;
             continue;
         }
-        if (((animal->unk15C != 0) && (sourceAnimal == animal->owner)) ||
-            ((sourceAnimal->unk15C != 0) && (animal == sourceAnimal->owner))) {
+        if (((animal->unk15C != 0) && ((Entity *)sourceAnimal == animal->owner)) ||
+            ((sourceAnimal->unk15C != 0) && ((Entity *)animal == sourceAnimal->owner))) {
                 var_s2 = var_s2->next;
                 continue;
         }

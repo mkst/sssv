@@ -43,7 +43,7 @@ void reset_dynamic_tails(s32 arg0) {
 s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 tailType, s8 swingMode,
         s32 anchorX, s32 anchorZ, s32 anchorY,
         u8 flags, u8 phaseSeed,
-        Animal *endObject, Animal *anchorObject,
+        Entity *endObject, Entity *anchorObject,
         s16 endOffsetX, s16 endOffsetZ, s16 endOffsetY,
         s16 anchorOffsetX, s16 anchorOffsetZ, s16 anchorOffsetY) {
     u16 i;
@@ -1344,7 +1344,7 @@ u32 func_802E3C88_6F5338(DynamicTail* arg0) {
         vtx[i*2].n.n[0] = s7;
         vtx[i*2].n.n[1] = s7;
         vtx[i*2].n.n[2] = s7;
-        vtx[i*2].n.n[3] = t1;
+        vtx[i*2].n.a = t1;
 
         vtx[i*2+1].n.ob[0] = (D_803DA300[arg0->workspaceIndex + i].unk0 >> 0xE) - var_s2;
         vtx[i*2+1].n.ob[1] = (D_803DA300[arg0->workspaceIndex + i].unk4 >> 0xE) - var_s3;
@@ -1355,7 +1355,7 @@ u32 func_802E3C88_6F5338(DynamicTail* arg0) {
         vtx[i*2+1].n.n[0] = s7;
         vtx[i*2+1].n.n[1] = s7;
         vtx[i*2+1].n.n[2] = s7;
-        vtx[i*2+1].n.n[3] = t1;
+        vtx[i*2+1].n.a = t1;
 
         vtx[i*2].n.tc[1] = ((i << 5) - 0x80) << 6;
         vtx[i*2+1].n.tc[1] = ((i << 5) - 0x80) << 6;

@@ -193,7 +193,7 @@ void func_802C9900_6DAFB0(Entity *parent, Entity *child, u8 idx) {
 
 // update_hitbox_after_rotation?
 // ESA: func_8004D5DC
-void func_802C9918_6DAFC8(Animal *arg0, s16 newZRotation, s16 newYRotation) {
+void func_802C9918_6DAFC8(Entity *arg0, s16 newZRotation, s16 newYRotation) {
     s16 width;
     s16 depth;
     s16 height;
@@ -250,7 +250,7 @@ void func_802C9918_6DAFC8(Animal *arg0, s16 newZRotation, s16 newYRotation) {
 }
 
 // ESA: func_8004D86C
-void func_802C9BA4_6DB254(Animal *arg0) {
+void func_802C9BA4_6DB254(Entity *arg0) {
     s16 tempSwap;
     s16 i;
     s16 width;
@@ -292,7 +292,12 @@ void func_802C9BA4_6DB254(Animal *arg0) {
     arg0->unk34 = ((s64)arg0->unk34 * arg0->unk40) >> 11;
     arg0->unk36 = ((s64)arg0->unk36 * arg0->unk40) >> 11;
 
-    if ((arg0->unk16C->objectType >= 128) && ((arg0->movementMode == MOVEMENT_MODE_DEACTIVATED) || (arg0->movementMode == MOVEMENT_MODE_2))) {
+#ifdef AVOID_UB
+    // Only animals have movementMode and the extended descriptor height.
+    if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && ((((Animal *)arg0)->movementMode == MOVEMENT_MODE_DEACTIVATED) || (((Animal *)arg0)->movementMode == MOVEMENT_MODE_2))) {
+#else
+    if ((arg0->unk16C->objectType >= 128) && ((((Animal *)arg0)->movementMode == MOVEMENT_MODE_DEACTIVATED) || (((Animal *)arg0)->movementMode == MOVEMENT_MODE_2))) {
+#endif
         // override height?
         arg0->unk42 = arg0->unk16C->unkBC;
     }

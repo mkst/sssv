@@ -337,7 +337,7 @@ u32 __amHandleFrameMsg(AudioInfo *info, AudioInfo *lastInfo)
     /* this will vary slightly frame to frame, must recalculate every frame */
     samplesLeft = osAiGetLength() >> 2; /* divide by four, to convert bytes */
                                         /* to stereo 16 bit samples */
-    info->frameSamples = 16 + (frameSize - samplesLeft + EXTRA_SAMPLES)& ~0xf;
+    info->frameSamples = (16 + (frameSize - samplesLeft + EXTRA_SAMPLES)) & ~0xf;
     if(info->frameSamples < minFrameSize)
         info->frameSamples = minFrameSize;
 

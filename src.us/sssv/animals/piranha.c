@@ -102,7 +102,7 @@ done:
         if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_80302E50_714500(10, 1000, 500);
             if (D_803D5530->state == STATE_SWIM_AIRBORNE) {
-                if (phi_a2 = (D_803D552C->unk308++) > 40) {
+                if ((phi_a2 = (D_803D552C->unk308++) > 40)) {
                     phi_a4 = 40;
                 } else {
                     phi_a4 = D_803D552C->unk308++;

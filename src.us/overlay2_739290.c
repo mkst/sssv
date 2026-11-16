@@ -634,7 +634,7 @@ void func_80328258_739908(s16 idx) {
     func_803283DC_739A8C();
     func_802B2EA8_6C4558();
     D_803D5530->unk46 = D_803D5530->unk16C->mass;
-    func_802C9BA4_6DB254(gAnimalState.animals[gCurrentAnimalIndex].animal);
+    func_802C9BA4_6DB254((Entity *)gAnimalState.animals[gCurrentAnimalIndex].animal);
 
     switch (sp1F) {
     case 1:

@@ -2614,7 +2614,7 @@ void func_803135FC_724CAC(Animal *arg0)
 }
 
 // ESA: func_8003950C
-void func_803136B0_724D60(Animal *arg0) {
+void func_803136B0_724D60(Entity *arg0) {
     arg0->unk160 = func_803136FC_724DAC(arg0->position.xPos.h, arg0->position.zPos.h, (arg0->position.yPos.h + (arg0->unk42 >> 1)));
 }
 

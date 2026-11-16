@@ -84,8 +84,8 @@ void func_802B4D20_6C63D0(void) {
 
                                 if ((animal1->state != STATE_GRABBED_A) && (animal2->state != STATE_GRABBED_A) &&
                                     (animal1->state != STATE_GRABBED_B) && (animal2->state != STATE_GRABBED_B) &&
-                                    ((animal1->unk15C == 0) || (animal2 != animal1->owner)) &&
-                                    ((animal2->unk15C == 0) || (animal1 != animal2->owner))) {
+                                    ((animal1->unk15C == 0) || ((Entity *)animal2 != animal1->owner)) &&
+                                    ((animal2->unk15C == 0) || ((Entity *)animal1 != animal2->owner))) {
 
 
                                     mode = func_802B5E48_6C74F8(animal1, animal2, &D_803D60D0, &D_803D60D4);
@@ -860,7 +860,7 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
 
                         if ((var_s5->animal->unk68 != arg0) && (arg0->unk68 != var_s5->animal) && ((var_s5->animal->unk70 != arg0) || (arg0->unk16C->orientationMode != 4)) && ((arg0->unk70 != var_s5->animal) || (var_s5->animal->unk16C->orientationMode != 4))) {
 
-                            if ((var_s5->animal->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_A) && (var_s5->animal->state != STATE_GRABBED_B) && (arg0->state != STATE_GRABBED_B) && ((var_s5->animal->unk15C == 0) || (var_s5->animal->owner != arg0)) && ((arg0->unk15C == 0) || (arg0->owner != var_s5->animal)) && ((arg6 == 0) || (var_s5->animal->unk16C->objectType < 0x100))) {
+                            if ((var_s5->animal->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_A) && (var_s5->animal->state != STATE_GRABBED_B) && (arg0->state != STATE_GRABBED_B) && ((var_s5->animal->unk15C == 0) || (var_s5->animal->owner != (Entity *)arg0)) && ((arg0->unk15C == 0) || (arg0->owner != (Entity *)var_s5->animal)) && ((arg6 == 0) || (var_s5->animal->unk16C->objectType < 0x100))) {
 
                                 other = var_s5->animal;
                                 func_802B5E48_6C74F8(other, arg0, &D_803D60D0, &D_803D60D4);

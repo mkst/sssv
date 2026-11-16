@@ -16,7 +16,11 @@ extern Gfx springy_spring[];
 
 void update_sheep_or_ram(void) {
     u8  tmp;
-    s16 sp94; // FIXME: this should be LimbConfig
+#ifdef AVOID_UB
+    LimbConfig sp94;
+#else
+    s16 sp94;
+#endif
     s16 sp92; // unused
     s16 sp90; // eye2
     s16 sp8E; // eye1
@@ -186,7 +190,7 @@ void update_sheep_or_ram(void) {
 
 void update_springy_thingy_or_springy_ram(void) {
     s16 var_v0;
-    s16 spB4; // FIXME: this should be LimbConfig
+    s16 spB4;
     s16 spB2;
     s16 spB0;
     s16 spAE;

@@ -14,7 +14,7 @@ Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator);
 // .bss
 // ========================================================
 
-static Animal *D_803E4CA0;
+static Entity *D_803E4CA0;
 static u8   D_803E4CA4;
 static u8   D_803E4CA5;
 static u8   D_803E4CA6;
@@ -64,10 +64,10 @@ Entity *resolve_entity_ref(Entity *self, s16 refType, u16 regionId) {
         ret = (Entity*) gAnimalState.animals[gCurrentAnimalIndex].animal;
         break;
     case 10: // get next animal
-        ret = find_next_animal_in_region(regionId, 1);
+        ret = (Entity *)find_next_animal_in_region(regionId, 1);
         break;
     case 11: // get first animal
-        ret = find_next_animal_in_region(regionId, 0);
+        ret = (Entity *)find_next_animal_in_region(regionId, 0);
         break;
     case 12:
         ret = self->unk248[0];
@@ -135,22 +135,22 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
 
     case ST_SET_XPOS:
         arg0->position.xPos.w = arg2 << 16;
-        func_803136B0_724D60(arg0);
+        func_803136B0_724D60((Entity *)arg0);
         break;
 
     case ST_SET_ZPOS:
         arg0->position.zPos.w = arg2 << 16;
-        func_803136B0_724D60(arg0);
+        func_803136B0_724D60((Entity *)arg0);
         break;
 
     case ST_SET_YPOS:
         arg0->position.yPos.w = arg2 << 16;
-        func_803136B0_724D60(arg0);
+        func_803136B0_724D60((Entity *)arg0);
         break;
 
     case ST_SET_SCALE:
         arg0->unk40 = arg2;
-        func_802C9BA4_6DB254(arg0);
+        func_802C9BA4_6DB254((Entity *)arg0);
         break;
 
     case ST_SET_TIMER:
@@ -270,7 +270,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         // is arg2 an object ID?
         if (arg2 < OB_TYPE_ANIMAL_OFFSET) {
             arg0->unk16C = (struct035*)&D_801E9EB8.unk0[arg2];
-            func_802C9BA4_6DB254(arg0);
+            func_802C9BA4_6DB254((Entity *)arg0);
         } else {
             // arg2 is an animal ID
             var_t1 = NULL;
@@ -287,7 +287,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
                 D_803D5524 = var_t1->unk0;
                 D_803D5528 = var_t1->animal;
                 D_803D552C = D_803D5528;
-                D_803D5530 = D_803D5528;
+                D_803D5530 = (Entity *)D_803D5528;
                 if (i == gCurrentAnimalIndex) {
                     D_803D5538 = 1;
                 } else {
@@ -303,7 +303,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
                     D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
                     func_80327DA8_739458();
                 }
-                func_802C9BA4_6DB254(arg0);
+                func_802C9BA4_6DB254((Entity *)arg0);
             }
         }
         break;
@@ -1296,7 +1296,7 @@ s32 execute_entity_command(Entity *arg0) {
             switch (temp_s1->unk21E.type24.State) { // unk220
             case 0x8C: // L80316BCC_72827C
                 temp_s1->unk248[8] = add_regular_trail(
-                    temp_s1,
+                    (Entity *)temp_s1,
                     0,
                     temp_s1->unk21E.type24.S,
                     temp_s1->unk21E.type24.unk5,
@@ -1318,7 +1318,7 @@ s32 execute_entity_command(Entity *arg0) {
                 break;
             case 0x8D: // L80316C70_728320
                 temp_s1->unk248[8] = add_regular_trail(
-                    temp_s1,
+                    (Entity *)temp_s1,
                     1,
                     temp_s1->unk21E.type24.S,
                     temp_s1->unk21E.type24.unk5,
@@ -1340,7 +1340,7 @@ s32 execute_entity_command(Entity *arg0) {
                 break;
             case 0x8E: // L80316D14_7283C4
                 temp_s1->unk248[8] = add_regular_trail(
-                    temp_s1,
+                    (Entity *)temp_s1,
                     2,
                     temp_s1->unk21E.type24.S,
                     temp_s1->unk21E.type24.unk5,
@@ -1382,7 +1382,7 @@ s32 execute_entity_command(Entity *arg0) {
                 break;
             }
         } else {
-            func_802FA730_70BDE0(temp_s1);
+            func_802FA730_70BDE0((Entity *)temp_s1);
         }
         return 69;
 
@@ -1590,8 +1590,13 @@ s32 execute_entity_command(Entity *arg0) {
         return 69;
 
     case 0x2D:
-        // UB???
+#ifdef AVOID_UB
+        // Treat this empty command as a no-op and continue the script.
+        return 69;
+#else
+        // IDO preserves the incoming v0 here in the matching build.
         return;
+#endif
 
     case 0x2E:
         func_80343AE0_755190(
@@ -1625,7 +1630,7 @@ s32 execute_entity_command(Entity *arg0) {
     case 0x31:
         // add_thing?
         func_802FF184_710834(
-            temp_s1,
+            (Entity *)temp_s1,
             1,
             temp_s1->position.xPos.h,
             temp_s1->position.zPos.h,
@@ -1721,14 +1726,14 @@ s32 execute_entity_command(Entity *arg0) {
 
     case 0x36:
         temp_s1->unk40 = arg0->commands.unk19C.payload.cmd.type54.unk0;
-        func_802C9BA4_6DB254((Entity *) temp_s1);
+        func_802C9BA4_6DB254((Entity *)temp_s1);
         return 69;
 
     case 0x30: // not here
         return 69;
 
     case 0x37:
-        if (arg0 == (Entity*)D_803E4CA0) {
+        if (arg0 == D_803E4CA0) {
             D_803E4CA0 = NULL;
             D_803E4CA4 = 0;
         }
@@ -1856,14 +1861,14 @@ s32 execute_entity_command(Entity *arg0) {
             return 69;
         }
         if ((D_803E4CA4 != 0) && (D_803E8E58 != 0)) {
-            if ((arg0 == (Entity*)D_803E4CA0) && (func_80349874_75AF24() != 0)) {
+            if ((arg0 == D_803E4CA0) && (func_80349874_75AF24() != 0)) {
                 D_803E4CA4 = 0;
                 D_803E4CA0 = NULL;
                 return 69;
             }
         } else if (func_80349874_75AF24() != 0) {
             D_803E4CA4 = 1;
-            D_803E4CA0 = (Entity*)arg0;
+            D_803E4CA0 = arg0;
             func_80314660_725D10();
             func_80349900_75AFB0(
                 &D_803F34C0[(s16)D_803F3330[cmds->unk19C.payload.cmd.type68.unk0]],
@@ -2129,7 +2134,7 @@ s32 execute_entity_command(Entity *arg0) {
     case 0x50:
         // camera related
         func_80343D44_7553F4(
-            &gWaypointPaths[cmds->unk19C.payload.cmd.dummy.unk0]->length,
+            gWaypointPaths[cmds->unk19C.payload.cmd.dummy.unk0],
             !cmds->unk19C.payload.cmd.dummy.unk1);
         return 69;
 
@@ -2372,7 +2377,7 @@ s32 execute_entity_command(Entity *arg0) {
 
         D_803D5528 = animal2->animal;
         D_803D552C = D_803D5528;
-        D_803D5530 = D_803D5528;
+        D_803D5530 = (Entity *)D_803D5528;
 
         if (i2 == gCurrentAnimalIndex) {
             D_803D5538 = 1;

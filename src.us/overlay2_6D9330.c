@@ -184,7 +184,7 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     register_entity_collision(gAnimalState.animals[slot].animal);
     D_803D5528->unk3C8.unk2 = load_dynamic_tail(id);
     D_803D552C->aiFlags = AI_FLAG_CAN_ATTACK | AI_FLAG_AVOID_NEUTRAL_ANIMALS | AI_FLAG_CAN_FLEE | AI_FLAG_HERD_OR_FOLLOW | AI_FLAG_COLLIDE_WITH_STATIC | AI_FLAG_ALLOW_STEEP_NAVIGATION | AI_FLAG_SCRIPTED_PLAYER_ENGAGEMENT;
-    func_802C9BA4_6DB254(gAnimalState.animals[slot].animal);
+    func_802C9BA4_6DB254((Entity *)gAnimalState.animals[slot].animal);
     D_803D552C->energy[0].unk0 = 0x3FF;
     D_803D552C->energy[1].unk0 = 0x3FF;
     if ((arg6 != 0) && (((gCameraId == 0)) || (gCameraId == 1))) {

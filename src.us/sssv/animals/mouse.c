@@ -246,6 +246,26 @@ void func_8031D624_72ECD4(void) {
         }
     }
 
+#ifdef AVOID_UB
+    // Classify visibility before the movement sound check, as racing dog/fox do.
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp92 = 0;
+        gLodDetailState = 0;
+    } else {
+        sp92 = classify_object_visibility(
+            D_803D552C->position.xPos.w,
+            D_803D552C->position.zPos.w,
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
+            0x640,
+            7,
+            0x3F,
+            0x51,
+            0x9E,
+            1,
+            CHECK_SEGMENT == 0);
+    }
+#endif
+
     if ((sp92 != 4) && (sp92 != 1) && (D_803D5530->movementState == MOVEMENT_STATE_GROUND)) {
         temp_f12 = sqrtf(SQ((f32)D_803D552C->xVelocity.w) + SQ((f32)D_803D552C->zVelocity.w)) / (D_803D5524->walkSpeed << 0xA);
         if (temp_f12 < 0.2) {
@@ -292,6 +312,7 @@ void func_8031D624_72ECD4(void) {
         }
     }
 
+#ifndef AVOID_UB
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp92 = 0;
         gLodDetailState = 0;
@@ -308,6 +329,7 @@ void func_8031D624_72ECD4(void) {
             1,
             CHECK_SEGMENT == 0);
     }
+#endif
 
     if (sp92 == 0) {
         func_8035D120_76E7D0();

@@ -644,7 +644,7 @@ typedef struct {
     /* 0x238 */ s16 unk238;
     /* 0x23A */ s16 unk23A;
     /* 0x23C */ s16 unk23C;
-    /* 0x240 */ Animal *unk240;
+    /* 0x240 */ Entity *unk240;
     /* 0x24C */ u8 pad244[0xdc];
     /* 0x320 */ s16 unk320;
     /* 0x322 */ s16 unk322;
@@ -774,7 +774,7 @@ struct Animal {
     /* 0x162 */ u8  movementState;
     /* 0x163 */ u8  unk163;
     /* 0x164 */ u8  unk164;
-    /* 0x168 */ Animal *owner;
+    /* 0x168 */ Entity *owner;
     /* 0x16C */ struct035* unk16C;
 
     /* 0x170 */ u8  unk170; // current waypoint mode?
@@ -1621,8 +1621,8 @@ typedef struct {
 } struct050;
 
 typedef struct {
-    /* 0x0 */  Animal *endObject;     // object hanging at the tail tip
-    /* 0x4 */  Animal *anchorObject;  // object the chain hangs from
+    /* 0x0 */  Entity *endObject;     // object hanging at the tail tip
+    /* 0x4 */  Entity *anchorObject;  // object the chain hangs from
     /* 0x8 */  s16 endOffsetX;        // tip-object world offset X
     /* 0xA */  s16 endOffsetZ;        // tip-object world offset Z
     /* 0xC */  s16 endOffsetY;        // tip-object world offset Y
@@ -1938,7 +1938,7 @@ struct Entity {
     /* 0x162 */ u8  movementState;
     /* 0x163 */ u8  unk163;
     /* 0x164 */ u8  unk164;
-    /* 0x168 */ Animal *owner;
+    /* 0x168 */ Entity *owner;
     /* 0x16C */ struct035 *unk16C;
 
     /* 0x170 */ u8  unk170; // current waypoint mode?
@@ -2098,7 +2098,7 @@ typedef struct {
     s16 unkE;
     s16 unk10;  // animal class maybe? relates to damage done on collision
     u8  pad12[0x2];
-    s32 unk14;
+    Entity *unk14;
 } struct085; // size 0x18
 
 typedef struct {

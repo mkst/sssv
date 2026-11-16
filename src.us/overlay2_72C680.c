@@ -421,10 +421,10 @@ void load_level_data_sections(void) {
     s16 type15EntryCount;
     u16 count2;
 
-    base = &D_80100000;
+    base = (DataSection *)&D_80100000;
 
-    copy_or_extract(base, gFramebuffer, 0x25800);
-    buf = gFramebuffer;
+    copy_or_extract((u8 *)base, (u8 *)gFramebuffer, 0x25800);
+    buf = gFramebuffer[0];
 
     startingAnimalIndex = gNumAnimalsInLevel;
     done = 0;
@@ -434,7 +434,7 @@ void load_level_data_sections(void) {
 
         switch (sectionType) {
         case 0: /* .cob: static objects */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             length = base->s.count;
@@ -489,7 +489,7 @@ void load_level_data_sections(void) {
             break;
 
         case 1: /* .can: animal spawns */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             length = base->s.count;
@@ -506,7 +506,7 @@ void load_level_data_sections(void) {
                     can->id,
                     0);
 
-                obj = gAnimalState.animals[gNumAnimalsInLevel - 1].animal;
+                obj = (Entity *)gAnimalState.animals[gNumAnimalsInLevel - 1].animal;
 
                 if (can->unkC != 0) {
                     cmdWrapper = (CmdWrapper*)((u8*)D_803E4D40 + can->unkC * 10) - 1;
@@ -522,7 +522,7 @@ void load_level_data_sections(void) {
             break;
 
         case 2: /* .joi: links/joints between objects and animals */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             length = base->s.count;
@@ -530,12 +530,12 @@ void load_level_data_sections(void) {
 
             while (length-- > 0) {
                 if (joi->parent >= 1000) {
-                    parent = gAnimalState.animals[(joi->parent - 1000) + startingAnimalIndex].animal;
+                    parent = (Entity *)gAnimalState.animals[(joi->parent - 1000) + startingAnimalIndex].animal;
                 } else {
                     parent = func_802C93E8_6DAA98(joi->parent);
                 }
                 if (joi->child >= 1000) {
-                    child = gAnimalState.animals[(joi->child - 1000) + startingAnimalIndex].animal;
+                    child = (Entity *)gAnimalState.animals[(joi->child - 1000) + startingAnimalIndex].animal;
                 } else {
                     child = func_802C93E8_6DAA98(joi->child);
                 }
@@ -548,13 +548,13 @@ void load_level_data_sections(void) {
             break;
 
         case 4:  /* .cmd */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             count = base->u.count;
 
             func_80314788_725E38(); // zero out D_803E4D40 amongst other things
-            memcpy_sssv(base->s.payload, (u8*)D_803E4D40, count);
+            memcpy_sssv((u8 *)base->s.payload, (u8*)D_803E4D40, count);
 
             D_803E8E54 = count / sizeof(CmdWrapper);
             for (j = 0; j < D_803E8E54; j++) {
@@ -573,12 +573,12 @@ void load_level_data_sections(void) {
             break;
 
         case 5: /* .rng */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             rangeCount = base->u.count;
 
-            memcpy_sssv(base->s.payload, (u8*)&gLevelRegions, rangeCount * sizeof(LevelRegion));
+            memcpy_sssv((u8 *)base->s.payload, (u8*)&gLevelRegions, rangeCount * sizeof(LevelRegion));
 
             gLevelRegions[rangeCount].unk2 = 245;
             gLevelRegions[rangeCount].unk5 = 245;
@@ -587,16 +587,16 @@ void load_level_data_sections(void) {
             break;
 
         case 6: /* .paf: variable-length waypoint paths */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             count2 = base->u.count;
-            paf2 = paf = base->s.payload;
+            paf2 = paf = (u8 *)base->s.payload;
 
             pafBytesUsed = 0;
             for (length = 0; length < count2; length++) {
                 // record the start of each waypoint in gWaypointPaths
-                gWaypointPaths[length] = (Waypoint*)&gWaypointPathBuffer[pafBytesUsed];
+                gWaypointPaths[length] = (WaypointData *)&gWaypointPathBuffer[pafBytesUsed];
                 //    B BBB BBB BBB ... =>
                 //    3 123 456 789
                 pafBytesUsed += (paf[0] * 3) + 1;
@@ -615,7 +615,7 @@ void load_level_data_sections(void) {
             break;
 
         case 7: /* .cha: dynamic/hanging objects */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             length = base->s.count;
@@ -887,21 +887,21 @@ void load_level_data_sections(void) {
             break;
 
         case 8: /* ignored */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
             break;
 
         case 9: /* .map: 65x97 terrain points copied into D_803C0740[4..68][8..104] */
             initialize_water_wave_tables();
 
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             func_8029ACC8_6AC378();
             break;
 
         case 10: /* level geo */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             // process_level_geo()
@@ -912,25 +912,25 @@ void load_level_data_sections(void) {
             func_80304170_715820();
 
             payloadLength = get_uncompressed_size(buf);
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
-            memcpy_sssv(base, (u8*)&D_803E1D30, payloadLength);
+            memcpy_sssv((u8 *)base, (u8*)&D_803E1D30, payloadLength);
             break;
 
         case 12: /* .dat: first 0xA0 bytes of LevelConfig */
             func_80304194_715844();
 
             payloadLength = get_uncompressed_size(buf);
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
-            memcpy_sssv(base, (u8*)&D_803F2D50, payloadLength);
+            memcpy_sssv((u8 *)base, (u8*)&D_803F2D50, payloadLength);
             D_803F2D50.fovY = D_803F2D50.sourceFovY;
             load_level_texture_data(D_803F2D50.segment, D_803F2D50.textureBank);
             break;
         case 13: /* .cam: count followed by struct105 camera regions and struct074 camera config */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             payloadLength = base->s.count;
@@ -939,26 +939,26 @@ void load_level_data_sections(void) {
             bzero_sssv((u8*)&D_803A6D14_7B83C4, sizeof(D_803A6D14_7B83C4));
             bzero_sssv((u8*)&D_803A7114_7B87C4, sizeof(D_803A7114_7B87C4));
 
-            memcpy_sssv(payload, (u8*)&D_803A6D14_7B83C4, payloadLength * sizeof(struct105));
+            memcpy_sssv((u8 *)payload, (u8*)&D_803A6D14_7B83C4, payloadLength * sizeof(struct105));
             payload += ((payloadLength * sizeof(struct105)) >> 1);
-            memcpy_sssv(payload, (u8*)&D_803A7114_7B87C4, payloadLength * sizeof(struct074));
+            memcpy_sssv((u8 *)payload, (u8*)&D_803A7114_7B87C4, payloadLength * sizeof(struct074));
 
             func_8034401C_7556CC();
             break;
         case 14: /* unknown 2048-byte table copied to D_803E2930 */
             payloadLength = get_uncompressed_size(buf);
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
-            memcpy_sssv(base, (u8*)&D_803E2930,  payloadLength);
+            memcpy_sssv((u8 *)base, (u8*)&D_803E2930,  payloadLength);
             break;
         case 15: /* unknown; every svle-unpacked level seen has the same payload */
-            copy_or_extract(buf, base, 0x25800);
+            copy_or_extract(buf, (u8 *)base, 0x25800);
             buf += get_compressed_size(buf);
 
             type15EntryCount = base->s.count;
             payload = base->s.payload;
 
-            memcpy_sssv(payload, (u8*)D_803B1D20_7C33D0, type15EntryCount * sizeof(u64));
+            memcpy_sssv((u8 *)payload, (u8*)D_803B1D20_7C33D0, type15EntryCount * sizeof(u64));
             break;
         default:
             // unknown type

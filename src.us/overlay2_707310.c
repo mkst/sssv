@@ -74,7 +74,7 @@ void func_802F5C60_707310(Entity *arg0) {
         temp_t4 = COSB(arg0->yRotation);
 
         i = 0;
-        var_s1 = &arg0->unk74;
+        var_s1 = arg0->unk74;
 
         while ((i < 5) && (var_s1->radius != 0)) {
             x = var_s1->pos.xPos.w;
@@ -245,7 +245,7 @@ void func_802F657C_707C2C(Animal *arg0, s16 targetXPos, s16 targetZPos, s16 targ
 }
 
 // ESA: func_8004F85C
-void func_802F65BC_707C6C(Animal *arg0) {
+void func_802F65BC_707C6C(Entity *arg0) {
     s32 temp_t5;
     s32 temp_t6;
     s32 temp_t8;
@@ -301,7 +301,7 @@ void func_802F65BC_707C6C(Animal *arg0) {
 }
 
 // ESA: func_8004FA08
-void func_802F6750_707E00(Animal *arg0) {
+void func_802F6750_707E00(Entity *arg0) {
     s32 temp_a2;
     s32 temp_t1;
     s32 temp_v0_2;
@@ -357,7 +357,7 @@ void func_802F6750_707E00(Animal *arg0) {
 }
 
 // ESA: func_8004FB78
-void head_towards_waypoint(Animal *arg0) {
+void head_towards_waypoint(Entity *arg0) {
     s32 x, z, y;
 
     if ((arg0->position.xPos.h == arg0->waypointTargetXPos) &&
@@ -504,7 +504,7 @@ void func_802F6A5C_70810C(Animal *arg0) {
 }
 
 // ESA: func_80050148
-void func_802F6DEC_70849C(Animal *arg0, s16 arg1) {
+void func_802F6DEC_70849C(Entity *arg0, s16 arg1) {
     struct077 sp68;
     s16 temp_f4;
     s32 y;
@@ -540,7 +540,7 @@ void func_802F7054_708704(s32 arg0) {
 }
 
 // not in ESA?
-void func_802F705C_70870C(Animal *arg0, s16 zRotation, s16 yRotation, s16 height, s16 arg4, s16 arg5, s16 arg6, u16 flags) {
+void func_802F705C_70870C(Entity *arg0, s16 zRotation, s16 yRotation, s16 height, s16 arg4, s16 arg5, s16 arg6, u16 flags) {
     Animal *a;
 
     s16 sp13A;
@@ -634,7 +634,7 @@ void func_802F705C_70870C(Animal *arg0, s16 zRotation, s16 yRotation, s16 height
 
                 for (var_s3 = gCollisionGridHeads[temp_s7].next; var_s3 != NULL; var_s3 = var_s3->next) {
                     a = var_s3->animal;
-                    if (a != arg0) {
+                    if ((Entity *)a != arg0) {
                         if ((a->unk4C.unk1B) && (a->unk4C.unk1C) && (temp_s7 == a->collisionGridCells[0])) {
                             temp_f12 = a->position.xPos.h - arg0->position.xPos.h;
                             temp_f14 = a->position.zPos.h - arg0->position.zPos.h;
@@ -706,7 +706,7 @@ void func_802F705C_70870C(Animal *arg0, s16 zRotation, s16 yRotation, s16 height
 }
 
 // ESA: func_800502F0 ?
-void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 damage, s16 minDistance, s16 maxDistance, s16 arg7) {
+void func_802F7940_708FF0(Entity *arg0, s16 xPos, s16 zPos, s16 yPos, s16 damage, s16 minDistance, s16 maxDistance, s16 arg7) {
     s16 temp_t6;
     s16 temp_t8;
     s16 spD2;
@@ -770,7 +770,7 @@ void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 damage
                 for (var_s7 = gCollisionGridHeads[sp68].next; var_s7 != NULL; var_s7 = var_s7->next) {
                     a = var_s7->animal;
                     if ((sp68 == a->collisionGridCells[0]) && (a->unk16C->objectType != OBJECT_ROCKET) &&
-                        (a != arg0) && (a != arg0->owner)) {
+                        ((Entity *)a != arg0) && ((Entity *)a != arg0->owner)) {
                         x = a->position.xPos.h - xPos;
                         z = a->position.zPos.h - zPos;
                         y = (a->position.yPos.h + (a->unk42 >> 1)) - yPos;
@@ -900,7 +900,7 @@ s16 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 yDelta, f32 arg4) {
 }
 
 // ESA: func_80050BF0
-s16 func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, f32 arg8) {
+s16 func_802F8160_709810(Entity *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, f32 arg8) {
     s32 var_v0;  // pad
     s16 var_a0;
 
@@ -921,7 +921,7 @@ s16 func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg
 
     yDiff = (arg1->position.yPos.h - arg0->position.yPos.h) - arg3;
     if (arg7 == 3) {
-        sp45 = ((yDiff > 32.0f) || (xzDiff > 256.0f) && ((random_u32() & 3) == 1));
+        sp45 = ((yDiff > 32.0f) || ((xzDiff > 256.0f) && ((random_u32() & 3) == 1)));
     } else if (arg7 == 4) {
         sp45 = 0;
     } else {
@@ -986,7 +986,7 @@ s16 func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg
 }
 
 // ESA: func_80050EA4
-u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4) {
+u8 func_802F8658_709D08(Entity *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4) {
     f32 tmp;
     f32 sp60;
     f32 sp5C;
@@ -1052,7 +1052,7 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
 }
 
 // ESA: func_80051334
-s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
+s32 func_802F8918_709FC8(Entity *arg0, Animal *arg1) {
     u8 i, j;
 
     if (arg0->unk18C.length == 0) {
@@ -1070,7 +1070,7 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 }
 
 // ESA: func_800513C0
-Entity *find_closest_animal(Entity *arg0) {
+Animal *find_closest_animal(Entity *arg0) {
     s16 i;
     s16 zDist;
     s16 xDist;
@@ -1079,7 +1079,7 @@ Entity *find_closest_animal(Entity *arg0) {
     s16 distance;
 
     Animal *animal;
-    Entity *ret;
+    Animal *ret;
 
     best_distance = MAX_SHORT;
     ret = NULL;
@@ -1116,7 +1116,7 @@ void func_802F8B4C_70A1FC(Entity *arg0) {
     Entity *obj2;
     s16 angle;
     s16 temp_t0;
-    Entity *obj;
+    Animal *obj;
     s32 x;
     s32 z;
 
@@ -1190,7 +1190,7 @@ void func_802F8DCC_70A47C(Entity *arg0) {
     s16 yRotation;
     s16 zRotation;
     s16 pad[2] UNUSED;
-    Entity *target;
+    Animal *target;
 
     if (arg0->Info.Counter2 > 0) {
         arg0->Info.Counter2 -= 2;
@@ -1714,7 +1714,7 @@ void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s
 }
 
 // ESA: func_80052C74
-void func_802FA4F8_70BBA8(Animal *arg0) {
+void func_802FA4F8_70BBA8(Entity *arg0) {
     s32 xPos;
     s32 zPos;
     s32 yPos;
@@ -1783,7 +1783,7 @@ void func_802FA6D8_70BD88(void) {
     sMaxSpeakerVolume = 0;
 }
 
-void func_802FA730_70BDE0(Animal *arg0) {
+void func_802FA730_70BDE0(Entity *arg0) {
     struct077 spB8; // size 0x6
 
     s32 pad[11] UNUSED;
@@ -1933,7 +1933,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
 }
 
 // ESA: func_80053494
-void func_802FADBC_70C46C(Animal *arg0) {
+void func_802FADBC_70C46C(Entity *arg0) {
     s32 pad[2] UNUSED;
 
     s16 temp_v1_3;
@@ -2110,7 +2110,7 @@ void func_802FB270_70C920(Entity *arg0) {
 }
 
 // ESA: func_80053A0C
-void func_802FB49C_70CB4C(Animal *arg0) {
+void func_802FB49C_70CB4C(Entity *arg0) {
     // struct copy
     arg0->unk5C = arg0->unk54;
 
@@ -2121,7 +2121,7 @@ void func_802FB49C_70CB4C(Animal *arg0) {
 }
 
 // ESA: func_80053A30
-void func_802FB4C0_70CB70(Animal *arg0) {
+void func_802FB4C0_70CB70(Entity *arg0) {
     s16 phi_t0;
     s16 phi_v0;
     s16 phi_a1;
@@ -2147,7 +2147,7 @@ void func_802FB4C0_70CB70(Animal *arg0) {
 }
 
 // ESA: func_80053D34
-void func_802FB680_70CD30(Animal *arg0) {
+void func_802FB680_70CD30(Entity *arg0) {
     s16 phi_v1;
     s16 phi_v0;
     s16 phi_a3;
@@ -2177,7 +2177,7 @@ void func_802FB680_70CD30(Animal *arg0) {
 }
 
 // ESA: func_80054084
-void func_802FB85C_70CF0C(Animal *arg0) {
+void func_802FB85C_70CF0C(Entity *arg0) {
     s16 phi_v1;
     s16 phi_v0;
     s16 phi_a1;
@@ -2228,7 +2228,7 @@ void func_802FB85C_70CF0C(Animal *arg0) {
 }
 
 // ESA: func_800543AC
-void func_802FBA40_70D0F0(Animal *arg0) {
+void func_802FBA40_70D0F0(Entity *arg0) {
     s16 phi_t0;
     s16 phi_v0;
     s16 phi_a1;
@@ -2254,7 +2254,7 @@ void func_802FBA40_70D0F0(Animal *arg0) {
 }
 
 // ESA: func_8005471C
-void func_802FBBF8_70D2A8(Animal *arg0) {
+void func_802FBBF8_70D2A8(Entity *arg0) {
     s16 phi_t0;
     s16 phi_v0;
     s16 phi_a1;
@@ -2282,7 +2282,7 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
 }
 
 // ESA: func_80054A0C (tbd)
-void func_802FBDA8_70D458(Animal *arg0) {
+void func_802FBDA8_70D458(Entity *arg0) {
     s16 phi_t0;
     s16 phi_v0;
     s16 phi_a1;
@@ -2309,7 +2309,7 @@ void func_802FBDA8_70D458(Animal *arg0) {
 }
 
 // ESA: func_80054CFC (tbd)
-void func_802FBF58_70D608(Animal *arg0) {
+void func_802FBF58_70D608(Entity *arg0) {
     s16 phi_t0;
     s16 phi_v0;
     s16 phi_a1;
@@ -2336,7 +2336,7 @@ void func_802FBF58_70D608(Animal *arg0) {
 }
 
 // ESA: func_80054FEC (tbd)
-void func_802FC108_70D7B8(Animal *arg0) {
+void func_802FC108_70D7B8(Entity *arg0) {
     s16 phi_t0;
     s16 phi_v0;
     s16 phi_a1;
@@ -2414,7 +2414,7 @@ void func_802FC438_70DAE8(s16 x, s16 z, s16 y) {
 }
 
 // ESA: func_8005558C
-void func_802FC5C0_70DC70(Animal *arg0) {
+void func_802FC5C0_70DC70(Entity *arg0) {
     s16 phi_a1;
 
     if (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4)) {
@@ -2426,7 +2426,7 @@ void func_802FC5C0_70DC70(Animal *arg0) {
 }
 
 // ESA: func_80055814
-void func_802FC6E4_70DD94(Animal *arg0) {
+void func_802FC6E4_70DD94(Entity *arg0) {
     s16 phi_a1;
 
     if (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4)) {
@@ -2438,7 +2438,7 @@ void func_802FC6E4_70DD94(Animal *arg0) {
 }
 
 // ESA: func_80055A9C
-void func_802FC808_70DEB8(Animal *arg0) {
+void func_802FC808_70DEB8(Entity *arg0) {
   s16 i;
   s32 temp_s4;
 
@@ -2503,8 +2503,8 @@ void func_802FCA08_70E0B8(Entity *arg0, s16 arg1) {
 
     // 0x4000 -> 0100000000000000
     // 0xBFFF -> 1011111111111111
-    if (tmp = (!(arg1 & 0x4000)) & 0xFF) {};
-    if (tmp2 = (arg1 & (~0x4000)) & 0xFFFF) {};
+    if ((tmp = (!(arg1 & 0x4000)) & 0xFF)) {};
+    if ((tmp2 = (arg1 & (~0x4000)) & 0xFFFF)) {};
 
     switch (tmp2) {
     case 0:
@@ -2742,7 +2742,7 @@ s32 func_802FD538_70EBE8(Animal *arg0) {
     if ((D_803E1B02 > 0) && (gAnimalState.animals[gCurrentAnimalIndex].animal->state == STATE_INACTIVE)) {
         for (i = 0; i < 120; i++) {
             if ((D_803E00C0[i].swingMode == 2) &&
-                ((arg0 == D_803E00C0[i].anchorObject) || (arg0 == D_803E00C0[i].endObject))) {
+                (((Entity *)arg0 == D_803E00C0[i].anchorObject) || ((Entity *)arg0 == D_803E00C0[i].endObject))) {
                 return 1;
             }
         }
@@ -2773,7 +2773,7 @@ void func_802FD674_70ED24(Entity *arg0, Animal *arg1) {
     if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg0->unk54.unk2 < 5)) {
         arg0->unk54.unk0 |= 0x8 | 0x4;
         arg0->unk54.unk1 = arg1->unk16C->objectType - OB_TYPE_ANIMAL_OFFSET;
-        arg0->unk54.unk4 = arg1;
+        arg0->unk54.unk4 = (Entity *)arg1;
         arg0->unk54.unk2 = 5U;
         if (IS_CURRENT_ANIMAL(arg1)) {
             arg0->unk54.unk0 |= 0x10;
@@ -2788,7 +2788,7 @@ void func_802FD674_70ED24(Entity *arg0, Animal *arg1) {
             if (arg0->unk54.unk2 < tmp) {
                 arg0->unk54.unk0 |= 9;
                 arg0->unk54.unk1 = arg1->unk16C->objectType;
-                arg0->unk54.unk4 = arg1;
+                arg0->unk54.unk4 = (Entity *)arg1;
                 arg0->unk54.unk2 = tmp;
             }
             if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && IS_CURRENT_ANIMAL(arg1->owner)) {
@@ -3010,7 +3010,7 @@ void func_802FED68_710418(Entity *owner, Animal *target, s16 x, s16 z, s16 y, s1
     /* owner     */ owner);
 }
 
-void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* target, s16 arg6, s16 arg7, f32 scale, s16 lifetime, s16 argA, s16 xVel, s16 zVel, s16 yVel, Animal* owner) {
+void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* target, s16 arg6, s16 arg7, f32 scale, s16 lifetime, s16 argA, s16 xVel, s16 zVel, s16 yVel, Entity* owner) {
     // spawn missile
     Entity *obj = spawn_object(18, x, z, y, xVel << 16, zVel << 16, yVel << 16, vAngle, rotation, (s32) (s16) (scale * 2048.0f));
 
@@ -3031,7 +3031,7 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
     }
 }
 
-void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal *owner, s16 arg6, u8 id) {
+void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Entity *owner, s16 arg6, u8 id) {
     Entity *obj = spawn_object(id, x, z, func_80310EE4_722594(x, z, owner->unk160) >> 16, 0, 0, 0, 0, 0, scale);
     if (obj != NULL) {
         obj->unk15C = 50;
@@ -3053,7 +3053,7 @@ void func_802FF140_7107F0(void) {
 
 // add <thing>
 // ESA: func_80056F70
-void func_802FF184_710834(Animal *arg0, s16 used, s16 x, s16 y, s16 z, s16 arg5, s16 arg6, s16 size, s16 arg8, s16 arg9) {
+void func_802FF184_710834(Entity *arg0, s16 used, s16 x, s16 y, s16 z, s16 arg5, s16 arg6, s16 size, s16 arg8, s16 arg9) {
     s16 i;
 
     if (D_803A5330_7B69E0 < 10) {
@@ -3202,8 +3202,8 @@ void func_802FF828_710ED8(Entity *arg0) {
         run_commands(arg0);
     }
 
-    add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
-    add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
+    add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, (s32)arg0);
+    add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, (s32)(arg0 + 5));
 }
 
 // used by object 39 (OBJECT_WATER_CANNON_1)
@@ -3216,8 +3216,8 @@ void func_802FFA20_7110D0(Entity *arg0) {
     if (arg0->Info.lifetime == 0) {
         arg0->Info.lifetime = 100;
     }
-    add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
-    add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
+    add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, (s32)arg0);
+    add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, (s32)(arg0 + 5));
 }
 
 // used by object 168
