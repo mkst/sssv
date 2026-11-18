@@ -296,9 +296,7 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_80296C8C_6A833C.s")
 #endif
 
-#ifdef NON_MATCHING
 // update_water_level
-// CURRENT (2774): clean draft; 952 bytes vs 956 expected.
 void func_8029726C_6A891C(struct063 arg0[73][129]) {
     s16 xPos;
     s16 zPos;
@@ -319,6 +317,14 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     endX = D_803F2D50.waterTileX + D_803F2D50.waterTileWidth;
     startZ = D_803F2D50.waterTileZ;
     endZ = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
+
+    // Keep these empty checks for matching regalloc (fakematch or compiled-out debug code).
+    if (((gWaterAnimState.unk20F & 7) != gWaterAnimState.unk20F) ||
+        (D_803F2D50.waterTileX != D_803F2D50.waterTileZ)) {
+    }
+    curWater = arg0[startX][0].unk0;
+    if (curWater == 0) {
+    }
 
     var_s5 = 0;
 
@@ -355,7 +361,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                     prevWater += delta;
 
                     // 1xxx____
-                    arg0[xPos][zPos].unk7 = ((arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4)) | 0x80;
+                    arg0[xPos][zPos].unk7 = ((u8)(arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4)) | 0x80;
 
                     if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
                         curWater = 0;
@@ -398,7 +404,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                     prevWater += delta;
 
                     // ____1xxx
-                    arg0[xPos][zPos].unk7 = ((arg0[xPos][zPos].unk7 & 0xF0) + (delta & 7)) | 8;
+                    arg0[xPos][zPos].unk7 = ((u8)(arg0[xPos][zPos].unk7 & 0xF0) + (delta & 7)) | 8;
 
                     if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
                         curWater = 0;
@@ -411,9 +417,6 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_8029726C_6A891C.s")
-#endif
 
 #if 0
 extern Gfx D_010045A0_3DE70[];
