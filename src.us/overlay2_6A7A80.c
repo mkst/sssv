@@ -148,8 +148,11 @@ void initialize_water_wave_tables(void) {
     }
 }
 
-#ifdef NON_MATCHING
-// CURRENT (2259)
+// unk7 holds per-cell water flow: high nibble = X direction, low nibble = Z direction
+// (bits 0-2 = amount, bit 3 = negative).
+#define WATER_FLOW_X(flags) (((((flags) & 0xF0) >> 4) & 7) * (1 - ((((flags) >> 4) & 8) >> 2)))
+#define WATER_FLOW_Z(flags) (((u8) ((flags) & 7)) * (1 - (((flags) & 8) >> 2)))
+
 void func_80296C8C_6A833C(struct063 arg0[73][129]) {
     s16 xPos;
     s16 zPos;
@@ -158,25 +161,35 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
     s16 temp_a0;
     s16 temp_s4;
     s16 delta;
+    u16 frame;
 
-    u32 Start1;
     u32 Start2;
-    u32 End1;
+    u32 Start1;
     u32 End2;
+    u32 End1;
 
-    s32 pad;
+    s32 neighborHeight;
     s32 rand;
-    s32 six;
-
-    six = 6;
-
-    Start1 = D_803F2D50.waterTileZ;
-    End1 = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
+    s32 rand2;
 
     Start2 = D_803F2D50.waterTileX;
-    End2 = D_803F2D50.waterTileX + D_803F2D50.waterTileWidth;
+    Start1 = D_803F2D50.waterTileZ;
+    // Empty checks: needed for matching codegen (likely debug code compiled out of the retail build).
+    if (Start2 > 72) {
+    }
 
-    gWaterAnimState.unk20D = (gWaterAnimState.unk20D + 1) & 3;
+    End2 = D_803F2D50.waterTileX + D_803F2D50.waterTileWidth;
+    End1 = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
+
+    rand = gWaterAnimState.unk20D;
+    if ((gWaterAnimState.unk20D & 3) != gWaterAnimState.unk20D) {
+    }
+    frame = (rand + 1) & 3;
+    gWaterAnimState.unk20D = frame;
+
+    nextWater = arg0[D_803F2D50.waterTileX][0].unk0;
+    if ((nextWater == 0) || (D_803F2D50.waterTileX != D_803F2D50.waterTileZ)) {
+    }
 
     for (xPos = End2; xPos > Start2; xPos--) {
         for (zPos = End1; zPos > Start1; zPos--) {
@@ -184,19 +197,19 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
 
             if (arg0[xPos][zPos].unk6 != 0) {
                 curWater = arg0[xPos][zPos].unk6;
-                nextWater = arg0[xPos+1][zPos].unk6; //.unk40E; (408 + 6)
+                nextWater = arg0[xPos + 1][zPos].unk6; // .unk40E (408 + 6)
                 if (SSSV_RAND(128) == 20) {
                     func_802D7AD4_6E9184(
-                        (SSSV_RAND(64) + (xPos << 6)),
-                        (SSSV_RAND(64) + (s16)(zPos << 6)),
+                        SSSV_RAND(64) + (xPos << 6),
+                        SSSV_RAND(64) + (zPos << 6),
                         D_803C0740[xPos][zPos].unk0 << 3,
                         0);
                 }
                 if (nextWater < curWater) {
-                    delta = arg0[xPos+1][zPos].unk0; //unk408; (408 + 0)
+                    delta = arg0[xPos + 1][zPos].unk0; // unk408 (408 + 0)
                     if ((delta << 1) < curWater) {
                         if ((nextWater == 0) && (gWaterAnimState.unk20F == 0)) {
-                            nextWater = (delta << 1);
+                            nextWater = delta << 1;
                         }
                         if ((delta < (arg0[xPos][zPos].unk0 - 0x10)) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
                             delta = 0;
@@ -211,15 +224,15 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                         }
                         curWater = curWater - delta;
                         nextWater = nextWater + delta;
-                        arg0[xPos][zPos].unk7 = (s16)(arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4);
+                        arg0[xPos][zPos].unk7 = (arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4);
 
                         if ((arg0[xPos][zPos].unk0 << 1) >= curWater) {
                             curWater = 0;
                         }
-                        if ((arg0[xPos+1][zPos].unk6 == 0) && (nextWater != 0)) { // unk40E (408 + 6)
-                            arg0[xPos+1][zPos].unk4 |= 2; // unk40C (408 + 4)
+                        if ((arg0[xPos + 1][zPos].unk6 == 0) && (nextWater != 0)) {
+                            arg0[xPos + 1][zPos].unk4 |= 2;
                         } else {
-                            arg0[xPos+1][zPos].unk4 &= ~2; // unk40C (408 + 4)
+                            arg0[xPos + 1][zPos].unk4 &= ~2;
                         }
                         if ((arg0[xPos][zPos].unk6 != 0) && (curWater == 0)) {
                             arg0[xPos][zPos].unk4 |= 4;
@@ -227,22 +240,22 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                             arg0[xPos][zPos].unk4 &= ~4;
                         }
                         arg0[xPos][zPos].unk6 = curWater;
-                        arg0[xPos+1][zPos].unk6 = nextWater; // unk40E
+                        arg0[xPos + 1][zPos].unk6 = nextWater;
                     }
                 }
 
                 curWater = arg0[xPos][zPos].unk6;
-                nextWater = arg0[xPos][zPos+1].unk6; // unkE
-                if (nextWater < curWater) {
-                    delta = arg0[xPos][zPos+1].unk0; // unk8
-                    if (((delta + 1) << 1) < curWater) {
-                        if ((nextWater == 0) && (gWaterAnimState.unk20F == 0)) {
-                            nextWater = (delta << 1);
+                temp_a0 = arg0[xPos][zPos + 1].unk6; // unkE
+                if (temp_a0 < curWater) {
+                    neighborHeight = arg0[xPos][zPos + 1].unk0; // unk8
+                    if (((neighborHeight + 1) << 1) < curWater) {
+                        if ((temp_a0 == 0) && (gWaterAnimState.unk20F == 0)) {
+                            temp_a0 = neighborHeight << 1;
                         }
-                        if ((delta < arg0[xPos][zPos].unk0) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
-                            delta = (curWater - (arg0[xPos][zPos].unk0 << 1));
+                        if ((neighborHeight < arg0[xPos][zPos].unk0) && (temp_a0 < (arg0[xPos][zPos].unk0 << 1))) {
+                            delta = curWater - (arg0[xPos][zPos].unk0 << 1);
                         } else {
-                            delta = (curWater - nextWater) / 2;
+                            delta = (curWater - temp_a0) / 2;
                             if (delta > 1) {
                                 delta += SSSV_RAND(2);
                             }
@@ -251,39 +264,42 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                             delta = 0;
                         }
                         curWater = curWater - delta;
-                        nextWater = nextWater + delta;
-                        arg0[xPos][zPos].unk7 = (arg0[xPos][zPos].unk7 & 0xF0) + (delta & 7);
+                        temp_a0 = temp_a0 + delta;
+                        arg0[xPos][zPos].unk7 = ((u8) (arg0[xPos][zPos].unk7 & 0xF0)) + (delta & 7);
                         if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
                             curWater = 0;
                         }
-                        arg0[xPos][zPos+1].unk6 = nextWater; // unkE
+                        arg0[xPos][zPos + 1].unk6 = temp_a0; // unkE
                         arg0[xPos][zPos].unk6 = curWater;
                     }
                 }
 
-                if (((guRandom() % 31) == 4)) {
+                if ((guRandom() % 31) == 4) {
 
                     rand = guRandom();
-                    temp_s4 = (xPos << 6) + (rand % 63);
-                    rand = guRandom();
-                    temp_a0 = (zPos << 6) + (rand % 63);
+                    temp_s4 = (rand % 63) + (xPos << 6);
+                    rand2 = guRandom();
+                    temp_a0 = (rand2 % 63) + (zPos << 6);
 
-                    if (((1 - (((D_803C0740[temp_s4 >> six][temp_a0 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 & 0xF0) >> 4) & 7)) ||
-                        ((1 - (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7     ) & 8) >> 2)) * (  D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7               & 7))) {
+                    if (WATER_FLOW_X(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7) ||
+                        WATER_FLOW_Z(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7)) {
 
                         create_particle_effect(
                             temp_s4,
                             temp_a0,
                             0,
                             13,
-                            (s16)((1 - (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 & 0xF0) >> 4) & 7)) << 0x10,
-                            (s16)((1 - (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7     ) & 8) >> 2)) * (  D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7               & 7)) << 0x10,
+                            WATER_FLOW_X(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7) << 0x10,
+                            WATER_FLOW_Z(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7) << 0x10,
                             0,
                             SSSV_RAND(4) + 4,
                             0,
                             0,
                             0);
                     }
+                }
+                // Empty check: also needed for matching (same compiled-out debug code as above).
+                if ((temp_a0 < 0) || (temp_a0 >= (129 << 6))) {
                 }
             }
             if ((arg0[xPos][zPos].unk0 * 2) >= arg0[xPos][zPos].unk6) {
@@ -292,9 +308,6 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_80296C8C_6A833C.s")
-#endif
 
 #ifdef NON_MATCHING
 // update_water_level
