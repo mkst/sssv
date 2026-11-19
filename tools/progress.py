@@ -12,6 +12,7 @@ IGNORE_LIST = [
     "gspSprite2D_fifoText",
     "gspF3DEX_fifoText",
     "aspMainText",
+    r"(^|/)entrypoint\.c$",
 ]
 
 
