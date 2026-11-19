@@ -1056,41 +1056,31 @@ void func_80346AB0_758160(Gfx **dl, u8 idx) {
     gDPTileSync((*dl)++);
 }
 
-#ifdef NON_MATCHING
-extern int COMBINED;
-extern int SHADE_ALPHA;
-extern int TEXEL0;
-extern int TEXEL1;
-extern int SHADE;
-extern int LOD_FRACTION;
-extern int PRIMITIVE;
-
-// CURRENT: 283
+// Emit the translucent cell DL for a batch prepared by func_80344240_7558F0.
+// arg1[].idx points back into the raw geo stream.
 void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
-    s32 pad[0x1];
-    s16 i;         // sp29A
-    s16 vtxsUsed;  // sp298
+    s32 pad UNUSED;
+    s16 i;
+    s16 vtxsUsed;
 
     u16 vtxFlags;
-    u8  textureIndex; // not tris
-    u8  variant; // sp294
-    s32 sp290; // padding
-    s16 sp28E; // needs image loading?
+    u8  scrollIndex;
+    u8  variant;
+    s32 pad2 UNUSED;
+    s16 loadBaseTexture;
 
-    s16 a1;
-    s16 pad2[11]; // matching padding
+    s16 j;
+    s16 pad3[10] UNUSED;
 
-    s16 var_v0;
-
-    s32 pad3;
+    s16 numVerts;
 
     vtxsUsed = 0;
 
     for (i = 0; i < numVtxs; i++) {
-        sp28E = 1;
+        loadBaseTexture = 1;
 
         vtxFlags = D_803F2C80[arg1[i].idx].header.flags;
-        textureIndex = D_803F2C80[arg1[i].idx].header.unk3;
+        scrollIndex = D_803F2C80[arg1[i].idx].header.unk3;
         variant  = D_803F2C80[arg1[i].idx].header.unk2;
 
         if ((vtxFlags & VTX_TRANSLUCENT) ||
@@ -1107,11 +1097,10 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
             }
 
             if (vtxFlags & 0x10) {
-                sp28E = 0;
+                loadBaseTexture = 0;
                 if (D_803F2C84 != 3) {
                     gDPPipeSync((*dl)++);
                     gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, SHADE, COMBINED, SHADE, 0, 0, 0, PRIMITIVE);
-                    if (1) { } if (1) { } if (1) { } if (1) { }
                     gDPSetRenderMode((*dl)++, G_RM_PASS, D_803F2CC0);
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
                     gSPTexture((*dl)++, 0x8000, 0x8000, 0, 5, G_ON);
@@ -1129,27 +1118,25 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                     D_803F2C84 = 3;
                 }
 
-                D_803E3130[D_803F2CA6].scrollIndex = textureIndex;
+                D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                 D_803E3130[D_803F2CA6].flags |= 1;
 
-                if (textureIndex) {
+                if (scrollIndex) {
                     D_803E3130[D_803F2CA6].type = 0;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetTileSize((*dl)++, 5, 0, 0, 124, 124);
                     gDPSetTileSize((*dl)++, 6, 0, 0, 124, 124);
-                    gDPSetPrimColor((*dl)++, 128, 128, 0xFF, 0xFF, 0xFF, 0xDC); // 0x100*
-
+                    gDPSetPrimColor((*dl)++, 128, 128, 0xFF, 0xFF, 0xFF, 0xDC);
                 } else {
                     D_803E3130[D_803F2CA6].type = 7;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetPrimColor((*dl)++, 128, 128, 0x00, 0x00, 0x00, 0xDC);
-
                 }
                 D_803F2CA6++;
                 D_803F2C94 = 1;
             }
             if (vtxFlags & 0x200) {
-                sp28E = 0;
+                loadBaseTexture = 0;
                 if (D_803F2C84 != 6) {
                     gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0, TEXEL1, PRIMITIVE, SHADE, PRIMITIVE, PRIMITIVE, SHADE, COMBINED, SHADE, 0, 0, 0, COMBINED);
                     gDPSetRenderMode((*dl)++, G_RM_PASS, D_803F2CC0);
@@ -1166,10 +1153,10 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                     gDPPipeSync((*dl)++);
                     D_803F2C84 = 6;
                 }
-                D_803E3130[D_803F2CA6].scrollIndex = textureIndex;
+                D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                 D_803E3130[D_803F2CA6].flags |= 1;
 
-                if (textureIndex) {
+                if (scrollIndex) {
                     D_803E3130[D_803F2CA6].type = 3;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetTileSize((*dl)++, 5, 0, 0, 124, 124);
@@ -1186,7 +1173,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 D_803F2C94 = 1;
             }
             if (vtxFlags & 0x100) {
-                sp28E = 0;
+                loadBaseTexture = 0;
                 if (D_803F2C84 != 11) {
                     gSPClearGeometryMode((*dl)++, G_FOG);
                     gDPSetCombineLERP((*dl)++,
@@ -1201,7 +1188,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
 
                     D_803F2C84 = 11;
                 }
-                D_803E3130[D_803F2CA6].scrollIndex = textureIndex;
+                D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                 D_803E3130[D_803F2CA6].flags |= 1;
                 D_803E3130[D_803F2CA6].type = 5;
                 D_803E3130[D_803F2CA6].displayList = *dl;
@@ -1211,7 +1198,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 D_803F2C94 = 1;
             }
             if (vtxFlags & 0x1000) {
-                sp28E = 0;
+                loadBaseTexture = 0;
                 if (D_803F2C84 != 13) {
                     gSPClearGeometryMode((*dl)++, G_FOG);
                     gDPSetCombineLERP((*dl)++,
@@ -1225,7 +1212,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
 
                     D_803F2C84 = 13;
                 }
-                D_803E3130[D_803F2CA6].scrollIndex = textureIndex;
+                D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                 D_803E3130[D_803F2CA6].flags |= 1;
                 D_803E3130[D_803F2CA6].type = 5;
                 D_803E3130[D_803F2CA6].displayList = *dl;
@@ -1235,13 +1222,19 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 D_803F2C94 = 1;
             }
 
-            // continue here instead?
             if ((vtxFlags & VTX_TRANSLUCENT) &&
                 (!(vtxFlags & 0x10)) &&
                 (!(vtxFlags & 0x200)) &&
                 (!(vtxFlags & 0x100))) {
 
-                vtxFlags = D_803F2C80[arg1[i].idx].header.flags;
+                // Re-read the flags; the block-local temporaries are needed for matching codegen.
+                {
+                    struct102 *geo = D_803F2C80;
+                    s32 idx = arg1[i].idx;
+
+                    vtxFlags = geo[idx].header.flags;
+                }
+
                 if (variant >= 32) {
                     if (D_803F2C84 != 0xE) {
                         gDPPipeSync((*dl)++);
@@ -1258,32 +1251,20 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                             gDPSetTextureLOD((*dl)++, G_TL_TILE);
                             gSPTexture((*dl)++, 0x8000, 0x8000, 0, 6, G_ON);
 
-                            D_803E3130[D_803F2CA6].scrollIndex = textureIndex;
+                            D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                             D_803E3130[D_803F2CA6].flags |= 1;
                             D_803E3130[D_803F2CA6].displayList = *dl;
-                            // type = variant - 33;
                             D_803E3130[D_803F2CA6].type = variant - 33;
                             D_803F2CA6++;
 
-                            if ((variant - 33) == 9) {
-                                if (0) {};
-                                // why cant we use OS_PHYSICAL_TO_K0 here?
-                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png + 0x1000));
-                                gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                                gDPLoadSync((*dl)++);
-                                gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
-                                gDPPipeSync((*dl)++);
-                                gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                                gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 124, 124);
-                            } else {
-
-                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png));
-                                gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                                gDPLoadSync((*dl)++);
-                                gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
-                                gDPPipeSync((*dl)++);
-                                gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                                gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 124, 124);
+                            // A switch rather than an if: needed for matching codegen.
+                            switch (variant - 33) {
+                                case 9:
+                                    gDPLoadTextureBlock((*dl)++, OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png + 0x1000), G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+                                    break;
+                                default:
+                                    gDPLoadTextureBlock((*dl)++, OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png), G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
+                                    break;
                             }
                             gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                         } else {
@@ -1310,9 +1291,9 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
 
                             D_803F2C84 = 14;
                         }
-                        if (textureIndex) {
+                        if (scrollIndex) {
                             D_803E3130[D_803F2CA6].flags |= 1;
-                            D_803E3130[D_803F2CA6].scrollIndex = textureIndex;
+                            D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                             D_803E3130[D_803F2CA6].type = 0xB;
                             D_803E3130[D_803F2CA6].displayList = *dl;
                             D_803F2CA6++;
@@ -1325,13 +1306,19 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                         }
                     }
                 } else {
-                    // FAKE  & 0xFFFF
-                    // var_v0 = (vtxFlags & VTX_TRIANGLE & 0xFFFF & 0xFFFF) ? 3 : 4;
-                    var_v0 = (vtxFlags & VTX_TRIANGLE & 0xFFFF & 0xFFFF) ? 3 : 4;
+                    numVerts = (vtxFlags & VTX_TRIANGLE) ? 3 : 4;
 
-                    // The target advances this 16-bit bound until it wraps.
-                    for (a1 = 0; (a1 < var_v0); var_v0++) {
-                        // ...
+                    // Empty checks: needed for matching codegen.
+                    // The loop increments numVerts rather than j, as in the target.
+                    for (j = 0; j < numVerts; numVerts++) {
+                        if (D_803F2C80[arg1[i].idx].header.flags) {
+                        } else {
+                        }
+                        if (D_803F2C80[arg1[i].idx].header.flags) {
+                        } else {
+                        }
+                        if (D_803F2C80[arg1[i].idx].header.flags) {
+                        }
                     }
 
                     if ((D_803F2C84 != 9) && (variant != 0)) {
@@ -1352,7 +1339,6 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                         gDPSetCombineMode((*dl)++, G_CC_TRILERP, G_CC_MODULATEI2);
                         gSPTexture((*dl)++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
                         gDPSetTextureLOD((*dl)++, G_TL_LOD);
-                                                                      /* line, tmem, tile, palette ... */
                         gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, 0);
                         gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, 1, G_TX_NOMIRROR | G_TX_WRAP, 4, 1);
                         gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0140, 2, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, 2, G_TX_NOMIRROR | G_TX_WRAP, 3, 2);
@@ -1364,11 +1350,11 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                         D_803F2C84 = 9;
                     }
 
-                    if ((textureIndex) &&
+                    if ((scrollIndex) &&
                         !(vtxFlags & 0x100) &&
                         !(vtxFlags & 0x10) &&
                         !(vtxFlags & 0x200)) {
-                        D_803E3130[D_803F2CA6].scrollIndex = textureIndex;
+                        D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                         D_803E3130[D_803F2CA6].flags |= 1;
                         D_803E3130[D_803F2CA6].type = 4;
                         D_803E3130[D_803F2CA6].displayList = *dl;
@@ -1405,12 +1391,11 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 }
             }
         } else {
-            // IDO!?!
+            // Empty else: needed for matching codegen.
         }
 
-        if (variant != D_803F2C98)
-        {
-            if (sp28E == 1) {
+        if (variant != D_803F2C98) {
+            if (loadBaseTexture == 1) {
                 if (variant <= 40) {
                     func_80346878_757F28(dl, variant);
                     D_803F2C98 = variant;
@@ -1428,7 +1413,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
             gSPSetGeometryMode((*dl)++, G_CULL_BACK);
             D_803F2C9B = 0;
         }
-        if ((!textureIndex) && (D_803F2C94 != 0)) {
+        if ((!scrollIndex) && (D_803F2C94 != 0)) {
             gDPSetTileSize((*dl)++, 0, 0, 0, 124, 124);
             gDPSetTileSize((*dl)++, 1, 0, 0, 60, 60);
             gDPSetTileSize((*dl)++, 2, 0, 0, 28, 28);
@@ -1438,27 +1423,13 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
         }
 
         if (!(vtxFlags & VTX_TRIANGLE)) {
-            gSP2Triangles(
-            /* gdl   */ (*dl)++,
-            /* v00   */ vtxsUsed + 2,
-            /* v01   */ vtxsUsed + 1,
-            /* v02   */ vtxsUsed + 0,
-            /* flag0 */ 0,
-            /* v10   */ vtxsUsed + 2,
-            /* v11   */ vtxsUsed + 3,
-            /* v12   */ vtxsUsed + 1,
-            /* flag1 */ 0);
-            vtxsUsed++; // 4 vtxs
+            gSP2Triangles((*dl)++,
+                          vtxsUsed + 2, vtxsUsed + 1, vtxsUsed + 0, 0,
+                          vtxsUsed + 2, vtxsUsed + 3, vtxsUsed + 1, 0);
+            vtxsUsed++;
         } else {
-            gSP1Triangle((*dl)++,
-            /* v2   */ vtxsUsed + 2,
-            /* v1   */ vtxsUsed + 1,
-            /* v0   */ vtxsUsed + 0,
-            /* flag */ 0);
+            gSP1Triangle((*dl)++, vtxsUsed + 2, vtxsUsed + 1, vtxsUsed + 0, 0);
         }
         vtxsUsed += 3;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_80346BB4_758264.s")
-#endif
