@@ -856,30 +856,73 @@ void func_80328918_739FC8(void) {
     }
 }
 
-#if 0
+// SELECT_ANIMAL(idx) makes animal idx the selected one. The original macro split is unknown; each
+// do-while block changes the generated code, and HAND_OVER_TO_EVO + SET_ANIMAL_INDEX is the split
+// that matches.
+#define SELECT_ANIMAL_POINTERS(idx) \
+    D_803D5520 = &gAnimalState.animals[idx]; \
+    D_803D5524 = gAnimalState.animals[idx].unk0; \
+    D_803D5528 = gAnimalState.animals[idx].animal; \
+    D_803D552C = D_803D5528; \
+    D_803D5530 = (Entity *)D_803D5528
+
+#define SELECT_ANIMAL(idx) \
+    do { \
+        SELECT_ANIMAL_POINTERS(idx); \
+        if (gCurrentAnimalIndex == (idx)) { D_803D5538 = 1; } else { D_803D5538 = 0; } \
+        D_803D553C = (idx); \
+        D_803D553A = 0; \
+    } while (0)
+
+#define HAND_OVER_TO_EVO(idx, tmpVar, tmpBit) \
+    do { \
+        gAnimalState.animals[0].animal->Info.health = gAnimalState.animals[idx].animal->Info.health; \
+        gAnimalState.animals[idx].animal->Info.health = 0; \
+        gAnimalState.animals[idx].animal->yVelocity.w -= 0x4000; \
+        tmpVar = gAnimalState.animals[idx].animal->energy[0].unk0; \
+        gAnimalState.animals[idx].animal->energy[0].unk0 = gAnimalState.animals[0].animal->energy[0].unk0; \
+        gAnimalState.animals[0].animal->energy[0].unk0 = tmpVar; \
+        tmpVar = gAnimalState.animals[idx].animal->energy[1].unk0; \
+        gAnimalState.animals[idx].animal->energy[1].unk0 = gAnimalState.animals[0].animal->energy[1].unk0; \
+        gAnimalState.animals[0].animal->energy[1].unk0 = tmpVar; \
+        gAnimalState.animals[0].animal->unk4A = 0; \
+        gAnimalState.animals[idx].animal->unk4A = 0; \
+        tmpBit = gAnimalState.animals[0].animal->unk4C.unk1A; \
+        gAnimalState.animals[0].animal->unk4C.unk1A = gAnimalState.animals[idx].animal->unk4C.unk1A; \
+        gAnimalState.animals[idx].animal->unk4C.unk1A = tmpBit; \
+        SELECT_ANIMAL_POINTERS(idx); \
+    } while (0)
+
+#define SET_ANIMAL_INDEX(idx) \
+    do { \
+        if (gCurrentAnimalIndex == (idx)) { D_803D5538 = 1; } else { D_803D5538 = 0; } \
+        D_803D553C = (idx); \
+        D_803D553A = 0; \
+    } while (0)
+
 // ESA: func_8007FD90
-// CURRENT (6690)
 void func_80328ACC_73A17C(void) {
     s16 i;
     s16 xPos;
     s16 zPos;
     s16 yPos;
-    s16 sp86;
+    s16 refY;
     s16 currentDist;
     s16 bestDistance;
-    s16 sp80; // index of animal to swap with
-    s16 temp_a0;
-    s16 hd;
-    s16 sp7A;
-    s16 sp78;
-    u8 doSwap; // can swap?
+    s16 targetIndex; // closest animal accepted by func_80329BAC_73B25C
+    s16 tmp;
+    s16 heightDiff;
+    s16 xVel;
+    s16 zVel;
+    u8 bit;
+    u8 doSwap;
 
     if (((D_803F2D50.textureBank != 3) || (D_803F2D50.segment != 2)) &&
         ((D_803F2D50.textureBank != 5) || (D_803F2D50.segment != 0)) &&
         ((D_803F2D50.textureBank != 4) || (D_803F2D50.segment != 1)) &&
-        (D_803F2D50.segment != 5U)) {
+        (D_803F2D50.segment != 5)) {
 
-        if (((gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType != EVO))) {
+        if (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType != EVO) {
 
             if (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (gAnimalState.animals[gCurrentAnimalIndex].animal->unk320->unk16C->behaviourFlags.unk2 == 0)) &&
                 (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType != VULTURE) && (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType != SEAGULL2) && (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType != POLAR_BEAR_DEFENDING) &&
@@ -891,19 +934,18 @@ void func_80328ACC_73A17C(void) {
                 xPos = gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h;
                 zPos = gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h;
                 yPos = gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h;
-                sp86 = (gAnimalState.animals[gCurrentAnimalIndex].animal->unk42 >> 1) + yPos;
+                refY = (gAnimalState.animals[gCurrentAnimalIndex].animal->unk42 >> 1) + yPos;
 
                 bestDistance = 129;
 
                 // iterate over all animals in the level
                 for (i = 0; i < gNumAnimalsInLevel; i++) {
-                    // why not start with i = 1 ?
                     if (i != 0) {
                         if (i != gCurrentAnimalIndex) {
                             if ((gAnimalState.animals[i].animal != NULL) && (gAnimalState.animals[i].animal->movementMode == MOVEMENT_MODE_DEACTIVATED) && (gAnimalState.animals[i].animal->unk4A == 0)) {
                                 if ((ABS(gAnimalState.animals[i].animal->position.xPos.h - xPos) < 0x81) &&
                                     (ABS(gAnimalState.animals[i].animal->position.zPos.h - zPos) < 0x81) &&
-                                    (ABS(((gAnimalState.animals[i].animal->unk42 >> 1) + gAnimalState.animals[i].animal->position.yPos.h) - sp86) < 0x81)) {
+                                    (ABS((gAnimalState.animals[i].animal->position.yPos.h + (gAnimalState.animals[i].animal->unk42 >> 1)) - refY) < 0x81)) {
 
                                     currentDist = MAX(MAX(ABS(gAnimalState.animals[i].animal->position.xPos.h - xPos), ABS(gAnimalState.animals[i].animal->position.zPos.h - zPos)), (ABS(gAnimalState.animals[i].animal->position.yPos.h - yPos) * 2));
                                     // new candidate
@@ -911,7 +953,7 @@ void func_80328ACC_73A17C(void) {
                                         if (func_80329BAC_73B25C(gCurrentAnimalIndex, i) != 0) {
                                             // new closest animal
                                             bestDistance = currentDist;
-                                            sp80 = i;
+                                            targetIndex = i;
                                         }
                                     }
                                 }
@@ -926,64 +968,18 @@ void func_80328ACC_73A17C(void) {
 
                         func_8032AA94_73C144();
 
-                        gAnimalState.animals[0].animal->Info.health = gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health;
-                        gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = 0;
-
-                        gAnimalState.animals[gCurrentAnimalIndex].animal->yVelocity.w -= 0x4000;
-
-                        temp_a0 = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[0].unk0;
-                        gAnimalState.animals[gCurrentAnimalIndex].animal->energy[0].unk0 = gAnimalState.animals[0].animal->energy[0].unk0;
-                        gAnimalState.animals[0].animal->energy[0].unk0 = temp_a0;
-
-                        temp_a0 = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[1].unk0;
-                        gAnimalState.animals[gCurrentAnimalIndex].animal->energy[1].unk0 = gAnimalState.animals[0].animal->energy[1].unk0;
-                        gAnimalState.animals[0].animal->energy[1].unk0 = temp_a0;
-
-                        gAnimalState.animals[0].animal->unk4A = 0;
-                        gAnimalState.animals[gCurrentAnimalIndex].animal->unk4A = 0;
-
-                        hd = gAnimalState.animals[0].animal->unk4C.unk1A;
-                        gAnimalState.animals[0].animal->unk4C.unk1A = gAnimalState.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
-                        gAnimalState.animals[gCurrentAnimalIndex].animal->unk4C.unk1A = hd;
-
-                        do {
-                            D_803D5520 = &gAnimalState.animals[gCurrentAnimalIndex];
-                            D_803D5524 = gAnimalState.animals[gCurrentAnimalIndex].unk0;
-                            D_803D5528 = gAnimalState.animals[gCurrentAnimalIndex].animal;
-                            D_803D5530 = D_803D5528;
-                            D_803D552C = D_803D5528;
-                        } while (0);
-                        do {
-                            D_803D5538 = 1;
-                            D_803D553C = gCurrentAnimalIndex; //??
-                            D_803D553A = 0;
-                        } while (0);
+                        HAND_OVER_TO_EVO(gCurrentAnimalIndex, tmp, bit);
+                        SET_ANIMAL_INDEX(gCurrentAnimalIndex);
 
                         D_803D552C->movementMode = MOVEMENT_MODE_DEACTIVATED;
 
                         func_80328918_739FC8();
-                        func_802C9BA4_6DB254((Entity *) D_803D5530);
+                        func_802C9BA4_6DB254(D_803D5530);
 
-                        hd = gCurrentAnimalIndex;
-                        D_803D5536 = hd;
+                        D_803D5536 = gCurrentAnimalIndex;
                         gCurrentAnimalIndex = 0;
 
-                        do {
-                            D_803D5520 = &gAnimalState.animals[0];
-                            D_803D5524 = gAnimalState.animals[0].unk0;
-                            D_803D5528 = gAnimalState.animals[0].animal;
-                            D_803D552C = D_803D5528;
-                            D_803D5530 = D_803D5528;
-
-                            if (gCurrentAnimalIndex == 0) {
-                                D_803D5538 = 1;
-                            } else {
-                                D_803D5538 = 0;
-                            }
-
-                            D_803D553C = 0;
-                            D_803D553A = 0;
-                        } while (0);
+                        SELECT_ANIMAL(0);
 
                         D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
                         D_803D552C->unk328 = gGameplayTick;
@@ -1001,14 +997,14 @@ void func_80328ACC_73A17C(void) {
 
                         D_803D552C->unk308 = gAnimalState.animals[D_803D5536].animal->position.xPos.h;
                         D_803D552C->unk30A = gAnimalState.animals[D_803D5536].animal->position.zPos.h;
-                        D_803D552C->unk30C = gAnimalState.animals[D_803D5536].animal->position.yPos.h + (gAnimalState.animals[D_803D5536].unk0->height / 2) ;
+                        D_803D552C->unk30C = gAnimalState.animals[D_803D5536].animal->position.yPos.h + (gAnimalState.animals[D_803D5536].unk0->height / 2);
                         D_803D5530->position.xPos.h = D_803D552C->unk308;
                         D_803D5530->position.zPos.h = D_803D552C->unk30A;
                         D_803D5530->position.yPos.h = D_803D552C->unk30C;
                         D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
                         D_803D552C->unk32A = gGameplayTick;
-                        D_803D552C->unk320 = gAnimalState.animals[sp80].animal;
-                        D_803D552C->unk30E = sp80;
+                        D_803D552C->unk320 = gAnimalState.animals[targetIndex].animal;
+                        D_803D552C->unk30E = targetIndex;
                         D_803D5530->unk163 = gAnimalState.animals[D_803D5536].animal->unk163;
                         D_803D5530->unk18C.length = gAnimalState.animals[D_803D5536].animal->unk18C.length;
 
@@ -1016,30 +1012,15 @@ void func_80328ACC_73A17C(void) {
                             D_803D5530->unk18C.unk1[i] = gAnimalState.animals[D_803D5536].animal->unk18C.unk1[i];
                         }
 
-                        D_803D5530->unk18C.length = gAnimalState.animals[D_803D5536].animal->unk18C.length;
+                        D_803D5530->unk18C.length = gAnimalState.animals[D_803D5536].animal->unk18C.length; // stored again, as in the original
                         D_803D5530->unk160 = gAnimalState.animals[D_803D5536].animal->unk160;
                         func_802B2EA8_6C4558();
 
                         play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     } else {
-                        do {
-                            D_803D5520 = &gAnimalState.animals[0];
-                            D_803D5524 = gAnimalState.animals[0].unk0;
-                            D_803D5528 = gAnimalState.animals[0].animal;
-                            D_803D552C = D_803D5528;
-                            D_803D5530 = D_803D5528;
+                        SELECT_ANIMAL(0);
 
-                            if (gCurrentAnimalIndex == 0) {
-                                D_803D5538 = 1;
-                            } else {
-                                D_803D5538 = 0;
-                            }
-
-                            D_803D553C = 0;
-                            D_803D553A = 0;
-                        } while (0);
-
-                        D_803D5520->unk0 = &gAnimalState.unk0[EVO]; // D_801DD8EC
+                        D_803D5520->unk0 = &gAnimalState.unk0[EVO];
                         D_803D5530->unk16C = &gAnimalState.unk0[EVO];
 
                         gCurrentAnimalId = EVO;
@@ -1048,24 +1029,23 @@ void func_80328ACC_73A17C(void) {
 
                         func_80327DA8_739458();
                         D_803D552C->unk308 = gAnimalState.animals[0].animal->position.xPos.h;
-                        D_803D552C->unk30C = gAnimalState.animals[0].animal->position.yPos.h + (gAnimalState.animals[0].unk0->height / 2);
                         D_803D552C->unk30A = gAnimalState.animals[0].animal->position.zPos.h;
+                        D_803D552C->unk30C = gAnimalState.animals[0].animal->position.yPos.h + (gAnimalState.animals[0].unk0->height / 2);
                         D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
                         D_803D552C->unk32A = gGameplayTick;
-                        D_803D552C->unk320 = gAnimalState.animals[sp80].animal;
-                        D_803D552C->unk30E = sp80;
+                        D_803D552C->unk320 = gAnimalState.animals[targetIndex].animal;
+                        D_803D552C->unk30E = targetIndex;
                         play_sound_effect_at_location(SFX_UNKNOWN_56, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     }
                 } else {
-                    hd = (func_80310EE4_722594(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->unk160) >> 0x10);
-                    hd = gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h - hd;
+                    heightDiff = gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h - (func_80310EE4_722594(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->unk160) >> 0x10);
 
                     if ((gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType == FIRE_FOX) ||
                         (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType == FLYING_DOG)) {
-                        if (hd < 0x80) {
-                            func_80311A2C_7230DC(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, &sp7A, &sp78, gAnimalState.animals[gCurrentAnimalIndex].animal->unk160);
+                        if (heightDiff < 0x80) {
+                            func_80311A2C_7230DC(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, &xVel, &zVel, gAnimalState.animals[gCurrentAnimalIndex].animal->unk160);
 
-                            if ((ABS(sp7A) < 12) && (ABS(sp78) < 12)) {
+                            if ((ABS(xVel) < 12) && (ABS(zVel) < 12)) {
                                 doSwap = 1;
                                 gAnimalState.animals[gCurrentAnimalIndex].animal->xVelocity.w = 0;
                                 gAnimalState.animals[gCurrentAnimalIndex].animal->zVelocity.w = 0;
@@ -1076,9 +1056,8 @@ void func_80328ACC_73A17C(void) {
                             doSwap = 0;
                         }
                     } else if ((gAnimalState.animals[gCurrentAnimalIndex].animal->xVelocity.w != 0) || (gAnimalState.animals[gCurrentAnimalIndex].animal->zVelocity.w != 0) || (gAnimalState.animals[gCurrentAnimalIndex].animal->yVelocity.w > 0) ||
-                        (((gAnimalState.animals[gCurrentAnimalIndex].animal->movementState != MOVEMENT_STATE_GROUND)) && (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState != MOVEMENT_STATE_FLYING)) ||
-                        (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk6C != NULL)) && ((gAnimalState.animals[gCurrentAnimalIndex].animal->unk6C->unk16C->objectType != OBJECT_BUTTON)) && ((gAnimalState.animals[gCurrentAnimalIndex].animal->unk6C->unk16C->objectType != OBJECT_FLAT_BLOCK_1) || (hd >= 0x20)))) {
-                        // logic feels weird, should it all be inverted?
+                        ((gAnimalState.animals[gCurrentAnimalIndex].animal->movementState != MOVEMENT_STATE_GROUND) && (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState != MOVEMENT_STATE_FLYING)) ||
+                        ((gAnimalState.animals[gCurrentAnimalIndex].animal->unk6C != NULL) && (gAnimalState.animals[gCurrentAnimalIndex].animal->unk6C->unk16C->objectType != OBJECT_BUTTON) && ((gAnimalState.animals[gCurrentAnimalIndex].animal->unk6C->unk16C->objectType != OBJECT_FLAT_BLOCK_1) || (heightDiff >= 0x20)))) {
                         doSwap = 0;
                     } else {
                         doSwap = 1;
@@ -1087,38 +1066,28 @@ void func_80328ACC_73A17C(void) {
                     if (doSwap != 0) {
                         if (gCurrentAnimalIndex != 0) {
                             // swap health
-                            temp_a0 = gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health;
+                            tmp = gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health;
                             gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = gAnimalState.animals[0].animal->Info.health;
-                            gAnimalState.animals[0].animal->Info.health = temp_a0;
+                            gAnimalState.animals[0].animal->Info.health = tmp;
 
                             gAnimalState.animals[gCurrentAnimalIndex].animal->yVelocity.w -= 0x4000;
 
-                            temp_a0 = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[0].unk0;
+                            tmp = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[0].unk0;
                             gAnimalState.animals[gCurrentAnimalIndex].animal->energy[0].unk0 = gAnimalState.animals[0].animal->energy[0].unk0;
-                            gAnimalState.animals[0].animal->energy[0].unk0 = temp_a0;
+                            gAnimalState.animals[0].animal->energy[0].unk0 = tmp;
 
-                            temp_a0 = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[1].unk0;
+                            tmp = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[1].unk0;
                             gAnimalState.animals[gCurrentAnimalIndex].animal->energy[1].unk0 = gAnimalState.animals[0].animal->energy[1].unk0;
-                            gAnimalState.animals[0].animal->energy[1].unk0 = temp_a0;
+                            gAnimalState.animals[0].animal->energy[1].unk0 = tmp;
 
                             gAnimalState.animals[0].animal->unk4A = 0;
                             gAnimalState.animals[gCurrentAnimalIndex].animal->unk4A = 0;
 
-                            hd = gAnimalState.animals[0].animal->unk4C.unk1A;
+                            bit = gAnimalState.animals[0].animal->unk4C.unk1A;
                             gAnimalState.animals[0].animal->unk4C.unk1A = gAnimalState.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
-                            gAnimalState.animals[gCurrentAnimalIndex].animal->unk4C.unk1A = hd;
+                            gAnimalState.animals[gCurrentAnimalIndex].animal->unk4C.unk1A = bit;
 
-                            do {
-                                D_803D5520 = &gAnimalState.animals[gCurrentAnimalIndex];
-                                D_803D5524 = gAnimalState.animals[gCurrentAnimalIndex].unk0;
-                                D_803D5528 = gAnimalState.animals[gCurrentAnimalIndex].animal;
-                                D_803D552C = D_803D5528;
-                                D_803D5530 = D_803D5528;
-
-                                D_803D5538 = 1;
-                                D_803D553C = gCurrentAnimalIndex;
-                                D_803D553A = 0;
-                            } while (0);
+                            SELECT_ANIMAL(gCurrentAnimalIndex);
 
                             D_803D552C->movementMode = MOVEMENT_MODE_DEACTIVATED;
 
@@ -1126,25 +1095,10 @@ void func_80328ACC_73A17C(void) {
 
                             D_803D5530->Info.health = 0;
 
-                            hd = gCurrentAnimalIndex;
+                            D_803D5536 = gCurrentAnimalIndex;
                             gCurrentAnimalIndex = 0;
-                            D_803D5536 = hd;
 
-                            do {
-                                D_803D5520 = &gAnimalState.animals[0];
-                                D_803D5524 = gAnimalState.animals[0].unk0;
-                                D_803D5528 = gAnimalState.animals[0].animal;
-                                D_803D5530 = D_803D5528;
-                                D_803D552C = D_803D5528;
-
-                                if (gCurrentAnimalIndex == 0) {
-                                    D_803D5538 = 1;
-                                } else {
-                                    D_803D5538 = 0;
-                                }
-                                D_803D553C = 0;
-                                D_803D553A = 0;
-                            } while (0);
+                            SELECT_ANIMAL(0);
 
                             D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
                             D_803D552C->unk328 = gGameplayTick;
@@ -1156,7 +1110,7 @@ void func_80328ACC_73A17C(void) {
                                 D_803D5530->unk18C.unk1[i] = gAnimalState.animals[D_803D5536].animal->unk18C.unk1[i];
                             }
 
-                            D_803D5530->unk18C.length = gAnimalState.animals[D_803D5536].animal->unk18C.length;
+                            D_803D5530->unk18C.length = gAnimalState.animals[D_803D5536].animal->unk18C.length; // stored again, as in the original
                             D_803D5520->unk0 = &gAnimalState.unk0[EVO];
                             D_803D5530->unk16C = &gAnimalState.unk0[EVO];
                             gCurrentAnimalId = EVO;
@@ -1166,7 +1120,7 @@ void func_80328ACC_73A17C(void) {
                             func_803283DC_739A8C();
                             gAnimalState.animals[0].animal->position.xPos.w = gAnimalState.animals[D_803D5536].animal->position.xPos.w;
                             gAnimalState.animals[0].animal->position.zPos.w = gAnimalState.animals[D_803D5536].animal->position.zPos.w;
-                            gAnimalState.animals[0].animal->position.yPos.w = gAnimalState.animals[D_803D5536].animal->position.yPos.w + (gAnimalState.animals[D_803D5536].unk0->height << 0xF) ;
+                            gAnimalState.animals[0].animal->position.yPos.w = gAnimalState.animals[D_803D5536].animal->position.yPos.w + (gAnimalState.animals[D_803D5536].unk0->height << 0xF);
                             gAnimalState.animals[0].animal->unk160 = gAnimalState.animals[D_803D5536].animal->unk160;
                             gAnimalState.animals[0].animal->unk68 = gAnimalState.animals[D_803D5536].animal->unk68;
                             gAnimalState.animals[0].animal->unk70 = gAnimalState.animals[D_803D5536].animal->unk70;
@@ -1188,9 +1142,6 @@ void func_80328ACC_73A17C(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328ACC_73A17C.s")
-#endif
 
 // ESA: func_80080C0C
 s32 func_80329BAC_73B25C(s16 arg0, s16 arg1) {
