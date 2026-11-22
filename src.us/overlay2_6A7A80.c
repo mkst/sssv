@@ -148,149 +148,142 @@ void initialize_water_wave_tables(void) {
     }
 }
 
-// unk7 holds per-cell water flow: high nibble = X direction, low nibble = Z direction
-// (bits 0-2 = amount, bit 3 = negative).
-#define WATER_FLOW_X(flags) (((((flags) & 0xF0) >> 4) & 7) * (1 - ((((flags) >> 4) & 8) >> 2)))
-#define WATER_FLOW_Z(flags) (((u8) ((flags) & 7)) * (1 - (((flags) & 8) >> 2)))
+// X uses the high nibble and Z the low nibble, each with bit 3 as the sign.
+#define WATER_FLOW_COMPONENT(magnitudeBits, signBits) \
+    (((magnitudeBits) & 7) * (1 - (((signBits) & 8) >> 2)))
+#define WATER_FLOW_X(flags) WATER_FLOW_COMPONENT(((flags) & 0xF0) >> 4, (flags) >> 4)
+#define WATER_FLOW_Z(flags) WATER_FLOW_COMPONENT((flags) & 0xF, flags)
+#define WATER_FLOW_FLAGS_AT(x, z) (D_803C0740[(x) >> 6][(z) >> 6].unk7)
 
-void func_80296C8C_6A833C(struct063 arg0[73][129]) {
-    s16 xPos;
-    s16 zPos;
+void func_80296C8C_6A833C(struct063 grid[73][129]) {
+    s16 x;
+    s16 z;
     s16 curWater;
-    s16 nextWater;
-    s16 temp_a0;
-    s16 temp_s4;
+    s16 nextWaterX;
+    s16 nextWaterZ;
+    s16 particleX;
     s16 delta;
     u16 frame;
 
-    u32 Start2;
-    u32 Start1;
-    u32 End2;
-    u32 End1;
+    u32 startX;
+    u32 startZ;
+    u32 endX;
+    u32 endZ;
 
-    s32 neighborHeight;
-    s32 rand;
-    s32 rand2;
+    const u8 *flowFlags;
+    s16 particleZ;
+    s32 prevFrame;
 
-    Start2 = D_803F2D50.waterTileX;
-    Start1 = D_803F2D50.waterTileZ;
-    // Empty checks: needed for matching codegen (likely debug code compiled out of the retail build).
-    if (Start2 > 72) {
-    }
+    startX = D_803F2D50.waterTileX;
+    startZ = D_803F2D50.waterTileZ;
+    endX = D_803F2D50.waterTileX + D_803F2D50.waterTileWidth;
+    endZ = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
 
-    End2 = D_803F2D50.waterTileX + D_803F2D50.waterTileWidth;
-    End1 = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
-
-    rand = gWaterAnimState.unk20D;
-    if ((gWaterAnimState.unk20D & 3) != gWaterAnimState.unk20D) {
-    }
-    frame = (rand + 1) & 3;
+    prevFrame = gWaterAnimState.unk20D;
+#ifdef __sgi
+    // fakematch: empty check, needed to match
+    if (gWaterAnimState.unk20D >= 4) {}
+#endif
+    frame = (prevFrame + 1) & 3;
     gWaterAnimState.unk20D = frame;
 
-    nextWater = arg0[D_803F2D50.waterTileX][0].unk0;
-    if ((nextWater == 0) || (D_803F2D50.waterTileX != D_803F2D50.waterTileZ)) {
-    }
+#ifdef __sgi
+    // fakematch: unused read and empty check, needed to match
+    nextWaterX = grid[D_803F2D50.waterTileX][0].unk0;
+    if ((nextWaterX == D_803F2D50.waterTileX) || (D_803F2D50.waterTileX != D_803F2D50.cellLightingModes[0][D_803F2D50.waterTileZ])) {}
+#endif
 
-    for (xPos = End2; xPos > Start2; xPos--) {
-        for (zPos = End1; zPos > Start1; zPos--) {
-            arg0[xPos][zPos].unk7 = 0; // clear terrain flags?
+    for (x = endX; (u32)x > startX; x--) {
+        for (z = endZ; (u32)z > startZ; z--) {
+            grid[x][z].unk7 = 0;
 
-            if (arg0[xPos][zPos].unk6 != 0) {
-                curWater = arg0[xPos][zPos].unk6;
-                nextWater = arg0[xPos + 1][zPos].unk6; // .unk40E (408 + 6)
+            if (grid[x][z].unk6 != 0) {
+                curWater = grid[x][z].unk6;
+                nextWaterX = grid[x + 1][z].unk6;
                 if (SSSV_RAND(128) == 20) {
                     func_802D7AD4_6E9184(
-                        SSSV_RAND(64) + (xPos << 6),
-                        SSSV_RAND(64) + (zPos << 6),
-                        D_803C0740[xPos][zPos].unk0 << 3,
+                        SSSV_RAND(64) + (x << 6),
+                        SSSV_RAND(64) + (z << 6),
+                        D_803C0740[x][z].unk0 << 3,
                         0);
                 }
-                if (nextWater < curWater) {
-                    delta = arg0[xPos + 1][zPos].unk0; // unk408 (408 + 0)
+                if (nextWaterX < curWater) {
+                    delta = grid[x + 1][z].unk0;
                     if ((delta << 1) < curWater) {
-                        if ((nextWater == 0) && (gWaterAnimState.unk20F == 0)) {
-                            nextWater = delta << 1;
+                        if ((nextWaterX == 0) && (gWaterAnimState.unk20F == 0)) {
+                            nextWaterX = delta << 1;
                         }
-                        if ((delta < (arg0[xPos][zPos].unk0 - 0x10)) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
+                        if ((delta < (grid[x][z].unk0 - 16)) && (nextWaterX < (grid[x][z].unk0 << 1))) {
                             delta = 0;
                         } else {
-                            delta = (curWater - nextWater) / 2;
+                            delta = (curWater - nextWaterX) / 2;
                             if (delta > 1) {
                                 delta += SSSV_RAND(2);
                             }
                         }
-                        if (delta < 0) {
-                            delta = 0;
-                        }
-                        curWater = curWater - delta;
-                        nextWater = nextWater + delta;
-                        arg0[xPos][zPos].unk7 = (arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4);
+                        delta = (delta < 0) ? 0 : delta;
+                        curWater -= delta;
+                        nextWaterX += delta;
+                        grid[x][z].unk7 = (grid[x][z].unk7 & 0xF) + ((delta & 7) << 4);
 
-                        if ((arg0[xPos][zPos].unk0 << 1) >= curWater) {
-                            curWater = 0;
-                        }
-                        if ((arg0[xPos + 1][zPos].unk6 == 0) && (nextWater != 0)) {
-                            arg0[xPos + 1][zPos].unk4 |= 2;
+                        curWater = (curWater > (grid[x][z].unk0 << 1)) ? curWater : 0;
+                        if ((grid[x + 1][z].unk6 == 0) && (nextWaterX != 0)) {
+                            grid[x + 1][z].unk4 |= 2;
                         } else {
-                            arg0[xPos + 1][zPos].unk4 &= ~2;
+                            grid[x + 1][z].unk4 &= ~2;
                         }
-                        if ((arg0[xPos][zPos].unk6 != 0) && (curWater == 0)) {
-                            arg0[xPos][zPos].unk4 |= 4;
+                        if ((grid[x][z].unk6 != 0) && (curWater == 0)) {
+                            grid[x][z].unk4 |= 4;
                         } else {
-                            arg0[xPos][zPos].unk4 &= ~4;
+                            grid[x][z].unk4 &= ~4;
                         }
-                        arg0[xPos][zPos].unk6 = curWater;
-                        arg0[xPos + 1][zPos].unk6 = nextWater;
+                        grid[x][z].unk6 = curWater;
+                        grid[x + 1][z].unk6 = nextWaterX;
                     }
                 }
 
-                curWater = arg0[xPos][zPos].unk6;
-                temp_a0 = arg0[xPos][zPos + 1].unk6; // unkE
-                if (temp_a0 < curWater) {
-                    neighborHeight = arg0[xPos][zPos + 1].unk0; // unk8
-                    if (((neighborHeight + 1) << 1) < curWater) {
-                        if ((temp_a0 == 0) && (gWaterAnimState.unk20F == 0)) {
-                            temp_a0 = neighborHeight << 1;
+                curWater = grid[x][z].unk6;
+                nextWaterZ = grid[x][z + 1].unk6;
+                if (nextWaterZ < curWater) {
+                    if (((grid[x][z + 1].unk0 + 1) << 1) < curWater) {
+                        if ((nextWaterZ == 0) && (gWaterAnimState.unk20F == 0)) {
+                            nextWaterZ = grid[x][z + 1].unk0 << 1;
                         }
-                        if ((neighborHeight < arg0[xPos][zPos].unk0) && (temp_a0 < (arg0[xPos][zPos].unk0 << 1))) {
-                            delta = curWater - (arg0[xPos][zPos].unk0 << 1);
+                        if ((grid[x][z + 1].unk0 < grid[x][z].unk0) && (nextWaterZ < (grid[x][z].unk0 << 1))) {
+                            delta = curWater - (grid[x][z].unk0 << 1);
                         } else {
-                            delta = (curWater - temp_a0) / 2;
+                            delta = (curWater - nextWaterZ) / 2;
                             if (delta > 1) {
                                 delta += SSSV_RAND(2);
                             }
                         }
-                        if (delta <= 0) {
-                            delta = 0;
-                        }
-                        curWater = curWater - delta;
-                        temp_a0 = temp_a0 + delta;
-                        arg0[xPos][zPos].unk7 = ((u8) (arg0[xPos][zPos].unk7 & 0xF0)) + (delta & 7);
-                        if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
+                        delta = (delta > 0) ? delta : 0;
+                        curWater -= delta;
+                        nextWaterZ += delta;
+                        grid[x][z].unk7 = ((u8)(grid[x][z].unk7 & 0xF0)) + (delta & 7);
+                        if (curWater <= (grid[x][z].unk0 << 1)) {
                             curWater = 0;
                         }
-                        arg0[xPos][zPos + 1].unk6 = temp_a0; // unkE
-                        arg0[xPos][zPos].unk6 = curWater;
+                        grid[x][z + 1].unk6 = nextWaterZ;
+                        grid[x][z].unk6 = curWater;
                     }
                 }
 
                 if ((guRandom() % 31) == 4) {
+                    particleX = (guRandom() % 63) + (x << 6);
+                    particleZ = (guRandom() % 63) + (z << 6);
 
-                    rand = guRandom();
-                    temp_s4 = (rand % 63) + (xPos << 6);
-                    rand2 = guRandom();
-                    temp_a0 = (rand2 % 63) + (zPos << 6);
-
-                    if (WATER_FLOW_X(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7) ||
-                        WATER_FLOW_Z(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7)) {
+                    if ((WATER_FLOW_X(WATER_FLOW_FLAGS_AT(particleX, particleZ)) != 0) ||
+                        (WATER_FLOW_Z(WATER_FLOW_FLAGS_AT(particleX, particleZ)) != 0)) {
+                        flowFlags = &WATER_FLOW_FLAGS_AT(particleX, particleZ);
 
                         create_particle_effect(
-                            temp_s4,
-                            temp_a0,
+                            particleX,
+                            particleZ,
                             0,
                             13,
-                            WATER_FLOW_X(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7) << 0x10,
-                            WATER_FLOW_Z(D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7) << 0x10,
+                            WATER_FLOW_X(*flowFlags) << 16,
+                            WATER_FLOW_Z(*flowFlags) << 16,
                             0,
                             SSSV_RAND(4) + 4,
                             0,
@@ -298,19 +291,17 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                             0);
                     }
                 }
-                // Empty check: also needed for matching (same compiled-out debug code as above).
-                if ((temp_a0 < 0) || (temp_a0 >= (129 << 6))) {
-                }
             }
-            if ((arg0[xPos][zPos].unk0 * 2) >= arg0[xPos][zPos].unk6) {
-                arg0[xPos][zPos].unk6 = 0;
+            if ((grid[x][z].unk0 * 2) >= grid[x][z].unk6) {
+                grid[x][z].unk6 = 0;
             }
         }
     }
 }
 
 // update_water_level
-void func_8029726C_6A891C(struct063 arg0[73][129]) {
+void func_8029726C_6A891C(struct063 grid[73][129]) {
+    u16 initialX;
     s16 xPos;
     s16 zPos;
 
@@ -320,7 +311,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     s16 prevWater;
 
     s32 neighborLevel;
-    s16 var_s5; // unused counter present in the target
+    s16 unusedCount;
     u32 startX;
     u32 startZ;
     u32 endX;
@@ -331,35 +322,32 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     startZ = D_803F2D50.waterTileZ;
     endZ = D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth;
 
-    // Keep these empty checks for matching regalloc (fakematch or compiled-out debug code).
-    if (((gWaterAnimState.unk20F & 7) != gWaterAnimState.unk20F) ||
-        (D_803F2D50.waterTileX != D_803F2D50.waterTileZ)) {
-    }
-    curWater = arg0[startX][0].unk0;
-    if (curWater == 0) {
-    }
+    // fakematch: without this check, IDO keeps endX in a register for the first loop test
+    // and loads the gWaterAnimState address later, so the registers and instruction count differ
+    if (((gWaterAnimState.unk20F & 7) != gWaterAnimState.unk20F) || (D_803F2D50.waterTileX != D_803F2D50.waterTileZ)) {}
 
-    var_s5 = 0;
+    startX = (s16)(startX & 0xFFFF);
+    initialX = startX;
+    unusedCount = 0;
 
-    for (xPos = startX; xPos < endX; xPos++) {
-        for (zPos = startZ; zPos <= endZ; zPos++) {
-
-            if (!arg0[xPos][zPos].unk6)
+    for (xPos = initialX; (u32)xPos < endX; xPos++) {
+        for (zPos = startZ; (u32)zPos <= endZ; zPos++) {
+            if (!grid[xPos][zPos].unk6) {
                 continue;
+            }
 
-            curWater = arg0[xPos][zPos].unk6;
-            prevWater = arg0[xPos - 1][zPos].unk6;
+            curWater = grid[xPos][zPos].unk6;
+            prevWater = grid[xPos - 1][zPos].unk6;
             if (prevWater < curWater) {
-                neighborLevel = arg0[xPos - 1][zPos].unk0 * 2;
+                neighborLevel = grid[xPos - 1][zPos].unk0 * 2;
                 if (neighborLevel < curWater) {
                     if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
                         prevWater = neighborLevel;
                     }
 
-                    if (((arg0[xPos][zPos].unk0 - 16) > arg0[xPos - 1][zPos].unk0) &&
-                        (prevWater < (arg0[xPos][zPos].unk0 * 2))) {
-
-                        delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
+                    if (((grid[xPos][zPos].unk0 - 16) > grid[xPos - 1][zPos].unk0) &&
+                        (prevWater < (grid[xPos][zPos].unk0 * 2))) {
+                        delta = (curWater - (grid[xPos][zPos].unk0 * 2)) / 2;
                         if (delta < 1) {
                             delta = 0;
                         }
@@ -374,32 +362,32 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                     prevWater += delta;
 
                     // 1xxx____
-                    arg0[xPos][zPos].unk7 = ((u8)(arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4)) | 0x80;
+                    grid[xPos][zPos].unk7 = ((u8)(grid[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4)) | 0x80;
 
-                    if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
+                    if (curWater <= (grid[xPos][zPos].unk0 * 2)) {
                         curWater = 0;
                     }
-                    arg0[xPos][zPos].unk6 = curWater;
-                    arg0[xPos - 1][zPos].unk6 = prevWater;
+                    grid[xPos][zPos].unk6 = curWater;
+                    grid[xPos - 1][zPos].unk6 = prevWater;
                 }
             }
 
-            curWater = arg0[xPos][zPos].unk6;
-            prevWater = arg0[xPos][zPos - 1].unk6;
+            curWater = grid[xPos][zPos].unk6;
+            prevWater = grid[xPos][zPos - 1].unk6;
             if (prevWater < curWater) {
-                neighborLevel = arg0[xPos][zPos - 1].unk0 * 2;
+                neighborLevel = grid[xPos][zPos - 1].unk0 * 2;
                 if (neighborLevel < curWater) {
                     if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
                         prevWater = neighborLevel;
                     }
 
-                    if (((arg0[xPos][zPos - 1].unk0 + 4) < arg0[xPos][zPos].unk0) &&
-                        (prevWater <= (arg0[xPos][zPos].unk0 * 2))) {
-                        delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
+                    if (((grid[xPos][zPos - 1].unk0 + 4) < grid[xPos][zPos].unk0) &&
+                        (prevWater <= (grid[xPos][zPos].unk0 * 2))) {
+                        delta = (curWater - (grid[xPos][zPos].unk0 * 2)) / 2;
                         if (delta < 2) {
                             delta = 2;
                         }
-                        var_s5++;
+                        unusedCount++;
 
                         curWater -= delta;
                         delta = 0;
@@ -417,335 +405,307 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                     prevWater += delta;
 
                     // ____1xxx
-                    arg0[xPos][zPos].unk7 = ((u8)(arg0[xPos][zPos].unk7 & 0xF0) + (delta & 7)) | 8;
+                    grid[xPos][zPos].unk7 = ((u8)(grid[xPos][zPos].unk7 & 0xF0) + (delta & 7)) | 8;
 
-                    if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
+                    if (curWater <= (grid[xPos][zPos].unk0 * 2)) {
                         curWater = 0;
                     }
 
-                    arg0[xPos][zPos].unk6 = curWater;
-                    arg0[xPos][zPos - 1].unk6 = prevWater;
+                    grid[xPos][zPos].unk6 = curWater;
+                    grid[xPos][zPos - 1].unk6 = prevWater;
                 }
             }
         }
     }
 }
 
-#if 0
 extern Gfx D_010045A0_3DE70[];
 
-// CURRENT (24260): still non-matching; target 3496 bytes, draft 3380 bytes.
-void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
-    u8 pad[0x34];
+#define WATER_VERTEX_HEIGHT(level) ((u16)((level) * 4))
+
+// WATER_WAVE_ROW does not parenthesise its arguments, so for a neighbour at x + offset it
+// expands to originX + x + offset * originZ + z.
+#define WATER_WAVE_ROW(originX, x, originZ, z) originX + x * originZ + z
+#define WATER_CENTER_PHASE(row, originX, x) (gWaterAnimState.unk204 + ((row) + WATER_WAVE_ROW(originX, x, originX, x)) * 8)
+#define WATER_WAVE_SAMPLE(row, phase) (gWaterAnimState.unk0[(row) & 7][(u16)(phase) & 0x3F])
+#define WATER_CENTER_WAVE(originX, x, originZ, z) \
+    WATER_WAVE_SAMPLE(WATER_WAVE_ROW(originX, x, originZ, z), \
+        WATER_CENTER_PHASE(WATER_WAVE_ROW(originX, x, originZ, z), originX, x))
+
+// eastOffset and maxStripWidth are locals rather than literals because IDO's output depends on it.
+void func_80297628_6A8CD8(struct063 terrain[73][129] UNUSED, DisplayList *displayList) {
     Vtx *clearVertex;
-    Vtx *vertex;
-    u16 z; // sp190
-    u16 x; // var_t0
-
-    s16 i2 = G_CULL_BACK;
-
-    u16 sp17A;
-    u16 sp178;
-    u16 sp176;
-    u16 sp174;
-
-    s32 sp164;
-    s32 sp160;
-
-    s16 sp142;
-    s16 sp140;
-
-    // s16 sp142;
-    // s16 sp140;
-    s16 vertsPerRow; // sp13C
-    s16 sp136;
-    s16 maxHeight; // sp134
-    s16 minHeight; // sp132
-    s16 sp12C;
-    s16 sp126;
-
-    // s32 spB8;
-    // s32 spB4;
-    s32 spB0;
-    s16 spA8;
-    // u32 spA4;
-    s32 spA0;
-    s32 sp98;
-    // s32 sp88;
-    s32 sp70;
-    // s32 sp6C;
-
-    f32 temp_f20;
-    f32 temp_f22;
-    f32 temp_f24;
-    f32 temp_f2;
-
-    s16 height;
-    s16 end;
-    s16 var_t1;
-    s32 var_t5;
-    u16 i;
-    s32 temp_a0;
-    s32 temp_s4;
-    s32 temp_t1;
-    s32 temp_t2;
-    s32 temp_t7;
-    s32 var_s2;
-    s32 var_s5;
-    // s32 var_s7;
-    s16 var_t4;
-    u16 var_v1;
-    s16 start;
-    u16 temp_v1_3;
+    s32 columnEnd;
+    u16 x;
+    s16 lastColumn;
+    const s16 eastOffset = 1;
+    u16 z;
+    struct063 *tile;
+    s32 rowBelow;
+    u32 winding;
+    s32 stripStart;
+    s32 firstSlot;
+    u16 northwestHeight;
+    u16 southwestHeight;
+    u16 southeastHeight;
+    u16 northeastHeight;
+    f32 normalZ;
+    s32 row;
+    f32 normalX;
+    u32 waterOriginX;
+    u32 waterOriginZ;
+    f32 normalScale;
+    f32 normalY;
+    s16 stripWidth;
+    u32 tileX;
+    s32 pad[2] UNUSED;
+    s32 northRowStart;
+    s16 waterWidth;
+    s16 waterDepth;
+    s16 firstColumn;
+    s16 vertsPerRow;
+    s32 rowStart;
+    s16 cullVertexIndex;
+    s16 minHeight;
+    s16 maxHeight;
+    const s16 maxStripWidth = 16;
+    s16 column;
+    s16 rowsEmitted;
+    Vtx *firstVertex;
+    s16 vtxsEmitted;
+    s32 quadCount;
 
     static s16 D_803A04F0_7B1BA0 = 0;
-    static s16 D_803A04F2_7B1BA2 = 0; // unused?
-    static s16 D_803A04F8_7B1BA8 = 1; // unused?
+    // Unreferenced, but part of this file's data.
+    static s16 D_803A04F4_7B1BA4 UNUSED = 0;
+    static s16 D_803A04F8_7B1BA8 UNUSED = 1;
 
     if (D_803F2D50.waterTileWidth == 0) {
         return;
     }
 
-    sp126 = 0;
-    maxHeight = 10000;
-    minHeight = -10000;
+    vtxsEmitted = 0;
+    minHeight = 10000;
+    maxHeight = -10000;
 
     gSPDisplayList(gLayer1DL++, D_01004270_3DB40);
     gSPDisplayList(gLayer1DL++, D_010045A0_3DE70);
 
     setup_water_grid_material(&gLayer1DL);
 
-    gSPTexture(gLayer1DL++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON); // 0x10000
+    gSPTexture(gLayer1DL++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
     gDPSetTextureLOD(gLayer1DL++, G_TL_TILE);
     gDPSetRenderMode(gLayer1DL++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2);
     gDPSetCombineLERP(gLayer1DL++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, 0, 0, 0, PRIMITIVE);
 
-    if ((D_803F2D50.waterTileWidth != 0)) {
+    if (D_803F2D50.waterTileWidth != 0) {
         if (D_803F2D50.waterTileDepth != 0) {
             if (gCameraVisibilityMask[0] & 0x20) {
+                s32 height;
 
                 D_803A04F0_7B1BA0 += 2;
                 if (D_803A04F0_7B1BA0 >= 128) {
                     D_803A04F0_7B1BA0 = 0;
                 }
 
-                sp142 = D_803F2D50.waterTileWidth;
-                sp140 = D_803F2D50.waterTileDepth;
-
-                vertsPerRow = sp142 + 1;
-
-                sp164 = D_803F2D50.waterTileX;
-                sp160 = D_803F2D50.waterTileZ;
+                waterOriginX = D_803F2D50.waterTileX;
+                waterOriginZ = D_803F2D50.waterTileZ;
+                waterWidth = D_803F2D50.waterTileWidth;
+                waterDepth = D_803F2D50.waterTileDepth;
+                vertsPerRow = waterWidth + 1;
 
                 // reset water heights
-                clearVertex = arg1->unk286E0;
-                for (var_v1 = 0; var_v1 < (31 * 31); var_v1++) {
+                clearVertex = displayList->unk286E0;
+                for (z = 0; z < (31 * 31); z++) {
                     clearVertex->v.ob[2] = 0;
                     clearVertex++;
                 }
 
                 gWaterAnimState.unk20E++;
 
-                for (z = 0; z <= sp140; z++) {
-                    for (x = 0; x <= sp142; x++) {
+                for (z = 0; z <= waterDepth; z++) {
+                    for (x = 0; x <= waterWidth; x++) {
 
-                        spB0 = (s32) z;
-                        spA0 = (s32) z;
-                        height = (D_803C0740[x + sp164][z + sp160].unk6 * 4) & 0xFFFF;
-                        if (maxHeight >= height) {
-                            maxHeight = height;
-                        }
-                        if (height >= minHeight) {
-                            minHeight = height;
-                        }
+                        tile = &D_803C0740[x + waterOriginX][z + waterOriginZ];
+                        northRowStart = (z - 1) * vertsPerRow;
+                        height = WATER_VERTEX_HEIGHT(tile->unk6);
+                        minHeight = (minHeight >= height) ? height : minHeight;
+                        maxHeight = (height >= maxHeight) ? height : maxHeight;
 
-                        // sp98 = temp_v1;
-                        if (height != 0) {
-                            s32 tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
-                            u16 tmp7, tmp8;
-                            f32 foo =  64.0f;
+                        if (WATER_VERTEX_HEIGHT(tile->unk6) != 0) {
+                            f32 normalLen;
+                            s32 centerPhase;
+                            f32 tileSize = 64.0f;
 
-                            temp_t1 = x + sp164;
-                            temp_a0 = z + sp160;
+                            tileX = x + waterOriginX;
+                            northwestHeight = WATER_VERTEX_HEIGHT(D_803C0740[tileX - 1][z + waterOriginZ - 1].unk6);
+                            southwestHeight = WATER_VERTEX_HEIGHT(D_803C0740[tileX - 1][z + waterOriginZ + 1].unk6);
+                            southeastHeight = WATER_VERTEX_HEIGHT(D_803C0740[tileX + 1][z + waterOriginZ + 1].unk6);
+                            northeastHeight = WATER_VERTEX_HEIGHT(D_803C0740[tileX + 1][z + waterOriginZ - 1].unk6);
 
-                            sp17A = D_803C0740[temp_t1 - 1][temp_a0 - 1].unk6 * 4;
-                            sp178 = D_803C0740[temp_t1 - 1][temp_a0 + 1].unk6 * 4;
-                            sp176 = D_803C0740[temp_t1 + 1][temp_a0 + 1].unk6 * 4;
-                            sp174 = D_803C0740[temp_t1 + 1][temp_a0 - 1].unk6 * 4;
+                            displayList->unk286E0[(z * vertsPerRow) + x].v.ob[2] = WATER_CENTER_WAVE(waterOriginX, x, waterOriginZ, z) + height;
 
-                            temp_t2 = sp164 + (x * sp160) + z;
-                            temp_t7 = (temp_t2 + sp164 + (x * sp164) + x) * 8;
+                            centerPhase = WATER_CENTER_PHASE(WATER_WAVE_ROW(waterOriginX, x, waterOriginZ, z), waterOriginX, x);
+                            normalX = (f32)((WATER_CENTER_WAVE(waterOriginX, x + eastOffset, waterOriginZ, z)
+                                + height + WATER_WAVE_SAMPLE(WATER_WAVE_ROW(waterOriginX, x, waterOriginZ, z), centerPhase))
+                                - WATER_VERTEX_HEIGHT(D_803C0740[tileX + eastOffset][z + waterOriginZ].unk6));
+                            normalX /= tileSize;
+                            normalY = tileSize / tileSize;
+                            normalZ = (f32)((WATER_WAVE_SAMPLE(WATER_WAVE_ROW(waterOriginX, x, waterOriginZ, z) + 1, centerPhase + 8)
+                                + height + WATER_WAVE_SAMPLE(WATER_WAVE_ROW(waterOriginX, x, waterOriginZ, z), centerPhase))
+                                - WATER_VERTEX_HEIGHT(D_803C0740[x + waterOriginX][z + waterOriginZ + 1].unk6));
+                            normalZ /= tileSize;
 
-                            tmp6 = (temp_t1 + sp160 + z);
-                            tmp5 = (tmp6 + sp164 + temp_t1 + x) * 8;
+                            normalLen = sqrtf(SQ(normalX) + SQ(normalZ) + SQ(normalY));
+                            normalScale = 128.0f / normalLen;
+                            normalX *= normalScale;
+                            normalZ *= normalScale;
+                            normalY *= normalScale;
+                            displayList->unk286E0[(z * vertsPerRow) + x].n.n[0] = (s32) normalX;
+                            displayList->unk286E0[(z * vertsPerRow) + x].n.n[1] = (s32) normalZ;
+                            displayList->unk286E0[(z * vertsPerRow) + x].n.n[2] = (s32) normalY;
 
-                            vertex = &arg1->unk286E0[(z * vertsPerRow) + x];
-                            vertex->v.ob[2] = gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)] + height;
-
-                            temp_f20 = ((gWaterAnimState.unk0[tmp6 & 7][(gWaterAnimState.unk204 + tmp5 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1 + 1][z + sp160].unk6 * 4)) / foo;
-                            temp_f22 = ((gWaterAnimState.unk0[(temp_t2 + 1) & 7][(gWaterAnimState.unk204 + temp_t7 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1][z + sp160 + 1].unk6 * 4)) / foo;
-                            temp_f24 = foo / foo;
-
-                            temp_f2 = 128.0f / sqrtf(SQ(temp_f20) + SQ(temp_f22) + SQ(temp_f24));
-                            vertex->n.n[0] = (s32) (temp_f20 * temp_f2);
-                            vertex->n.n[1] = (s32) (temp_f22 * temp_f2);
-                            vertex->n.n[2] = (s32) (temp_f24 * temp_f2);
-
-                            if (sp17A == 0) {
-                                arg1->unk286E0[(((z - 1) * vertsPerRow) + x) - 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
+                            if (northwestHeight == 0) {
+                                displayList->unk286E0[(northRowStart + x) - 1].v.ob[2] = height - WATER_CENTER_WAVE(waterOriginX, x, waterOriginZ, z);
                             }
-                            if (sp178 == 0) {
-                                arg1->unk286E0[(((z + 1) * vertsPerRow) + x) - 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
+                            if (southwestHeight == 0) {
+                                displayList->unk286E0[(((z + 1) * vertsPerRow) + x) - 1].v.ob[2] = height - WATER_CENTER_WAVE(waterOriginX, x, waterOriginZ, z);
                             }
-                            if (sp176 == 0) {
-                                arg1->unk286E0[(((z + 1) * vertsPerRow) + x) + 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
+                            if (southeastHeight == 0) {
+                                displayList->unk286E0[(((z + 1) * vertsPerRow) + x) + 1].v.ob[2] = height - WATER_CENTER_WAVE(waterOriginX, x, waterOriginZ, z);
                             }
-                            if (sp174 == 0) {
-                                arg1->unk286E0[(((z - 1) * vertsPerRow) + x) + 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
+                            if (northeastHeight == 0) {
+                                displayList->unk286E0[(northRowStart + x) + 1].v.ob[2] = height - WATER_CENTER_WAVE(waterOriginX, x, waterOriginZ, z);
                             }
                         }
                     }
                 }
 
-                sp12C = 0;
-                sp98 = sp140 - 1;
-
-                sp136 = 0; // we never reset this?
-
-                for (var_s5 = 0; var_s5 < sp142; var_s5 = (var_s5 + var_t1) - 1) {
-                    var_s2 = 1;
-                    if (sp142 < (var_s5 + 0x10)) {
-                        var_t1 = (sp142 - var_s5) + 1;
+                stripStart = 0;
+                rowsEmitted = 0;
+                cullVertexIndex = 0;
+                // Each strip uses two rows of up to 16 vertices.
+                for (; stripStart < waterWidth; stripStart += quadCount) {
+                    winding = 1;
+                    if (waterWidth < (stripStart + maxStripWidth)) {
+                        stripWidth = (waterWidth - stripStart) + 1;
                     } else {
-                        var_t1 = 0x10;
+                        stripWidth = maxStripWidth;
                     }
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.waterTileX << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.waterTileZ << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = (D_803F2D50.waterTileX << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = (D_803F2D50.waterTileZ << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = minHeight;
+                    cullVertexIndex++;
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.waterTileX << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = (D_803F2D50.waterTileX << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = minHeight;
+                    cullVertexIndex++;
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = minHeight;
+                    cullVertexIndex++;
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.waterTileZ << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = (D_803F2D50.waterTileZ << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = minHeight;
+                    cullVertexIndex++;
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.waterTileX << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.waterTileZ << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = (D_803F2D50.waterTileX << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = (D_803F2D50.waterTileZ << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = maxHeight;
+                    cullVertexIndex++;
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.waterTileX << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = (D_803F2D50.waterTileX << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = maxHeight;
+                    cullVertexIndex++;
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = ((D_803F2D50.waterTileZ + D_803F2D50.waterTileDepth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = maxHeight;
+                    cullVertexIndex++;
 
-                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.waterTileZ << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
-                    sp136++;
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[0] = ((D_803F2D50.waterTileX + D_803F2D50.waterTileWidth) << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[1] = (D_803F2D50.waterTileZ << 6);
+                    displayList->unk2C2F0[cullVertexIndex].v.ob[2] = maxHeight;
+                    cullVertexIndex++;
 
-                    gSPVertex(
-                    /* pkt */ gLayer1DL++,
-                    /* v   */ K0_TO_PHYS(&arg1->unk2C2F0[0]),
-                    /* n   */ 8,
-                    /* v0  */ 0);
+                    gSPVertex(gLayer1DL++, K0_TO_PHYS(&displayList->unk2C2F0[0]), 8, 0);
 
                     gSPCullDisplayList(gLayer1DL++, 0, 7);
 
-                    gSPVertex(
-                    /* pkt */ gLayer1DL++,
-                    /* v   */ K0_TO_PHYS(&arg1->unk286E0[var_s5]),
-                    /* n   */ var_t1,
-                    /* v0  */ 0);
+                    gSPVertex(gLayer1DL++, K0_TO_PHYS(&displayList->unk286E0[stripStart]), stripWidth, 0);
 
-                    // var_s7 = 1; /// ???
-                    temp_s4 = var_t1 - 1;
-                    var_t5 = vertsPerRow;
-                    spA0 = (s32) var_t1;
-
-                    for (var_t4 = 0; var_t4 < sp98; var_t4++) {
-                        start = -100; // start
-                        end = var_t1; // end
-
+                    for (row = 0; row < waterDepth - 1; ++row) {
                         gDPPipeSync(gLayer1DL++);
+                        firstColumn = -100;
+                        lastColumn = stripWidth;
 
-                        for  (i2 = 0; i2 < var_t1; i2++) {
-                            if ((arg1->unk286E0[var_t4*vertsPerRow + i2].v.ob[2] != 0) ||
-                                (arg1->unk286E0[var_t5 + i2].v.ob[2] != 0)) {
-                                if (start == -100) {
-                                    start = i2;
+                        // The scan ignores stripStart; only the vertex load and the quad test apply it.
+                        for (column = 0; column < stripWidth; column++) {
+                            if ((displayList->unk286E0[(row * vertsPerRow) + column].v.ob[2] != 0) ||
+                                (displayList->unk286E0[((row + 1) * vertsPerRow) + column].v.ob[2] != 0)) {
+                                if (firstColumn == -100) {
+                                    firstColumn = column;
                                 }
-                                end = i2;
+                                lastColumn = column;
                             }
                         }
 
-                        if (start < 0) {
-                            start = 0;
+                        // fakematch: IDO removes this empty block, but its basic blocks change the
+                        // register allocation in the cull box.
+                        if (stripWidth && stripWidth && stripWidth) {
+                        }
+                        if (firstColumn < 0) {
+                            firstColumn = 0;
                         }
 
-                        sp12C += 1;
-                        sp126 += (end - start) + 1;
+                        rowBelow = (row + 1) * vertsPerRow;
+                        rowStart = row * vertsPerRow;
+                        firstVertex = &displayList->unk286E0[rowBelow + stripStart + firstColumn];
+                        rowsEmitted += 1;
+                        columnEnd = lastColumn + 1;
+                        vtxsEmitted += columnEnd - firstColumn;
+                        firstSlot = (stripWidth * winding) + firstColumn;
 
-                        gSPVertex(
-                        /* pkt */ gLayer1DL++,
-                        /* v   */ K0_TO_PHYS(&arg1->unk286E0[var_t5 + var_s5 + start]),
-                        /* n   */ (end - start) + 1,
-                        /* v0  */ (spA0 * var_s2) + start);
+                        gSPVertex(gLayer1DL++, K0_TO_PHYS(firstVertex), columnEnd - firstColumn, firstSlot);
 
-                        for (i = 0; i < temp_s4; i++) {
+                        for (x = 0; x < stripWidth - 1; x++) {
+                            if (((D_803C0740[(stripStart + x) + waterOriginX][row + waterOriginZ].unk0 * 8) < displayList->unk286E0[(stripStart + x) + rowStart].v.ob[2]) ||
+                                ((D_803C0740[(stripStart + x) + waterOriginX + 1][row + waterOriginZ].unk0 * 8) < displayList->unk286E0[(stripStart + x) + rowStart + 1].v.ob[2]) ||
+                                ((D_803C0740[(stripStart + x) + waterOriginX + 1][row + waterOriginZ + 1].unk0 * 8) < displayList->unk286E0[(stripStart + x) + rowBelow + 1].v.ob[2]) ||
+                                ((D_803C0740[(stripStart + x) + waterOriginX][row + waterOriginZ + 1].unk0 * 8) < displayList->unk286E0[(stripStart + x) + rowBelow].v.ob[2])) {
 
-                            if (((D_803C0740[(var_s5 + i) + sp164 + 0][var_t4 + sp160 + 0].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t4 * vertsPerRow) + 0].v.ob[2]) ||
-                                ((D_803C0740[(var_s5 + i) + sp164 + 1][var_t4 + sp160 + 0].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t4 * vertsPerRow) + 1].v.ob[2]) ||
-                                ((D_803C0740[(var_s5 + i) + sp164 + 1][var_t4 + sp160 + 1].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t5              ) + 1].v.ob[2]) ||
-                                ((D_803C0740[(var_s5 + i) + sp164 + 0][var_t4 + sp160 + 1].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t5              ) + 0].v.ob[2])) {
+                                // Pack both triangle commands explicitly to preserve IDO's instruction order.
+                                if (winding != 0) {
+                                    // gSP2Triangles(dl, opposite, x + 1, opposite + 1, 0, opposite, x, x + 1, 0)
+                                    s32 opposite = x + stripWidth;
+                                    u32 nextField = _SHIFTL((x + 1) * 2, 0, 8);
+                                    u32 farField = _SHIFTL((opposite + 1) * 2, 0, 8);
+                                    Gfx *g = gLayer1DL++;
 
-                                if (var_s2 != 0) {
-                                    gSP2Triangles(
-                                    /* gdl   */ gLayer1DL++,
-                                    /* v00   */ (i + var_t1),
-                                    /* v01   */ (i         ) + 1,
-                                    /* v02   */ (i + var_t1) + 1,
-                                    /* flag0 */ 0,
-                                    /* v10   */ (i + var_t1),
-                                    /* v11   */ (i         ) + 0,
-                                    /* v12   */ (i         ) + 1,
-                                    /* flag1 */ 0);
+                                    g->words.w0 = _SHIFTL(G_TRI2, 24, 8) | (_SHIFTL(opposite * 2, 16, 8) | (nextField << 8) | farField);
+                                    g->words.w1 = _SHIFTL(opposite * 2, 16, 8) | _SHIFTL(x * 2, 8, 8) | nextField;
 
                                 } else {
-                                    gSP2Triangles(
-                                    /* gdl   */ gLayer1DL++,
-                                    /* v00   */ (i         ),
-                                    /* v01   */ (i + var_t1) + 1,
-                                    /* v02   */ (i         ) + 1,
-                                    /* flag0 */ 0,
-                                    /* v10   */ (i         ),
-                                    /* v11   */ (i + var_t1),
-                                    /* v12   */ (i + var_t1) + 1,
-                                    /* flag1 */ 0);
+                                    // gSP2Triangles(dl, x, bottomVertex + 1, x + 1, 0, x, bottomVertex, bottomVertex + 1, 0)
+                                    u32 bottomVertex = stripWidth + x;
+                                    u32 w0 = _SHIFTL(G_TRI2, 24, 8) | __gsSP1Triangle_w1f(x, bottomVertex + 1, x + 1, 0);
+                                    u32 w1 = __gsSP1Triangle_w1f(x, bottomVertex, bottomVertex + 1, 0);
+                                    Gfx *g = gLayer1DL++;
+
+                                    g->words.w0 = w0;
+                                    g->words.w1 = w1;
                                 }
                             }
                         }
 
-                        var_s2 = 1 - var_s2; // toggle
-
-                        var_t5 += vertsPerRow;
+                        winding = 1 - winding;
                     }
+                    quadCount = stripWidth - 1; // strips overlap by one column
                 }
 
                 gSPSetGeometryMode(gLayer1DL++, G_CULL_BACK);
@@ -755,12 +715,12 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     }
     func_802983D0_6A9A80();
 }
-#else
-static s16 D_803A04F0_7B1BA0 = 0;
-static s16 D_803A04F2_7B1BA2 = 0; // unused?
-static s16 D_803A04F8_7B1BA8 = 1; // unused?
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_80297628_6A8CD8.s")
-#endif
+
+#undef WATER_CENTER_WAVE
+#undef WATER_WAVE_SAMPLE
+#undef WATER_CENTER_PHASE
+#undef WATER_WAVE_ROW
+#undef WATER_VERTEX_HEIGHT
 
 s32 func_802983D0_6A9A80(void) {
     s32 new_var UNUSED;
