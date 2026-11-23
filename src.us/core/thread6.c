@@ -197,12 +197,18 @@ void thread6(s32 arg0) {
 
     initialise_audio((s32 *)&D_80286328);
 
+#ifdef __sgi
     i = 0; // fakematch
 
     // stack (1)
     gFrameContext[i].unk3BBA8 = 6;
     gFrameContext[i].unk3BBC8 = 2;
     gFrameContext[i].framebuffer = gFramebuffer[0];
+#else
+    gFrameContext[0].unk3BBA8 = 6;
+    gFrameContext[0].unk3BBC8 = 2;
+    gFrameContext[0].framebuffer = gFramebuffer[0];
+#endif
     // stack (2)
     gFrameContext[1].unk3BBA8 = 6;
     gFrameContext[1].unk3BBC8 = 2;

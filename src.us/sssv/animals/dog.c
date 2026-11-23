@@ -256,9 +256,11 @@ void func_802EA7F0_6FBEA0(void) {
         set_single_collision_sphere(D_803D552C, 600, 900);
     }
 
+#ifdef __sgi
     if (0) {
         if (sp8E == 1 ? sp8E == 2 ? sp8E == 3 ? sp8E == 4 ? 1 : 2 : 3 : 4 : 5);
     }
+#endif
 }
 
 // FLYING_DOG
@@ -736,9 +738,7 @@ void func_802ED108_6FE7B8(void) {
             D_80203FE0[1].unk0 -= spAA;
 
             gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x14, 0x14, 0x14, 0xFF);
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 19, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, dog_neck); }
-#pragma _permuter sameline end
             gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
 
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 7,  FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, dog_upper_leg); }
@@ -757,9 +757,7 @@ void func_802ED108_6FE7B8(void) {
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB6, &spB4);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB6, &spB4);
-#pragma _permuter sameline start
                 spB6 = D_803BD530_7CEBE0.eyes[1][spB6]; spB4 = D_803BD600_7CECB0.eyes[0][spB4];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, spB6);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, dog_left_eye);
                 func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, spB4);

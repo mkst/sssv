@@ -17,7 +17,6 @@ extern Gfx D_04008E30_D0860[];
 extern Gfx D_04009540_D0F70[];
 
 // BEAR
-// CURRENT (3913)
 void func_80323680_734D30(void) {
     u8 var_v0;
     u16 ticks_remaining;
@@ -332,9 +331,7 @@ void func_80323680_734D30(void) {
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB8, &spB6);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB8, &spB6);
-#pragma _permuter sameline start
                 spB8 = D_803BD530_7CEBE0.eyes[6][spB8];spB6 = D_803BD600_7CECB0.eyes[5][spB6];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes6_TLUT2_pal, (u8 (*)[128])img_eyes6_ci4__png, spB8);
                 gSPDisplayList(gOpaqueDL++, D_010037F0_3D0C0);
                 func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0xA6) >> 6, (D_803F2EC8 * 0xA6) >> 6, (D_803F2EC8 * 0xA6) >> 6, D_803F2ED0, 0, 0, 0, D_04008490_CFEC0);
@@ -915,8 +912,10 @@ void func_803277B4_738E64(void) {
     // struct035 *tmp;
 
     if ((D_803D552C->unk320 == NULL) && (D_803D552C->unk365 != 11)) {
+#ifdef __sgi
         s32 fake = !D_803D552C->unk318;
         if (fake) {}
+#endif
         D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = 11;
     } else if ((D_803D552C->unk320 != NULL) &&
@@ -1001,7 +1000,7 @@ void func_803279BC_73906C(void) {
     }
 }
 
-void func_80327B84_739234(s32 arg0, s32 arg1, s32 arg2) {
+void unused_80327B84_739234(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void func_80327B94_739244(s16 arg0) {

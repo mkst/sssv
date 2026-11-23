@@ -376,7 +376,6 @@ void update_tortoise_tank(void) {
         gDPSetPrimColor(gAuxDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
 
         // FIXME: this is 1 macro (hence the newline breaks)
-#pragma _permuter sameline start
         gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (u32)img_D_01036C90_70560_ci8__png & 0x1FFFFFFF);\
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);\
         gDPLoadSync(gAuxDL++);\
@@ -385,7 +384,6 @@ void update_tortoise_tank(void) {
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_8b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);\
         gDPSetTileSize(gAuxDL++, G_TX_RENDERTILE, 0, 0, 4*(15), 4*(15));\
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_8b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
-#pragma _permuter sameline end
 
         gSPScisTextureRectangle(
             /* pkt  */ gAuxDL++,
@@ -961,8 +959,7 @@ void func_80355918_766FC8(void) {
     }
 }
 
-// unused?
-void func_80355E14_7674C4(void) {
+void unused_80355E14_7674C4(void) {
     fire_cannonball_1(OBJECT_CANNONBALL, 32, 0, 30, 10, 0, 2, 45);
     func_8034220C_7538BC(17, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
     D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);

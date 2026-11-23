@@ -53,7 +53,11 @@ void func_803726E0_783D90(void) {
             func_8032CD70_73E420(
                 ((u8*)D_803D5530) + 2,
                 0x3A,
+#ifdef __sgi
                 ((0, (f32) ((D_803D552C->unk348 - 400.0) / 120.0))) * 20480.0f, // macro?
+#else
+                (((f32) ((D_803D552C->unk348 - 400.0) / 120.0))) * 20480.0f, // macro?
+#endif
                 0,
                 0.5f,
                 D_803D5530->position.xPos.h,
@@ -106,7 +110,9 @@ void func_803726E0_783D90(void) {
                     D_803F2ECC = ticks_remaining * 4;
                     spAA = ticks_remaining * 8;
                 } else {
+#ifdef __sgi
                     if (1) {};
+#endif
                     D_803D552C->unk365 = ATTACK_NONE;
                     load_animal(DESERT_FOX_ATTACKING);
                     D_803D552C->unk30A = D_803D552C->unk348;

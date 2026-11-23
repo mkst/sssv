@@ -120,7 +120,9 @@ void setup_terminal_stat_text(void) {
 
     D_803D5528 = gAnimalState.animals[gCurrentAnimalIndex].animal;
     a = D_803D5528;
+#ifdef __sgi
     if (a == NULL) {};
+#endif
     D_803D552C = a;
     D_803D5530 = a;
 

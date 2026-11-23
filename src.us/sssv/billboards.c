@@ -89,8 +89,13 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
                 (gDisplayListContext->unk38A10.flat.unk18 * temp_f14) +
                 (gDisplayListContext->unk38A10.flat.unk1C           );
 
+#ifdef __sgi
             sp80 = ((gDisplayListContext->unk38A10.flat.unk30 * temp_f8) / temp_f0) +  (gScreenWidth * (0, 2));
             sp7C = ((gDisplayListContext->unk38A10.flat.unk34 * temp_f6) / temp_f0) + (gScreenHeight * (0, 2));
+#else
+            sp80 = ((gDisplayListContext->unk38A10.flat.unk30 * temp_f8) / temp_f0) +  (gScreenWidth * (2));
+            sp7C = ((gDisplayListContext->unk38A10.flat.unk34 * temp_f6) / temp_f0) + (gScreenHeight * (2));
+#endif
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 
@@ -202,8 +207,13 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
                 (gDisplayListContext->unk38A10.flat.unk1C       );
 
 
+#ifdef __sgi
             spA0 = ((gDisplayListContext->unk38A10.flat.unk30 * spA8) / temp_f0) + (gScreenWidth  * (0, 2));
             sp9C = ((gDisplayListContext->unk38A10.flat.unk34 * spA4) / temp_f0) + (gScreenHeight * (0, 2));
+#else
+            spA0 = ((gDisplayListContext->unk38A10.flat.unk30 * spA8) / temp_f0) + (gScreenWidth  * (2));
+            sp9C = ((gDisplayListContext->unk38A10.flat.unk34 * spA4) / temp_f0) + (gScreenHeight * (2));
+#endif
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 
@@ -329,8 +339,13 @@ void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s1
                  ((gDisplayListContext->unk38A10.m[1][1] * temp_f10) +
                   (gDisplayListContext->unk38A10.m[1][0] * temp_f2)));
 
+#ifdef __sgi
             sp90 = ((gDisplayListContext->unk38A10.m[3][0] * temp_f8) / temp_f0) + (gScreenWidth  * (0, 2));
             sp84 = ((gDisplayListContext->unk38A10.m[3][1] * sp98) / temp_f0) + (gScreenHeight * (0, 2));
+#else
+            sp90 = ((gDisplayListContext->unk38A10.m[3][0] * temp_f8) / temp_f0) + (gScreenWidth  * (2));
+            sp84 = ((gDisplayListContext->unk38A10.m[3][1] * sp98) / temp_f0) + (gScreenHeight * (2));
+#endif
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
             arg7 = (arg7 * 33) / D_803F2D50.fovY;
@@ -452,8 +467,13 @@ void draw_particle_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16
                  ((gDisplayListContext->unk38A10.m[1][1] * temp_f14) +
                   (gDisplayListContext->unk38A10.m[1][0] * temp_f0)));
 
+#ifdef __sgi
             sp78 = ((gDisplayListContext->unk38A10.m[3][0] * temp_f8) / temp_f2) + (gScreenWidth  * (0, 2));
             sp7C = ((gDisplayListContext->unk38A10.m[3][1] * sp8C) / temp_f2) + (gScreenHeight * (0, 2));
+#else
+            sp78 = ((gDisplayListContext->unk38A10.m[3][0] * temp_f8) / temp_f2) + (gScreenWidth  * (2));
+            sp7C = ((gDisplayListContext->unk38A10.m[3][1] * sp8C) / temp_f2) + (gScreenHeight * (2));
+#endif
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
             arg7 = (arg7 * 33) / D_803F2D50.fovY;

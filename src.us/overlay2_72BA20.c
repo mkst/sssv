@@ -210,7 +210,9 @@ void func_8031A4E0_72BB90(void) {
             y2 += SSSV_RAND(32) - 16;
             x2 += SSSV_RAND(32) - 16;
             z2 += SSSV_RAND(32) - 8;
+#ifdef __sgi
             if (!D_803E97C8.startX) {}
+#endif
             z2 += (COS(phase) * 8) >> 0xF;
         }
 

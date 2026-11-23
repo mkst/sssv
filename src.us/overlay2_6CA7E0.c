@@ -36,17 +36,20 @@ void func_802B9130_6CA7E0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     }
 
     D_80203FE0[3].unk0 = -arg2;
+    D_80203FE0[3].unk2 = arg1;
     D_80203FE0[3].unk4 = 0;
+
+    D_80203FE0[4].unk0 = arg2;
+    D_80203FE0[4].unk2 = arg1;
     D_80203FE0[4].unk4 = 0;
+
     D_80203FE0[5].unk2 = -arg1;
     D_80203FE0[5].unk0 = -arg2;
     D_80203FE0[5].unk4 = 0;
+
     D_80203FE0[6].unk2 = -arg1;
-    D_80203FE0[6].unk4 = 0;
-    D_80203FE0[3].unk2 = arg1;
-    D_80203FE0[4].unk0 = arg2;
-    D_80203FE0[4].unk2 = arg1;
     D_80203FE0[6].unk0 = arg2;
+    D_80203FE0[6].unk4 = 0;
 
     func_802BCF38_6CE5E8(arg1, arg2, arg0);
     tmp = arg0->unk0;
@@ -146,9 +149,10 @@ void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3) {
     D_80203FE0[2].unk4 = arg2 + *arg0;
 
     D_80203FE0[1].unk2 = 0;
-    D_80203FE0[0].unk2 = 0;
     D_80203FE0[1].unk0 = D_80203FE0[1].unk2;
     D_80203FE0[1].unk4 = (arg1 * 2) + D_80203FE0[2].unk4;
+
+    D_80203FE0[0].unk2 = 0;
     D_80203FE0[0].unk0 = D_80203FE0[0].unk2;
     D_80203FE0[0].unk4 = (D_80203FE0[1].unk4 + D_80203FE0[2].unk4) >> 1;
 }
@@ -282,7 +286,9 @@ void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     s16 pad UNUSED;
     s16 var_t4;
     s16 var_a2;
+#ifdef __sgi
     s32 state;
+#endif
 
     if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_WALKING_IN_WATER) ||
         (D_803D5530->state == STATE_FAST_IN_WATER) || (D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) ||
@@ -307,26 +313,27 @@ void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     func_802BD21C_6CE8CC(arg4, arg0);
 
     D_80203FE0[2].unk0 = D_80203FE0[2].unk2 = 0;
-
     D_80203FE0[2].unk4 = arg0->unk0 + arg2;
     D_80203FE0[2].unk4 += ((((var_t4 * arg3) * ((SIN(D_803D552C->gaitPhaseOffset << 1) >> 7) >> 4)) >> 9));
-    D_80203FE0[1].unk2 = var_a2;
+
     D_80203FE0[0].unk2 = var_a2 >> 1;
     D_80203FE0[0].unk0 = 0;
+
+    D_80203FE0[1].unk2 = var_a2;
     D_80203FE0[1].unk0 = 0;
 
+#ifdef __sgi
     if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_CARRYING)) {
 
     } else {
         if (1) {
             state = D_803D5530->state;
         };
-#ifdef __sgi
         if ((var_a2 = state)) {
             // fake
         }
-#endif
     }
+#endif
 
     D_80203FE0[0].unk4 = D_80203FE0[2].unk4 + arg1;
     D_80203FE0[1].unk4 = D_80203FE0[2].unk4 + (arg1 << 1);
@@ -394,18 +401,21 @@ void func_802BA614_6CBCC4(s16 *arg0, s16 arg1) {
 }
 
 void func_802BAA38_6CC0E8(u16 arg0, u16 arg1) {
-    D_80203FE0[3].unk4 = 0;
     D_80203FE0[3].unk0 = -arg1;
+    D_80203FE0[3].unk2 = arg0;
+    D_80203FE0[3].unk4 = 0;
+
+    D_80203FE0[4].unk0 = arg1;
+    D_80203FE0[4].unk2 = arg0;
     D_80203FE0[4].unk4 = 0;
+
     D_80203FE0[5].unk2 = -arg0;
     D_80203FE0[5].unk0 = -arg1;
     D_80203FE0[5].unk4 = 0;
+
     D_80203FE0[6].unk2 = -arg0;
-    D_80203FE0[6].unk4 = 0;
-    D_80203FE0[4].unk0 = arg1;
     D_80203FE0[6].unk0 = arg1;
-    D_80203FE0[3].unk2 = arg0;
-    D_80203FE0[4].unk2 = arg0;
+    D_80203FE0[6].unk4 = 0;
 
     func_802C79E0_6D9090(&D_80203FE0[3], -D_803D5530->unk28);
     func_802C79E0_6D9090(&D_80203FE0[4], -D_803D5530->unk28);

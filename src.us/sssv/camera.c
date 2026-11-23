@@ -443,7 +443,9 @@ void func_8032FF94_741644(u8 cameraID) {
         if (sp88 != 0.0) {
             spC8 = gCamera->targetVelY + ((sp88 * var_f2) / temp_f0_2);
         }
+#ifdef __sgi
         if (0) {};
+#endif
     }
 
     gCamera->targetVelX = spD0;
@@ -910,7 +912,9 @@ void func_80332444_743AF4(u8 arg0) {
                 spC8 = gCamera->targetVelY + ((sp8C * temp_f2_5) / temp_f0_2);
             }
         }
+#ifdef __sgi
         if (0) {};
+#endif
     }
 
     gCamera->targetVelX = spD0;
@@ -1325,7 +1329,9 @@ void func_80334470_745B20(u8 id, u8 arg1) {
                 spE0 = gCamera->targetVelY + ((spAC * var_f2) / var_f0);
             }
         }
+#ifdef __sgi
         if (0) {}; // tbd
+#endif
     }
 
     gCamera->targetVelX = spE8;
@@ -1712,7 +1718,9 @@ void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
                 spBC = gCamera->targetVelY + ((sp98 * var_f2_2) / temp_f0);
             }
         }
+#ifdef __sgi
         if (0) {};
+#endif
     }
     gCamera->targetVelX = spC4;
     gCamera->targetVelZ = spC0;
@@ -2520,7 +2528,9 @@ void fix_camera_to_angle_offset(u8 cameraID, f32 angle) {
         if (sp60 != 0.0) {
             sp88 = gCamera->targetVelY + ((sp60 * var_f2_2) / temp_f0_2);
         }
+#ifdef __sgi
         if (0) {};
+#endif
     }
     gCamera->targetVelX = sp90;
     gCamera->targetVelZ = sp8C;
@@ -2931,7 +2941,9 @@ void func_8033B9B8_74D068(u8 arg0) {
         if (sp24 != 0.0) {
             sp58 = gCamera->targetVelY + ((sp24 * 6.0f) / temp_f0_5);
         }
+#ifdef __sgi
         if (1) { }
+#endif
     }
     gCamera->targetVelX = sp60;
     gCamera->targetVelZ = sp5C;
@@ -3632,7 +3644,9 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                     }
                 }
 
+#ifdef __sgi
                 if ((!new_var) && (!new_var)) {}; // fake
+#endif
 
                 var_s4 = ((((xPos - arg0) * (arg3 - arg0)) + ((zPos - arg1) * (arg4 - arg1))) << 8) / var_t2;
                 if (var_s4 < 0) {
@@ -4937,7 +4951,9 @@ void func_80342550_753C00(Camera *arg0) {
         phi_f14 = phi_f16 = 0.0f;
         break;
     default:
+#ifdef __sgi
         if (1) {};
+#endif
 #ifdef AVOID_UB
         phi_f16 = 0.0f;
         phi_f14 = 0.0f;

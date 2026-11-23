@@ -1112,7 +1112,9 @@ void func_8034FCFC_7613AC(Vertex *src, Vertex *arg1, Vertex *arg2, s16 numVtxs, 
 
     while (i < numVtxs) {
         var_s3 = src[i].unk2;
+#ifdef __sgi
         do { } while (0); // only needed for ESA
+#endif
 
         if (var_s3 < arg6) {
             if (var_s2 < arg6) {

@@ -375,9 +375,7 @@ void func_8036D700_77EDB0(void) {
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04001E50_E9400);
                 break;
             }
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 0x13, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040014D0_E8A80); }
-#pragma _permuter sameline end
             switch (D_803D5524->animalType) {
             case CAMEL:
                 func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x64) >> 6, (D_803F2EC0 * 0x64) >> 6, (D_803F2EC4 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04000F90_E8540);
@@ -393,18 +391,10 @@ void func_8036D700_77EDB0(void) {
 
             gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
 
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 7, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040020F0_E96A0); }
-#pragma _permuter sameline end
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(5, 0xD, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040020F0_E96A0); }
-#pragma _permuter sameline end
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(7, 8, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04002020_E95D0); }
-#pragma _permuter sameline end
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(0xD, 0xE, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04002020_E95D0); }
-#pragma _permuter sameline end
 
             func_802C78B0_6D8F60(8, 9, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04001650_E8C00);
             func_802C78B0_6D8F60(0xE, 0xF, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04001650_E8C00);
@@ -412,27 +402,17 @@ void func_8036D700_77EDB0(void) {
             gSPClearGeometryMode(gOpaqueDL++, G_CULL_BACK);
             gSPSetGeometryMode(gOpaqueDL++, G_CULL_FRONT);
 
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 10, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_040020F0_E96A0); }
-#pragma _permuter sameline end
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(6, 16, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_040020F0_E96A0); }
-#pragma _permuter sameline end
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(10, 11, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04002020_E95D0); }
-#pragma _permuter sameline end
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(16, 17, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04002020_E95D0); }
-#pragma _permuter sameline end
 
             func_802C78B0_6D8F60(0xB, 0xC, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04001650_E8C00);
             func_802C78B0_6D8F60(0x11, 0x12, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04001650_E8C00);
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spDE, &spDC);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spDE, &spDC);
-#pragma _permuter sameline start
                 spDE = D_803BD530_7CEBE0.eyes[1][spDE]; spDC = D_803BD600_7CECB0.eyes[0][spDC];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes_ci4__png, spDE);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04002820_E9DD0);
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes_ci4__png, spDC);

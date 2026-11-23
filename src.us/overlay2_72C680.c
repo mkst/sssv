@@ -559,7 +559,9 @@ void load_level_data_sections(void) {
             D_803E8E54 = count / sizeof(CmdWrapper);
             for (j = 0; j < D_803E8E54; j++) {
                 if ((*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).type == 24) {
+#ifdef __sgi
                     if (1) {
+#endif
                         osSyncPrintf(
                             "Partcle State: %d F $%X Fq %d Time %d S %d\n",
                             (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.State,
@@ -567,7 +569,9 @@ void load_level_data_sections(void) {
                             (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.Fq,
                             (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.Time,
                             (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.S);
+#ifdef __sgi
                         }
+#endif
                 }
             }
             break;
@@ -605,9 +609,13 @@ void load_level_data_sections(void) {
             }
 
             // improves score by 30, but is likely unhelpful overall
+#ifdef __sgi
             if (1) {
+#endif
                 osSyncPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(gWaypointPathBuffer));
+#ifdef __sgi
             }
+#endif
 
             // NOTE: no boundary check that pafBytesUsed < sizeof(gWaypointPathBuffer)!
             memcpy_sssv(paf2, (u8*)gWaypointPathBuffer, pafBytesUsed);

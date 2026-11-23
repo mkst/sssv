@@ -32,7 +32,6 @@ extern Gfx D_04004DE0_F5E40[];
 extern Gfx D_04004F30_F5F90[];
 extern Gfx D_04004FF0_F6050[];
 
-
 // GORILLA
 void update_gorilla(void) {
     u8 temp_v0_18;
@@ -254,13 +253,13 @@ void update_gorilla(void) {
             }
             if (ticks_remaining < 0x14) {
                 temp_v0_14 = ticks_remaining << 2;
-                spC4 = spC4 + (((SIN(temp_v0_14) >> 7) * spC6) >> 8); // different regalloc with +=
+                spC4 = spC4 + (((SIN(temp_v0_14) >> 7) * spC6) >> 8); 
                 spC6 = (((COS(temp_v0_14) >> 7) * spC6) >> 8);
                 gAnimBlendMode = ANIM_BLEND_THROW;
                 D_803F2ECC = MAX(1, (ticks_remaining << 5) / 20);
             } else if (ticks_remaining < 0x19) {
                 temp_v0_14 = (40 - ticks_remaining) << 2;
-                spC4 = spC4 + (((SIN(temp_v0_14) >> 7) * spC6) >> 8); // different regalloc with +=
+                spC4 = spC4 + (((SIN(temp_v0_14) >> 7) * spC6) >> 8); 
                 spC6 = (((COS(temp_v0_14) >> 7) * spC6) >> 8);
                 gAnimBlendMode = ANIM_BLEND_THROW;
                 D_803F2ECC = MAX(1, 32 - (((ticks_remaining << 5) - 0x280) / 4));
@@ -527,7 +526,9 @@ void update_gorilla(void) {
 void func_8037B590_78CC40(void) {
     if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 != ATTACK_GRAB) && (D_803D5530->movementState == MOVEMENT_STATE_GROUND)) {
         // fakematch
+#ifdef __sgi
         if (D_803D5530) {};
+#endif
 
         D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_GRAB;

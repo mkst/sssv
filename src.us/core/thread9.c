@@ -84,7 +84,9 @@ s32 init_controllers(void) {
             if (gControllerStatus[i].type & CONT_JOYPORT) {
                 if (gControllerStatus[i].status & CONT_CARD_ON) {
                     status = osPfsInit(&gSiEventQueue, (s32)&gControllerPakHandles[i], i);
+#ifdef __sgi
                     if ((status == 10) || (status == 11)) {}
+#endif
                     if (((status == PFS_ERR_ID_FATAL)) || (status == PFS_ERR_DEVICE)) {
                         if (osMotorInit(&gSiEventQueue, (s32)&gControllerPakHandles[i], i) == 0) {
                             gRumbleState.hasRumblePak[i] = 1;

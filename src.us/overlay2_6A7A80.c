@@ -324,7 +324,9 @@ void func_8029726C_6A891C(struct063 grid[73][129]) {
 
     // fakematch: without this check, IDO keeps endX in a register for the first loop test
     // and loads the gWaterAnimState address later, so the registers and instruction count differ
+#ifdef __sgi
     if (((gWaterAnimState.unk20F & 7) != gWaterAnimState.unk20F) || (D_803F2D50.waterTileX != D_803F2D50.waterTileZ)) {}
+#endif
 
     startX = (s16)(startX & 0xFFFF);
     initialX = startX;
@@ -657,8 +659,10 @@ void func_80297628_6A8CD8(struct063 terrain[73][129] UNUSED, DisplayList *displa
 
                         // fakematch: IDO removes this empty block, but its basic blocks change the
                         // register allocation in the cull box.
+#ifdef __sgi
                         if (stripWidth && stripWidth && stripWidth) {
                         }
+#endif
                         if (firstColumn < 0) {
                             firstColumn = 0;
                         }

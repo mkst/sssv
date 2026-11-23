@@ -137,8 +137,13 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
             (gDisplayListContext->unk38A10.flat.unk18 * spF4) +
             (gDisplayListContext->unk38A10.flat.unk1C);
 
+#ifdef __sgi
         sp12C = ((gDisplayListContext->unk38A10.flat.unk30 * sp144) / temp_f16) + (0, gScreenWidth * 2);
         sp128 = ((gDisplayListContext->unk38A10.flat.unk34 * sp140) / temp_f16) + (0, gScreenHeight * 2);
+#else
+        sp12C = ((gDisplayListContext->unk38A10.flat.unk30 * sp144) / temp_f16) + (gScreenWidth * 2);
+        sp128 = ((gDisplayListContext->unk38A10.flat.unk34 * sp140) / temp_f16) + (gScreenHeight * 2);
+#endif
 
         arg3 = arg3 * 33 / D_803F2D50.fovY;
         sp2C = (arg3 * 128 / -temp_f16) / 8.0;
@@ -227,16 +232,23 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
             (gDisplayListContext->unk38A10.flat.unk2C);
 
         if (temp_f2_4 <= -3.0) {
+#ifdef __sgi
             temp_f14 =  ((gDisplayListContext->unk38A10.flat.unk30 * sp144) / temp_f2_4) + (0, gScreenWidth * 2);
             temp_f162 = ((gDisplayListContext->unk38A10.flat.unk34 * sp140) / temp_f2_4) + (0, gScreenHeight * 2);
+#else
+            temp_f14 =  ((gDisplayListContext->unk38A10.flat.unk30 * sp144) / temp_f2_4) + (gScreenWidth * 2);
+            temp_f162 = ((gDisplayListContext->unk38A10.flat.unk34 * sp140) / temp_f2_4) + (gScreenHeight * 2);
+#endif
         } else {
             return VISIBILITY_OUT_OF_BOUNDS_X;
         }
 
         if ((sp12C + sp2C) < 0 && (temp_f14 + sp2C < 0)) {
+#ifdef __sgi
             // fake
             spF4 = (1 * spF4);
             // end fake
+#endif
             return VISIBILITY_OUT_OF_BOUNDS_Y;
         }
         if ((gScreenWidth * 4 < xl) && (gScreenWidth * 4 < temp_f14 - sp2C)) {
@@ -329,9 +341,15 @@ s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) 
             (gDisplayListContext->unk38A10.flat.unk18 * sp64) +
             (gDisplayListContext->unk38A10.flat.unk1C);
 
+#ifdef __sgi
         // replace (0, 2) with temp var assignment? width/height?
         width =  ((gDisplayListContext->unk38A10.flat.unk30 * tmp1) / temp_f16) + ((0, gScreenWidth * 2));
         height = ((gDisplayListContext->unk38A10.flat.unk34 * tmp2) / temp_f16) + ((0, gScreenHeight * 2));
+#else
+        // replace (2) with temp var assignment? width/height?
+        width =  ((gDisplayListContext->unk38A10.flat.unk30 * tmp1) / temp_f16) + ((gScreenWidth * 2));
+        height = ((gDisplayListContext->unk38A10.flat.unk34 * tmp2) / temp_f16) + ((gScreenHeight * 2));
+#endif
 
         arg3 = (arg3 * 33) / D_803F2D50.fovY;
         temp_f0 = (arg3 * 128 / (-temp_f16)) / 8.0;
@@ -413,8 +431,13 @@ s16 classify_particle_visibility(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
             (gDisplayListContext->unk38A10.flat.unk18 * temp_f14) +
             (gDisplayListContext->unk38A10.flat.unk1C           );
 
+#ifdef __sgi
         sp88 = ((gDisplayListContext->unk38A10.flat.unk30 * sp7C) / sp74) + (gScreenWidth *  ((0, 2)));
         sp80 = ((gDisplayListContext->unk38A10.flat.unk34 * sp78) / sp74) + (gScreenHeight * ((0, 2)));
+#else
+        sp88 = ((gDisplayListContext->unk38A10.flat.unk30 * sp7C) / sp74) + (gScreenWidth *  ((2)));
+        sp80 = ((gDisplayListContext->unk38A10.flat.unk34 * sp78) / sp74) + (gScreenHeight * ((2)));
+#endif
 
         if ((sp88 < 0) || ((gScreenWidth * 4) < sp88)) {
             return VISIBILITY_OUT_OF_BOUNDS_X; // out of horizontal bounds

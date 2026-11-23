@@ -170,8 +170,13 @@ void draw_star_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg
                 (gDisplayListContext->unk38A10.flat.unk1C           );
 
 
+#ifdef __sgi
             sp70 = ((gDisplayListContext->unk38A10.flat.unk30 * sp7C) / temp_f0) + (gScreenWidth  * (0, 2));
             sp6C = ((gDisplayListContext->unk38A10.flat.unk34 * sp78) / temp_f0) + (gScreenHeight * (0, 2));
+#else
+            sp70 = ((gDisplayListContext->unk38A10.flat.unk30 * sp7C) / temp_f0) + (gScreenWidth  * (2));
+            sp6C = ((gDisplayListContext->unk38A10.flat.unk34 * sp78) / temp_f0) + (gScreenHeight * (2));
+#endif
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 

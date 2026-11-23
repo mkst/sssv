@@ -7,7 +7,6 @@ s16 D_803B58A8_7C6F58[4] = { 500, 500, 500, 0 };
 s16 D_803B58B0_7C6F60[10] = { 0, 360, 310,  90,  254, 90, 176, 78, 112, 0 };
 s16 D_803B58C4_7C6F74[10] = { 0, 640, 1310, 130, 180, 90, 180, 48, 180, 0 };
 
-// CURRENT (42)
 void func_80382CF0_7943A0(void) {
     s32 pad3[2];
     f32 temp_f2;
@@ -130,9 +129,7 @@ void func_80382CF0_7943A0(void) {
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp86, &sp84);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp86, &sp84);
-#pragma _permuter sameline start
                 sp86 = D_803BD530_7CEBE0.eyes[1][sp86];sp84 = D_803BD600_7CECB0.eyes[0][sp84];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes_ci4__png, sp86);
                 func_802C78B0_6D8F60(1, 0, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04007E70_E5430);
                 func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes_ci4__png, sp84);

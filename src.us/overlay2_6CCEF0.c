@@ -403,7 +403,11 @@ void func_802BC350_6CDA00(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
     sp38 = -asin_deg_q8((sp3E * 256) / sp38);
 
     // fakematch
+#ifdef __sgi
     *arg0 = sp38 - ((((((sp36 & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF);
+#else
+    *arg0 = sp38 - sp36;
+#endif
     *arg1 = sp38 + sp34;
 }
 
@@ -745,7 +749,9 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         }
     } else {
         if ((D_803D5530->movementState == MOVEMENT_STATE_WATER_SWIM) || (D_803D5530->movementState == MOVEMENT_STATE_SINKING) || (((u32) D_803D5530->movementState) == MOVEMENT_STATE_DRIFTING)) {
+#ifdef __sgi
             if (0) {};
+#endif
             sp45 = 2;
             switch (D_803D5530->state) {
             // NOTE: out of order
@@ -1225,7 +1231,9 @@ void update_limbs_rigid(
                 var_a2 = 0x80;
             }
 
+#ifdef __sgi
             if (0) {};
+#endif
             sp3D = 2;
             switch (D_803D5530->state) {
             case 0x8E:

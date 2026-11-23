@@ -883,7 +883,11 @@ void func_801352E8(void) {
     for (i = 0; i < 1; i++) {
         if ((u8)D_80155168[i] == 1) {
             // fakematch
+#ifdef __sgi
             s32 curTime = ((0, D_802863C8[i]->curTime - D_80155160)) / D_802863C8[i]->uspt;
+#else
+            s32 curTime = (D_802863C8[i]->curTime - D_80155160) / D_802863C8[i]->uspt;
+#endif
             gMusicBeatPhase = ((s32) ((D_802863CC[i]->qnpt * curTime) * 64.0)) & 0x3F;
         }
 

@@ -84,7 +84,11 @@ void func_80382050_793700(void) {
     sp7A = classify_object_visibility(
         D_803D552C->position.xPos.w,
         D_803D552C->position.zPos.w,
+#ifdef __sgi
         (0, D_803D552C->position.yPos.w + (D_803D5524->height << 0xF)),
+#else
+        (D_803D552C->position.yPos.w + (D_803D5524->height << 0xF)),
+#endif
         0x800,
         0,
         62,

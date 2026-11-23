@@ -581,7 +581,9 @@ void initialise_audio(s32 *arg0) {
     ALSynConfig  synConfig;   // sp1EC
     ALSndpConfig sndpConfig;  // sp1E0
     ALSeqpConfig sp170[4];    // we only use 1!
+#ifdef __sgi
     u8 **fake;
+#endif
     s32 i;
     s16 maxSeqArrayLen;
     s32 seqCount;
@@ -601,7 +603,9 @@ void initialise_audio(s32 *arg0) {
 
     D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alBankFile1SegmentRomEnd - _alBankFile1SegmentRomStart);
     dma_read(_alBankFile1SegmentRomStart, D_802862F8, _alBankFile1SegmentRomEnd - _alBankFile1SegmentRomStart);
+#ifdef __sgi
     if ((fake && fake) && fake) {};
+#endif
     alBnkfNew(D_802862F8, _alTable1SegmentRomStart);
 
     D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alBankFile2SegmentRomEnd - _alBankFile2SegmentRomStart);
@@ -890,7 +894,9 @@ Sound *func_80132568(void) {
 
     D_8028631C = D_80286320 = NULL;
 
+#ifdef __sgi
     if (1) {}
+#endif
     return *bar;
 }
 
@@ -1179,7 +1185,9 @@ void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan) {
 
     if (id != SFX_INVALID) {
 
+#ifdef __sgi
         if (1) {}; // required!
+#endif
 
         sound.unk0 = D_80154C4C[id];
         sound.sndID = id;
@@ -1205,7 +1213,9 @@ void func_80133188(s16 id, s16 volume, s16 arg2) {
 
     if (id != SFX_INVALID) {
 
+#ifdef __sgi
         if (1) {}; // required!
+#endif
 
         sound.unk0 = D_80154C4C[id];
         sound.sndID = id;

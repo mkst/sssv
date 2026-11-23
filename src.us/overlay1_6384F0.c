@@ -953,15 +953,19 @@ void render_title_screen_frame(FrameContext *arg0) {
             start_sfx_volume_fade(2.0f, 1.0f, 20.0f);
         }
         D_80299E08_63D4A8++;
+#ifdef __sgi
         if (D_80299E08_63D4A8 == 0xC8) {
             // empty stub
         }
+#endif
         if (D_80299E08_63D4A8 < 200) {
             black_out_screen(&gMainDL);
             render_intro_title_reveal(&gMainDL, D_80299E08_63D4A8);
+#ifdef __sgi
             if (D_80299E08_63D4A8 < 0x5F) {
 
             }
+#endif
             if (D_80299E08_63D4A8 > 40) {
                 func_8013328C(0x2C23, 0x9F, 0x40, 1.0f, (D_8029A014_63D6B4 * 100) + 0x1000, 0);
             }

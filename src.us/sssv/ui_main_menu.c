@@ -1108,7 +1108,9 @@ void func_8039BBB8_7AD268(void) {
                 gPlayerEeprom.level[gGameState.level - 1].trophy = 1;
             }
             // regalloc helper
+#ifdef __sgi
             if (1) {}
+#endif
         }
         level = D_803F7DA8.currentLevel + 1;
         if (gLevelProgress & LEVEL_PROGRESS_COMPLETED) {
@@ -1487,7 +1489,9 @@ void render_stars(Gfx **arg0) {
 
         // FIXME: fakematch
         i = _i;
+#ifdef __sgi
         if (0) {};
+#endif
 
         gDPSetPrimColor((*arg0)++, 0, 0, D_800DF220[i].brightness, D_800DF220[i].brightness, D_800DF220[i].brightness, 0);
 

@@ -336,10 +336,12 @@ void func_80344240_7558F0(void) {
                         translucentVertexIndex = translucentVertexCount;
                         translucentVertexIndices[vertexIndex] = translucentVertexIndex;
 
+#ifdef __sgi
                         if (faceFlags & VTX_RENDER_MODE_DECAL) {
                             // Decal faces store the height back unchanged.
                             D_803F2CA0 = D_803F2CA0;
                         }
+#endif
 
                         tc0 = D_803F2C80[faceIndex].unk4[vertexIndex].tc0 * 64;
                         tc1 = D_803F2C80[faceIndex].unk4[vertexIndex].tc1 * 64;
@@ -428,10 +430,12 @@ void func_80344240_7558F0(void) {
 
                         D_803F2CA0 = D_803F2C80[faceIndex].unk4[vertexIndex].unk8 * 8;
 
+#ifdef __sgi
                         if (faceFlags & VTX_RENDER_MODE_DECAL) {
                             // Decal faces store the height back unchanged.
                             D_803F2CA0 = D_803F2CA0;
                         }
+#endif
 
                         existingVertexIndex = opaqueBatchStart;
                         reusedVertexIndex = NOT_FOUND;

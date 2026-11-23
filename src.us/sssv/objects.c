@@ -62,10 +62,14 @@ Entity *func_802C9488_6DAB38(void) {
 void func_802C9500_6DABB0(Entity *obj) {
     D_801E9EB8.objectsPtr[D_801E9EB8.unk1A112] = obj;
 
+#ifdef __sgi
     // regalloc fix
     do {
         D_801E9EB8.unk1A112--;
     } while ((s64)0);
+#else
+    D_801E9EB8.unk1A112--;
+#endif
 
     if (D_801E9EB8.unk1A112 < 0) {
         D_801E9EB8.unk1A112 = MAX_OBJECTS;
@@ -99,9 +103,15 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
     obj->unk40 = scale;
 
     // fixes regalloc somehow...
+#ifdef __sgi
     obj->unk4C.unk1C = foo->behaviourFlags.unk4 & 0xFFFFFFFF;
     obj->unk4C.unk1D = foo->behaviourFlags.unk5 & 0xFFFFFFFF;
     obj->unk4C.unk1B = foo->behaviourFlags.unk3 & 0xFFFFFFFF;
+#else
+    obj->unk4C.unk1C = foo->behaviourFlags.unk4;
+    obj->unk4C.unk1D = foo->behaviourFlags.unk5;
+    obj->unk4C.unk1B = foo->behaviourFlags.unk3;
+#endif
 
     obj->Info.health = foo->maxHealth;
     obj->unk164 = foo->unk89;

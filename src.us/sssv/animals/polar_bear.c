@@ -230,7 +230,9 @@ void func_80365F10_7775C0(void) {
                     0);
             } else if (D_803D552C->attackState == ATTACK_STATE_CHARGE_END) {
                 ticks_remaining = 0;
+#ifdef __sgi
                 if (1) {}
+#endif
                 ticks_remaining++;
                 ticks_remaining++;
                 ticks_remaining++;
@@ -384,8 +386,10 @@ void func_80365F10_7775C0(void) {
     }
 
     if ((D_803D5524->animalType == POLAR_BEAR_DEFENDING)) {
+#ifdef __sgi
     if (D_803D552C->movementMode) {}
     if (D_803D552C->movementMode == 2) {}
+#endif
         if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
             load_animal(POLAR_BEAR);
             func_802A4390_6B5A40();
@@ -421,26 +425,26 @@ void func_803677C4_778E74(void) {
     }
 
     switch (var_v0) {
-    case 0: // L80367848_778EF8
+    case 0: 
         var_v0 = -5;
         var_a2 = 0;
         break;
-    case 1: // L80367858_778F08
+    case 1: 
         var_v0 = 2;
         var_a2 = 0;
         break;
-    case 2: // L80367868_778F18
+    case 2: 
         var_v0 = 5;
         var_a2 = 10;
         break;
-    case 3: // L80367878_778F28
+    case 3: 
         var_v0 = 8;
         var_a2 = 20;
         if (var_a0 < 70) {
             var_a0 = 70;
         }
         break;
-    case 4: // L80367894_778F44
+    case 4: 
     default:
         var_v0 = 11;
         var_a2 = 30;

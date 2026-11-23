@@ -32,7 +32,9 @@ void set_body_collision_sphere_pair(Animal *animal, u16 radius, s16 heightOffset
     sp34 = ((D_80203FE0[1].unk4 * 5) + D_80203FE0[2].unk4) / 192;
 
     animal->unkC4[index].pos.xPos.h = ((sp4C * 5) + sp44) / 192;
+#ifdef __sgi
     if (0) { }
+#endif
     animal->unkC4[index].pos.zPos.h = ((sp48 * 5) + sp40) / 192;
     animal->unkC4[index].pos.yPos.h = (heightOffset / 32) + sp34;
     animal->unkC4[index].radius = ((radius * 7) / 32) >> 4;

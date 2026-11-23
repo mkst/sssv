@@ -61,9 +61,11 @@ void osd_draw_health_and_power_bars(s16 arg0) {
     gHudBarBaseY = arg0 << 2;
 
     if ((gHudBarBaseY >> 2) < gScreenHeight) {
+#ifdef __sgi
         // maybe an if statement about energy? seems to be required to get correct regalloc
         tmp1 = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[0].unk0 / 16;
         tmp2 = gAnimalState.animals[gCurrentAnimalIndex].animal->energy[1].unk0 / 16;
+#endif
 
         gSPDisplayList(gMainDL++, D_01004650_3DF20);
 

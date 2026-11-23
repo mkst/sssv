@@ -27,7 +27,6 @@ u16 D_803D60E2;
 // .text
 // ========================================================
 
-// CURRENT (14669)
 // ESA: func_80070A6C
 void func_802B4D20_6C63D0(void) {
     s16 i; // sp136
@@ -195,7 +194,11 @@ void func_802B4D20_6C63D0(void) {
                                                         animal2->yVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
                                                     }
                                                 }
+#ifdef __sgi
                                             } else if (1) { // permuter suggestion
+#else
+                                            } else {
+#endif
                                                 if (var_s5 != 0) {
                                                     spEC.z = 0.0f;
                                                     spD4.z = 0.0f;

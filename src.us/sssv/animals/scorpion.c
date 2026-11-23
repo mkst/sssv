@@ -430,7 +430,9 @@ void func_80376D40_7883F0(void) {
     }
 
     tailIndex = D_803D5528->unk3C8.unk2;
+#ifdef __sgi
     if (tailIndex) {}
+#endif
     if (tailIndex != 0) {
         if ((sp11A == 0) && (D_803F2EDB != 0)) {
             a1 = D_803D5530->position.xPos.w + ((COS(D_803D552C->heading) * (D_80203FE0[2].unk0 + (D_80203FE0[2].unk0 >> 2))) / 16) + ((SIN(D_803D552C->heading) * (D_80203FE0[2].unk2 + (D_80203FE0[2].unk2 >> 2))) / 16);
@@ -519,9 +521,11 @@ void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *targ
 }
 
 void func_80378FF8_78A6A8(void) {
+#ifdef __sgi
     if (!D_803D552C) {
         // is this fakematch or debug stub?
     };
+#endif
 
     if ((gAnimalState.prevBButton == 0) && (gAnimalState.curBButton != 0)) {
         D_803D552C->unk32A = gGameplayTick;

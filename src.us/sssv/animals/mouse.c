@@ -477,10 +477,12 @@ void func_8031D624_72ECD4(void) {
         set_single_collision_sphere(D_803D552C, 0x177, 0x7D);
     }
 
+#ifdef __sgi
     if (0) {
         // Synray hack:
         spAE = (spAE == 1 ? spAE == 2 ? spAE == 3 ? spAE == 3 ? spAE == 3 ? 1 : 2 : 3 : 4: 5: 6);
     }
+#endif
 }
 
 // HARD_MOUSE

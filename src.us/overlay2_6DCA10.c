@@ -2769,7 +2769,9 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     for (i = 0; i < tmp0; i++) {
         random = SSSV_RAND(8) + ((360 / tmp0) * i);
         temp_s0 = arg0 + ((SINB(random) * arg3) >> 9);
+#ifdef __sgi
         random += 0; // fake but works
+#endif
         random = SSSV_RAND(8) + ((360 / tmp0) * i);
         temp_s2 = arg1 + ((COSB(random) * arg3) >> 9);
 

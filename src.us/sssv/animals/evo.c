@@ -374,8 +374,13 @@ void func_8038B330_79C9E0(void) {
         do {
             // smoke
             create_particle_effect(
+#ifdef __sgi
                 (SSSV_RAND(16) + D_803D5530->position.xPos.h + ((tmp * (COS(-D_803D552C->heading) >> 7)) >> 8)) - (0, 8),
                 (SSSV_RAND(16) + D_803D5530->position.zPos.h + ((tmp * (SIN(-D_803D552C->heading) >> 7)) >> 8)) - (0, 8),
+#else
+                (SSSV_RAND(16) + D_803D5530->position.xPos.h + ((tmp * (COS(-D_803D552C->heading) >> 7)) >> 8)) - (8),
+                (SSSV_RAND(16) + D_803D5530->position.zPos.h + ((tmp * (SIN(-D_803D552C->heading) >> 7)) >> 8)) - (8),
+#endif
                 D_803D5530->position.yPos.h,
                 (SSSV_RAND(2) + 25),
                 (SSSV_RAND(FTOFIX32(0.5)) << 1) + D_803D5530->xVelocity.w + FTOFIX32(-0.6103515625),
@@ -388,8 +393,13 @@ void func_8038B330_79C9E0(void) {
 
             // flames
             create_particle_effect(
+#ifdef __sgi
                 (SSSV_RAND(16) + D_803D5530->position.xPos.h + ((tmp * (COS(-D_803D552C->heading) >> 7)) >> 8)) - (0, 8),
                 (SSSV_RAND(16) + D_803D5530->position.zPos.h + ((tmp * (SIN(-D_803D552C->heading) >> 7)) >> 8)) - (0, 8),
+#else
+                (SSSV_RAND(16) + D_803D5530->position.xPos.h + ((tmp * (COS(-D_803D552C->heading) >> 7)) >> 8)) - (8),
+                (SSSV_RAND(16) + D_803D5530->position.zPos.h + ((tmp * (SIN(-D_803D552C->heading) >> 7)) >> 8)) - (8),
+#endif
                 D_803D5530->position.yPos.h,
                 63,
                 D_803D5530->xVelocity.w,
@@ -432,7 +442,9 @@ void func_8038B798_79CE48(void) {
     a = D_803D5528;
     D_803D552C = a;
     D_803D5530 = a;
+#ifdef __sgi
     if (a == NULL) {};
+#endif
 
     D_803D5538 = 1;
     D_803D553C = gCurrentAnimalIndex;

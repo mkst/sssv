@@ -1152,7 +1152,11 @@ void func_80391C90_7A3340(Gfx **dl, f32 x1, f32 z1, f32 x2, f32 z2, f32 y) {
 
     // Populate unk31070[0..23]: 12 rows of two vertices.
     // fakematch: `prevZ % 1` is always 0, needed to match
+#ifdef __sgi
     for (i = 0; i < 12; i += 1 + prevZ % 1) {
+#else
+    for (i = 0; i < 12; i++) {
+#endif
         prevZ = lastZ;
         z = z1 - (((z2 - z1) / 11) * i);
         if (i == 11) {
@@ -1506,10 +1510,6 @@ void func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 
     gSP1Quadrangle((*dl)++, 0, 1, 2, 3, 0);
 }
 
-// CURRENT (1470)
-extern int PRIMITIVE;
-extern int TEXEL0;
-
 void load_pause_menu(s32 arg0, s16 arg1) {
     u8 sp174[60];
     s16 spFC[60];
@@ -1657,7 +1657,9 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                         32
                     );
                     gDPPipeSync(gMainDL++);
+#ifdef __sgi
                     cnt++; // pointless but massively affects codegen, is this a macro?
+#endif
                 }
             }
 

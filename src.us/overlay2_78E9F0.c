@@ -170,7 +170,9 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     s16 var_a0_2;
     s16 temp_lo;
 
+#ifdef __sgi
     s16 spB0;
+#endif
     s16 var_s5;
     s16 var_v0;
     s16 temp_t1;
@@ -215,7 +217,9 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     }
 
     for (spAA = temp_v1 + var_t2; spAA <= (temp_v1 + var_t3); spAA++) {
+#ifdef __sgi
         spB0 = var_s5; // pointless assignment
+#endif
         for (spA8 = temp_t1 + var_t5; spA8 <= temp_t1 + spA0; spA8++) {
             for (var_s6 = gCollisionGridHeads[(s16) (spAA + (spA8 * 5))].next; var_s6 != NULL; var_s6 = var_s6->next) {
                 if ((var_s6 == (&var_s6->animal->collisionGridNodes[0])) && (var_s6->animal != (Animal*)D_803D5530)) {
@@ -297,7 +301,9 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                         }
                     }
                     // regalloc helper
+#ifdef __sgi
                     if (1) {};
+#endif
                 }
             }
         }
@@ -344,10 +350,12 @@ void trigger_contagious_laughter(void) {
     s16 sp9A;
     s16 sp98;
 
+#ifdef __sgi
     if (temp_t6 + var_a2) {}
     if (var_a2) {}
     if (temp_t6 + var_a3) {}
     if (temp_t8 + var_t2) {}
+#endif
     if (D_803D5524->animalType != MYSTERY_BEAR) {
         func_8032CD70_73E420(
             (u8*)D_803D5530 + 0x15,
@@ -416,7 +424,11 @@ void trigger_contagious_laughter(void) {
                                             (animalId != xDist)) {
                                                 do_laughter = 0;
                                                 if (gAnimalState.animals[gCurrentAnimalIndex].animal == animal) {
+#ifdef __sgi
                                                     if (D_803F63D0 != gGameplayTick && 1) {
+#else
+                                                    if (D_803F63D0 != gGameplayTick) {
+#endif
                                                         D_803F63D0 = gGameplayTick;
                                                     do_laughter = 1;
                                                 }
@@ -979,7 +991,9 @@ void sheep_follow_leader(void) {
                 if (zPosDelta < 200) {
                     if ((gAnimalState.animals[i].animal->unk287 == 0) && (D_803D552C->unk28A == 0)) {
                         gAnimalState.animals[i].animal->unk287 = 1;
+#ifdef __sgi
                         if (D_803D5530) {};
+#endif
                         gAnimalState.animals[i].animal->unk288 = (xPosDelta + zPosDelta) >> 3;
                         // swarm? follow?
                         set_nav_state_follow_target(gAnimalState.animals[i].animal, D_803D5530);

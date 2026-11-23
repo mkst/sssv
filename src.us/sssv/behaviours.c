@@ -1689,7 +1689,9 @@ void perform_behavior_elephant(void) {
 }
 
 void perform_behavior_hyena(void) {
+#ifdef __sgi
     if (1) {}; // regalloc
+#endif
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
@@ -1762,7 +1764,9 @@ void perform_behavior_hyena_biker(void) {
 }
 
 void perform_behavior_chameleon(void) {
+#ifdef __sgi
     if (1) {}; // regalloc
+#endif
 
     switch (D_803D552C->unk2B4.state) {
     case 0:

@@ -305,7 +305,11 @@ void update_springy_thingy_or_springy_ram(void) {
             break;
         case ATTACK_SHEEP_HEADBUTT:
             // stack hack
+#ifdef __sgi
             func_802DCCAC_6EE35C((0, 16));
+#else
+            func_802DCCAC_6EE35C(16);
+#endif
             if (((gGameplayTick - D_803D552C->unk32A) == 4) && (func_803224C4_733B74(0x2E, 0x2E, 0, 0x14, 0xC, 0, 0, 0x10))) {
                 play_sound_effect_at_location(SFX_UNKNOWN_72, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             }

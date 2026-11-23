@@ -890,7 +890,9 @@ void func_8029F7D4_6B0E84(DisplayList *displayList, Objects *arg1) {
             D_803D3440 = D_803D343C->unk16C;
             D_803D3438 = &D_803D3440->displayList1;
             // fakematch: without these extra uses of node, IDO keeps node on the stack instead of in a register
+#ifdef __sgi
             if ((node != NULL) && (node->animal != NULL)) {}
+#endif
 
             if ((D_803D3440->behaviourFlags.unk2 == 0) && (node == D_803D343C->collisionGridNodes)) {
                 color = D_803D343C->unk3E & 0x3F;
@@ -1721,7 +1723,9 @@ void func_8029F7D4_6B0E84(DisplayList *displayList, Objects *arg1) {
     }
 
     // fakematch: without this read, IDO assigns different registers to the queue writes in render modes 17 and 20
+#ifdef __sgi
     if (D_803D3434) {}
+#endif
 
     if (D_803D5508 > 0) {
         render_distance_sorted_textured_display_list_instances();

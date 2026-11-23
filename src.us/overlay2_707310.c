@@ -2510,8 +2510,13 @@ void func_802FCA08_70E0B8(Entity *arg0, s16 arg1) {
 
     // 0x4000 -> 0100000000000000
     // 0xBFFF -> 1011111111111111
+#ifdef __sgi
     if ((tmp = (!(arg1 & 0x4000)) & 0xFF)) {};
     if ((tmp2 = (arg1 & (~0x4000)) & 0xFFFF)) {};
+#else
+    tmp = (!(arg1 & 0x4000)) & 0xFF;
+    tmp2 = (arg1 & (~0x4000)) & 0xFFFF;
+#endif
 
     switch (tmp2) {
     case 0:

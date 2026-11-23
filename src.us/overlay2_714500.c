@@ -79,14 +79,20 @@ void func_8030322C_7148DC(s16 idx, s16 angle) {
     s32 temp_t2;
     s32 temp_t6;
     LimbConfig *temp_v0;
+#ifdef __sgi
     s32 fakematch;
+#endif
 
     temp_v0 = &D_80203FE0[idx];
     // sameline for regalloc
     temp_v1 = temp_v0->unk4; temp_t6 = SIN(angle) >> 7;
     temp_t2 = COS(angle) >> 7;
 
+#ifdef __sgi
     temp_v0->unk2 = ((temp_v1 * (fakematch = temp_t6)) + (temp_v0->unk2 * temp_t2)) >> 8;
+#else
+    temp_v0->unk2 = ((temp_v1 * temp_t6) + (temp_v0->unk2 * temp_t2)) >> 8;
+#endif
     temp_v0->unk4 = ((temp_t2 * temp_v1) - (temp_t6 * temp_v0->unk2)) >> 8;
 }
 
@@ -104,7 +110,11 @@ void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2) {
     temp_t8 = SIN(arg2) >> 7;
     temp_t9 = COS(arg2) >> 7;
     // fake match to coerce regalloc
+#ifdef __sgi
     D_80203FE0[arg0].unk2 = D_80203FE0[arg1].unk2 + (((temp_t1 * (temp_t8 = temp_t8)) + (temp_v0 * temp_t9)) >> 8);
+#else
+    D_80203FE0[arg0].unk2 = D_80203FE0[arg1].unk2 + (((temp_t1 * temp_t8) + (temp_v0 * temp_t9)) >> 8);
+#endif
     D_80203FE0[arg0].unk4 = D_80203FE0[arg1].unk4 + ((tmp=(temp_t1 * temp_t9) - (temp_t8 * temp_v0)) >> 8);
 }
 
@@ -121,6 +131,10 @@ void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2) {
     temp_t8 = SIN(arg2) >> 7;
     temp_t9 = COS(arg2) >> 7;
     // fake match to coerce regalloc
+#ifdef __sgi
     D_80203FE0[arg0].unk0 = D_80203FE0[arg1].unk0 + (((temp_t1 * (temp_t8 = temp_t8)) + (temp_v0 * temp_t9)) >> 8);
+#else
+    D_80203FE0[arg0].unk0 = D_80203FE0[arg1].unk0 + (((temp_t1 * temp_t8) + (temp_v0 * temp_t9)) >> 8);
+#endif
     D_80203FE0[arg0].unk2 = D_80203FE0[arg1].unk2 + ((tmp = (temp_t1 * temp_t9) - (temp_t8 * temp_v0)) >> 8);
 }

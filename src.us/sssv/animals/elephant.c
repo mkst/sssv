@@ -85,7 +85,9 @@ void update_elephant(void) {
             }
         }
 
+#ifdef __sgi
         if (1) {}; // regalloc helper
+#endif
     }
 
     if ((D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) || (D_803D552C->movementMode == MOVEMENT_MODE_2)) {
@@ -366,8 +368,10 @@ void func_8037D0EC_78E79C(void) {
 void func_8037D138_78E7E8(void) {
     if ((D_803D552C->unk320 == NULL) && (D_803D552C->unk365 == ATTACK_NONE)) {
         // FIXME: this fixes regalloc but is unlikely to be what the devs wrote:
+#ifdef __sgi
         s32 fakematch = !D_803D552C->unk320->unk16C;
         if (fakematch) {}
+#endif
 
         D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_GRAB;

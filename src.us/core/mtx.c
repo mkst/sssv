@@ -518,7 +518,9 @@ s32 func_80127994(s32 vec0_x, s32 vec0_y, s32 vec0_z, Mtx *mtx) {
     vec1_y = (      0 << 0xA) / magnitude;
     vec1_z = (-vec0_x << 0xA) / magnitude;
 
+#ifdef __sgi
     magnitude = vec1_z; // pointless but required.
+#endif
 
     // vec2 is dot product of vec0 and vec1, so vec0, vec1 and vec2 form an orthogonal basis
     vec2_x = -((vec1_y * vec0_z) - (vec1_z * vec0_y)) >> 10;

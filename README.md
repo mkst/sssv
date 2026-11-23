@@ -3,7 +3,7 @@
 ![build](https://github.com/mkst/sssv/workflows/build/badge.svg)
 ![progress](https://img.shields.io/badge/dynamic/json?color=blue&label=us&query=$.message&logo=github&logoColor=white&link=https://github.com/mkst/sssv&url=https%3A%2F%2Fsssv.deco.mp%2Fus.json)
 
-A work-in-progress decompilation of the **Space Station Silicon Valley** game for the Nintendo 64.
+A matching decompilation of the **Space Station Silicon Valley** game for the Nintendo 64.
 
 > **Note:** You must legally own a copy of the original game to use this repository.
 
@@ -12,7 +12,7 @@ Check out the [wiki](https://github.com/mkst/sssv/wiki/) for more detailed infor
 # Building
 
 The instructions below assume that you will be using `Ubuntu 24.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
-Please check the [Dockerfile](Dockefile) for instructions of how to install the prerequisite system packages and Python libraries.
+Please check the [Dockerfile](Dockerfile) for instructions of how to install the prerequisite system packages and Python libraries.
 
 ## Natively
 
@@ -59,28 +59,6 @@ From here you can run the `make extract` and `make --jobs` commands.
 ## Building `EU` Version
 
 Place `baserom.eu.z64` in the root of the repository, and suffix each `make` command with `VERSION=eu`. Note that whilst this will build the EU ROM, minimal effort has been made to decompile this version.
-
-## Building `NON_MATCHING` Version
-
-A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **1.5%** ahead of the fully matching build. In order to build/test the non-matching, pass `NON_MATCHING=1` to the `make` commands.
-
-# Contributing
-
-Once you have built an :ok: ROM you are ready to begin.
-
-Create a copy of the `build` folder:
-
-```sh
-mkdir -p expected && cp -r build/ expected/
-```
-
-Run `asm-differ` and pass in the name of the function you want to tackle:
-
-```sh
-python3 tools/asm-differ/diff.py -mwo3 function_name_here
-```
-
-Edit the corresponding `.c` file and keep working until the function matches.
 
 # ROM Versions
 

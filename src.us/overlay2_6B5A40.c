@@ -1758,7 +1758,9 @@ void func_802A935C_6BAA0C(void) {
 
             if (resolve_movement_and_collision(D_803D5530)) {
                 // fakematch
+#ifdef __sgi
                 if (D_803D5530 && D_803D5530) {};
+#endif
             }
 
             if (func_802B2AF0_6C41A0(D_803D5530->position.xPos.w - sp60, D_803D5530->position.zPos.w - sp5C) != 0) {
@@ -2963,9 +2965,11 @@ void func_802AC9FC_6BE0AC(void) {
     D_803D5570 = ((s16) ((s32) (((D_803F2C3C + 90.0f) * 256.0f) / 360.0f))) & 0xFF;
 
     if (gAnimalState.desiredHeading != 0x100) {
+#ifdef __sgi
         if ((D_803D5574 == 0) || (gCameras[gCameraId].cameraMode == 0x1A)) {
             // nothing
         }
+#endif
         if (gCameras[gCameraId].cameraMode != 0x1A) {
             gAnimalState.desiredHeading = (gAnimalState.desiredHeading + D_803D5570) & 0xFF;
         }
@@ -3133,11 +3137,11 @@ void func_802AD49C_6BEB4C(void) {
             phi_v0 += 10;
         }
     }
-
+#ifdef __sgi
     if (ABS(phi_v1) <= 10) {
         // nothing
     }
-
+#endif
     D_803D5548 += (phi_v0 * D_803D5578) / 28;
 
     temp_t9 = D_803D5548 >> 4;
@@ -3206,8 +3210,8 @@ void func_802AD87C_6BEF2C(void) {
     switch (D_803D5530->movementState & 0xF) {
     case 1:
         switch (D_803D5530->state) {
-        case 1:
-        case 2:
+        case STATE_IDLE:
+        case STATE_MOVING:
             D_803D555A = gGameplayTick;
             D_803D555C = 1;
             D_803D555D = 0;
@@ -3528,7 +3532,6 @@ void func_802AE488_6BFB38(void) {
 
 void func_802AE698_6BFD48(void) {
     s16 temp_a1;
-    s16 temp_v0;
     s16 temp_v1;
     s16 distance_from_ground;
     s32 var_a3;
@@ -3617,7 +3620,7 @@ void func_802AE9C4_6C0074(void) {
     }
 
     switch (D_803D5530->state) {
-    case 1:
+    case STATE_IDLE:
     case 41:
         D_803D555A = gGameplayTick;
         D_803D5560 = D_803D5530->unk6C;
@@ -4175,8 +4178,8 @@ void func_802B066C_6C1D1C(void) {
 
 void func_802B0B00_6C21B0(s16 arg0, s16 arg1) {
     switch (D_803D5530->state) {
-    case 1:
-    case 2: // STATE_STANDING ?
+    case STATE_IDLE:
+    case STATE_MOVING: // STATE_STANDING ?
         if (arg1 > 0) {
             if (arg1 < 0xE) {
                 func_802A43E4_6B5A94(arg0, arg1);
@@ -4230,7 +4233,7 @@ void func_802B0B00_6C21B0(s16 arg0, s16 arg1) {
 
 void func_802B0D4C_6C23FC(s16 arg0, s16 arg1) {
     switch (D_803D5530->state) {
-    case 1:
+    case STATE_IDLE:
     case 181:
         if (arg1 > 0) {
             if (arg1 < 14) {
@@ -4277,7 +4280,7 @@ void func_802B0D4C_6C23FC(s16 arg0, s16 arg1) {
 
 void func_802B0F4C_6C25FC(s16 arg0, s16 arg1) {
     switch (D_803D5530->state) {
-    case 1:
+    case STATE_IDLE:
     case 21:
         if (arg1 > 0) {
             if (arg1 < 14) {
@@ -4316,7 +4319,7 @@ void func_802B0F4C_6C25FC(s16 arg0, s16 arg1) {
 
 void func_802B10B0_6C2760(s16 rotation, s16 arg1) {
     switch (D_803D5530->state) {
-    case 1:
+    case STATE_IDLE:
     case 201:
         if (arg1 > 0) {
             if (arg1 < 14) {
@@ -4363,7 +4366,7 @@ void func_802B1210_6C28C0(s16 rotation, s16 arg1) {
     }
 
     switch (D_803D5530->state) {
-    case 1:
+    case STATE_IDLE:
     case 0x29:
         D_803D5530->yRotation = rotation;
         D_803D552C->heading = rotation;
@@ -4572,7 +4575,7 @@ void func_802B1918_6C2FC8(s16 arg0, s16 arg1, s16 arg2) {
 
 void func_802B1B98_6C3248(s16 rotation, s16 arg1) {
     switch (D_803D5530->state) {
-    case 1:
+    case STATE_IDLE:
     case 141:
         if (arg1 > 0) {
             if (arg1 < 14) {
@@ -4614,13 +4617,15 @@ void func_802B1D00_6C33B0(s16 rotation, s16 arg1) {
     if ((D_803D5540 & 3) == 0) {
         if ((D_803D5530->unk4A == 0) && (D_803D5530->unk4C.unk1A == 0)) {
             D_803D5530->Info.health--;
+#ifdef __sgi
             D_803D5530->Info.health = D_803D5530->Info.health; // pointless?
+#endif
             D_803D552C->lastHpLost++;
         }
     }
 
     switch (D_803D5530->state) {
-    case 1:
+    case STATE_IDLE:
     case 161:
         if ((arg1 == 1) || (arg1 == 2)) {
             func_802A5E1C_6B74CC(rotation);
@@ -4951,7 +4956,9 @@ s32 func_802B2C20_6C42D0(s16 arg0, s16 arg1) {
         phi_v1 = D_803D5524->height;
     } else {
         // regalloc helper
+#ifdef __sgi
         if ((phi_v1 && phi_v1) && phi_v1) {}
+#endif
         phi_v1 = D_803D5524->footHeight;
     }
 

@@ -35,25 +35,32 @@ void unused_8035E120_76F7D0(void) {
 // ESA: func_800818D8
 // Recharges skill energy, ticks cooldowns and clears the skill-use flags.
 void func_8035E200_76F8B0(void) {
+#ifdef __sgi
     s16 oldEnergyB;
     s16 oldEnergyA;
     s16 newEnergyB;
     s16 costB;
     s16 usedSkillB;
     s32 rechargeA;
+#endif
 
+#ifdef __sgi
     oldEnergyA = D_803D552C->energy[SKILL_A].unk0;
+#endif
     D_803D552C->energy[SKILL_A].unk0 = MIN(0x400, D_803D552C->energy[SKILL_A].unk0 + D_803D5524->unkDA[SKILL_A][1]);
     if ((D_803D552C->energy[SKILL_A].unk2 != 0x7FFF) && (D_803D552C->energy[SKILL_A].unk2 != 0x7FFE)) {
         D_803D552C->energy[SKILL_A].unk2 = MAX(0, D_803D552C->energy[SKILL_A].unk2 - 1);
     }
 
+#ifdef __sgi
     oldEnergyB = D_803D552C->energy[SKILL_B].unk0;
+#endif
     D_803D552C->energy[SKILL_B].unk0 = MIN(0x400, D_803D552C->energy[SKILL_B].unk0 + D_803D5524->unkDA[SKILL_B][1]);
     if ((D_803D552C->energy[SKILL_B].unk2 != 0x7FFF) && (D_803D552C->energy[SKILL_B].unk2 != 0x7FFE)) {
         D_803D552C->energy[SKILL_B].unk2 = MAX(0, D_803D552C->energy[SKILL_B].unk2 - 1);
     }
 
+#ifdef __sgi
     // fakematch: preserves the skill A full-charge branch layout.
     rechargeA = (oldEnergyA < D_803D552C->energy[SKILL_A].unk0 &&
                  D_803D552C->energy[SKILL_A].unk0 == 0x400)
@@ -73,6 +80,7 @@ void func_8035E200_76F8B0(void) {
         costB = D_803D5524->unkDA[SKILL_B][0];
         if (oldEnergyB <= costB && newEnergyB > costB) {}
     }
+#endif
 
     D_803F2EE0[SKILL_A] = D_803F2EE0[SKILL_B] = 0;
 }

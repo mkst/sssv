@@ -25,7 +25,11 @@
 typedef u8 Addr[];
 
 // TODO: EU version of these
+#ifdef __sgi
 #define CHECK_SEGMENT          (0, (((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? (1) : (0)))
+#else
+#define CHECK_SEGMENT          (((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? (1) : (0))
+#endif
 
 #define SET_JOINT(j0, j1, scale, x, y, z, f, g, flip, i, dl) \
     func_802C78B0_6D8F60(j0, j1, (scale*(x)) >> 6, (scale*(y)) >> 6, (scale*(z)) >> 6, f, g, flip, i, dl)

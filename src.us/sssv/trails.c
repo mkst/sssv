@@ -225,7 +225,9 @@ void func_8039E33C_7AF9EC(WalrusWake *arg0) {
     }
 
     arg0->unk5E[arg0->numVtxs >> 1][0] = animal->position.xPos.h;
+#ifdef __sgi
     if (1) {};
+#endif
     arg0->unk5E[arg0->numVtxs >> 1][1] = animal->position.zPos.h;
     arg0->unk5E[arg0->numVtxs >> 1][2] = animal->position.yPos.h;
 

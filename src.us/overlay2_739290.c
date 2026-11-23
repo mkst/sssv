@@ -1499,7 +1499,9 @@ void cheat_activate_scale_pulse_effect(void) {
     s16 i;
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
+#ifdef __sgi
         if (1) {};
+#endif
         if (gAnimalState.animals[i].animal != NULL) {
             if ((gAnimalState.animals[i].unk0->animalType != EVO_TRANSFER) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
                 D_803D5520 = &gAnimalState.animals[i];
