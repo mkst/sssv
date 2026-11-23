@@ -14,9 +14,9 @@ typedef struct {
 typedef struct {
     s16 tc0;   // tc0 (u)
     s16 tc1;   // tc1 (v)
-    u8  red;   // cn[0]
-    u8  green; // cn[1]
-    u8  blue;  // cn[2]
+    s8  red;   // cn[0]
+    s8  green; // cn[1]
+    s8  blue;  // cn[2]
     u8  unk7;  // x
     s16 unk8;  // y
     u8  unkA;  // z
@@ -32,29 +32,39 @@ typedef struct {
     /* 0x0  */ s16 idx;
     /* 0x2  */ s16 unused; // doesnt really force alignment..
     /* 0x4  */ s16 v[4];
-    /* 0xC  */ s16 flags[4]; // has texture?
+    /* 0xC  */ s16 flags[4]; // per-vertex reuse flags
     /* 0x14 */ s16 unk14[4]; // unused?
     /* 0x1C */ s16 unk1C[4];
 } struct115; // size 0x24
 
 void func_803458B8_756F68(Gfx **dl, Vtx *vtx, s16 numVtxs);
-void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs);
+void func_803458FC_756FAC(Gfx **dl, struct115 *faces, s16 numFaces);
 void func_80346878_757F28(Gfx **dl, u8 idx);
 void func_803469D4_758084(Gfx **dl, u8 idx);
 void func_80346AB0_758160(Gfx **dl, u8 idx);
-void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs);
+void func_80346BB4_758264(Gfx **dl, struct115 *faces, s16 numFaces);
 
 
 #define VTX_TRIANGLE                0x1
 #define VTX_CELL_END                0x2
-#define VTX_CULL_BACK               0x4
+#define VTX_NO_CULL_BACK            0x4
 #define VTX_TRANSLUCENT             0x20
 #define VTX_ALPHA_COMPARE_DITHER    0x40
+#define VTX_RENDER_MODE_INTER       0x800
 #define VTX_RENDER_MODE_DECAL       0x4000
 
 #define GEO_TEXTURE_ANIMATED_MIN    32
-#define GEO_VARIANT_CENTER_MIN      32
-#define GEO_VARIANT_CENTER_MAX      48
+#define GEO_SCROLL_CENTER_MIN       32
+#define GEO_SCROLL_CENTER_MAX       48
+
+#define REUSED_VTX_UPDATE_TC        0x1
+#define REUSED_VTX_NO_TC_UPDATE     0x4
+
+#define WORLD_CELL_COUNT_X          4
+#define WORLD_CELL_COUNT_Z          6
+#define CELL_FACE_BATCH_CAPACITY    50
+#define TRANSLUCENT_BATCH_FACE_COUNT 8
+#define OPAQUE_BATCH_FLUSH_THRESHOLD 28
 
 #define NOT_FOUND                   -100
 
@@ -95,247 +105,198 @@ static s64  D_803F2CC0;
 // .text
 // ========================================================
 
-#if 0
-// CURRENT (23154)
-// process_level_geo
+// Build the per-cell opaque and translucent display lists and cull boxes.
 void func_80344240_7558F0(void) {
-    s32 sp40;
-    s32 spFC8[1]; // padding
+    s32 opaqueBatchVertexCount;
+    s32 centerIndex;
 
-    s16 spFC6; // faceIndex
-    // Otherwise unused 16-bit reuse counter retained by the target.
+    s16 faceIndex;
+    // Counts reused vertices; never read.
     s16 reuseCount;
-    s16 spFC2; // cellXOffset
-    s16 spFC0; // cellZOffset
-    // Matching padding for locals not yet recovered.
-    s16 padFB8[4];
-    s16 padFB6;
-    s16 vtxCount;
+    s16 cellOffsetX;
+    s16 cellOffsetZ;
+    s32 centerTileZ;
+    s32 centerTileX;
+    s16 batchVertexIndex;
+    s16 vertexCount;
 
-    s16 opaqueMaxZ; // maxZ
-    s16 opaqueMaxY; // maxY
-    s16 opaqueMaxX; // maxX
-    s16 opaqueMinZ; // minZ
-    s16 opaqueMinY; // minY
-    s16 opaqueMinX; // minX
-
-    s16 transMaxZ; // maxZ
-    s16 transMaxY; // maxY
-    s16 transMaxX; // maxX
-    s16 transMinZ; // minZ
-    s16 transMinY; // minY
-    s16 transMinX; // minX
-
-    s16 padF9A;
-    s16 numOpaqueVtxsBatch; // opaqueBatchStart
-
-    s16 padF96;
-    s16 numOpaqueVtxs; // spF94
-    s16 totalTransVtxs; // translucentVertCountTotal
-    s16 transVtxBatchIdx; // translucentBatchStart
-    s16 numTransVtxsBatch; // spF8E
-    s16 numTransVtxs; // spF8C
-    s16 padF8A;
-    s16 spF88; // cullBoxBaseIndex
-
-    s16 batch;
-    s16 batchIdx;
-    s16 foundVtxIdx;
-    s16 i;
-    s16 opaqueVtxsIdx;
-    s16 j;
-    s16 flags; // flags
-    u8 temp_t2; // red
-    u8 temp_t3; // green
-    u8 temp_t4; // blue
-    u8 variant;
+    s16 opaqueMaxY;
+    s16 opaqueMaxZ;
+    s16 opaqueMaxX;
+    s16 opaqueMinY;
+    s16 opaqueMinZ;
+    s16 opaqueMinX;
+    s16 translucentMaxY;
+    s16 translucentMaxZ;
+    s16 translucentMaxX;
+    s16 translucentMinY;
+    s16 translucentMinZ;
+    s16 translucentMinX;
+    s16 translucentVertexIndex;
+    s16 opaqueBatchStart;
+    s16 translucentFaceIndex;
+    s16 opaqueFaceCount;
+    s16 translucentVertexCount;
+    s16 translucentBatchStart;
+    s16 translucentBatchVertexCount;
+    s16 translucentFaceCount;
+    s16 opaqueCullBase;
+    s16 cullVertexBase;
+    Vtx *translucentVertex;
+    s16 reusedVertexIndex;
+    s16 vertexIndex;
+    s16 opaqueVertexCount;
+    s16 existingVertexIndex;
+    s16 reuseFlags;
+    u8 green;
+    u8 scrollIndex;
+    u8 red;
     u8 alpha;
+    u8 blue;
 
-    u8 texIdx;
+    u8 textureIndex;
 
-    s16 spF72;
-    s16 spF70;
-    s16 spF6E;
-    s16 spF6C;
+    s16 maxTileX;
+    s16 maxTileZ;
+    s16 minTileX;
+    s16 minTileZ;
 
-    s16 tc0;
     s16 tc1;
+    s16 tc0;
 
-    u8  spF64[4]; // world X in 64-unit tiles, for animated translucent centers
-    u8  spF60[4]; // world Z in 64-unit tiles, for animated translucent centers
-    u16 spF58[4];
+    // World X/Z in 64-unit tiles, used for animated translucent centers.
+    u8  tileX[4];
+    u8  tileZ[4];
+    u16 translucentVertexIndices[4];
 
-    struct115 opaqueVtxs[50];      // sp 0x850 // (0xF58 - 0x850) / 0x24 => 50
-    struct115 translucentVtxs[50]; // sp 0x148 // (0x850 - 0x148) / 0x24 => 50
+    struct115 opaqueFaces[CELL_FACE_BATCH_CAPACITY];
+    struct115 translucentFaces[CELL_FACE_BATCH_CAPACITY];
 
-    // Preserve the signed normal spills and reloads seen in the target.
-    volatile s8 sp147;
-    volatile s8 sp146;
-    volatile s8 sp145;
+    // Vertex normals for lit cells: the same bytes as red/green/blue, read signed.
+    s8 normalX;
+    s8 normalZ;
+    s8 normalY;
 
-    s32 vtxFlags;
-    Gfx *opaqueDL; // sp13C
-    Gfx *translucentDL; // sp138
+    u16 faceFlags;
+    Gfx *opaqueDL;
+    Gfx *translucentDL;
 
-    // NOTE: geo data has been copied into D_80100000 before this function is called
-    D_803F2C80 = (struct102*)&D_80100000;
+    // Level geometry has already been loaded into D_80100000.
+    D_803F2C80 = (struct102 *)D_80100000;
 
     gRenderMode2 = 0x110038;
-    D_803F2CC0 = 0x1049D8; // renderMode
+    D_803F2CC0 = 0x1049D8; // translucent render mode
 
     D_803F2CA4 = 0;
     D_803F2CA6 = 0;
     D_803F2C99 = 0;
     D_803F2C9A = 0;
     D_803F2C9B = 0;
-    D_803E4AC8 = 0; // reset totalTris
+    D_803E4AC8 = 0;
 
-    spFC6 = 0;
-    opaqueVtxsIdx = 0;
+    faceIndex = 0;
+    opaqueVertexCount = 0;
 
-    numOpaqueVtxsBatch = 0;
-    numOpaqueVtxs = 0;
+    opaqueBatchStart = 0;
+    opaqueFaceCount = 0;
 
-    totalTransVtxs = 0;
-    numTransVtxsBatch = 0;
+    translucentVertexCount = 0;
+    translucentBatchVertexCount = 0;
 
-    transVtxBatchIdx = 0;
-    numTransVtxs = 0;
+    translucentBatchStart = 0;
+    translucentFaceCount = 0;
     reuseCount = 0;
 
+    translucentDL = &D_80225650[0];
     opaqueDL = &D_80205470[0];
-    translucentDL = &D_80225650[1]; // +1 because we use [0] now:
-    gDPSetCombineMode(D_80225650, G_CC_SHADE, G_CC_SHADE);
+    gDPSetCombineMode(translucentDL++, G_CC_SHADE, G_CC_SHADE);
 
-    for (; D_803F2CA4 < 6; D_803F2CA4++) {
-        for (D_803F2CA2 = 0; D_803F2CA2 < 4; D_803F2CA2++) {
+    while (D_803F2CA4 < WORLD_CELL_COUNT_Z) {
+        for (D_803F2CA2 = 0; D_803F2CA2 < WORLD_CELL_COUNT_X; D_803F2CA2++) {
             D_803F2C8C = 0;
             D_803F2C8E = 0;
             D_803F2C90 = 0;
 
-            gWorldCellTranslucentEnabled[D_803F2CA2][D_803F2CA4] = 0; // disabled
+            gWorldCellTranslucentEnabled[D_803F2CA2][D_803F2CA4] = 0;
 
             D_803F2C86 = 1;
             D_803F2C88 = 1;
             D_803F2C8A = 1;
 
-            D_803F2C84 = 1000; // some kind of state?
-            D_803F2C96 = 0xFF; // -1?
-            D_803F2C98 = 0xFF; // -1?
-            D_803F2C97 = 0xFF; // only set, never checked
-
+            D_803F2C84 = 1000;
             opaqueMaxX = -30000;
             opaqueMaxY = -30000;
             opaqueMaxZ = -30000;
             opaqueMinX = 30000;
             opaqueMinY = 30000;
             opaqueMinZ = 30000;
-
-            transMaxX = -30000;
-            transMaxY = -30000;
-            transMaxZ = -30000;
-            transMinX = 30000;
-            transMinY = 30000;
-            transMinZ = 30000;
+            translucentMaxX = -30000;
+            translucentMaxY = -30000;
+            translucentMaxZ = -30000;
+            translucentMinX = 30000;
+            translucentMinY = 30000;
+            translucentMinZ = 30000;
+            D_803F2C96 = 0xFF;
+            D_803F2C98 = 0xFF;
+            D_803F2C97 = 0xFF;
 
             gWorldCellOpaqueDisplayLists[D_803F2CA2][D_803F2CA4] = opaqueDL;
             gWorldCellTranslucentDisplayLists[D_803F2CA2][D_803F2CA4] = translucentDL;
-            // opaqueDL->words.w0 = 0xB6000000;
-            // opaqueDL->words.w1 = -1U;
-            gSPClearGeometryMode(opaqueDL++, 0xFFFFFFFF); // ???
-            // opaqueDL->words.w0 = 0x0400207F;
-            // opaqueDL->words.w1 = (s32) (((s16) ((D_803F2CA2 << 3) + (D_803F2CA4 << 5)) * 0x10) + &D_80224870) & 0x1FFFFFFF;
+            gSPClearGeometryMode(opaqueDL++, 0xFFFFFFFF);
+            opaqueCullBase = (D_803F2CA2 << 3) + (D_803F2CA4 << 5);
             gSPVertex(
                 opaqueDL++,
-                K0_TO_PHYS(&D_80224870[(s16) ((D_803F2CA2 << 3) + (D_803F2CA4 << 5))]),
+                K0_TO_PHYS(&D_80224870[opaqueCullBase]),
                 8,
                 0);
-            // BE000000 0000000E
             gSPCullDisplayList(opaqueDL++, 0, 7);
             if (D_803F2D50.cellLightingModes[D_803F2CA2][D_803F2CA4] == 0) {
-                // lighting
                 gSPSetGeometryMode(opaqueDL++, G_ZBUFFER | G_SHADE | G_CULL_BACK | G_FOG | G_LIGHTING | G_SHADING_SMOOTH | G_CLIPPING);
             } else {
-                // no lighting
                 gSPSetGeometryMode(opaqueDL++, G_ZBUFFER | G_SHADE | G_CULL_BACK | G_FOG |              G_SHADING_SMOOTH | G_CLIPPING);
             }
-            // BB002801 80008000
             gSPTexture(opaqueDL++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
 
-            // B6000000 00020000
             gSPClearGeometryMode(translucentDL++, G_LIGHTING);
-            spF88 = (D_803F2CA2 << 3) + (D_803F2CA4 << 5);
-            // temp_a0_2->unk0 = (Gfx *)0x0400207F;
-            // temp_a0_2->unk4 = (s32) ((s32) ((temp_a2 * 0x10) + &D_8022D350) & 0x1FFFFFFF);
+            // The two cull-vertex pools use the same per-cell index.
+            cullVertexBase = (D_803F2CA2 << 3) + (D_803F2CA4 << 5);
             gSPVertex(
                 translucentDL++,
-                K0_TO_PHYS(&D_8022D350[spF88]),
+                K0_TO_PHYS(&D_8022D350[cullVertexBase]),
                 8,
                 0);
-            // BE000000 0000000E
             gSPCullDisplayList(translucentDL++, 0, 7);
-            // BA001701 00000000
             gDPPipelineMode(translucentDL++, G_PM_NPRIMITIVE);
-            // BB002801 80008000
             gSPTexture(translucentDL++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
-            // F2000000 0007C07C
             gDPSetTileSize(translucentDL++, G_TX_RENDERTILE, 0, 0, 124, 124);
-            // B9000002 00000000
             gDPSetAlphaCompare(translucentDL++, G_AC_NONE);
-            // F2000000 0007C07C
             gDPSetTileSize(translucentDL++, G_TX_RENDERTILE, 0, 0, 124, 124);
-            // F2000000 0103C03C
             gDPSetTileSize(translucentDL++, 1, 0, 0, 60, 60);
-            // F2000000 0201C01C
             gDPSetTileSize(translucentDL++, 2, 0, 0, 28, 28);
-            // F2000000 0507C07C
             gDPSetTileSize(translucentDL++, 5, 0, 0, 124, 124);
-            // F2000000 0607C07C
             gDPSetTileSize(translucentDL++, 6, 0, 0, 124, 124);
-            // F5101000 00014050
             gDPSetTile(translucentDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, 0);
-            // F5100900 01010441
             gDPSetTile(translucentDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, 1, G_TX_NOMIRROR | G_TX_WRAP, 4, 1);
-            // F5100540 0200C832
             gDPSetTile(translucentDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0140, 2, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, 2, G_TX_NOMIRROR | G_TX_WRAP, 3, 2);
 
-            // E7000000 00000000
             gDPPipeSync(opaqueDL++);
-            // B9000002 00000000
             gDPSetAlphaCompare(opaqueDL++, G_AC_NONE);
-            // B900031D (D_803C0644 | D_803C064C)
             gDPSetRenderMode(opaqueDL++, gRenderMode1, gRenderMode2);
-            // FC26A004 1FFC93FC
             gDPSetCombineMode(opaqueDL++, G_CC_TRILERP, G_CC_MODULATEI2);
-            // BA001402 00100000
             gDPSetCycleType(opaqueDL++, G_CYC_2CYCLE);
-            // BA001001 00010000
             gDPSetTextureLOD(opaqueDL++, G_TL_LOD);
-            // FA00808000000000
             gDPSetPrimColor(opaqueDL++, 128, 128, 0x00, 0x00, 0x00, 0x00);
-            // 0007C07C F2000000
             gDPSetTileSize(opaqueDL++, G_TX_RENDERTILE, 0, 0, 124, 124);
-            // 0103C03C F2000000
             gDPSetTileSize(opaqueDL++, 1, 0, 0, 60, 60);
-            // 0201C01C F2000000
             gDPSetTileSize(opaqueDL++, 2, 0, 0, 28, 28);
-            // 0300C00C F2000000
             gDPSetTileSize(opaqueDL++, 3, 0, 0, 12, 12);
-            // F2000000 04004004
             gDPSetTileSize(opaqueDL++, 4, 0, 0, 4, 4);
-            // F2000000 05000000
             gDPSetTileSize(opaqueDL++, 5, 0, 0, 0, 0);
-            // F5101000 00014050
             gDPSetTile(opaqueDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, 0);
-            // F5100900 01010441
             gDPSetTile(opaqueDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, 1, G_TX_NOMIRROR | G_TX_WRAP, 4, 1);
-            // F5100540 0200C832
             gDPSetTile(opaqueDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 2, 0x0140, 2, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, 2, G_TX_NOMIRROR | G_TX_WRAP, 3, 2);
-            // F5100350 03008C23
             gDPSetTile(opaqueDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, 0x0150, 3, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, 3, G_TX_NOMIRROR | G_TX_WRAP, 2, 3);
-            // F5100354 04005014
             gDPSetTile(opaqueDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, 0x0154, 4, 0, G_TX_NOMIRROR | G_TX_WRAP, 1, 4, G_TX_NOMIRROR | G_TX_WRAP, 1, 4);
-            // F5100356 05001405
             gDPSetTile(opaqueDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, 0x0156, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, 0, 5, G_TX_NOMIRROR | G_TX_WRAP, 0, 5);
 
             D_803F2C92 = 0;
@@ -346,409 +307,395 @@ void func_80344240_7558F0(void) {
 
             gDPPipeSync(opaqueDL++);
 
-            spFC2 = D_803F2CA2 << 0xA;
-            spFC0 = D_803F2CA4 << 0xA;
+            cellOffsetX = D_803F2CA2 << 0xA;
+            cellOffsetZ = D_803F2CA4 << 0xA;
 
             do {
-                vtxFlags = D_803F2C80[spFC6].header.flags;
-                texIdx = D_803F2C80[spFC6].header.unk2;
-                variant = D_803F2C80[spFC6].header.unk3;
+                faceFlags = D_803F2C80[faceIndex].header.flags;
+                textureIndex = D_803F2C80[faceIndex].header.unk2;
+                scrollIndex = D_803F2C80[faceIndex].header.unk3;
 
-                if (vtxFlags & 1) {
-                    vtxCount = 3; // triangle
+                if (faceFlags & VTX_TRIANGLE) {
+                    vertexCount = 3;
                 } else {
-                    vtxCount = 4; // quad
+                    vertexCount = 4;
                 }
 
-                if ((vtxFlags & VTX_TRANSLUCENT) ||
-                    (vtxFlags & 0x10) ||
-                    (vtxFlags & 0x200) ||
-                    (vtxFlags & 0x8000)) {
+                if ((faceFlags & VTX_TRANSLUCENT) ||
+                    (faceFlags & 0x10) ||
+                    (faceFlags & 0x200) ||
+                    (faceFlags & 0x8000)) {
 
-                    // TRANSLUCENT
+                    gWorldCellTranslucentEnabled[D_803F2CA2][D_803F2CA4] = 1;
+                    for (vertexIndex = 0; vertexIndex < vertexCount; vertexIndex++) {
+                        D_803F2C9C = (D_803F2C80[faceIndex].unk4[vertexIndex].unk7 << 6) + cellOffsetX + 0x100;
+                        D_803F2C9E = (D_803F2C80[faceIndex].unk4[vertexIndex].unkA << 6) + cellOffsetZ + 0x200;
+                        D_803F2CA0 = D_803F2C80[faceIndex].unk4[vertexIndex].unk8 * 8;
+                        tileX[vertexIndex] = D_803F2C9C >> 6;
+                        tileZ[vertexIndex] = D_803F2C9E >> 6;
+                        translucentVertexIndex = translucentVertexCount;
+                        translucentVertexIndices[vertexIndex] = translucentVertexIndex;
 
-                    gWorldCellTranslucentEnabled[D_803F2CA2][D_803F2CA4] = 1; // enabled
-                    for (i = 0; i < vtxCount; i++) {
-                        D_803F2C9C = (D_803F2C80[spFC6].unk4[i].unk7 << 6) + spFC2 + 0x100;   // unkB
-                        D_803F2C9E = (D_803F2C80[spFC6].unk4[i].unkA << 6) + spFC0 + 0x200;   // unkE
-                        D_803F2CA0 = (D_803F2C80[spFC6].unk4[i].unk8 << 3);                   // unkC
-                        spF64[i] = D_803F2C9C >> 6;
-                        spF60[i] = D_803F2C9E >> 6;
-                        spF58[i] = totalTransVtxs;
-
-                        if (vtxFlags & VTX_RENDER_MODE_DECAL) {
-                            // Original no-op; possibly a leftover decal depth tweak.
+                        if (faceFlags & VTX_RENDER_MODE_DECAL) {
+                            // Decal faces store the height back unchanged.
                             D_803F2CA0 = D_803F2CA0;
                         }
-                        tc0 = D_803F2C80[spFC6].unk4[i].tc0 << 6; // unk4
-                        tc1 = D_803F2C80[spFC6].unk4[i].tc1 << 6; // unk6
 
-                        // Near-opaque translucent vertices are canonicalized before the DL is built.
-                        if (D_803F2C80[spFC6].unk4[i].alpha > 250) { // unkF
-                            D_803F2C80[spFC6].unk4[i].alpha = 0xFF; // unkF
+                        tc0 = D_803F2C80[faceIndex].unk4[vertexIndex].tc0 * 64;
+                        tc1 = D_803F2C80[faceIndex].unk4[vertexIndex].tc1 * 64;
+
+                        // Clamp nearly opaque alpha to 0xFF (this writes back into the level geometry).
+                        if (D_803F2C80[faceIndex].unk4[vertexIndex].alpha > 250) {
+                            D_803F2C80[faceIndex].unk4[vertexIndex].alpha = 0xFF;
                         }
 
-                        // maybe?
-                        temp_t2 = D_803F2C80[spFC6].unk4[i].red;
-                        temp_t3 = D_803F2C80[spFC6].unk4[i].green;
-                        temp_t4 = D_803F2C80[spFC6].unk4[i].blue;
+                        red = D_803F2C80[faceIndex].unk4[vertexIndex].red;
+                        green = D_803F2C80[faceIndex].unk4[vertexIndex].green;
+                        blue = D_803F2C80[faceIndex].unk4[vertexIndex].blue;
 
-                        if (texIdx >= GEO_TEXTURE_ANIMATED_MIN) {
+                        if (textureIndex >= GEO_TEXTURE_ANIMATED_MIN) {
                             alpha = 0;
                         } else {
-                            alpha = D_803F2C80[spFC6].unk4[i].alpha; // unkF
+                            alpha = D_803F2C80[faceIndex].unk4[vertexIndex].alpha;
                         }
 
-                        gTranslucentVtxPool[totalTransVtxs].v.ob[0] = D_803F2C9C;
-                        gTranslucentVtxPool[totalTransVtxs].v.ob[1] = D_803F2C9E;
-                        gTranslucentVtxPool[totalTransVtxs].v.ob[2] = D_803F2CA0;
+                        translucentVertex = &gTranslucentVtxPool[translucentVertexIndex];
+                        translucentVertex->v.ob[0] = D_803F2C9C;
+                        translucentVertex->v.ob[1] = D_803F2C9E;
+                        translucentVertex->v.ob[2] = D_803F2CA0;
 
-                        gTranslucentVtxPool[totalTransVtxs].v.cn[0] = temp_t2; // unk8
-                        gTranslucentVtxPool[totalTransVtxs].v.cn[1] = temp_t3; // unk9
-                        gTranslucentVtxPool[totalTransVtxs].v.cn[2] = temp_t4; // unkA
-                        gTranslucentVtxPool[totalTransVtxs].v.cn[3] = alpha;
+                        translucentVertex->v.cn[0] = red;
+                        translucentVertex->v.cn[1] = green;
+                        translucentVertex->v.cn[2] = blue;
+                        translucentVertex->v.cn[3] = alpha;
 
-                        gTranslucentVtxPool[totalTransVtxs].v.tc[0] = tc0;
-                        gTranslucentVtxPool[totalTransVtxs].v.tc[1] = tc1;
+                        translucentVertex->v.tc[0] = tc0;
+                        translucentVertex->v.tc[1] = tc1;
 
-                        if (transMinX >= D_803F2C9C) {
-                            transMinX = D_803F2C9C;
-                        }
-                        if (transMinZ >= D_803F2CA0) {
-                            transMinZ = D_803F2CA0;
-                        }
-                        if (transMinY >= D_803F2C9E) {
-                            transMinY = D_803F2C9E;
-                        }
-                        if (D_803F2C9C >= transMaxX) {
-                            transMaxX = D_803F2C9C;
-                        }
-                        if (D_803F2CA0 >= transMaxZ) {
-                            transMaxZ = D_803F2CA0;
-                        }
-                        if (D_803F2C9E >= transMaxY) {
-                            transMaxY = D_803F2C9E;
-                        }
-                        totalTransVtxs++;
+                        translucentMinX = MIN(translucentMinX, D_803F2C9C);
+                        translucentMinY = MIN(translucentMinY, D_803F2CA0);
+                        translucentMinZ = MIN(translucentMinZ, D_803F2C9E);
+                        translucentMaxX = MAX(translucentMaxX, D_803F2C9C);
+                        translucentMaxY = MAX(translucentMaxY, D_803F2CA0);
+                        translucentMaxZ = MAX(translucentMaxZ, D_803F2C9E);
+                        translucentVertexCount++;
                     }
 
-                    // Variant range 32..47 stores per-vertex centers for animated translucent textures.
-                    if ((variant >= GEO_VARIANT_CENTER_MIN) && (variant < GEO_VARIANT_CENTER_MAX)) {
-                        if (vtxCount == 4) {
-                            spF72 = MAX(MAX(MAX(spF64[0], spF64[1]), spF64[2]), spF64[3]);
-                            spF70 = MAX(MAX(MAX(spF60[0], spF60[1]), spF60[2]), spF60[3]);
-                            spF6E = MIN(MIN(MIN(spF64[0], spF64[1]), spF64[2]), spF64[3]);
-                            spF6C = MIN(MIN(MIN(spF60[0], spF60[1]), spF60[2]), spF60[3]);
+                    // Faces with scroll indices 32..47 also record their center tile for each vertex.
+                    if ((scrollIndex >= GEO_SCROLL_CENTER_MIN) && (scrollIndex < GEO_SCROLL_CENTER_MAX)) {
+                        if (vertexCount == 4) {
+                            maxTileX = MAX(MAX(MAX(tileX[0], tileX[1]), tileX[2]), tileX[3]);
+                            maxTileZ = MAX(MAX(MAX(tileZ[0], tileZ[1]), tileZ[2]), tileZ[3]);
+                            minTileX = MIN(MIN(MIN(tileX[0], tileX[1]), tileX[2]), tileX[3]);
+                            minTileZ = MIN(MIN(MIN(tileZ[0], tileZ[1]), tileZ[2]), tileZ[3]);
                         }
-                        // Oddity: triangles reuse these center temps, so data may avoid this range for tris.
-                        for (i = 0; i < vtxCount; i++) {
-                            D_803E4930[D_803E4AC8 + i] = (spF72 + spF6E) >> 1;
-                            D_803E4998[D_803E4AC8 + i] = (spF70 + spF6C) >> 1;
-                            D_803E4A00[D_803E4AC8 + i] = spF58[i];
+                        // Only quads update the bounds, so a triangle uses the bounds left from an
+                        // earlier face (or uninitialized ones if it is the first).
+                        for (vertexIndex = 0; vertexIndex < vertexCount; vertexIndex++) {
+                            centerIndex = D_803E4AC8 + vertexIndex;
+                            centerTileX = (maxTileX + minTileX) >> 1;
+                            D_803E4930[centerIndex] = centerTileX;
+                            centerTileZ = (maxTileZ + minTileZ) >> 1;
+                            D_803E4998[centerIndex] = centerTileZ;
+                            D_803E4A00[centerIndex] = translucentVertexIndices[vertexIndex];
                         }
-                        D_803E4AC8 += vtxCount;
+                        D_803E4AC8 += vertexCount;
                     }
 
-                    translucentVtxs[numTransVtxs].idx = spFC6;
-                    if (vtxFlags & 1) {
-                        numTransVtxsBatch += 3;
+                    translucentFaceIndex = translucentFaceCount;
+                    translucentFaces[translucentFaceIndex].idx = faceIndex;
+                    if (faceFlags & VTX_TRIANGLE) {
+                        translucentBatchVertexCount += 3;
                     } else {
-                        numTransVtxsBatch += 4;
+                        translucentBatchVertexCount += 4;
                     }
 
-                    numTransVtxs++; // num translucent vtxs
-                    spFC6++; // total vtxs?
+                    translucentFaceCount++;
+                    faceIndex++;
 
-                    // if we have 8 vtxs emit batch
-                    if (numTransVtxs >= 8) {
-                        func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[transVtxBatchIdx], numTransVtxsBatch);
-                        transVtxBatchIdx = totalTransVtxs;
-                        func_80346BB4_758264(&translucentDL, translucentVtxs, 8);
-                        numTransVtxsBatch = 0;
-                        numTransVtxs = 0;
+                    if (translucentFaceCount >= TRANSLUCENT_BATCH_FACE_COUNT) {
+                        func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[translucentBatchStart], translucentBatchVertexCount);
+                        func_80346BB4_758264(&translucentDL, translucentFaces, TRANSLUCENT_BATCH_FACE_COUNT);
+                        translucentBatchStart = translucentVertexCount;
+                        translucentBatchVertexCount = 0;
+                        translucentFaceCount = 0;
                     }
                 } else {
-                    // OPAQUE
 
-                    sp40 = opaqueVtxsIdx - numOpaqueVtxsBatch; // calculate remaining?
-                    // sp48 = vtxFlags & 0x4000;
-                    for (i = 0; i < vtxCount; i++) {
-                        D_803F2C9C = (D_803F2C80[spFC6].unk4[i].unk7 << 6) + spFC2 + 0x100;    // unkB
-                        D_803F2C9E = (D_803F2C80[spFC6].unk4[i].unkA << 6) + spFC0 + 0x200;    // unkE
-                        foundVtxIdx = NOT_FOUND;
+                    for (vertexIndex = 0; vertexIndex < vertexCount; vertexIndex++) {
+                        D_803F2C9C = (D_803F2C80[faceIndex].unk4[vertexIndex].unk7 << 6) + cellOffsetX + 0x100;
+                        D_803F2C9E = (D_803F2C80[faceIndex].unk4[vertexIndex].unkA << 6) + cellOffsetZ + 0x200;
 
-                        D_803F2CA0 = D_803F2C80[spFC6].unk4[i].unk8 * 8;   // unkC
+                        D_803F2CA0 = D_803F2C80[faceIndex].unk4[vertexIndex].unk8 * 8;
 
-                        if (vtxFlags & VTX_RENDER_MODE_DECAL) {
-                            // Original no-op; mirrored from the translucent path.
+                        if (faceFlags & VTX_RENDER_MODE_DECAL) {
+                            // Decal faces store the height back unchanged.
                             D_803F2CA0 = D_803F2CA0;
                         }
 
-                        tc0 = D_803F2C80[spFC6].unk4[i].tc0 << 6; // unk4
-                        temp_t3 = sp146 = D_803F2C80[spFC6].unk4[i].green;  // unk9
-                        temp_t4 = sp145 = D_803F2C80[spFC6].unk4[i].blue;   // unkA
-                        temp_t2 = sp147 = D_803F2C80[spFC6].unk4[i].red;    // unk8
-                        tc1 = D_803F2C80[spFC6].unk4[i].tc1 << 6; // unk6
+                        existingVertexIndex = opaqueBatchStart;
+                        reusedVertexIndex = NOT_FOUND;
+                        tc0 = D_803F2C80[faceIndex].unk4[vertexIndex].tc0 * 64;
+                        tc1 = D_803F2C80[faceIndex].unk4[vertexIndex].tc1 * 64;
+                        normalX = D_803F2C80[faceIndex].unk4[vertexIndex].red;
+                        normalZ = D_803F2C80[faceIndex].unk4[vertexIndex].green;
+                        normalY = D_803F2C80[faceIndex].unk4[vertexIndex].blue;
+                        red = D_803F2C80[faceIndex].unk4[vertexIndex].red;
+                        green = D_803F2C80[faceIndex].unk4[vertexIndex].green;
+                        blue = D_803F2C80[faceIndex].unk4[vertexIndex].blue;
 
-                        for (j = numOpaqueVtxsBatch; j < opaqueVtxsIdx; ) {
-                            flags = 0;
+                        while (existingVertexIndex < opaqueVertexCount) {
+                            reuseFlags = 0;
                             if (D_803F2D50.cellLightingModes[D_803F2CA2][D_803F2CA4] == 0) {
-                                // lighting
-                                if ((D_803F2C9C == gOpaqueVtxPool[j].v.ob[0]) &&
-                                    (D_803F2C9E == gOpaqueVtxPool[j].v.ob[1]) &&
-                                    (D_803F2CA0 == gOpaqueVtxPool[j].v.ob[2]) &&
-                                    (foundVtxIdx == NOT_FOUND)) {
-                                    if ((tc0 != gOpaqueVtxPool[j].v.tc[0]) ||
-                                        (tc1 != gOpaqueVtxPool[j].v.tc[1])) {
-                                        flags = 1;
+                                if ((D_803F2C9C == gOpaqueVtxPool[existingVertexIndex].v.ob[0]) &&
+                                    (D_803F2C9E == gOpaqueVtxPool[existingVertexIndex].v.ob[1]) &&
+                                    (D_803F2CA0 == gOpaqueVtxPool[existingVertexIndex].v.ob[2]) &&
+                                    (reusedVertexIndex == NOT_FOUND)) {
+                                    if ((tc0 != gOpaqueVtxPool[existingVertexIndex].v.tc[0]) ||
+                                        (tc1 != gOpaqueVtxPool[existingVertexIndex].v.tc[1])) {
+                                        reuseFlags = REUSED_VTX_UPDATE_TC;
                                     }
-                                    if (gOpaqueVtxPool[j].v.flag != 0) {
-                                        flags |= 1;
+                                    if (gOpaqueVtxPool[existingVertexIndex].v.flag != 0) {
+                                        reuseFlags |= REUSED_VTX_UPDATE_TC;
                                     }
-                                    gOpaqueVtxPool[j].v.flag = 1;
-                                    if (flags == 0) {
-                                        flags = 4;
+                                    gOpaqueVtxPool[existingVertexIndex].v.flag = 1;
+                                    if (reuseFlags == 0) {
+                                        reuseFlags = REUSED_VTX_NO_TC_UPDATE;
                                     }
                                 }
                             } else {
-                                if ((D_803F2C9C == gOpaqueVtxPool[j].v.ob[0]) &&
-                                    (D_803F2C9E == gOpaqueVtxPool[j].v.ob[1]) &&
-                                    (D_803F2CA0 == gOpaqueVtxPool[j].v.ob[2]) &&
-                                    ((temp_t2 & 0xF0) == (gOpaqueVtxPool[j].v.cn[0] & 0xF0)) &&
-                                    ((temp_t3 & 0xF0) == (gOpaqueVtxPool[j].v.cn[1] & 0xF0)) &&
-                                    ((temp_t4 & 0xF0) == (gOpaqueVtxPool[j].v.cn[2] & 0xF0)) &&
-                                    (foundVtxIdx == NOT_FOUND)) {
+                                if ((D_803F2C9C == gOpaqueVtxPool[existingVertexIndex].v.ob[0]) &&
+                                    (D_803F2C9E == gOpaqueVtxPool[existingVertexIndex].v.ob[1]) &&
+                                    (D_803F2CA0 == gOpaqueVtxPool[existingVertexIndex].v.ob[2]) &&
+                                    ((red & 0xF0) == (gOpaqueVtxPool[existingVertexIndex].v.cn[0] & 0xF0)) &&
+                                    ((green & 0xF0) == (gOpaqueVtxPool[existingVertexIndex].v.cn[1] & 0xF0)) &&
+                                    ((blue & 0xF0) == (gOpaqueVtxPool[existingVertexIndex].v.cn[2] & 0xF0)) &&
+                                    (reusedVertexIndex == NOT_FOUND)) {
 
-                                    if (((tc0 & 0xFFFF00) != (gOpaqueVtxPool[j].v.tc[0] & 0xFFFF00)) ||
-                                        ((tc1 & 0xFFFF00) != (gOpaqueVtxPool[j].v.tc[1] & 0xFFFF00))) {
-                                        flags = 1;
+                                    if (((tc0 & 0xFFFF00) != (gOpaqueVtxPool[existingVertexIndex].v.tc[0] & 0xFFFF00)) ||
+                                        ((tc1 & 0xFFFF00) != (gOpaqueVtxPool[existingVertexIndex].v.tc[1] & 0xFFFF00))) {
+                                        reuseFlags = REUSED_VTX_UPDATE_TC;
                                     }
-                                    if (gOpaqueVtxPool[j].v.flag != 0) {
-                                        flags |= 1;
+                                    if (gOpaqueVtxPool[existingVertexIndex].v.flag != 0) {
+                                        reuseFlags |= REUSED_VTX_UPDATE_TC;
                                     }
-                                    gOpaqueVtxPool[j].v.flag = 1;
-                                    if (flags == 0) {
-                                        flags = 4;
+                                    gOpaqueVtxPool[existingVertexIndex].v.flag = 1;
+                                    if (reuseFlags == 0) {
+                                        reuseFlags = REUSED_VTX_NO_TC_UPDATE;
                                     }
                                 }
                             }
-                            if (flags != 0) {
+                            if (reuseFlags != 0) {
                                 reuseCount++;
-                                foundVtxIdx = j;
-                                j = opaqueVtxsIdx; // break?
+                                reusedVertexIndex = existingVertexIndex;
+                                existingVertexIndex = opaqueVertexCount;
                             } else {
-                                j += 1;
+                                existingVertexIndex += 1;
+#ifdef __sgi
+                                // fakematch: empty check, needed to match
+                                if ((D_803F2CA2 < WORLD_CELL_COUNT_X) && (D_803F2CA4 < WORLD_CELL_COUNT_Z)) {}
+#endif
                             }
                         }
 
-                        if (foundVtxIdx != NOT_FOUND) {
-                            // reuse existing
-                            opaqueVtxs[numOpaqueVtxs].v[i] = (foundVtxIdx - numOpaqueVtxsBatch);
-                            opaqueVtxs[numOpaqueVtxs].flags[i] = flags;
+                        if (reusedVertexIndex != NOT_FOUND) {
+                            batchVertexIndex = reusedVertexIndex - opaqueBatchStart;
+                            opaqueFaces[opaqueFaceCount].v[vertexIndex] = batchVertexIndex;
+                            opaqueFaces[opaqueFaceCount].flags[vertexIndex] = reuseFlags;
                         } else {
-                            // add new vertex
-                            gOpaqueVtxPool[opaqueVtxsIdx].v.flag = 0;
-                            gOpaqueVtxPool[opaqueVtxsIdx].v.ob[0] = D_803F2C9C;
-                            gOpaqueVtxPool[opaqueVtxsIdx].v.ob[1] = D_803F2C9E;
-                            gOpaqueVtxPool[opaqueVtxsIdx].v.ob[2] = D_803F2CA0;
+                            gOpaqueVtxPool[opaqueVertexCount].v.flag = 0;
+                            gOpaqueVtxPool[opaqueVertexCount].v.ob[0] = D_803F2C9C;
+                            gOpaqueVtxPool[opaqueVertexCount].v.ob[1] = D_803F2C9E;
+                            gOpaqueVtxPool[opaqueVertexCount].v.ob[2] = D_803F2CA0;
 
-                            // something like this?
                             if (D_803F2D50.cellLightingModes[D_803F2CA2][D_803F2CA4] == 0) {
-                                // lighting
-                                gOpaqueVtxPool[opaqueVtxsIdx].n.n[0] = sp147;
-                                gOpaqueVtxPool[opaqueVtxsIdx].n.n[1] = sp146;
-                                gOpaqueVtxPool[opaqueVtxsIdx].n.n[2] = sp145;
-
+                                gOpaqueVtxPool[opaqueVertexCount].n.n[0] = normalX;
+                                gOpaqueVtxPool[opaqueVertexCount].n.n[1] = normalZ;
+                                gOpaqueVtxPool[opaqueVertexCount].n.n[2] = normalY;
                             } else {
-                                gOpaqueVtxPool[opaqueVtxsIdx].v.cn[0] = temp_t2;
-                                gOpaqueVtxPool[opaqueVtxsIdx].v.cn[1] = temp_t3;
-                                gOpaqueVtxPool[opaqueVtxsIdx].v.cn[2] = temp_t4;
+                                gOpaqueVtxPool[opaqueVertexCount].v.cn[0] = red;
+                                gOpaqueVtxPool[opaqueVertexCount].v.cn[1] = green;
+                                gOpaqueVtxPool[opaqueVertexCount].v.cn[2] = blue;
                             }
 
-                            opaqueVtxs[numOpaqueVtxs].flags[i] = 0;
-                            opaqueVtxs[numOpaqueVtxs].unk1C[i] = opaqueVtxsIdx;
-                            opaqueVtxs[numOpaqueVtxs].v[i] = sp40;
-
-                            gOpaqueVtxPool[opaqueVtxsIdx].v.cn[3] = 0xFF;
-
-                            gOpaqueVtxPool[opaqueVtxsIdx].v.tc[0] = tc0;
-                            gOpaqueVtxPool[opaqueVtxsIdx].v.tc[1] = tc1;
-                            opaqueVtxsIdx += 1;
-                            sp40 = opaqueVtxsIdx - numOpaqueVtxsBatch;
+                            gOpaqueVtxPool[opaqueVertexCount].v.cn[3] = 0xFF;
+                            opaqueFaces[opaqueFaceCount].flags[vertexIndex] = 0;
+                            batchVertexIndex = opaqueVertexCount - opaqueBatchStart;
+                            opaqueFaces[opaqueFaceCount].v[vertexIndex] = batchVertexIndex;
+                            opaqueFaces[opaqueFaceCount].unk1C[vertexIndex] = opaqueVertexCount;
+                            gOpaqueVtxPool[opaqueVertexCount].v.tc[0] = tc0;
+                            gOpaqueVtxPool[opaqueVertexCount].v.tc[1] = tc1;
+                            opaqueVertexCount += 1;
                         }
 
                         if (opaqueMinX >= D_803F2C9C) {
                             opaqueMinX = D_803F2C9C;
                         }
-                        if (opaqueMinZ >= D_803F2CA0) {
-                            opaqueMinZ = D_803F2CA0;
+                        if (opaqueMinY >= D_803F2CA0) {
+                            opaqueMinY = D_803F2CA0;
                         }
-                        if (opaqueMinY >= D_803F2C9E) {
-                            opaqueMinY = D_803F2C9E;
+                        if (opaqueMinZ >= D_803F2C9E) {
+                            opaqueMinZ = D_803F2C9E;
                         }
                         if (D_803F2C9C >= opaqueMaxX) {
                             opaqueMaxX = D_803F2C9C;
                         }
-                        if (D_803F2CA0 >= opaqueMaxZ) {
-                            opaqueMaxZ = D_803F2CA0;
+                        if (D_803F2CA0 >= opaqueMaxY) {
+                            opaqueMaxY = D_803F2CA0;
                         }
-                        if (D_803F2C9E >= opaqueMaxY) {
-                            opaqueMaxY = D_803F2C9E;
+                        if (D_803F2C9E >= opaqueMaxZ) {
+                            opaqueMaxZ = D_803F2C9E;
                         }
                     }
 
-                    opaqueVtxs[numOpaqueVtxs++].idx = spFC6++;
+                    opaqueFaces[opaqueFaceCount++].idx = faceIndex++;
 
-                    if (sp40 > 28) {
-                        func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[numOpaqueVtxsBatch], sp40);
-                        numOpaqueVtxsBatch = opaqueVtxsIdx;
-                        func_803458FC_756FAC(&opaqueDL, opaqueVtxs, numOpaqueVtxs);
-                        numOpaqueVtxs = 0;
+                    opaqueBatchVertexCount = opaqueVertexCount - opaqueBatchStart;
+                    // Leave room for the next quad in the 32-vertex cache.
+                    if (opaqueBatchVertexCount > OPAQUE_BATCH_FLUSH_THRESHOLD) {
+                        func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[opaqueBatchStart], opaqueBatchVertexCount);
+                        func_803458FC_756FAC(&opaqueDL, opaqueFaces, opaqueFaceCount);
+                        opaqueBatchStart = opaqueVertexCount;
+                        opaqueFaceCount = 0;
                     }
                 }
-            } while (!(vtxFlags & VTX_CELL_END));
+            } while (!(faceFlags & VTX_CELL_END));
 
-            // temp_v0_10 = (spF88 * 0x10) + &D_80224870;
+            // Build the opaque cell's eight-vertex cull box (game axes x, z, y).
+            D_80224870[cullVertexBase + 0].v.ob[0] = opaqueMinX;
+            D_80224870[cullVertexBase + 0].v.ob[1] = opaqueMinZ;
+            D_80224870[cullVertexBase + 0].v.ob[2] = opaqueMinY;
 
-            // D_80224870 is 5000 Vtx higher than gOpaqueVtxPool.
-            // Level Vtx.ob is game-space x,z,y, despite the local min/max names below.
-            D_80224870[spF88 + 0].v.ob[0] = opaqueMinX; /* 0x00 */
-            D_80224870[spF88 + 0].v.ob[1] = opaqueMinY; /* 0x02 */
-            D_80224870[spF88 + 0].v.ob[2] = opaqueMinZ; /* 0x04 */
+            D_80224870[cullVertexBase + 1].v.ob[0] = opaqueMaxX;
+            D_80224870[cullVertexBase + 1].v.ob[1] = opaqueMinZ;
+            D_80224870[cullVertexBase + 1].v.ob[2] = opaqueMinY;
 
-            D_80224870[spF88 + 1].v.ob[0] = opaqueMaxX; /* 0x10 */
-            D_80224870[spF88 + 1].v.ob[1] = opaqueMinY; /* 0x12 */
-            D_80224870[spF88 + 1].v.ob[2] = opaqueMinZ; /* 0x14 */
+            D_80224870[cullVertexBase + 2].v.ob[0] = opaqueMinX;
+            D_80224870[cullVertexBase + 2].v.ob[1] = opaqueMaxZ;
+            D_80224870[cullVertexBase + 2].v.ob[2] = opaqueMinY;
 
-            D_80224870[spF88 + 2].v.ob[0] = opaqueMinX; /* 0x20 */
-            D_80224870[spF88 + 2].v.ob[1] = opaqueMaxY; /* 0x22 */
-            D_80224870[spF88 + 2].v.ob[2] = opaqueMinZ; /* 0x24 */
+            D_80224870[cullVertexBase + 3].v.ob[0] = opaqueMaxX;
+            D_80224870[cullVertexBase + 3].v.ob[1] = opaqueMaxZ;
+            D_80224870[cullVertexBase + 3].v.ob[2] = opaqueMinY;
 
-            D_80224870[spF88 + 3].v.ob[0] = opaqueMaxX;
-            D_80224870[spF88 + 3].v.ob[1] = opaqueMaxY;
-            D_80224870[spF88 + 3].v.ob[2] = opaqueMinZ;
+            D_80224870[cullVertexBase + 4].v.ob[0] = opaqueMinX;
+            D_80224870[cullVertexBase + 4].v.ob[1] = opaqueMinZ;
+            D_80224870[cullVertexBase + 4].v.ob[2] = opaqueMaxY;
 
-            D_80224870[spF88 + 4].v.ob[0] = opaqueMinX;
-            D_80224870[spF88 + 4].v.ob[1] = opaqueMinY;
-            D_80224870[spF88 + 4].v.ob[2] = opaqueMaxZ;
+            D_80224870[cullVertexBase + 5].v.ob[0] = opaqueMaxX;
+            D_80224870[cullVertexBase + 5].v.ob[1] = opaqueMinZ;
+            D_80224870[cullVertexBase + 5].v.ob[2] = opaqueMaxY;
 
-            D_80224870[spF88 + 5].v.ob[0] = opaqueMaxX;
-            D_80224870[spF88 + 5].v.ob[1] = opaqueMinY;
-            D_80224870[spF88 + 5].v.ob[2] = opaqueMaxZ;
+            D_80224870[cullVertexBase + 6].v.ob[0] = opaqueMinX;
+            D_80224870[cullVertexBase + 6].v.ob[1] = opaqueMaxZ;
+            D_80224870[cullVertexBase + 6].v.ob[2] = opaqueMaxY;
 
-            D_80224870[spF88 + 6].v.ob[0] = opaqueMinX;
-            D_80224870[spF88 + 6].v.ob[1] = opaqueMaxY;
-            D_80224870[spF88 + 6].v.ob[2] = opaqueMaxZ;
+            D_80224870[cullVertexBase + 7].v.ob[0] = opaqueMaxX;
+            D_80224870[cullVertexBase + 7].v.ob[1] = opaqueMaxZ;
+            D_80224870[cullVertexBase + 7].v.ob[2] = opaqueMaxY;
 
-            D_80224870[spF88 + 7].v.ob[0] = opaqueMaxX;
-            D_80224870[spF88 + 7].v.ob[1] = opaqueMaxY;
-            D_80224870[spF88 + 7].v.ob[2] = opaqueMaxZ;
+            // Build the translucent cell's cull box.
+            D_8022D350[cullVertexBase + 0].v.ob[0] = translucentMinX;
+            D_8022D350[cullVertexBase + 0].v.ob[1] = translucentMinZ;
+            D_8022D350[cullVertexBase + 0].v.ob[2] = translucentMinY;
 
-            // D_8022D350 is 2222 Vtx higher than D_80224870
-            // temp_v1_5 = (spF88 * 0x10) + &D_8022D350;
-            D_8022D350[spF88 + 0].v.ob[0] = transMinX;
-            D_8022D350[spF88 + 0].v.ob[1] = transMinY;
-            D_8022D350[spF88 + 0].v.ob[2] = transMinZ;
-            D_8022D350[spF88 + 1].v.ob[0] = transMaxX;
-            D_8022D350[spF88 + 1].v.ob[1] = transMinY;
-            D_8022D350[spF88 + 1].v.ob[2] = transMinZ;
+            D_8022D350[cullVertexBase + 1].v.ob[0] = translucentMaxX;
+            D_8022D350[cullVertexBase + 1].v.ob[1] = translucentMinZ;
+            D_8022D350[cullVertexBase + 1].v.ob[2] = translucentMinY;
 
-            D_8022D350[spF88 + 2].v.ob[0] = transMinX;
-            D_8022D350[spF88 + 2].v.ob[1] = transMaxY;
-            D_8022D350[spF88 + 2].v.ob[2] = transMinZ;
-            D_8022D350[spF88 + 3].v.ob[0] = transMaxX;
-            D_8022D350[spF88 + 3].v.ob[1] = transMaxY;
-            D_8022D350[spF88 + 3].v.ob[2] = transMinZ;
+            D_8022D350[cullVertexBase + 2].v.ob[0] = translucentMinX;
+            D_8022D350[cullVertexBase + 2].v.ob[1] = translucentMaxZ;
+            D_8022D350[cullVertexBase + 2].v.ob[2] = translucentMinY;
 
-            D_8022D350[spF88 + 4].v.ob[1] = transMinY;
-            D_8022D350[spF88 + 4].v.ob[0] = transMinX;
-            D_8022D350[spF88 + 4].v.ob[2] = transMaxZ;
-            D_8022D350[spF88 + 5].v.ob[0] = transMaxX;
-            D_8022D350[spF88 + 5].v.ob[1] = transMinY;
-            D_8022D350[spF88 + 5].v.ob[2] = transMaxZ;
+            D_8022D350[cullVertexBase + 3].v.ob[0] = translucentMaxX;
+            D_8022D350[cullVertexBase + 3].v.ob[1] = translucentMaxZ;
+            D_8022D350[cullVertexBase + 3].v.ob[2] = translucentMinY;
 
-            D_8022D350[spF88 + 6].v.ob[0] = transMinX;
-            D_8022D350[spF88 + 6].v.ob[1] = transMaxY;
-            D_8022D350[spF88 + 6].v.ob[2] = transMaxZ;
-            D_8022D350[spF88 + 7].v.ob[0] = transMaxX;
-            D_8022D350[spF88 + 7].v.ob[1] = transMaxY;
-            D_8022D350[spF88 + 7].v.ob[2] = transMaxZ;
+            D_8022D350[cullVertexBase + 4].v.ob[0] = translucentMinX;
+            D_8022D350[cullVertexBase + 4].v.ob[1] = translucentMinZ;
+            D_8022D350[cullVertexBase + 4].v.ob[2] = translucentMaxY;
 
-            if (numOpaqueVtxs != 0) {
-                func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[numOpaqueVtxsBatch], opaqueVtxsIdx - numOpaqueVtxsBatch);
-                numOpaqueVtxsBatch = opaqueVtxsIdx;
-                func_803458FC_756FAC(&opaqueDL, opaqueVtxs, numOpaqueVtxs);
-                numOpaqueVtxs = 0;
+            D_8022D350[cullVertexBase + 5].v.ob[0] = translucentMaxX;
+            D_8022D350[cullVertexBase + 5].v.ob[1] = translucentMinZ;
+            D_8022D350[cullVertexBase + 5].v.ob[2] = translucentMaxY;
+
+            D_8022D350[cullVertexBase + 6].v.ob[0] = translucentMinX;
+            D_8022D350[cullVertexBase + 6].v.ob[1] = translucentMaxZ;
+            D_8022D350[cullVertexBase + 6].v.ob[2] = translucentMaxY;
+
+            D_8022D350[cullVertexBase + 7].v.ob[0] = translucentMaxX;
+            D_8022D350[cullVertexBase + 7].v.ob[1] = translucentMaxZ;
+            D_8022D350[cullVertexBase + 7].v.ob[2] = translucentMaxY;
+
+            if (opaqueFaceCount != 0) {
+                opaqueBatchVertexCount = opaqueVertexCount - opaqueBatchStart;
+                func_803458B8_756F68(&opaqueDL, &gOpaqueVtxPool[opaqueBatchStart], opaqueBatchVertexCount);
+                func_803458FC_756FAC(&opaqueDL, opaqueFaces, opaqueFaceCount);
+                opaqueBatchStart = opaqueVertexCount;
+                opaqueFaceCount = 0;
             }
-            if (numTransVtxs != 0) {
-                func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[transVtxBatchIdx], numTransVtxsBatch);
-                numTransVtxsBatch = 0;
-                transVtxBatchIdx = totalTransVtxs;
-                func_80346BB4_758264(&translucentDL, translucentVtxs, numTransVtxs);
-                numTransVtxs = 0;
+            if (translucentFaceCount != 0) {
+                func_803458B8_756F68(&translucentDL, &gTranslucentVtxPool[translucentBatchStart], translucentBatchVertexCount);
+                func_80346BB4_758264(&translucentDL, translucentFaces, translucentFaceCount);
+                translucentBatchStart = translucentVertexCount;
+                translucentBatchVertexCount = 0;
+                translucentFaceCount = 0;
             }
             gSPEndDisplayList(opaqueDL++);
             gSPEndDisplayList(translucentDL++);
         }
+        D_803F2CA4++;
     }
     gSPEndDisplayList(opaqueDL++);
     gSPEndDisplayList(translucentDL++);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_80344240_7558F0.s")
-#endif
 
 void func_803458B8_756F68(Gfx **dl, Vtx *vtx, s16 num) {
     gSPVertex((*dl)++, K0_TO_PHYS(vtx), num, 0);
 }
 
-#if 0
-// CURRENT (4177)
-extern int COMBINED;
-extern int SHADE_ALPHA;
-extern int TEXEL0;
-extern int TEXEL1;
-extern int SHADE;
-extern int LOD_FRACTION;
-extern int PRIMITIVE;
-extern int PRIM_LOD_FRAC;
-
-// Emit the opaque cell DL for a batch prepared by func_80344240_7558F0.
-// arg1[].idx points back into the raw geo stream; arg1[].v is batch-local.
-void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
-    s32 pad2;
-    s16 i;          // sp17A
-    s16 vtxsUsed;   // sp178
+// Emit opaque faces from the level geometry using batch-local vertex slots.
+void func_803458FC_756FAC(Gfx **dl, struct115 *faces, s16 numFaces) {
+    s32 reuseFlags;
+    s16 i;
+    s16 cornersDrawn; // The target updates this tally without using the result.
     s16 j;
 
-    u8  sp175;   // texture scroll/control index queued in D_803E3130
-    u8  index;   // texture index / animated texture type selector
+    u8 scrollIndex;
+    u8 variant;
     u16 vtxFlags;
-    s16 pad;
 
     s16 s;
     s16 t;
+    u32 packedST;
 
-    vtxsUsed = 0;
+    cornersDrawn = 0;
 
-    for (i = 0; i < numVtxs; i++) {
-        vtxFlags = D_803F2C80[arg1[i].idx].header.flags;
-        index = D_803F2C80[arg1[i].idx].header.unk2;
-        sp175 = D_803F2C80[arg1[i].idx].header.unk3;
+    for (i = 0; i < numFaces; i++) {
+        u32 scrollType;
 
-        // These flags select special opaque material states before normal texture setup.
-        if ((vtxFlags & 8) ||
-            (vtxFlags & 0x40) ||
+        vtxFlags = D_803F2C80[faces[i].idx].header.flags;
+        variant = D_803F2C80[faces[i].idx].header.unk2;
+        scrollIndex = D_803F2C80[faces[i].idx].header.unk3;
+
+        if ((vtxFlags & 0x8) ||
+            (vtxFlags & VTX_ALPHA_COMPARE_DITHER) ||
             (vtxFlags & 0x2000) ||
             (vtxFlags & 0x100)) {
-
-            if (vtxFlags & 8) {
+            if (vtxFlags & 0x8) {
                 if (D_803F2C86 != 4) {
-                    gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, TEXEL0, COMBINED, 0, SHADE, 0, 0, 0, 0, SHADE);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0180, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                    gDPSetCombineLERP((*dl)++,
+                        TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0,
+                        0, 0, 0, TEXEL0,
+                        COMBINED, 0, SHADE, 0,
+                        0, 0, 0, SHADE);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b,
+                               2, 0x0180, 1, 0,
+                               G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD,
+                               G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
                     gDPSetPrimColor((*dl)++, 128, 128, 0x00, 0x00, 0x00, 0x00);
-                    gSPTexture((*dl)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
+                    gSPTexture((*dl)++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
                     gDPTileSync((*dl)++);
 
                     D_803F2C86 = 4;
@@ -756,17 +703,25 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
             }
 
             if (vtxFlags & 0x100) {
+                scrollType = 6;
                 if (D_803F2C86 != 12) {
-                    gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, TEXEL0, COMBINED, 0, SHADE, 0, 0, 0, 0, SHADE);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x01C0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
+                    gDPSetCombineLERP((*dl)++,
+                        TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0,
+                        0, 0, 0, TEXEL0,
+                        COMBINED, 0, SHADE, 0,
+                        0, 0, 0, SHADE);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b,
+                               1, 0x01C0, 1, 0,
+                               G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD,
+                               G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
                     gDPSetPrimColor((*dl)++, 128, 128, 0x00, 0x00, 0x00, 0x00);
 
                     D_803F2C86 = 12;
                 }
                 D_803E3130[D_803F2CA6].flags |= 1;
-                D_803E3130[D_803F2CA6].scrollIndex = sp175;
-                D_803E3130[D_803F2CA6].type = 6;
+                D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
+                D_803E3130[D_803F2CA6].type = scrollType;
                 D_803E3130[D_803F2CA6].displayList = *dl;
                 gDPSetTileSize((*dl)++, 1, 0, 0, 60, 60);
 
@@ -774,7 +729,7 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
                 D_803F2C92 = 1;
             }
         } else {
-            if (index > 40) {
+            if (variant > 40) {
                 if (D_803F2C86 != 14) {
                     D_803F2C8E = 0;
                     gDPPipeSync((*dl)++);
@@ -783,13 +738,14 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
                     gDPSetCombineMode((*dl)++, G_CC_MODULATEIDECALA, G_CC_PASS2);
                     gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_AA_ZB_TEX_EDGE2);
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
-                    gSPTexture((*dl)++, 32768, 32768, 0, 6, G_ON);
+                    gSPTexture((*dl)++, 0x8000, 0x8000, 0, 6, G_ON);
 
-                    if (index != D_803F2C96) {
-                        // Animated texture types share D_0102C810 and get patched later via D_803E3130.
+                    if (variant != D_803F2C96) {
+                        scrollType = variant - 33;
+                        // Queue the animated texture setup for later updates.
                         D_803E3130[D_803F2CA6].flags |= 1;
-                        D_803E3130[D_803F2CA6].scrollIndex = sp175;
-                        D_803E3130[D_803F2CA6].type = index - 33;
+                        D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
+                        D_803E3130[D_803F2CA6].type = scrollType;
                         D_803E3130[D_803F2CA6].displayList = *dl;
                         D_803F2CA6++;
 
@@ -810,40 +766,44 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
                             G_TX_NOLOD,
                             G_TX_NOLOD);
 
-                        D_803F2C96 = index;
+                        D_803F2C96 = variant;
                         D_803F2C97 = 0xFF;
                     }
                     D_803F2C86 = 14;
                 }
-            } else if (!(vtxFlags & 8)) {
+            } else if (!(vtxFlags & 0x8)) {
                 if (D_803F2C86 != 1) {
                     gDPPipeSync((*dl)++);
                     gDPSetAlphaCompare((*dl)++, G_AC_NONE);
                     gDPSetCombineMode((*dl)++, G_CC_TRILERP, G_CC_MODULATEI2);
                     gDPSetTextureLOD((*dl)++, G_TL_LOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, 1, G_TX_NOMIRROR | G_TX_WRAP, 4, 1);
+                    gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b,
+                               4, 0x0100, 1, 0,
+                               G_TX_NOMIRROR | G_TX_WRAP, 4, 1,
+                               G_TX_NOMIRROR | G_TX_WRAP, 4, 1);
                     gDPSetPrimColor((*dl)++, 128, 128, 0x00, 0x00, 0x00, 0x00);
-                    gSPTexture((*dl)++, 32768, 32768, 5, G_TX_RENDERTILE, G_ON);
+                    gSPTexture((*dl)++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
                     gDPSetRenderMode((*dl)++, gRenderMode1, gRenderMode2);
 
                     D_803F2C86 = 1;
                 }
             }
 
-            if (sp175) {
-                // force load of 1:
-                u32 one = 1U;
-                // Assignment is intentional-looking in asm; always records a scroll entry.
-                if (D_803F2C86 = 1) {
+            if (scrollIndex) {
+                scrollType = 1;
+
+                // The target stores 1 and then reloads and tests the state.
+                D_803F2C86 = 1;
+                if (D_803F2C86) {
                     D_803E3130[D_803F2CA6].flags |= 1;
-                    D_803E3130[D_803F2CA6].scrollIndex = sp175;
-                    D_803E3130[D_803F2CA6].type = one;
+                    D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
+                    D_803E3130[D_803F2CA6].type = scrollType;
 
                     D_803E3130[D_803F2CA6].displayList = *dl;
 
-                    gDPSetTileSize((*dl)++, 0, 0, 0, (32-1)*4, (32-1)*4);
-                    gDPSetTileSize((*dl)++, 1, 0, 0, (16-1)*4, (16-1)*4);
-                    gDPSetTileSize((*dl)++, 2, 0, 0,  (8-1)*4,  (8-1)*4);
+                    gDPSetTileSize((*dl)++, 0, 0, 0, (32 - 1) * 4, (32 - 1) * 4);
+                    gDPSetTileSize((*dl)++, 1, 0, 0, (16 - 1) * 4, (16 - 1) * 4);
+                    gDPSetTileSize((*dl)++, 2, 0, 0,  (8 - 1) * 4,  (8 - 1) * 4);
                     gDPTileSync((*dl)++);
                     gDPPipeSync((*dl)++);
 
@@ -853,11 +813,10 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
             }
         }
 
-        // Alpha-compare/dither style material; toggles back to the default opaque state below.
-        if (vtxFlags & 0x40) {
+        if (vtxFlags & VTX_ALPHA_COMPARE_DITHER) {
             if (D_803F2C99 == 0) {
                 gDPPipeSync((*dl)++);
-                gSPTexture((*dl)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
+                gSPTexture((*dl)++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
                 gDPSetAlphaCompare((*dl)++, G_AC_THRESHOLD);
                 gDPSetBlendColor((*dl)++, 0x00, 0x00, 0x00, 0x00);
                 gDPSetCombineMode((*dl)++, G_CC_TRILERP, G_CC_MODULATEIDECALA);
@@ -867,7 +826,7 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
         } else {
             if (D_803F2C99 == 1) {
                 gDPPipeSync((*dl)++);
-                gSPTexture((*dl)++, 32768, 32768, 5, G_TX_RENDERTILE, G_ON);
+                gSPTexture((*dl)++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
                 gDPSetAlphaCompare((*dl)++, G_AC_NONE);
                 gDPSetRenderMode((*dl)++, gRenderMode1, gRenderMode2);
                 gDPSetCombineMode((*dl)++, G_CC_TRILERP, G_CC_MODULATEI2);
@@ -883,7 +842,7 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
         } else {
             if (D_803F2C8E != 0) {
                 D_803F2C8E = 0;
-                if (index > 40) {
+                if (variant > 40) {
                     gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_AA_ZB_TEX_EDGE2);
                 } else {
                     gDPSetRenderMode((*dl)++, gRenderMode1, gRenderMode2);
@@ -891,40 +850,37 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
             }
         }
 
-        // 0x800 uses the interpenetrating opaque render mode until a later face restores default.
-        if (vtxFlags & 0x800) {
+        if (vtxFlags & VTX_RENDER_MODE_INTER) {
             if (D_803F2C88 != 2) {
                 D_803F2C88 = 2;
                 gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_AA_ZB_OPA_INTER2);
             }
         } else if (D_803F2C88 != 1) {
-            // NOTE: D_803F2C88 is not set to 1
+            // D_803F2C88 is left unchanged here.
             gDPSetRenderMode((*dl)++, gRenderMode1, gRenderMode2);
         }
 
-        if (D_803F2C96 != index) {
-            if (index < 32) {
-                func_80346878_757F28(dl, index);
+        if (variant != D_803F2C96) {
+            if (variant < GEO_TEXTURE_ANIMATED_MIN) {
+                func_80346878_757F28(dl, variant);
             }
-            D_803F2C96 = index;
+            D_803F2C96 = variant;
             D_803F2C97 = 0xFF;
         }
 
-        // Despite the macro name, bit 0x4 disables back-face culling for this face.
-        if (vtxFlags & 4) {
+        if (vtxFlags & VTX_NO_CULL_BACK) {
             if (D_803F2C9A == 0) {
                 gSPClearGeometryMode((*dl)++, G_CULL_BACK);
                 D_803F2C9A = 1;
             }
         }
-        if ((vtxFlags & 4) == 0) {
+        if ((vtxFlags & VTX_NO_CULL_BACK) == 0) {
             if (D_803F2C9A == 1) {
                 gSPSetGeometryMode((*dl)++, G_CULL_BACK);
                 D_803F2C9A = 0;
             }
         }
 
-        // State tracked by the original but not obviously emitted here.
         if (vtxFlags & 0x80) {
             if (D_803F2C8A != 0) {
                 D_803F2C8A = 0;
@@ -933,11 +889,13 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
             D_803F2C8A = 1;
         }
 
-        // Darkens/modulates this material class, then restores the normal trilerp combiner.
         if (vtxFlags & 0x400) {
             if (D_803F2C8C != 1) {
                 gDPSetCombineLERP((*dl)++,
-                    TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, PRIMITIVE, SHADE, 0, 0, 0, 0, SHADE);
+                    TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0,
+                    TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0,
+                    COMBINED, PRIMITIVE, SHADE, 0,
+                    0, 0, 0, SHADE);
                 gDPSetPrimColor((*dl)++, 128, 128, 45, 45, 45, 0);
                 D_803F2C8C = 1;
             }
@@ -946,78 +904,62 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
             D_803F2C8C = 0;
         }
 
-        if (!sp175) {
+        if (!scrollIndex) {
             if (D_803F2C92 != 0) {
-                if ((vtxFlags & 0x40) == 0) {
-                    gDPSetTileSize((*dl)++, 0, 0, 0, (32-1)*4, (32-1)*4);
+                if ((vtxFlags & VTX_ALPHA_COMPARE_DITHER) == 0) {
+                    gDPSetTileSize((*dl)++, 0, 0, 0, (32 - 1) * 4, (32 - 1) * 4);
                 }
-                gDPSetTileSize((*dl)++, 1, 0, 0, (16-1)*4, (16-1)*4);
-                gDPSetTileSize((*dl)++, 2, 0, 0,  (8-1)*4,  (8-1)*4);
-                gDPSetTileSize((*dl)++, 3, 0, 0,  (4-1)*4,  (4-1)*4);
-                gDPSetTileSize((*dl)++, 4, 0, 0,  (2-1)*4,  (2-1)*4);
-                gDPSetTileSize((*dl)++, 5, 0, 0,  (1-1)*4,  (1-1)*4);
+                gDPSetTileSize((*dl)++, 1, 0, 0, (16 - 1) * 4, (16 - 1) * 4);
+                gDPSetTileSize((*dl)++, 2, 0, 0,  (8 - 1) * 4,  (8 - 1) * 4);
+                gDPSetTileSize((*dl)++, 3, 0, 0,  (4 - 1) * 4,  (4 - 1) * 4);
+                gDPSetTileSize((*dl)++, 4, 0, 0,  (2 - 1) * 4,  (2 - 1) * 4);
+                gDPSetTileSize((*dl)++, 5, 0, 0,  (1 - 1) * 4,  (1 - 1) * 4);
 
                 D_803F2C92 = 0;
             }
         }
 
-        if ((vtxFlags & 1) == 0) {
+        // Restore texture coordinates for reused slots before drawing the face.
+        if (!(vtxFlags & VTX_TRIANGLE)) {
             for (j = 0; j < 4; j++) {
-                if ((arg1[i].flags[j] != 0) && (arg1[i].flags[j] & 1)) {
-                    // Reused vertex with different UVs: patch tc before drawing this face.
-                    s = (D_803F2C80[arg1[i].idx].unk4[j].tc0 << 5);
-                    t = (D_803F2C80[arg1[i].idx].unk4[j].tc1 << 5);
+#ifdef __sgi
+                // fakematch: Preserve IDO register allocation for the vertex updates.
+                if (((j == -1) & (faces[i].v[0] == -2)) ||
+                    ((j == -2) & (faces[i].v[0] == -1))) {
+                }
+#endif
+                reuseFlags = faces[i].flags[j];
+                if ((reuseFlags != 0) && (reuseFlags & REUSED_VTX_UPDATE_TC)) {
+                    s = (s16)(D_803F2C80[faces[i].idx].unk4[j].tc0 * 32);
+                    t = (s16)(D_803F2C80[faces[i].idx].unk4[j].tc1 * 32);
 
-                    gSPModifyVertex(
-                        (*dl)++,
-                        arg1[i].v[j],
-                        20,
-                        ((s << 0x10) & 0xFFFF0000) | (t & 0xFFFF)
-                    );
+                    packedST = (((u32)s << 16) & 0xFFFF0000) | (t & 0xFFFF);
+                    gSPModifyVertex((*dl)++, faces[i].v[j], G_MWO_POINT_ST, packedST);
                 }
             }
 
-            gSP2Triangles(
-            /* gdl   */ (*dl)++,
-            /* v00   */ arg1[i].v[2],
-            /* v01   */ arg1[i].v[1],
-            /* v02   */ arg1[i].v[0],
-            /* flag0 */ 0,
-            /* v10   */ arg1[i].v[2],
-            /* v11   */ arg1[i].v[3],
-            /* v12   */ arg1[i].v[1],
-            /* flag1 */ 0);
+            gSP2Triangles((*dl)++,
+                          faces[i].v[2], faces[i].v[1], faces[i].v[0], 0,
+                          faces[i].v[2], faces[i].v[3], faces[i].v[1], 0);
 
-            vtxsUsed++;
+            cornersDrawn++;
         } else {
             for (j = 0; j < 3; j++) {
-                if ((arg1[i].flags[j] != 0) && (arg1[i].flags[j] & 1)) {
-                    // Reused vertex with different UVs: patch tc before drawing this face.
-                    s = (D_803F2C80[arg1[i].idx].unk4[j].tc0 << 5);
-                    t = (D_803F2C80[arg1[i].idx].unk4[j].tc1 << 5);
+                reuseFlags = faces[i].flags[j];
+                if ((reuseFlags != 0) && (reuseFlags & REUSED_VTX_UPDATE_TC)) {
+                    s = (s16)(D_803F2C80[faces[i].idx].unk4[j].tc0 * 32);
+                    t = (s16)(D_803F2C80[faces[i].idx].unk4[j].tc1 * 32);
 
-                    gSPModifyVertex(
-                        (*dl)++,
-                        arg1[i].v[j],
-                        20,
-                        ((s << 0x10) & 0xFFFF0000) | (t & 0xFFFF)
-                    );
+                    packedST = (((u32)s << 16) & 0xFFFF0000) | (t & 0xFFFF);
+                    gSPModifyVertex((*dl)++, faces[i].v[j], G_MWO_POINT_ST, packedST);
                 }
             }
 
-            gSP1Triangle(
-            /* gdl  */ (*dl)++,
-            /* v0   */ arg1[i].v[2],
-            /* v1   */ arg1[i].v[1],
-            /* v2   */ arg1[i].v[0],
-            /* flag */ 0);
+            gSP1Triangle((*dl)++, faces[i].v[2], faces[i].v[1], faces[i].v[0], 0);
         }
-        vtxsUsed += 3;
+        cornersDrawn += 3;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_803458FC_756FAC.s")
-#endif
 
 void func_80346878_757F28(Gfx **dl, u8 idx) {
     if (idx < 32) {
@@ -1056,32 +998,37 @@ void func_80346AB0_758160(Gfx **dl, u8 idx) {
     gDPTileSync((*dl)++);
 }
 
-// Emit the translucent cell DL for a batch prepared by func_80344240_7558F0.
-// arg1[].idx points back into the raw geo stream.
-void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
-    s32 pad UNUSED;
+// Emit the translucent display list for a batch of faces, using sequential vertex indices.
+void func_80346BB4_758264(Gfx **dl, struct115 *faces, s16 numFaces) {
+    s32 scrollType;
     s16 i;
-    s16 vtxsUsed;
+    s16 vertexBase;
 
     u16 vtxFlags;
     u8  scrollIndex;
-    u8  variant;
-    s32 pad2 UNUSED;
+    u8  textureIndex;
+    s32 animationType;
     s16 loadBaseTexture;
 
-    s16 j;
-    s16 pad3[10] UNUSED;
+    s16 vertexIndex;
+    // isTriangle, textureChanged, drawCommand and isAnimatedTexture are needed to match;
+    // inlining them changes the generated code.
+    s32 isTriangle;
+    s32 textureChanged;
+    s32 disableBackfaceCull;
+    Gfx *drawCommand;
+    s32 isAnimatedTexture;
 
-    s16 numVerts;
+    s16 vertexCount;
 
-    vtxsUsed = 0;
+    vertexBase = 0;
 
-    for (i = 0; i < numVtxs; i++) {
+    for (i = 0; i < numFaces; i++) {
         loadBaseTexture = 1;
 
-        vtxFlags = D_803F2C80[arg1[i].idx].header.flags;
-        scrollIndex = D_803F2C80[arg1[i].idx].header.unk3;
-        variant  = D_803F2C80[arg1[i].idx].header.unk2;
+        vtxFlags = D_803F2C80[faces[i].idx].header.flags;
+        scrollIndex = D_803F2C80[faces[i].idx].header.unk3;
+        textureIndex = D_803F2C80[faces[i].idx].header.unk2;
 
         if ((vtxFlags & VTX_TRANSLUCENT) ||
             (vtxFlags & 0x10) ||
@@ -1100,7 +1047,11 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 loadBaseTexture = 0;
                 if (D_803F2C84 != 3) {
                     gDPPipeSync((*dl)++);
-                    gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, SHADE, COMBINED, SHADE, 0, 0, 0, PRIMITIVE);
+                    gDPSetCombineLERP((*dl)++,
+                        TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0,
+                        0, 0, 0, PRIMITIVE,
+                        PRIMITIVE, SHADE, COMBINED, SHADE,
+                        0, 0, 0, PRIMITIVE);
                     gDPSetRenderMode((*dl)++, G_RM_PASS, D_803F2CC0);
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
                     gSPTexture((*dl)++, 0x8000, 0x8000, 0, 5, G_ON);
@@ -1122,13 +1073,15 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 D_803E3130[D_803F2CA6].flags |= 1;
 
                 if (scrollIndex) {
-                    D_803E3130[D_803F2CA6].type = 0;
+                    scrollType = 0;
+                    D_803E3130[D_803F2CA6].type = scrollType;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetTileSize((*dl)++, 5, 0, 0, 124, 124);
                     gDPSetTileSize((*dl)++, 6, 0, 0, 124, 124);
                     gDPSetPrimColor((*dl)++, 128, 128, 0xFF, 0xFF, 0xFF, 0xDC);
                 } else {
-                    D_803E3130[D_803F2CA6].type = 7;
+                    scrollType = 7;
+                    D_803E3130[D_803F2CA6].type = scrollType;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetPrimColor((*dl)++, 128, 128, 0x00, 0x00, 0x00, 0xDC);
                 }
@@ -1138,7 +1091,11 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
             if (vtxFlags & 0x200) {
                 loadBaseTexture = 0;
                 if (D_803F2C84 != 6) {
-                    gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0, TEXEL1, PRIMITIVE, SHADE, PRIMITIVE, PRIMITIVE, SHADE, COMBINED, SHADE, 0, 0, 0, COMBINED);
+                    gDPSetCombineLERP((*dl)++,
+                        TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0,
+                        TEXEL1, PRIMITIVE, SHADE, PRIMITIVE,
+                        PRIMITIVE, SHADE, COMBINED, SHADE,
+                        0, 0, 0, COMBINED);
                     gDPSetRenderMode((*dl)++, G_RM_PASS, D_803F2CC0);
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
                     gSPTexture((*dl)++, 0x8000, 0x8000, 0, 5, G_ON);
@@ -1157,13 +1114,15 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 D_803E3130[D_803F2CA6].flags |= 1;
 
                 if (scrollIndex) {
-                    D_803E3130[D_803F2CA6].type = 3;
+                    scrollType = 3;
+                    D_803E3130[D_803F2CA6].type = scrollType;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetTileSize((*dl)++, 5, 0, 0, 124, 124);
                     gDPSetTileSize((*dl)++, 6, 0, 0, 124, 124);
                     gDPSetPrimColor((*dl)++, 128, 128, 0xFF, 0xFF, 0xFF, 0xDC);
                 } else {
-                    D_803E3130[D_803F2CA6].type = 7;
+                    scrollType = 7;
+                    D_803E3130[D_803F2CA6].type = scrollType;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetPrimColor((*dl)++, 128, 128, 0xFF, 0xFF, 0xFF, 0xDC);
                     gDPSetTileSize((*dl)++, 5, 0, 0, 124, 124);
@@ -1190,7 +1149,8 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 }
                 D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                 D_803E3130[D_803F2CA6].flags |= 1;
-                D_803E3130[D_803F2CA6].type = 5;
+                scrollType = 5;
+                D_803E3130[D_803F2CA6].type = scrollType;
                 D_803E3130[D_803F2CA6].displayList = *dl;
                 gDPSetTileSize((*dl)++, 6, 0, 0, 60, 60);
 
@@ -1214,7 +1174,8 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 }
                 D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                 D_803E3130[D_803F2CA6].flags |= 1;
-                D_803E3130[D_803F2CA6].type = 5;
+                scrollType = 5;
+                D_803E3130[D_803F2CA6].type = scrollType;
                 D_803E3130[D_803F2CA6].displayList = *dl;
                 gDPSetTileSize((*dl)++, 5, 0, 0, 60, 60);
 
@@ -1227,18 +1188,19 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                 (!(vtxFlags & 0x200)) &&
                 (!(vtxFlags & 0x100))) {
 
-                // Re-read the flags; the block-local temporaries are needed for matching codegen.
+                // The flags are read from the face again here.
                 {
-                    struct102 *geo = D_803F2C80;
-                    s32 idx = arg1[i].idx;
+                    const struct102 *geo = D_803F2C80;
+                    s32 faceIndex = faces[i].idx;
 
-                    vtxFlags = geo[idx].header.flags;
+                    vtxFlags = geo[faceIndex].header.flags;
                 }
 
-                if (variant >= 32) {
-                    if (D_803F2C84 != 0xE) {
+                isAnimatedTexture = textureIndex >= GEO_TEXTURE_ANIMATED_MIN;
+                if (isAnimatedTexture) {
+                    if (D_803F2C84 != 14) {
                         gDPPipeSync((*dl)++);
-                        if (variant > 40) {
+                        if (textureIndex > 40) {
                             gDPSetCombineMode((*dl)++, G_CC_MODULATEIDECALA, G_CC_PASS2);
                             gDPSetAlphaCompare((*dl)++, G_AC_THRESHOLD);
                             gDPSetBlendColor((*dl)++, 0x00, 0x00, 0x00, 0x01);
@@ -1254,11 +1216,11 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                             D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                             D_803E3130[D_803F2CA6].flags |= 1;
                             D_803E3130[D_803F2CA6].displayList = *dl;
-                            D_803E3130[D_803F2CA6].type = variant - 33;
+                            animationType = textureIndex - 33;
+                            D_803E3130[D_803F2CA6].type = animationType;
                             D_803F2CA6++;
 
-                            // A switch rather than an if: needed for matching codegen.
-                            switch (variant - 33) {
+                            switch (animationType) {
                                 case 9:
                                     gDPLoadTextureBlock((*dl)++, OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png + 0x1000), G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
                                     break;
@@ -1268,7 +1230,11 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                             }
                             gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                         } else {
-                            gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, COMBINED, 0, SHADE, 0, 0, SHADE, 0, COMBINED);
+                            gDPSetCombineLERP((*dl)++,
+                                TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0,
+                                TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0,
+                                COMBINED, 0, SHADE, 0,
+                                0, SHADE, 0, COMBINED);
 
                             if (vtxFlags & VTX_RENDER_MODE_DECAL) {
                                 gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_ZB_XLU_DECAL2);
@@ -1294,7 +1260,8 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                         if (scrollIndex) {
                             D_803E3130[D_803F2CA6].flags |= 1;
                             D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
-                            D_803E3130[D_803F2CA6].type = 0xB;
+                            scrollType = 11;
+                            D_803E3130[D_803F2CA6].type = scrollType;
                             D_803E3130[D_803F2CA6].displayList = *dl;
                             D_803F2CA6++;
 
@@ -1306,22 +1273,24 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                         }
                     }
                 } else {
-                    numVerts = (vtxFlags & VTX_TRIANGLE) ? 3 : 4;
+                    vertexCount = (vtxFlags & VTX_TRIANGLE) ? 3 : 4;
 
-                    // Empty checks: needed for matching codegen.
-                    // The loop increments numVerts rather than j, as in the target.
-                    for (j = 0; j < numVerts; numVerts++) {
-                        if (D_803F2C80[arg1[i].idx].header.flags) {
-                        } else {
-                        }
-                        if (D_803F2C80[arg1[i].idx].header.flags) {
-                        } else {
-                        }
-                        if (D_803F2C80[arg1[i].idx].header.flags) {
-                        }
+                    // This increments the bound, not the index, so the loop only ends
+                    // once vertexCount wraps negative.
+                    vertexIndex = 0;
+                    if (vertexIndex >= vertexCount) {
+                        goto skipVertexLoop;
                     }
+                    do {
+#ifdef __sgi
+                        // fakematch: empty check, needed to match
+                        if ((D_803F2C80[faces[i].idx].header.flags != 0) || (vertexIndex == 0) || (vertexIndex < vertexCount)) {} else {}
+#endif
+                        vertexCount++;
+                    } while (vertexIndex < vertexCount);
+                skipVertexLoop:;
 
-                    if ((D_803F2C84 != 9) && (variant != 0)) {
+                    if ((D_803F2C84 != 9) && (textureIndex != 0)) {
                         gDPPipeSync((*dl)++);
                         gSPClearGeometryMode((*dl)++, G_FOG);
                         gDPSetEnvColor((*dl)++, 0x00, 0x00, 0x80, 0x80);
@@ -1356,7 +1325,8 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                         !(vtxFlags & 0x200)) {
                         D_803E3130[D_803F2CA6].scrollIndex = scrollIndex;
                         D_803E3130[D_803F2CA6].flags |= 1;
-                        D_803E3130[D_803F2CA6].type = 4;
+                        scrollType = 4;
+                        D_803E3130[D_803F2CA6].type = scrollType;
                         D_803E3130[D_803F2CA6].displayList = *dl;
 
                         gDPSetTileSize((*dl)++, 0, 0, 0, 124, 124);
@@ -1368,7 +1338,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                         D_803F2CA6++;
                         D_803F2C94 = 1;
                     }
-                    if ((variant == 0) && (D_803F2C84 != 10)) {
+                    if ((textureIndex == 0) && (D_803F2C84 != 10)) {
                         gDPPipeSync((*dl)++);
                         gSPClearGeometryMode((*dl)++, G_FOG);
                         gDPSetEnvColor((*dl)++, 0x00, 0x00, 0x80, 0x80);
@@ -1390,21 +1360,23 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                     }
                 }
             }
+            disableBackfaceCull = vtxFlags & VTX_NO_CULL_BACK;
         } else {
-            // Empty else: needed for matching codegen.
+            disableBackfaceCull = vtxFlags & VTX_NO_CULL_BACK;
         }
 
-        if (variant != D_803F2C98) {
+        textureChanged = textureIndex != D_803F2C98;
+        if (textureChanged) {
             if (loadBaseTexture == 1) {
-                if (variant <= 40) {
-                    func_80346878_757F28(dl, variant);
-                    D_803F2C98 = variant;
+                if (textureIndex <= 40) {
+                    func_80346878_757F28(dl, textureIndex);
+                    D_803F2C98 = textureIndex;
                 } else {
                     D_803F2C98 = 100;
                 }
             }
         }
-        if (vtxFlags & VTX_CULL_BACK) {
+        if (disableBackfaceCull) {
             if (D_803F2C9B == 0) {
                 gSPClearGeometryMode((*dl)++, G_CULL_BACK);
                 D_803F2C9B = 1;
@@ -1422,14 +1394,17 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
             D_803F2C94 = 0;
         }
 
-        if (!(vtxFlags & VTX_TRIANGLE)) {
-            gSP2Triangles((*dl)++,
-                          vtxsUsed + 2, vtxsUsed + 1, vtxsUsed + 0, 0,
-                          vtxsUsed + 2, vtxsUsed + 3, vtxsUsed + 1, 0);
-            vtxsUsed++;
+        isTriangle = vtxFlags & VTX_TRIANGLE;
+        if (!isTriangle) {
+            drawCommand = (*dl)++;
+            gSP2Triangles(drawCommand,
+                          vertexBase + 2, vertexBase + 1, vertexBase, 0,
+                          vertexBase + 2, vertexBase + 3, vertexBase + 1, 0);
+            vertexBase++;
         } else {
-            gSP1Triangle((*dl)++, vtxsUsed + 2, vtxsUsed + 1, vtxsUsed + 0, 0);
+            drawCommand = (*dl)++;
+            gSP1Triangle(drawCommand, vertexBase + 2, vertexBase + 1, vertexBase, 0);
         }
-        vtxsUsed += 3;
+        vertexBase += 3;
     }
 }
