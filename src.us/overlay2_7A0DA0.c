@@ -1125,22 +1125,18 @@ void func_80391A38_7A30E8(void) {
     }
 }
 
-#ifdef NON_MATCHING
-// CURRENT (30)
-void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
-    s32 pad[3];
-    s32 new_var2;
-
+void func_80391C90_7A3340(Gfx **dl, f32 x1, f32 z1, f32 x2, f32 z2, f32 y) {
     s16 i;
     s16 idx;
-    f32 z;
     s16 t;
-    s32 val;
-    s16 prevZ;
-
-    s32 pad2[3];
-
-    s16 tmp1, tmp2;
+    s16 zStart, zEnd;
+    f32 z;
+    f32 dz;
+    u8 *tex;
+    s32 tBottom;
+    s32 prevZ;
+    s16 lastZ;
+    s32 stTopLeft, stTopRight, stBottomLeft, stBottomRight;
 
     gSPDisplayList((*dl)++, D_01004270_3DB40);
     gDPPipeSync((*dl)++);
@@ -1154,26 +1150,26 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
     gSPTexture((*dl)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
-    // populate unk31070[0..23]
-    for (i = 0; i < 12; i++) {
-        z = arg2 - (((arg4 - arg2) / 11) * i);
-        new_var2 = prevZ;
-        t = 0; // dum
+    // Populate unk31070[0..23]: 12 rows of two vertices.
+    // fakematch: `prevZ % 1` is always 0, needed to match
+    for (i = 0; i < 12; i += 1 + prevZ % 1) {
+        prevZ = lastZ;
+        z = z1 - (((z2 - z1) / 11) * i);
         if (i == 11) {
-            // final iteration
-            z = ((z - new_var2) / 2) + new_var2;
+            // last row: halfway between the previous row and this one
+            dz = z - prevZ;
+            z = (dz / 2) + prevZ;
         }
-        prevZ = z;
+        lastZ = z;
 
         idx = i * 2;
 
-        new_var2 = (i * 31) << 6;
-        t = new_var2;
+        t = (i * 31) << 6;
         t = MAX(0, t);
 
         /* left */
-        gDisplayListContext->unk31070[idx].v.ob[0] = arg1 - 1;
-        gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+        gDisplayListContext->unk31070[idx].v.ob[0] = x1 - 1;
+        gDisplayListContext->unk31070[idx].v.ob[1] = y;
         gDisplayListContext->unk31070[idx].v.ob[2] = z;
         gDisplayListContext->unk31070[idx].v.cn[0] = 0xFF;
         gDisplayListContext->unk31070[idx].v.cn[1] = 0xFF;
@@ -1183,107 +1179,96 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
         gDisplayListContext->unk31070[idx].v.tc[1] = t;
 
         /* right */
-        // need to get arg3 + 1 into s0
-        gDisplayListContext->unk31070[idx+1].v.ob[0] = arg3 + 1;
-        gDisplayListContext->unk31070[idx+1].v.ob[1] = arg5;
-        gDisplayListContext->unk31070[idx+1].v.ob[2] = z;
-        gDisplayListContext->unk31070[idx+1].v.cn[0] = 0xFF;
-        gDisplayListContext->unk31070[idx+1].v.cn[1] = 0xFF;
-        gDisplayListContext->unk31070[idx+1].v.cn[2] = 0xFF;
-        gDisplayListContext->unk31070[idx+1].v.cn[3] = 0xFF;
-        gDisplayListContext->unk31070[idx+1].v.tc[0] = 160 << 6;
-        gDisplayListContext->unk31070[idx+1].v.tc[1] = t;
+        gDisplayListContext->unk31070[idx + 1].v.ob[0] = x2 + 1;
+        gDisplayListContext->unk31070[idx + 1].v.ob[1] = y;
+        gDisplayListContext->unk31070[idx + 1].v.ob[2] = z;
+        gDisplayListContext->unk31070[idx + 1].v.cn[0] = 0xFF;
+        gDisplayListContext->unk31070[idx + 1].v.cn[1] = 0xFF;
+        gDisplayListContext->unk31070[idx + 1].v.cn[2] = 0xFF;
+        gDisplayListContext->unk31070[idx + 1].v.cn[3] = 0xFF;
+        gDisplayListContext->unk31070[idx + 1].v.tc[0] = 160 << 6;
+        gDisplayListContext->unk31070[idx + 1].v.tc[1] = t;
     }
 
     gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[0]), 31, 0);
-    if (new_var2) {} // IDO regalloc
 
-    // Draw 11 quads
+    // Draw 11 quads, each textured with a 160x12 RGBA16 block read from D_800BA760 + 0xB2E0
+    // (where func_803925D0_7A3C80 copies the framebuffer at half width), 11 * 160 texels apart.
     for (i = 0; i < 22; i += 2) {
         gDPPipeSync((*dl)++);
 
-        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, ((D_800BA760 + 0xB2E0) + ((i * 0x6E0))));
-
-        gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-        gDPLoadSync((*dl)++);
-        gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 1919, 52);
-        gDPPipeSync((*dl)++);
-        gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 40, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-        gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 636, 44);
+        tex = TEXTURES_BASE_ADDRESS + 0xB2E0 + (i * 11 * 160);
+        gDPLoadTextureBlock((*dl)++, tex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 160, 12, 0,
+                            G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
+                            G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gDPPipeSync((*dl)++);
 
-        val = 0x170;
+        tBottom = 0x170;
         if (i == 20) {
-            val = 0x130;
+            tBottom = 0x130;
         }
 
         gDPPipeSync((*dl)++);
 
-        // High-order 16 bits are the s coordinate value. Low-order 16 bits are the t coordinate value (s10.5)
-        // S | T in s10.5 format
-        gSPModifyVertex((*dl)++, (i + 0) & 0xFFFF, G_MWO_POINT_ST, 0x00B00000 | 0x00000010);
-        gSPModifyVertex((*dl)++, (i + 1) & 0xFFFF, G_MWO_POINT_ST, 0x11700000 | 0x00000010);
-        gSPModifyVertex((*dl)++, (i + 2) & 0xFFFF, G_MWO_POINT_ST, 0x00B00000 | val);
-        gSPModifyVertex((*dl)++, (i + 3) & 0xFFFF, G_MWO_POINT_ST, 0x11700000 | val);
+        // texture coordinates (s10.5): S in the high half, T in the low half
+        stTopLeft = (0xB0 << 16) | 0x10;
+        gSPModifyVertex((*dl)++, (u16)i, G_MWO_POINT_ST, stTopLeft);
+        stTopRight = (0x1170 << 16) | 0x10;
+        gSPModifyVertex((*dl)++, (u16)(i + 1), G_MWO_POINT_ST, stTopRight);
+        stBottomLeft = (0xB0 << 16) | tBottom;
+        gSPModifyVertex((*dl)++, (u16)(i + 2), G_MWO_POINT_ST, stBottomLeft);
+        stBottomRight = (0x1170 << 16) | tBottom;
+        gSPModifyVertex((*dl)++, (u16)(i + 3), G_MWO_POINT_ST, stBottomRight);
 
         gDPPipeSync((*dl)++);
 
-        gSP2Triangles(
-            /* gdl   */ (*dl)++,
-            /* v00   */ i + 0,
-            /* v01   */ i + 2,
-            /* v02   */ i + 3,
-            /* flag0 */ 0,
-            /* v10   */ i + 0,
-            /* v11   */ i + 3,
-            /* v12   */ i + 1,
-            /* flag1 */ 0);
+        gSP2Triangles((*dl)++, i, i + 2, i + 3, 0, i, i + 3, i + 1, 0);
         gDPPipeSync((*dl)++);
     }
 
-    // populate unk31070[30..37]
-    tmp1 = arg4 - (arg4 - arg2);
-    tmp2 = arg2 - (arg4 - arg2);
+    // Populate unk31070[30..37]
+    zStart = z2 - (z2 - z1);
+    zEnd = z1 - (z2 - z1);
 
     idx = 30;
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 + 2;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 + 2;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x1 + 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zStart + 2;
     idx++;
 
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 - 2;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 + 2;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x2 - 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zStart + 2;
     idx++;
 
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 - 2;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 - 2;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x2 - 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zEnd - 2;
     idx++;
 
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 + 2;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 - 2;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x1 + 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zEnd - 2;
     idx++;
 
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 - 1;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 - 1;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x1 - 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zStart - 1;
     idx++;
 
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 + 1;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 - 1;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x2 + 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zStart - 1;
     idx++;
 
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 + 1;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 + 1;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x2 + 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zEnd + 1;
     idx++;
 
-    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 - 1;
-    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 + 1;
+    gDisplayListContext->unk31070[idx].v.ob[0] = x1 - 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = y;
+    gDisplayListContext->unk31070[idx].v.ob[2] = zEnd + 1;
     idx++;
 
     gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[30]), 8, 0);
@@ -1296,9 +1281,6 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gSP2Triangles((*dl)++, 1, 5, 2, 0, 5, 6, 2, 0);
     gSP2Triangles((*dl)++, 7, 3, 2, 0, 2, 6, 7, 0);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80391C90_7A3340.s")
-#endif
 
 void func_803925D0_7A3C80(u16 *src, u16 *dst) {
     u16 *_src;
