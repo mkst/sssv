@@ -32,47 +32,50 @@ void unused_8035E120_76F7D0(void) {
 }
 #endif
 
-#if 0
 // ESA: func_800818D8
-// final if statements need work
-// replenish energy?
+// Recharges skill energy, ticks cooldowns and clears the skill-use flags.
 void func_8035E200_76F8B0(void) {
-    s16 skillAEnergy, skillBEnergy;
-    Animal *new_var;
+    s16 oldEnergyB;
+    s16 oldEnergyA;
+    s16 newEnergyB;
+    s16 costB;
+    s16 usedSkillB;
+    s32 rechargeA;
 
-    skillAEnergy = D_803D552C->energy[0].unk0;
-    D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + D_803D5524->unkDA[0][1]);
-    if ((D_803D552C->energy[0].unk2 != 0x7FFF) && (D_803D552C->energy[0].unk2 != 0x7FFE)) {
-        D_803D552C->energy[0].unk2 = MAX(0, D_803D552C->energy[0].unk2 - 1);
+    oldEnergyA = D_803D552C->energy[SKILL_A].unk0;
+    D_803D552C->energy[SKILL_A].unk0 = MIN(0x400, D_803D552C->energy[SKILL_A].unk0 + D_803D5524->unkDA[SKILL_A][1]);
+    if ((D_803D552C->energy[SKILL_A].unk2 != 0x7FFF) && (D_803D552C->energy[SKILL_A].unk2 != 0x7FFE)) {
+        D_803D552C->energy[SKILL_A].unk2 = MAX(0, D_803D552C->energy[SKILL_A].unk2 - 1);
     }
 
-    skillBEnergy = D_803D552C->energy[1].unk0;
-    D_803D552C->energy[1].unk0 = MIN(0x400, D_803D552C->energy[1].unk0 + D_803D5524->unkDA[1][1]);
-    if ((D_803D552C->energy[1].unk2 != 0x7FFF) && D_803D552C->energy[1].unk2 != 0x7FFE) {
-        D_803D552C->energy[1].unk2 = MAX(0, D_803D552C->energy[1].unk2 - 1);
+    oldEnergyB = D_803D552C->energy[SKILL_B].unk0;
+    D_803D552C->energy[SKILL_B].unk0 = MIN(0x400, D_803D552C->energy[SKILL_B].unk0 + D_803D5524->unkDA[SKILL_B][1]);
+    if ((D_803D552C->energy[SKILL_B].unk2 != 0x7FFF) && (D_803D552C->energy[SKILL_B].unk2 != 0x7FFE)) {
+        D_803D552C->energy[SKILL_B].unk2 = MAX(0, D_803D552C->energy[SKILL_B].unk2 - 1);
     }
 
-    if ((skillAEnergy < D_803D552C->energy[0].unk0) && (D_803D552C->energy[0].unk0 == 0x400)) {
-    } else {
-        if (D_803D552C->energy) {};
+    // fakematch: preserves the skill A full-charge branch layout.
+    rechargeA = (oldEnergyA < D_803D552C->energy[SKILL_A].unk0 &&
+                 D_803D552C->energy[SKILL_A].unk0 == 0x400)
+                    ? 0x400 - oldEnergyA
+                    : D_803D5524->unkDA[SKILL_A][1];
+    if (rechargeA > 0 && D_803D552C->energy[SKILL_A].unk0 == 0x400 &&
+        oldEnergyA < 0x400) {}
+
+    newEnergyB = D_803D552C->energy[SKILL_B].unk0;
+    usedSkillB = D_803F2EE0[SKILL_B];
+    if (newEnergyB > oldEnergyB) {
+        // fakematch: preserves register allocation across the skill B check.
+        if (usedSkillB && D_803D5524->unkDA[SKILL_B][1] > 0 &&
+            newEnergyB > D_803D5524->unkDA[SKILL_B][0]) {}
+
+        // fakematch: inferred affordability check retains the species load.
+        costB = D_803D5524->unkDA[SKILL_B][0];
+        if (oldEnergyB <= costB && newEnergyB > costB) {}
     }
 
-    if (((!D_803D552C->energy) && (!D_803D552C->energy)) && (!D_803D552C->energy)) {
-    }
-
-    if (D_803D552C->energy[1].unk0) {}
-    new_var = D_803D552C;
-    if ((skillBEnergy < D_803D552C->energy[1].unk0)) {
-        if ((new_var->energy && D_803D552C->energy) && D_803D552C->energy) {};
-    }
-
-    D_803F2EE0[0] = D_803F2EE0[1] = 0;
-
-    // return D_803D5524;
+    D_803F2EE0[SKILL_A] = D_803F2EE0[SKILL_B] = 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E200_76F8B0.s")
-#endif
 
 // ESA: func_800819B0
 s32 func_8035E344_76F9F4(Animal2 *arg0, s16 arg1) {
