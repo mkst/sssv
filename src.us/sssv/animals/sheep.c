@@ -594,7 +594,7 @@ void func_803629B0_774060(void) {
 void func_80362A00_7740B0(void) {
 }
 
-void func_80362A08_7740B8(void) {
+void unused_func_80362A08_7740B8(void) {
 }
 
 // springy_ram_headbutt (or vice versa?)

@@ -344,7 +344,7 @@ void func_802A5008_6B66B8(u16 rotation, s8 arg1) {
     func_802B8810_6C9EC0();
 }
 
-void func_802A50A8_6B6758(void) {
+void unused_func_802A50A8_6B6758(void) {
     s16 xVel, zVel;
 
     D_803D5530->state = STATE_JUMPING_IN_WATER;
@@ -381,7 +381,7 @@ void func_802A50A8_6B6758(void) {
     func_802B8890_6C9F40();
 }
 
-void func_802A5300_6B69B0(void) {
+void unused_func_802A5300_6B69B0(void) {
     s16 xVel, zVel;
 
     D_803D5530->state = STATE_JUMPING_IN_WATER;
@@ -3110,7 +3110,7 @@ void func_802AD0FC_6BE7AC(void) {
     }
 }
 
-void func_802AD49C_6BEB4C(void) {
+void unused_func_802AD49C_6BEB4C(void) {
     static s16 D_803D5578; // .bss
 
     s16 temp_t9;
@@ -4935,6 +4935,9 @@ s32 func_802B2AF0_6C41A0(s32 arg0, s32 arg1) {
         return 1;
     }
     // implicit return? UB?
+#ifdef AVOID_UB
+    return 0;
+#endif
 }
 
 s32 func_802B2C20_6C42D0(s16 arg0, s16 arg1) {
@@ -5133,7 +5136,7 @@ void func_802B33D0_6C4A80(Animal *a) {
     }
 }
 
-void func_802B3400_6C4AB0(Animal *a) {
+void unused_func_802B3400_6C4AB0(Animal *a) {
     a->unk4A = 1;
     if (a->unk16C->behaviourFlags.unk2) {
         a->previousHeading = a->heading;
@@ -5145,7 +5148,7 @@ void func_802B342C_6C4ADC(void) {
     gAnimalState.animals[gCurrentAnimalIndex].animal->previousHeading = gAnimalState.animals[gCurrentAnimalIndex].animal->heading;
 }
 
-void func_802B3474_6C4B24(void) {
+void unused_func_802B3474_6C4B24(void) {
     gAnimalState.animals[gCurrentAnimalIndex].animal->unk4A = 1;
     gAnimalState.animals[gCurrentAnimalIndex].animal->previousHeading = gAnimalState.animals[gCurrentAnimalIndex].animal->heading;
 }
@@ -5161,15 +5164,15 @@ void func_802B34DC_6C4B8C(void) {
 }
 
 // increment
-void func_802B3518_6C4BC8(void) {
+void unused_func_802B3518_6C4BC8(void) {
     D_803D554A += 1;
 }
 // reset
-void func_802B3530_6C4BE0(void) {
+void unused_func_802B3530_6C4BE0(void) {
     D_803D554A = 1;
 }
 // decrement
-void func_802B3540_6C4BF0(void) {
+void unused_func_802B3540_6C4BF0(void) {
     D_803D554A = MAX(0, D_803D554A - 1);
 }
 

@@ -543,7 +543,7 @@ void func_802F6DEC_70849C(Entity *arg0, s16 arg1) {
 }
 
 // ESA: func_800502E8
-void func_802F7054_708704(s32 arg0) {
+void unused_func_802F7054_708704(s32 arg0) {
 }
 
 // not in ESA?
@@ -2467,7 +2467,7 @@ void func_802FC808_70DEB8(Entity *arg0) {
   }
 }
 
-void func_802FC8F4_70DFA4(Animal *arg0) {
+void unused_func_802FC8F4_70DFA4(Animal *arg0) {
     s32 tmp = (arg0->unk40 * 18) >> 11;
     create_particle_effect(
         arg0->position.xPos.h,
@@ -2863,7 +2863,7 @@ void start_fog_transition(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5) {
     D_803E1D0C = 0;
 }
 
-void func_802FD9C4_70F074(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5, s16 arg6) {
+void unused_func_802FD9C4_70F074(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5, s16 arg6) {
     // struct copy
     sFogTransitionStart = gFogState;
 
@@ -3054,7 +3054,7 @@ void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Entity 
 }
 
 // free all things, unused?
-void func_802FF140_7107F0(void) {
+void unused_func_802FF140_7107F0(void) {
     s16 i;
 
     D_803A5330_7B69E0 = 0;
@@ -3356,6 +3356,10 @@ void func_802FFFD0_711680(Entity *arg0) {
     } else if (arg0->unk16C->objectType == OBJECT_ENERGY_BALL_PURPLE) {
         // bright pink
         red = 255; green = 0; blue = 255;
+#ifdef AVOID_UB
+    } else {
+        return;
+#endif
     }
 
     add_light_at_location(

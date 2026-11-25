@@ -1363,6 +1363,10 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     s8  sp3D;
 
     sp46 = D_803D552C->gaitPhase;
+#ifdef AVOID_UB
+    // Use the standing phase until a gait supplies secondary joint phases.
+    sp44 = sp42 = sp40 = sp3E = sp46;
+#endif
     switch (D_803D5530->state) {
     case 3:
     case 0xB6:

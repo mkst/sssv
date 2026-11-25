@@ -126,7 +126,14 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
         var_t1[i].unk14 = 0;
 
         // whilst it's not the final segment
+#ifdef AVOID_UB
+        if (i == tail->numSegments - 1) {
+            break;
+        }
+        {
+#else
         if (i < (tail->numSegments - 1)) {
+#endif
             var_s6 = (( arg1[i+1].unk0 * (COS(tail->heading) >> 7)) + (arg1[i+1].unk4 * (SIN(tail->heading) >> 7))) >> 8;
             var_s2 = ((-arg1[i+1].unk0 * (SIN(tail->heading) >> 7)) + (arg1[i+1].unk4 * (COS(tail->heading) >> 7))) >> 8;
             var_s7 = arg1[i+1].unk8;
@@ -1411,6 +1418,9 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
             if ((var_a1 < temp_s1->radius) && (var_v1 < temp_s1->radius) && (var_a0 < temp_s1->radius)) {
                 temp_s4 = &D_803DA300[temp_s1->workspaceIndex];
                 var_a3 = (temp_s1->segmentLength >> 0xA);
+#ifdef AVOID_UB
+                var_s5 = -1;
+#endif
 
                 for (var_a2 = 2; var_a2 < temp_s1->numSegments; var_a2++) {
                     var_a1 = ABS(arg0 - (temp_s4[var_a2].unk0 >> 0x10));
@@ -1436,7 +1446,11 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                     }
                 }
 
+#ifdef AVOID_UB
+                if ((var_s5 >= 2) && (var_a3 <= ((temp_s1->segmentLength >> 0x11) + (temp_s1->segmentLength >> 0x10)))) {
+#else
                 if (var_a3 <= ((temp_s1->segmentLength >> 0x11) + (temp_s1->segmentLength >> 0x10))) {
+#endif
                     *arg3 = i;
                     *arg4 = var_s5;
 

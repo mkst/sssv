@@ -302,8 +302,17 @@ void func_80370C84_782334(void) {
     s16 tmp2;
     s16 spD8;
     s32 a0, a1, a2;
+#ifdef AVOID_UB
+    // Collision still runs when the display-list budget skips the trail samples.
+    s32 var_s1 = 0;
+#else
     s32 var_s1;
+#endif
+#ifdef AVOID_UB
+    s32 var_s2 = 0;
+#else
     s32 var_s2;
+#endif
     Animal *spC0;
     s8  spBF;
     s16 tmp5;

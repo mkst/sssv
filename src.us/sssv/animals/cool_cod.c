@@ -163,8 +163,8 @@ void func_80382CF0_7943A0(void) {
 void func_80383804_794EB4(void) {
 }
 
-void func_8038380C_794EBC(s32 arg0, s32 arg1, s32 arg2) {
+void unused_func_8038380C_794EBC(s32 arg0, s32 arg1, s32 arg2) {
 }
 
-void func_8038381C_794ECC(void) {
+void unused_func_8038381C_794ECC(void) {
 }

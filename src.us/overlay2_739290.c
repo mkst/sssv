@@ -1301,6 +1301,12 @@ s16 func_8032A164_73B814(s16 arg0, s16 arg1) {
         return -1;
     }
 
+#ifdef AVOID_UB
+    if (sp57 > 2) {
+        return -1;
+    }
+#endif
+
     switch (sp57) {
     case 2:
         if (D_803C0740[temp_t0][temp_t1].unk3 == 0) {

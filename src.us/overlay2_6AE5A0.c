@@ -1596,6 +1596,10 @@ void func_8029F7D4_6B0E84(DisplayList *displayList, Objects *arg1) {
 
                         case 20: {
                             u8 displayColor[3];
+#ifdef AVOID_UB
+                            // The original only initializes red; use black for all channels.
+                            displayColor[1] = displayColor[2] = 0;
+#endif
 
                             // Both branches store the same value. Green and blue are never written,
                             // so whatever is on the stack is copied into the queue.

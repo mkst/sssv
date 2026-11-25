@@ -201,4 +201,7 @@ s16 apply_music_bounce_to_joints(s16 amplitude, s16 joint1, s16 joint2, s16 join
             }
         }
     }
+#ifdef AVOID_UB
+    return 0;
+#endif
 }

@@ -40,8 +40,8 @@ typedef struct {
 void func_803458B8_756F68(Gfx **dl, Vtx *vtx, s16 numVtxs);
 void func_803458FC_756FAC(Gfx **dl, struct115 *faces, s16 numFaces);
 void func_80346878_757F28(Gfx **dl, u8 idx);
-void func_803469D4_758084(Gfx **dl, u8 idx);
-void func_80346AB0_758160(Gfx **dl, u8 idx);
+void unused_func_803469D4_758084(Gfx **dl, u8 idx);
+void unused_func_80346AB0_758160(Gfx **dl, u8 idx);
 void func_80346BB4_758264(Gfx **dl, struct115 *faces, s16 numFaces);
 
 
@@ -385,6 +385,16 @@ void func_80344240_7558F0(void) {
 
                     // Faces with scroll indices 32..47 also record their center tile for each vertex.
                     if ((scrollIndex >= GEO_SCROLL_CENTER_MIN) && (scrollIndex < GEO_SCROLL_CENTER_MAX)) {
+#ifdef AVOID_UB
+                        maxTileX = minTileX = tileX[0];
+                        maxTileZ = minTileZ = tileZ[0];
+                        for (vertexIndex = 1; vertexIndex < vertexCount; vertexIndex++) {
+                            maxTileX = MAX(maxTileX, tileX[vertexIndex]);
+                            minTileX = MIN(minTileX, tileX[vertexIndex]);
+                            maxTileZ = MAX(maxTileZ, tileZ[vertexIndex]);
+                            minTileZ = MIN(minTileZ, tileZ[vertexIndex]);
+                        }
+#else
                         if (vertexCount == 4) {
                             maxTileX = MAX(MAX(MAX(tileX[0], tileX[1]), tileX[2]), tileX[3]);
                             maxTileZ = MAX(MAX(MAX(tileZ[0], tileZ[1]), tileZ[2]), tileZ[3]);
@@ -393,6 +403,7 @@ void func_80344240_7558F0(void) {
                         }
                         // Only quads update the bounds, so a triangle uses the bounds left from an
                         // earlier face (or uninitialized ones if it is the first).
+#endif
                         for (vertexIndex = 0; vertexIndex < vertexCount; vertexIndex++) {
                             centerIndex = D_803E4AC8 + vertexIndex;
                             centerTileX = (maxTileX + minTileX) >> 1;
@@ -981,7 +992,7 @@ void func_80346878_757F28(Gfx **dl, u8 idx) {
 }
 
 // load_metal_texture?
-void func_803469D4_758084(Gfx **dl, u8 idx) {
+void unused_func_803469D4_758084(Gfx **dl, u8 idx) {
     gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_D_0102F010_688E0_rgba16__png + ((idx&0xFF) << 7));
     gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*dl)++);
@@ -992,7 +1003,7 @@ void func_803469D4_758084(Gfx **dl, u8 idx) {
 }
 
 // load_xlui_texture
-void func_80346AB0_758160(Gfx **dl, u8 idx) {
+void unused_func_80346AB0_758160(Gfx **dl, u8 idx) {
     osSyncPrintf("load xlui texture - %d\n", idx);
     gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760 + idx * 0xAB8);
     gDPTileSync((*dl)++);

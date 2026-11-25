@@ -50,7 +50,12 @@ void func_80389B30_79B1E0(void) {
     s16 sp136;
     s16 sp134;
     s16 sp132;
+#ifdef AVOID_UB
+    // The laser effect may render without running its unpaused hit calculation.
+    s16 sp130 = 0;
+#else
     s16 sp130;
+#endif
     s16 sp12E;
     s16 sp12C;
     s16 sp12A;
@@ -65,7 +70,11 @@ void func_80389B30_79B1E0(void) {
     s16 sp118;
     s32 zDelta; // sp114
     s32 xDelta; // sp110
+#ifdef AVOID_UB
+    s32 sp10C = 0;
+#else
     s32 sp10C;
+#endif
 
     s32 sp108; // pad
     s32 sp104; // pad

@@ -40,7 +40,11 @@ void func_802E5000_6F66B0(void) {
 
     s16 spAE;
     s16 spAC;
+#ifdef AVOID_UB
+    s16 spAA = 0;
+#else
     s16 spAA;
+#endif
     s16 spA8;
     s16 spA6;
     s16 spA4;
@@ -484,7 +488,11 @@ void func_802E7394_6F8A44(void) {
     s16 spA0;
     s16 sp9E;
     s16 sp9C; // pad
+#ifdef AVOID_UB
+    s16 sp9A = 0;
+#else
     s16 sp9A;
+#endif
     s16 sp98;
     s16 sp96; // pad
     s16 sp94;

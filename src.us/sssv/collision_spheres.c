@@ -138,7 +138,7 @@ void terminate_collision_spheres(Animal *animal, u16 idx) {
 }
 
 #ifdef __sgi
-void func_80303D68_715418(Animal *animal, u16 index, DisplayList *arg2) {
+void unused_func_80303D68_715418(Animal *animal, u16 index, DisplayList *arg2) {
     guTranslate(
         &arg2->modelViewMtx[arg2->usedModelViewMtxs],
         animal->unkC4[index].pos.xPos.h + animal->position.xPos.h,
@@ -157,10 +157,10 @@ void func_80303D68_715418(Animal *animal, u16 index, DisplayList *arg2) {
     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 }
 
-void func_80303F90_715640(Animal *animal, DisplayList *dl) {
+void unused_func_80303F90_715640(Animal *animal, DisplayList *dl) {
     s16 i;
     for (i = 0; (i < 5) && (animal->unkC4[i].radius != 0); i++) {
-        func_80303D68_715418(animal, i, dl);
+        unused_func_80303D68_715418(animal, i, dl);
     }
 }
 #endif

@@ -172,10 +172,14 @@ void func_802B4D20_6C63D0(void) {
                                                 }
 
                                                 totalMass = var_s3 + var_s4;
+#ifdef AVOID_UB
+                                                if (totalMass != 0) {
+#else
                                                 if (!(totalMass != 0)) {
                                                     osSyncPrintf("\nASSERT: TotalMass != 0, %s, %u\n", "../src/collsion.c", 326);
                                                     *(volatile int*)0 = 0;
                                                 }
+#endif
 
                                                 temp_v1_6 = animal1->xVelocity.w;
                                                 temp_a0_6 = animal2->xVelocity.w;
@@ -194,6 +198,9 @@ void func_802B4D20_6C63D0(void) {
                                                         animal2->yVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
                                                     }
                                                 }
+#ifdef AVOID_UB
+                                                }
+#endif
 #ifdef __sgi
                                             } else if (1) { // permuter suggestion
 #else

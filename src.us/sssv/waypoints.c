@@ -58,6 +58,11 @@ void reset_waypoints(void) {
 
 // ESA: func_8004CAEC
 void func_80319AA0_72B150(struct002 *arg0, u8 arg1) {
+#ifdef AVOID_UB
+    if (arg0->length >= 4) {
+        return;
+    }
+#endif
     arg0->unk1[arg0->length] = arg1;
     arg0->unk1[4] = arg1;
     arg0->length += 1;
@@ -72,6 +77,11 @@ void func_80319AC4_72B174(struct002 *arg0, u8 arg1) {
             break;
         }
     }
+#ifdef AVOID_UB
+    if (i == arg0->length) {
+        return;
+    }
+#endif
     arg0->length--;
 
     for (; i < arg0->length; i++) {
@@ -85,6 +95,11 @@ u16 get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y) {
     Waypoint *wp;
     s32 max_dist;
     s32 dist;
+#ifdef AVOID_UB
+    if (arg0->length == 0) {
+        return 0xFFFF;
+    }
+#endif
 
     max_dist = MAX_INT;
 

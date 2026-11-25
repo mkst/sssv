@@ -299,15 +299,15 @@ void unused_8032BE28_73D4D8(Animal *arg0) {
 
                 if (y1 == y2) {
                     // arg0, x, y, z, r, g, b
-                    func_8032C0EC_73D79C(arg0, x, i, y1, 0, 200, 200);  // turquoise
+                    unused_func_8032C0EC_73D79C(arg0, x, i, y1, 0, 200, 200);  // turquoise
                 } else {
-                    func_8032C0EC_73D79C(arg0, x, i, y1, 0, 200, 0);    // green
-                    func_8032C0EC_73D79C(arg0, x, i, y2, 0, 0,   200);  // blue
+                    unused_func_8032C0EC_73D79C(arg0, x, i, y1, 0, 200, 0);    // green
+                    unused_func_8032C0EC_73D79C(arg0, x, i, y2, 0, 0,   200);  // blue
 
                     for (j = y1; j < y2; j++) {
                         if ((collision->data[index] & (1 << j)) == 0) {
                             // red
-                            func_8032C0EC_73D79C(arg0, x, i, j, 255, 0, 0);
+                            unused_func_8032C0EC_73D79C(arg0, x, i, j, 255, 0, 0);
                         }
                     }
                 }
@@ -316,7 +316,7 @@ void unused_8032BE28_73D4D8(Animal *arg0) {
     }
 }
 
-void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
+void unused_func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
     if (D_803D3434->usedModelViewMtxs < 240) {
         gDPSetPrimColor(gXluDL++, 0, 0, r, g, b, 0xFF);
         guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);

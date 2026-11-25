@@ -265,6 +265,13 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     s32 temp_t8;
     s32 sp20;
     s32 sp1C;
+#ifdef AVOID_UB
+    if (arg4 >= 4) {
+        return 1;
+    }
+    // Treat an otherwise unclassified steep drop as blocked.
+    sp43 = 1;
+#endif
 
     switch (arg4) {
     case 0:
@@ -1452,7 +1459,7 @@ s32 func_80309B40_71B1F0(void) {
     return 0;
 }
 
-s32 func_80309BA0_71B250(void) {
+s32 unused_func_80309BA0_71B250(void) {
     s32 phi_v1;
     s32 phi_a3;
     s32 phi_v0;

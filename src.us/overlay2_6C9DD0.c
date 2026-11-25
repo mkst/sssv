@@ -86,7 +86,7 @@ void func_802B8978_6CA028(void) {
     D_803D5528->unk3AC.unk12 = 0;
 }
 
-void func_802B89D8_6CA088(void) {
+void unused_func_802B89D8_6CA088(void) {
     D_803D5528->unk3C0.unk0 = 9;
     D_803D5528->unk3C4.unk0 = 9;
     D_803D5528->unk370.unk12 = -1;
@@ -177,6 +177,10 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
 
     switch (D_803D5530->unk160) {
     default:
+#ifdef AVOID_UB
+        // An unsupported ground mode contributes no height adjustment.
+        return 0;
+#endif
         break;
     case 0:
         sp58 = func_80310F58_722608(sp5E, sp5C);
@@ -273,6 +277,9 @@ s32 func_802B901C_6CA6CC(u8 heading, s16 *arg1, s16 *arg2) {
     temp_t7 = (s16)(temp_t7 >> 15);
     *arg2 = temp_t8;
     *arg1 = temp_t7;
+#ifdef AVOID_UB
+    return 0;
+#endif
 }
 
 // ESA: func_80064658

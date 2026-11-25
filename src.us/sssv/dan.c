@@ -121,7 +121,7 @@ void func_80397840_7A8EF0(void) {
 }
 
 // reset poses
-void func_80397B84_7A9234(void) {
+void unused_func_80397B84_7A9234(void) {
     s16 i, j, k;
 
     for (i = 0; i < 3; i++) {
