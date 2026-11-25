@@ -9,6 +9,8 @@ permissions: {}
 jobs:
   build_pr:
     if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+    # Configure required reviewers for this environment in repository Settings.
+    environment: pr-rom-build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,8 +22,10 @@ jobs:
       - name: Checkout this repo
         uses: actions/checkout@v6
         with:
+          allow-unsafe-pr-checkout: true
+          persist-credentials: false
           submodules: recursive
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Checkout baserom
         uses: actions/checkout@v6
@@ -31,7 +35,9 @@ jobs:
           persist-credentials: false
           path: baserom
       - name: Decrypt baserom
-        run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${{ matrix.version }}.z64.aes -out baserom.${{ matrix.version }}.z64
+        env:
+          BASEROM_PASSWORD: ${{ secrets.SSSV_BASEROM_US }}
+        run: openssl enc -d -aes-256-cbc -pass env:BASEROM_PASSWORD -pbkdf2 -in baserom/baserom.${{ matrix.version }}.z64.aes -out baserom.${{ matrix.version }}.z64
 
       - name: Chown files as user 1000
         run: |
