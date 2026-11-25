@@ -245,5 +245,5 @@ void func_80382CC0_794370(s16 arg0) {
     D_803D552C->unk365 = ATTACK_BITE;
 }
 
-void func_80382CE4_794394(void) {
+void unused_func_80382CE4_794394(void) {
 }

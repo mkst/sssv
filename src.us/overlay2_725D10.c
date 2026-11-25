@@ -43,6 +43,11 @@ void func_80314660_725D10(void) {
 // ESA: func_80047108
 Entity *resolve_entity_ref(Entity *self, s16 refType, u16 regionId) {
     Entity *ret;
+#ifdef AVOID_UB
+    if (self == NULL) {
+        return NULL;
+    }
+#endif
 
     switch (refType) {
     case 0:
@@ -72,6 +77,10 @@ Entity *resolve_entity_ref(Entity *self, s16 refType, u16 regionId) {
     case 12:
         ret = self->unk248[0];
         break;
+#ifdef AVOID_UB
+    default:
+        return NULL;
+#endif
     }
     return ret;
 }
@@ -489,15 +498,33 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
 s32 do_maths_op(s32 left, u8 op, s32 right) {
     switch (op) {
     case CMD_ADD:
+#ifdef AVOID_UB
+        left = (s32)((u32)left + (u32)right);
+#else
         left = left + right;
+#endif
         break;
     case CMD_SUBTRACT:
+#ifdef AVOID_UB
+        left = (s32)((u32)left - (u32)right);
+#else
         left = left - right;
+#endif
         break;
     case CMD_MULTIPLY:
+#ifdef AVOID_UB
+        left = (s32)((u32)left * (u32)right);
+#else
         left = left * right;
+#endif
         break;
     case CMD_DIVIDE:
+#ifdef AVOID_UB
+        // Invalid division leaves the destination unchanged; overflow wraps on MIPS.
+        if (right == 0 || (left == (-MAX_INT - 1) && right == -1)) {
+            break;
+        }
+#endif
         left = left / right;
         break;
     case CMD_LOGICAL_AND:
@@ -507,13 +534,30 @@ s32 do_maths_op(s32 left, u8 op, s32 right) {
         left = left | right;
         break;
     case CMD_MODULO:
+#ifdef AVOID_UB
+        if (right == 0) {
+            break;
+        }
+        if (left == (-MAX_INT - 1) && right == -1) {
+            left = 0;
+            break;
+        }
+#endif
         left = left % right;
         break;
     case CMD_RSHIFT:
+#ifdef AVOID_UB
+        left = left >> ((u32)right & 31);
+#else
         left = left >> right;
+#endif
         break;
     case CMD_LSHIFT:
+#ifdef AVOID_UB
+        left = (s32)((u32)left << ((u32)right & 31));
+#else
         left = left << right;
+#endif
         break;
     case CMD_NOOP:
         // left = left;
@@ -2429,6 +2473,11 @@ s32 execute_entity_command(Entity *arg0) {
         case 5:
             sp84 = ~get_game_state(temp_s1, cmds->unk19C.payload.cmd.type101.unk2);
             break;
+#ifdef AVOID_UB
+        default:
+            // Unknown arithmetic operations leave the destination unchanged.
+            return 69;
+#endif
         }
 
         set_game_state(temp_s1, cmds->unk19C.payload.cmd.type101.action + 0x7F7F, sp84);

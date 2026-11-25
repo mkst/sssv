@@ -21,12 +21,12 @@ void func_80304EC4_716574(struct039 *arg0, struct039 *arg1) {
     }
 }
 
-void func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2) {
+void unused_func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2) {
     arg2->unk0 = arg0->unk0 - arg1->unk0;
     arg2->unk4 = arg0->unk4 - arg1->unk4;
 }
 
-s16 func_80304F94_716644(struct039 *arg0, struct039 *arg1) {
+s16 unused_func_80304F94_716644(struct039 *arg0, struct039 *arg1) {
     s16 res;
     f32 tmp;
     s32 tmp2;
@@ -60,7 +60,7 @@ s16 func_80305084_716734(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     return res;
 }
 
-s16 func_80305194_716844(s16 arg0, s16 arg1) {
+s16 unused_func_80305194_716844(s16 arg0, s16 arg1) {
     s16 ret = ABS(arg0 - arg1);
     if (ret > 180) {
         ret = 360 - ret;

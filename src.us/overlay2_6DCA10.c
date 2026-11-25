@@ -551,7 +551,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
     // TODO: gDPLoadTextureBlock
-    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, ((img_D_01029E10_636E0_i8__png + 0x400) + 0x80000000));
+    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(img_D_01029E10_636E0_i8__png + 0x400));
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync(D_801D9E98[1]++);
     gDPLoadBlock(D_801D9E98[1]++, G_TX_LOADTILE, 0, 0, 2047, 512);
@@ -1069,7 +1069,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 create_particle_effect_2(
                                     var_s1->unk0 >> 0x10,
                                     var_s1->unk8 >> 0x10,
+#ifdef AVOID_UB
+                                    (func_80310F58_722608(var_s1->unk0 >> 16, var_s1->unk8 >> 16) >> 16) + 8,
+#else
                                     sp7C0 + 8,
+#endif
                                     0x3A,
                                     8,
                                     GPACK_RGBA5551(((s32) (gWaterPrimRed + 0x1FF) / 3), ((s32) (gWaterPrimGreen + 0x1FF) / 3), ((s32) (gWaterPrimBlue + 0x1FF) / 3), 1),

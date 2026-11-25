@@ -130,6 +130,9 @@ void func_80362CC4_774374(Animal *arg0) {
         if (arg0->navState == NAVIGATION_STATE_IDLE) {
             temp_t7 = (gLevelRegions[arg0->unk294.type3.unk0].maxTileX - gLevelRegions[arg0->unk294.type3.unk0].minTileX) >> 2;
             temp_t3 = (gLevelRegions[arg0->unk294.type3.unk0].maxTileZ - gLevelRegions[arg0->unk294.type3.unk0].minTileZ) >> 2;
+#ifdef AVOID_UB
+            arg0->unk290 &= 3;
+#endif
             switch (arg0->unk290) {
             case 0:
                 sp54 = gLevelRegions[arg0->unk294.type3.unk0].minTileX + temp_t7;
@@ -414,7 +417,19 @@ void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     WaypointData *wp_data;
     s16 next_wp_idx;
 
+#ifdef AVOID_UB
+    if (pathId >= 64 || pathId >= gWaypointPathCount || gWaypointPaths[pathId] == NULL) {
+        reset_waypoint_mode(arg0);
+        return;
+    }
+#endif
     wp_data = gWaypointPaths[pathId];
+#ifdef AVOID_UB
+    if (wp_data->length < 2) {
+        reset_waypoint_mode(arg0);
+        return;
+    }
+#endif
     if (arg3 < 0) {
         next_wp_idx = wp_data->length - 2;
     } else {
@@ -443,7 +458,19 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     WaypointData *wp_data;
     s16 next_wp_idx;
 
+#ifdef AVOID_UB
+    if (pathId >= 64 || pathId >= gWaypointPathCount || gWaypointPaths[pathId] == NULL) {
+        reset_waypoint_mode(arg0);
+        return;
+    }
+#endif
     wp_data = gWaypointPaths[pathId];
+#ifdef AVOID_UB
+    if (wp_data->length < 1) {
+        reset_waypoint_mode(arg0);
+        return;
+    }
+#endif
     next_wp_idx = get_closest_waypoint_index(wp_data, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h);
 
     arg0->waypointMode = WAYPOINT_MODE_PATH;

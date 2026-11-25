@@ -112,6 +112,11 @@ void func_803041FC_7158AC(void) {
             dl = D_803E3130[i].displayList;
 
             tmp = D_803E3130[i].scrollIndex;
+#ifdef AVOID_UB
+            if (tmp > 300) {
+                continue;
+            }
+#endif
             if (tmp >= 300) {
                 if (tmp == 300) {
                     var_t4 = 0;

@@ -174,7 +174,7 @@ void func_802C9834_6DAEE4(void) {
 }
 
 // unused, dupe of func_802C9834_6DAEE4
-void func_802C985C_6DAF0C(void) {
+void unused_func_802C985C_6DAF0C(void) {
     reset_objects_state();
     init_and_spawn_evo_microchip();
 }

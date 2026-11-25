@@ -157,7 +157,7 @@ void start_level_light_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u
 }
 
 // unused
-void func_802F301C_7046CC(u8 ambientRed, u8 ambientGreen, u8 ambientBlue, u8 envRed, u8 envGreen, u8 envBlue, u16 arg6, u16 arg7) {
+void unused_func_802F301C_7046CC(u8 ambientRed, u8 ambientGreen, u8 ambientBlue, u8 envRed, u8 envGreen, u8 envBlue, u16 arg6, u16 arg7) {
     D_803E1BAE = ambientRed;
     D_803E1BB0 = ambientGreen;
     D_803E1BB2 = ambientBlue;

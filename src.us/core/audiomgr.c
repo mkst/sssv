@@ -819,7 +819,7 @@ void func_801322EC(Sound *arg0, Sound **arg1, Sound **arg2) {
     }
 }
 
-void func_80132394(void) {
+void unused_func_80132394(void) {
     Sound *snd;
     for (snd = D_8028631C; snd != NULL; snd = snd->next);
 }
@@ -884,7 +884,7 @@ start:
 }
 
 // used?
-Sound *func_80132568(void) {
+Sound *unused_func_80132568(void) {
     // FIXME: fakematch shenanigans, static vars?
     Sound* foo;
     Sound** bar;
@@ -1078,7 +1078,7 @@ void func_80132C48(s8 idx) {
     }
 }
 
-void func_80132CC0(s32 arg0) {
+void unused_func_80132CC0(s32 arg0) {
     Sound *snd = D_8028631C;
     osSyncPrintf("----------------- Active sounds\n");
 
@@ -1204,7 +1204,7 @@ void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan) {
     }
 }
 
-void func_80133188(s16 id, s16 volume, s16 arg2) {
+void unused_func_80133188(s16 id, s16 volume, s16 arg2) {
     Sound sound;
 
     if (gAudioInitialized == 0) {
@@ -1421,9 +1421,12 @@ void set_music_volume(s16 arg0) {
 }
 
 // unused
-void func_80133BE4(void) {
+void unused_func_80133BE4(void) {
     ALSndPlayer *sndp;
     Sound *snd;
+#ifdef AVOID_UB
+    sndp = D_80286310;
+#endif
 
     if (gAudioInitialized != 0) {
         for (snd = D_8028631C; snd != NULL; snd = snd->next) {
@@ -1456,13 +1459,13 @@ void func_80133C50(void) {
     }
 }
 
-void func_80133E44(void) {
+void unused_func_80133E44(void) {
     alCSeqGetLoc(D_802863CC[0], &D_80286460);
     D_80155180 = gCurrentMusicTrack;
     D_80155184 = 0;
 }
 
-void func_80133E84(void) {
+void unused_func_80133E84(void) {
     if ((D_80155180 == gCurrentMusicTrack) && (gCurrentMusicTrack != NO_MUSIC)) {
         if (++D_80155184 >= 3) {
             alCSeqSetLoc(D_802863CC[0], &D_80286460);

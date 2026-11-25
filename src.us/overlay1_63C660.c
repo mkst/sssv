@@ -16,7 +16,19 @@ s16 language_select_menu(s16 arg0) {
     s16 selected;
     s16 *dst;
     s16 *src;
+#ifdef AVOID_UB
+    uSprite *flagTexture = (uSprite *)img_flags_english_rgba16__png;
+#else
     uSprite *flagTexture;
+#endif
+#ifdef AVOID_UB
+    if ((u16)currentSelection >= 7) {
+        currentSelection = 1;
+    }
+    if ((u16)previousSelection >= 7) {
+        previousSelection = 1;
+    }
+#endif
 
     if (arg0 == 0) {
         used = 0;

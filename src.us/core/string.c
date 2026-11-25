@@ -38,7 +38,11 @@ void strcpy(u8* dst, u8 *src) {
 
 void strncpy(u8 *dst, u8 *src, s16 num) {
     u16 i = 0;
+#ifdef AVOID_UB
+    while ((i < num) && (src[i] != 0)) {
+#else
     while ((src[i] != 0) && (i < num)) {
+#endif
         dst[i] = src[i];
         i++;
     }
@@ -68,6 +72,11 @@ void bzero_sssv(u8 *addr, s32 len) {
     s32 unaligned_bytes, remainder;
     u64 *l;
     u8  *b;
+#ifdef AVOID_UB
+    if (len <= 0) {
+        return;
+    }
+#endif
 
     // if there is a non-8 aligned number of bytes, zero these now:
     unaligned_bytes = (s32)addr & 7;
@@ -110,6 +119,14 @@ s32 *memset_words(s32 *dst, s32 c, u32 len) {
 u8 *memset_bytes(u8 *dst, u8 c, u32 len) {
     u32 word;
     u8 *_dst = dst;
+#ifdef AVOID_UB
+    if (((u32)dst & 3) != 0) {
+        while (len-- > 0) {
+            *_dst++ = c;
+        }
+        return dst;
+    }
+#endif
 
     if (len > 3) {
         word = (c << 8) | c;

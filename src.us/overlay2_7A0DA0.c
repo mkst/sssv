@@ -8,16 +8,16 @@
 
 void func_8039546C_7A6B1C(Gfx **dl, s16 arg1, s16 arg2, s16 arg3);
 void func_8038F968_7A1018(void);
-void func_8038FB68_7A1218(void);
+void unused_func_8038FB68_7A1218(void);
 void func_8038FC58_7A1308(void);
-void func_8038FF48_7A15F8(void);
+void unused_func_8038FF48_7A15F8(void);
 void func_80391A38_7A30E8(void);
 void func_8039264C_7A3CFC(void);
 void func_80392668_7A3D18(void);
 void setup_pause_menu_perspective_a(void);
 void setup_pause_menu_perspective_b(void);
 void func_80395B58_7A7208(void);
-void func_80395E98_7A7548(Gfx **dl);
+void unused_func_80395E98_7A7548(Gfx **dl);
 void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
 s32  func_80396714_7A7DC4(void);
 s32  func_80396748_7A7DF8(void);
@@ -327,7 +327,7 @@ void func_8038FAB4_7A1164(void) {
     gInitialisationState = 1;
 }
 
-void func_8038FB68_7A1218(void) {
+void unused_func_8038FB68_7A1218(void) {
     gOverlayMenuState.unk2D = 1;
     gOverlayMenuState.unk27 = 1;
     gOverlayMenuState.unk0 = 0;
@@ -441,7 +441,7 @@ void func_8038FD74_7A1424(void) {
     }
 }
 
-void func_8038FF48_7A15F8(void) {
+void unused_func_8038FF48_7A15F8(void) {
     gOverlayMenuState.unk26 = 1;
     gOverlayMenuState.unk2 = 0;
     D_803F6714 = 0;
@@ -1125,7 +1125,7 @@ void func_80391A38_7A30E8(void) {
     }
 }
 
-void func_80391C90_7A3340(Gfx **dl, f32 x1, f32 z1, f32 x2, f32 z2, f32 y) {
+void unused_func_80391C90_7A3340(Gfx **dl, f32 x1, f32 z1, f32 x2, f32 z2, f32 y) {
     s16 i;
     s16 idx;
     s16 t;
@@ -1482,7 +1482,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
 }
 
 // draw_quad?
-void func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 idx, u8 color) {
+void unused_func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 idx, u8 color) {
     gDisplayListContext->unk31070[idx].v.ob[0] = arg1;
     gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
     gDisplayListContext->unk31070[idx].v.ob[2] = arg2;
@@ -1619,6 +1619,10 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             (level == BIG_CELEBRATION_PARADE)) {
 
             // show evo rather than powercells for bonus levels
+#ifdef AVOID_UB
+            // Fall back to the bronze palette for an unknown suit color.
+            suit_red = 200; suit_green = 200; suit_blue = 0;
+#endif
             switch (D_803F2D50.evoSuitColor) {
             case EVO_BRONZE_SHELLSUIT:
                 suit_red = 200;
@@ -2337,7 +2341,7 @@ void func_80395B58_7A7208(void) {
     gSPSetLights1(gMainDL++, gDisplayListContext->lights);
 }
 
-void func_80395E98_7A7548(Gfx **dl) {
+void unused_func_80395E98_7A7548(Gfx **dl) {
     gDPPipeSync((*dl)++);
     gDPSetCycleType((*dl)++, G_CYC_2CYCLE);
     gDPPipeSync((*dl)++);

@@ -47,6 +47,10 @@ void func_80364780_775E30(void) {
             D_803D552C->unk308--;
         }
         break;
+#ifdef AVOID_UB
+    default:
+        return;
+#endif
     }
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {

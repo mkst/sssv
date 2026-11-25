@@ -22,7 +22,7 @@ s16  get_glyph_width(f32 width);
 s16  process_text_token(s16 *text, u16 x, u16 y);
 s16  get_char_type(s16 *text, u16 x, u16 y);
 void func_8012FA78(Gfx **dl);
-void func_8012FAD4(Gfx **dl, s32 addr);
+void unused_func_8012FAD4(Gfx **dl, s32 addr);
 
 // ========================================================
 // .data
@@ -881,7 +881,7 @@ void display_text_word_wrapped(Gfx **dl, s16 *text, u16 xStart, u16 yStart, f32 
     }
 }
 
-void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 lineHeight) {
+void unused_func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 lineHeight) {
     s16 wchr;
     s16 chr;
     u16 xPos2;
@@ -1001,7 +1001,7 @@ void func_8012FA78(Gfx **dl) {
     gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 60, 60);
 }
 
-void func_8012FAD4(Gfx **dl, s32 addr) {
+void unused_func_8012FAD4(Gfx **dl, s32 addr) {
     gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, K0_TO_PHYS(addr));
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 63, 2048);

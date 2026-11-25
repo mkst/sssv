@@ -242,7 +242,7 @@ void func_8039895C_7AA00C(void) {
     read_eeprom(D_803F7DA8.bank);
 }
 
-void func_80398A00_7AA0B0(void) {
+void unused_func_80398A00_7AA0B0(void) {
     D_803F7DA8.unk30 = 0;
 }
 
@@ -352,6 +352,10 @@ void display_zone_select_screen(void) {
         (level == EVOS_ESCAPE) ||
         (level == PUNCHUP_PYRAMID) ||
         (level == BIG_CELEBRATION_PARADE)) {
+#ifdef AVOID_UB
+        // Fall back to the bronze palette for an unknown suit color.
+        evo_r = 200; evo_g = 200; evo_b = 0;
+#endif
         switch (D_803F2D50.evoSuitColor) {
         case EVO_BRONZE_SHELLSUIT:
             evo_r = 200;
@@ -1726,4 +1730,8 @@ s16 get_biome_for_level(s16 arg0) {
     if ((arg0 == BIG_CELEBRATION_PARADE-1) || (arg0 == SECRET_LEVEL-1)) {
         return UI_CITY_BIOME;
     }
+#ifdef AVOID_UB
+    // Invalid level indices have no biome; use the first UI palette.
+    return UI_EUROPE_BIOME;
+#endif
 }

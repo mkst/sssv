@@ -295,7 +295,7 @@ void osd_draw_score(void) {
     display_score(&gMainDL, (u8*)gGameState.scoreText, gScreenWidth - 34, ((gHudBarBaseY >> 2) - 10));
 }
 
-void func_80349278_75A928(void) {
+void unused_func_80349278_75A928(void) {
 }
 
 // ESA: func_8007DA18
@@ -374,7 +374,7 @@ void draw_and_update_target_health_bar(void) {
     }
 }
 
-void func_8034967C_75AD2C(void) {
+void unused_func_8034967C_75AD2C(void) {
     D_803F2CDF = 0;
     D_803F2CDA = 0;
 

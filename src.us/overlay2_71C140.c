@@ -28,7 +28,7 @@ s16  func_80310E10_7224C0(s16 tileX, s16 tileZ);
 void handle_x_collision(void);
 void handle_z_collision(void);
 void handle_xz_collision(void);
-void func_803135FC_724CAC(Animal *arg0);
+void unused_func_803135FC_724CAC(Animal *arg0);
 
 // ========================================================
 // .bss
@@ -1722,6 +1722,9 @@ s32 func_80310EE4_722594(s16 x, s16 z, u8 groundType) {
     case 2:
         return func_80310F58_722608(x, z);
     }
+#ifdef AVOID_UB
+    return sample_ground_height_at_xz(x, z);
+#endif
 }
 
 // ESA: func_800370FC
@@ -1741,9 +1744,11 @@ s32 func_80310F58_722608(s16 arg0, s16 arg1) {
     _x = arg0 >> 6;
     _y = arg1 >> 6;
 
+#ifndef AVOID_UB
     if (D_803C0740[_x][_y].unk3 == 0) {
         return 2048 << 0x13; // infinity?
     }
+#endif
     if (_x < 0) {
         return D_803C0740[0][MIN(MAX(0, _y), 128)].unk1 << 0x13;
     }
@@ -1754,8 +1759,18 @@ s32 func_80310F58_722608(s16 arg0, s16 arg1) {
         return D_803C0740[_x][0].unk1 << 0x13;
     }
     if (_y >= 0x80) {
+#ifdef AVOID_UB
+        return D_803C0740[_x][128].unk1 << 0x13;
+#else
         return D_803C0740[_x + 1][-1].unk1 << 0x13;
+#endif
     }
+
+#ifdef AVOID_UB
+    if (D_803C0740[_x][_y].unk3 == 0) {
+        return 2048 << 0x13; // infinity?
+    }
+#endif
 
     temp_v0 = arg0 & 0x3F;
     temp_t0 = arg1 & 0x3F;
@@ -1812,7 +1827,11 @@ s32 sample_ground_height_at_xz(s16 x, s16 y) {
         return D_803C0740[_x + 0][0].unk0 << 0x13;
     }
     if (_y >= 0x80) {
+#ifdef AVOID_UB
+        return D_803C0740[_x][128].unk0 << 0x13;
+#else
         return D_803C0740[_x + 1][-1].unk0 << 0x13;
+#endif
     }
 
     temp_v0 = x & 0x3F;
@@ -1876,7 +1895,11 @@ void func_80311554_722C04(s16 arg0, s16 arg1, s32 *arg2, s32 *arg3) {
     }
     if (temp_t3 >= 0x80) {
         *arg2 = 0x40000000;
+#ifdef AVOID_UB
+        *arg3 = D_803C0740[temp_v0][128].unk1 << 0x13;
+#else
         *arg3 = D_803C0740[temp_v0+1][-1].unk1 << 0x13;
+#endif
         return;
     }
 
@@ -2585,7 +2608,7 @@ s32 D_803A5590_7B6C40[] = {
 };
 #endif
 
-void func_803135FC_724CAC(Animal *arg0)
+void unused_func_803135FC_724CAC(Animal *arg0)
 {
     s32 temp_t1;
     int new_var2;

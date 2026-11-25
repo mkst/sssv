@@ -6,19 +6,19 @@ static s8 D_803A8350_7B9A00[8] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFA, 0xFF, 0xFF, 0xF
 static s8 D_803A8358_7B9A08[8] = { 0xFF, 0xFF, 0xC8, 0xFF, 0xFA, 0xFF, 0xC8, 0xFF, }; // greens
 static s8 D_803A8360_7B9A10[8] = { 0x00, 0x80, 0x64, 0xB4, 0x00, 0x64, 0xC8, 0xD4, }; // blues
 
-void func_8034A5D0_75BC80(void) {
+void unused_func_8034A5D0_75BC80(void) {
     func_802D760C_6E8CBC(
         D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h,
         D_803D5530->unk30, D_803D5530->yVelocity.h);
 }
 
-void func_8034A60C_75BCBC(void) {
+void unused_func_8034A60C_75BCBC(void) {
     func_802D760C_6E8CBC(
         D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h,
         D_803D5530->unk30, D_803D5530->yVelocity.h);
 }
 
-void func_8034A648_75BCF8(void) {
+void unused_func_8034A648_75BCF8(void) {
     func_802D760C_6E8CBC(
         D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h,
         D_803D5530->unk30, D_803D5530->yVelocity.h);

@@ -446,6 +446,9 @@ void func_8034CE88_75E538(Vertex *arg0, s16 arg1, s16 arg2, s16 alpha, s16 arg4,
         var_a0 = MIN(MIN(var_s2, var_s6), MIN(var_s4, var_s5));
 
         if (arg2 < (var_a0 - 0x20)) {
+#ifdef AVOID_UB
+            spA8 = 0;
+#endif
             var_s7 = 3;
             var_t1_2 = 1;
         } else {

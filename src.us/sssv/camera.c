@@ -43,8 +43,8 @@ void update_camera_x_y_z(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
 void func_80343438_754AE8(void);
 void func_80343A50_755100(void);
 void func_80343C44_7552F4(s16 arg0, s16 *arg1, s16 *arg2);
-void func_80343F68_755618(void);
-void func_80343F78_755628(void);
+void unused_func_80343F68_755618(void);
+void unused_func_80343F78_755628(void);
 s16  func_80344158_755808(s16 arg0);
 
 
@@ -5513,11 +5513,11 @@ void set_player_camera_distance(s16 dist) {
     playerCameraDistance = dist;
 }
 
-void func_80343F68_755618(void) {
+void unused_func_80343F68_755618(void) {
     cinematicCameraRequest = 1;
 }
 
-void func_80343F78_755628(void) {
+void unused_func_80343F78_755628(void) {
     if (cinematicCameraRequest != 0) {
         cinematicCameraRequest = 0;
         if ((D_803F2C18[0] != 0) && (gCameras[gCameraId].cameraMode == CAMERA_MODE_30)) {

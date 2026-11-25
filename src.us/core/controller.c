@@ -84,7 +84,7 @@ s8 func_8012840C(u8 idx) {
     return D_80152248[idx];
 }
 
-s8 func_80128424(u8 idx) {
+s8 unused_func_80128424(u8 idx) {
     return 64 - D_80152248[idx];
 }
 

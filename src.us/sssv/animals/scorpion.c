@@ -520,7 +520,7 @@ void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *targ
     *arg1 = D_803B52FC_7C69AC[i];
 }
 
-void func_80378FF8_78A6A8(void) {
+void unused_func_80378FF8_78A6A8(void) {
 #ifdef __sgi
     if (!D_803D552C) {
         // is this fakematch or debug stub?

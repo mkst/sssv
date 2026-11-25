@@ -535,6 +535,11 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
         } else if (temp_v1_2->unk2 < 0x1F) {
             var_a2 = 40 - (((temp_v1_2->unk2 * 20) - 120) / 24);
         }
+#ifdef AVOID_UB
+        else {
+            var_a2 = 20;
+        }
+#endif
         var_a1 = var_t1;
         if (temp_v1_2->unk2 >= 0x1E) {
             temp_v1_2->unk0 = 0;
@@ -634,7 +639,7 @@ void func_802C6468_6D7B18(s16 arg0, s16 arg1, s16 arg2) {
 
 }
 
-void func_802C64E0_6D7B90(s16 arg0) {
+void unused_func_802C64E0_6D7B90(s16 arg0) {
     s16 tmp0 = D_80203FE0[2].unk0;
     s16 tmp1 = D_80203FE0[2].unk2;
     s16 tmp2 = D_80203FE0[2].unk4;

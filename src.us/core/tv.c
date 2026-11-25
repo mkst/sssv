@@ -150,7 +150,7 @@ void func_8012AC8C(void) {
     osViBlack(1);
 }
 
-void func_8012AD08(void) {
+void unused_func_8012AD08(void) {
     osViBlack(0);
     set_tv_mode_normal();
 }

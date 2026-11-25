@@ -248,6 +248,10 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                             animal->zVelocity.w += temp_lo * 2 * temp_fp * arg0;
                                             if (temp_lo >= 33) {
                                                 switch (animal->unk16C->scoreTier) {
+#ifdef AVOID_UB
+                                                default:
+                                                    continue;
+#endif
                                                 case 0:
                                                     var_s5 = 0;
                                                     animal->yVelocity.h += SSSV_RAND(16) - 8;

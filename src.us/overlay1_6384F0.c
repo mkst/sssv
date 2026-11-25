@@ -507,7 +507,7 @@ void func_80294E50_6384F0(void) {
     render_intro_overlay_frame_63BF88();
 }
 
-void func_80294E70_638510(Gfx **dl, u8 alpha) {
+void unused_func_80294E70_638510(Gfx **dl, u8 alpha) {
     draw_rectangle(dl++, 0, 0, 320, 240, 0, 0, 0, alpha);
 }
 
@@ -570,7 +570,7 @@ void draw_intro_logo_model(void) {
     gSPPopMatrix(gMainDL++, G_MTX_MODELVIEW);
 }
 
-void func_8029548C_638B2C(void) {
+void unused_func_8029548C_638B2C(void) {
 }
 
 void render_intro_title_reveal(Gfx **arg0, u16 arg1) {

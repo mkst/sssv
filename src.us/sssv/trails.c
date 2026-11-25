@@ -41,6 +41,12 @@ void func_8039DD90_7AF440(Trail *arg0) {
 Trail *add_regular_trail(Entity *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
     s16 i;
 
+#ifdef AVOID_UB
+    if (arg3 == 0 || arg10 == 0) {
+        return NULL;
+    }
+#endif
+
     if (arg12 != 0) {
         for (i = 0; i < 30; i++) {
             if ((gTrails[i].unk4 == arg12) && (gTrails[i].unk0.trailType != 0) && (gTrails[i].unk0.unk4 != 2)) {
@@ -98,6 +104,12 @@ Trail *add_regular_trail(Entity *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 
 
 Trail *add_walrus_wake(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 green, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, s32 argF) {
     s16 i;
+
+#ifdef AVOID_UB
+    if (arg3 == 2 || argD == 0) {
+        return NULL;
+    }
+#endif
 
     if (argF != 0) {
         for (i = 0; i < 30; i++) {
@@ -313,6 +325,9 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
             sp5C = (SINB((s32)random_u32() % 360) * -sp58) >> 8;
             break;
         default:
+#ifdef AVOID_UB
+            sp5A = sp5C = sp5E = 0;
+#endif
             break;
         }
     } else {

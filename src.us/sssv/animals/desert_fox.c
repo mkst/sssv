@@ -472,7 +472,7 @@ void func_80374518_785BC8(void) {
     }
 }
 
-void func_803745BC_785C6C(void) {
+void unused_func_803745BC_785C6C(void) {
 }
 
 void func_803745C4_785C74(s16 arg0) {
