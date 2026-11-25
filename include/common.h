@@ -7,13 +7,6 @@
 #define UNUSED
 #endif
 
-#ifdef AVOID_UB
-#undef OS_K0_TO_PHYSICAL
-#undef OS_K1_TO_PHYSICAL
-#define OS_K0_TO_PHYSICAL(x) ((u32)(x) - 0x80000000U)
-#define OS_K1_TO_PHYSICAL(x) ((u32)(x) - 0xA0000000U)
-#endif
-
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
 #define ABSD(x) ((x)<0.0 ? -(x) : (x))
